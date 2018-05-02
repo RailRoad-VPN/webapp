@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!-- HTML -->
+<html>
+
+<!-- Head -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#FF6600">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#FF6600">
+
+    <meta name="msapplication-TileColor" content="#ff6600">
+    <meta name="msapplication-TileImage"
+          content="{{ url_for('static', filename='main/img/favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ff6600">
+
+    {% block meta %}{% endblock %}
+
+    <link type="image/png" rel="icon" href="{{ url_for('static', filename='main/img/favicon/favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="57x57"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{{ url_for('static', filename='main/img/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"
+          href="{{ url_for('static', filename='main/img/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ url_for('static', filename='main/img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96"
+          href="{{ url_for('static', filename='main/img/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ url_for('static', filename='main/img/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='main/img/favicon/manifest.json') }}">
+
+    <title>
+        {% block title %}Railroad VPN{% endblock %}
+    </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- CSS -->
+    {% if 'debug' in session %}
+        <!-- Bootstrap -->
+        <link href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.css') }}" type="text/css"
+              rel="stylesheet"/>
+
+        <!-- font awesome -->
+        <link href="{{ url_for('static', filename='assets/font-awesome/css/font-awesome.css') }}"
+              rel="stylesheet" type="text/css">
+
+        <!-- custom css -->
+        <link href="{{ url_for('static', filename='main/default.css') }}" type="text/css" rel="stylesheet"/>
+    {% else %}
+        <!-- Bootstrap -->
+        <link href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}" type="text/css"
+              rel="stylesheet"/>
+
+        <!-- font awesome -->
+        <link href="{{ url_for('static', filename='assets/font-awesome/css/font-awesome.min.css') }}"
+              rel="stylesheet" type="text/css">
+
+        <!-- custom css -->
+        <link href="{{ url_for('static', filename='main/default.min.css') }}" type="text/css" rel="stylesheet"/>
+    {% endif %}
+
+    {% block import_css %}{% endblock %}
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#">Railroad Network</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                {% block nav_menu %}{% endblock %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Body -->
+{% block body %}{% endblock %}
+
+<!-- Javascript -->
+{% if 'debug' in session %}
+    <!-- JQuery Resources -->
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.form.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- underscore -->
+    <script src="{{ url_for('static', filename='assets/underscore/underscore.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- moment -->
+    <script src="{{ url_for('static', filename='assets/moment/moment.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- noty -->
+    <script src="{{ url_for('static', filename='assets/noty/noty.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- custom js -->
+    <script src="{{ url_for('static', filename='main/init.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/navigation.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/utils.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/notification.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+{% else %}
+    <!-- JQuery Resources -->
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.form.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- moment -->
+    <script src="{{ url_for('static', filename='assets/moment/moment.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- noty -->
+    <script src="{{ url_for('static', filename='assets/noty/noty.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- underscore -->
+    <script src="{{ url_for('static', filename='assets/underscore/underscore.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- custom js -->
+    <script src="{{ url_for('static', filename='main/init.min.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/navigation.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/utils.min.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/notification.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+{% endif %}
+
+<!-- Footer -->
+<footer>
+    <div class="container text-center">
+        <p>Copyright &copy; Railroad Network 2018</p>
+    </div>
+</footer>
+
+{% block import_js %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    RTFI - Вход в систему
+{% endblock %}
+
+{% set nav_bar = true %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/auth/signin.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/auth/signin.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/auth/signin.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/auth/signin.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form id="signin-form" class="form-horizontal" role="form" method="POST" action="{{ url_for('auth.signin') }}">
+            <div class="row">
+                <div class="col-md-6 offset-3">
+                    <h2>Вход в систему</h2>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6  offset-3">
+                    <div class="form-group has-danger">
+                        <label class="sr-only" for="email">Электронная почта</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                            <input type="text" name="email" class="form-control" id="email"
+                                   placeholder="Электронная почта" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="email-feedback" class="form-control-feedback invisible">
+                        <span class="text-danger align-middle">
+                            <i class="fa fa-close"></i> Пользователя с таким email не существует
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-3">
+                    <div class="form-group">
+                        <label class="sr-only" for="password">Пароль</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                            <input type="password" name="password" class="form-control" id="password"
+                                   placeholder="Пароль" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div id="password-feedback" class="form-control-feedback invisible">
+                        <span class="text-danger align-middle">
+                            <i class="fa fa-close"></i> Не верный пароль
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 offset-3" style="padding-top: .35rem">
+                    <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                        <label class="form-check-label">
+                            <input class="form-check-input" name="remember"
+                                   type="checkbox">
+                            <span style="padding-bottom: .15rem">Запомнить меня</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 1rem">
+                <div class="col-md-6 offset-3">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-"></i> Вход
+                    </button>
+                    <a class="btn btn-link" href="/password/reset">Забыли пароль?</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

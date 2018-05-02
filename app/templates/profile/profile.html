@@ -1,0 +1,34 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    Профиль пользователя
+{% endblock %}
+
+{% set nav_bar = true %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/profile/profile.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/profile/profile.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/profile/profile.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/profile/profile.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}

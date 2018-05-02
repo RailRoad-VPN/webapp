@@ -1,0 +1,107 @@
+#header {
+    color: white;
+    background: url("images/bg.jpg") no-repeat center scroll;
+    background-color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+#header .intro-body {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    vertical-align: middle;
+}
+
+#header .intro-body .container {
+    padding-top: 15%;
+}
+
+#header .intro-body .brand-heading:after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 100px;
+    display: block;
+    background: #fed754;
+}
+
+#header .intro-body .intro-text {
+    font-size: 18px;
+}
+
+.content-section {
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+
+#download .container {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    vertical-align: middle;
+}
+
+.download-section {
+    color: white;
+    background: url("images/downloads-bg.jpg") no-repeat center center scroll;
+    background-color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#header .intro-body {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    vertical-align: middle;
+}
+
+#about {
+    background-color: white;
+}
+
+#about .container {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    vertical-align: middle;
+}
+
+#about a {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    color: #3ec7fe;
+}
+
+#about a:focus, #about a:hover {
+    text-decoration: none;
+    color: #3ec7fe;
+}
+
+@media (min-width: 992px) {
+    .content-section {
+        padding-top: 200px;
+        padding-bottom: 200px;
+    }
+}
+
+ul.banner-social-buttons {
+    margin-top: 0;
+}
+
+@media (max-width: 1199px) {
+    ul.banner-social-buttons {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+    ul.banner-social-buttons li {
+        display: block;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+    ul.banner-social-buttons li:last-child {
+        margin-bottom: 0;
+    }
+}

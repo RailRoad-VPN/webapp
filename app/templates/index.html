@@ -1,0 +1,108 @@
+{% extends 'partials/layout.html' %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link href="{{ url_for('static', filename='main/index/index.css') }}" type="text/css" rel="stylesheet"/>
+    {% else %}
+        <link href="{{ url_for('static', filename='main/index/index.min.css') }}" type="text/css" rel="stylesheet"/>
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/index/index.js') }}" type="text/javascript" charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/index/index.min.js') }}" type="text/javascript" charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+{% block nav_menu %}
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="#about">{{ _('About') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="#download">{{ _('Downlaod') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="#contact">{{ _('Contact') }}</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <!-- Intro Header -->
+    <section id="header">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h1 class="brand-heading">{{ _('VPN Service') }}</h1>
+                        <p class="intro-text">{{ _('Connect country across VPN like American dream!') }}</p>
+                        <button class="btn btn-outline-secondary">{{ _('BUILD YOUR OWN RAILROAD!') }}</button>
+                    </div>
+                    <div class="col-lg-8">
+                        <img class="intro-image img-fluid"
+                             src="{{ url_for('static', filename='main/index/images/devices.png') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="content-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>{{ _('About Railroad Network') }}</h2>
+                    <p>promo will be</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download-section content-section text-center">
+        <div class="container">
+            <div class="col-lg-8 mx-auto">
+                <h2>Download </h2>
+                <p>You can download for free on the preview page.</p>
+                <a href="#" class="btn btn-default btn-lg">Visit zDownload Page</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="content-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Contact</h2>
+                    <p>Feel free to leave us a comment on the
+                        <a href="#">link</a>
+                    </p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com/" class="btn btn-default btn-lg">
+                                <i class="fa fa-twitter fa-fw"></i>
+                                <span class="network-name">Twitter</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://github.com/" class="btn btn-default btn-lg">
+                                <i class="fa fa-github fa-fw"></i>
+                                <span class="network-name">Github</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://plus.google.com/" class="btn btn-default btn-lg">
+                                <i class="fa fa-google-plus fa-fw"></i>
+                                <span class="network-name">Google+</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
