@@ -94,6 +94,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
+        <img class="" width="50" src="{{ url_for('static', filename='main/mascot.png') }}">
         <a class="navbar-brand js-scroll-trigger" href="#">Railroad Network</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
@@ -179,8 +180,61 @@
 
 <!-- Footer -->
 <footer>
-    <div class="container text-center">
-        <p>Copyright &copy; Railroad Network 2018</p>
+    <div class="container">
+        <div class="row">
+            <div id="products" class="col-lg-3">
+                <h6>{{ _('PRODUCTS') }}</h6>
+                <ul>
+                    <li><a href="#">{{ _('VPN for Windows') }}</a></li>
+                    <li><a href="#">{{ _('VPN for iOS') }}</a></li>
+                    <li><a href="#">{{ _('VPN for Android') }}</a></li>
+                    <li><a href="#">{{ _('VPN for macOS') }}</a></li>
+                </ul>
+            </div>
+            <div id="tutorials" class="col-lg-3">
+                <h6>{{ _('TUTORIALS') }}</h6>
+                <ul>
+                    <li><a href="#">{{ _('How to use VPN?') }}</a></li>
+                    <li><a href="#">{{ _('Why i need VPN?') }}</a></li>
+                    <li><a href="#">{{ _('Which VPN to choose?') }}</a></li>
+                    <li><a href="#">{{ _('Why VPN is dangerous?') }}</a></li>
+                </ul>
+            </div>
+            <div id="info" class="col-lg-3">
+                <h6>{{ _('INFORMATION') }}</h6>
+                <ul>
+                    <li><a href="#">{{ _('About us') }}</a></li>
+                    <li><a href="#">{{ _('Plans and Pricing') }}</a></li>
+                    <li><a href="#">{{ _('Support') }}</a></li>
+                    <li><a href="#">{{ _('Partnership') }}</a></li>
+                    <li><a href="#">{{ _('FAQ') }}</a></li>
+                </ul>
+            </div>
+            <div id="info" class="col-lg-3">
+                <h6>{{ _('SOCIAL') }}</h6>
+                <ul>
+                    <li><a href="#">{{ _('Facebook') }}</a></li>
+                    <li><a href="#">{{ _('Vkontakte') }}</a></li>
+                    <li><a href="#">{{ _('Twitter') }}</a></li>
+                    <li><a href="#">{{ _('YouTube') }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row copy">
+        <div class="col-lg-3 text-center">
+            © <span id="copy-year">2018</span> Railroad Network
+        </div>
+        <div class="col-lg-4 offset-lg-4">
+            <div class="row">
+                <div class="col-lg-6">
+                    <a href="#">{{ _('Privacy Policy') }}</a>
+                </div>
+                <div class="col-lg-6">
+                    <a href="#">{{ _('Terms Of Service') }}</a>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 

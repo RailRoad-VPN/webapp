@@ -4,7 +4,6 @@ body {
     width: 100%;
     height: 100%;
     color: white;
-    background-color: black;
 }
 
 html {
@@ -43,12 +42,12 @@ a {
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    color: #e8dc13;
+    color: #f8cc46;
 }
 
 a:focus, a:hover {
     text-decoration: none;
-    color: #e8dc13;
+    color: #f8cc46;
 }
 
 #mainNav {
@@ -67,6 +66,7 @@ a:focus, a:hover {
 }
 
 #mainNav .navbar-brand {
+    padding-left: 25px;
     font-weight: 700;
 }
 
@@ -121,12 +121,35 @@ a:focus, a:hover {
 }
 
 footer {
-    padding: 50px 0;
+    border-top: solid #f8cc46 1px;
+    padding: 50px 0 0;
+    background-color: rgb(50, 50, 50);
 }
 
 footer p {
     font-size: 14px;
     margin: 0;
+}
+
+footer ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+footer ul li {
+    padding-bottom: 5px;
+}
+
+footer .copy {
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: solid 1px;
+    color: #aeb5b6;
+}
+
+footer .copy a {
+    color: #aeb5b6;
 }
 
 ::-moz-selection {
@@ -160,20 +183,20 @@ img::-moz-selection {
 }
 
 .btn-outline-secondary {
-    color: #e8dc13;
+    color: #f8cc46;
     background-color: transparent;
     background-image: none;
-    border-color: #e8dc13;
+    border-color: #f8cc46;
 }
 
 .btn-outline-secondary:hover {
     color: black;
-    background-color: #e8dc13;
-    border-color: #e8dc13;
+    background-color: #f8cc46;
+    border-color: #f8cc46;
 }
 
 .btn-outline-secondary:not(:disabled):not(.disabled).active, .btn-outline-secondary:not(:disabled):not(.disabled):active, .show > .btn-outline-secondary.dropdown-toggle {
-    color: #e8dc13;
+    color: #f8cc46;
     background-color: black;
     border-color: black;
 }

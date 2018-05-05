@@ -10,7 +10,7 @@
 }
 
 #header .intro-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
     vertical-align: middle;
 }
 
@@ -24,16 +24,19 @@
     height: 4px;
     width: 100px;
     display: block;
-    background: #fed754;
+    background: #f8cc46;
+    margin-top: 10px;
 }
 
 #header .intro-body .intro-text {
     font-size: 18px;
+    margin-right: -100%;
 }
 
-.content-section {
-    padding-top: 150px;
-    padding-bottom: 150px;
+@media screen {
+    #header {
+        margin-bottom: -50px;
+    }
 }
 
 #download .container {
@@ -51,37 +54,182 @@
     background-size: cover;
 }
 
-#header .intro-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-    vertical-align: middle;
-}
-
 #about {
-    background-color: white;
+    padding-top: 150px;
+    padding-bottom: 100px;
+    background-color: #f8cc46;
 }
 
-#about .container {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-    vertical-align: middle;
+#about h4 {
+    padding-top: 20px;
+    color: white;
+    text-align: center;
 }
 
 #about a {
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    color: #3ec7fe;
+    color: #f8cc46;
 }
 
 #about a:focus, #about a:hover {
     text-decoration: none;
-    color: #3ec7fe;
+    color: #f8cc46;
 }
 
-@media (min-width: 992px) {
-    .content-section {
-        padding-top: 200px;
-        padding-bottom: 200px;
-    }
+#about .feature {
+    margin-top: -50px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    background-color: #333333;
+    box-shadow: 5px 8px 13px 0 rgba(0,0,0,.33);
+}
+
+#about .feature .wrap {
+    margin-top: -100px;
+}
+
+#about .feature-image {
+    margin-top: -50px;
+    width: 50%
+}
+
+#pricing {
+    background-color: white;
+}
+
+.pricing {
+    position: relative;
+    margin-bottom: 15px;
+    border: 3px solid #eee;
+}
+
+.pricing-active {
+    border: 5px solid #f8cc46;;
+    margin-top: -10px;
+    box-shadow: 7px 7px rgba(230, 218, 7, 0.2)
+}
+
+.pricing:hover {
+    -webkit-box-shadow: 0 0 40px rgba(54, 67, 77, .2);
+    -moz-box-shadow: 0 0 40px rgba(54, 67, 77, .2);
+    box-shadow: 0 0 40px rgba(54, 67, 77, .2);
+}
+
+.pricing:hover h4 {
+    color: #f8cc46;;
+}
+
+.pricing-head {
+    text-align: center;
+}
+
+.pricing-head h3,
+.pricing-head h4 {
+    margin: 0;
+    line-height: normal;
+}
+
+.pricing-head h3 span,
+.pricing-head h4 span {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.pricing-head h3 {
+    font-weight: 300;
+    color: #fafafa;
+    padding: 12px 0;
+    font-size: 27px;
+    background: #f8cc46;
+    border-bottom: solid 1px #f8cc46;
+}
+
+.pricing-head h4 {
+    color: #bac39f;
+    padding: 5px 0;
+    font-size: 54px;
+    font-weight: 300;
+    background: #fbfef2;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+.pricing-head-active h4 {
+    color: #f8cc46;;
+}
+
+.pricing-head h4 i {
+    top: -8px;
+    font-size: 28px;
+    font-style: normal;
+    position: relative;
+}
+
+.pricing-head h4 span {
+    top: -10px;
+    font-size: 14px;
+    font-style: normal;
+    position: relative;
+}
+
+/*Pricing Content*/
+.pricing-content li {
+    color: #888;
+    font-size: 12px;
+    padding: 7px 15px;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+/*Pricing Footer*/
+.pricing-footer {
+    color: #777;
+    font-size: 11px;
+    line-height: 17px;
+    text-align: center;
+    padding: 0 20px 19px;
+}
+
+/*Priceing Active*/
+.price-active,
+.pricing:hover {
+    z-index: 9;
+}
+
+.price-active h4 {
+    color: #f8cc46;;
+}
+
+.no-space-pricing .pricing:hover {
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.no-space-pricing .price-active .pricing-head h4,
+.no-space-pricing .pricing:hover .pricing-head h4 {
+    color: #f8cc46;;
+    padding: 15px 0;
+    font-size: 80px;
+    transition: color 0.5s ease-in-out;
+}
+
+.yellow-crusta.btn {
+    color: #FFFFFF;
+    background-color: #f3c200;
+}
+
+.yellow-crusta.btn:hover,
+.yellow-crusta.btn:focus,
+.yellow-crusta.btn:active,
+.yellow-crusta.btn.active {
+    color: #FFFFFF;
+    background-color: #cfa500;
+}
+
+.content-section {
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 ul.banner-social-buttons {

@@ -10,18 +10,23 @@
 
 {% block import_js %}
     {% if 'debug' in session %}
-        <script src="{{ url_for('static', filename='main/index/index.js') }}" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='main/index/index.js') }}" type="text/javascript"
+                charset="utf-8"></script>
     {% else %}
-        <script src="{{ url_for('static', filename='main/index/index.min.js') }}" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='main/index/index.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
     {% endif %}
 {% endblock %}
 
 {% block nav_menu %}
     <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#about">{{ _('About') }}</a>
+        <a class="nav-link js-scroll-trigger" href="#about">{{ _('Features') }}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#download">{{ _('Downlaod') }}</a>
+        <a class="nav-link js-scroll-trigger" href="#pricing">{{ _('Pricing') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link js-scroll-trigger" href="#download">{{ _('Download') }}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link js-scroll-trigger" href="#contact">{{ _('Contact') }}</a>
@@ -49,12 +54,176 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="content-section text-center">
+    <section id="about" class="">
         <div class="container">
+            <h2 class="text-center text-dark" style="margin-bottom: 100px;">WHAT FEATURES YOU WILL GET?</h2>
             <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2>{{ _('About Railroad Network') }}</h2>
-                    <p>promo will be</p>
+                <div class="col-lg-4">
+                    <img class="img-fluid mx-auto d-block feature-image"
+                         src="{{ url_for('static', filename='main/index/images/features/mascot_geo.png') }}">
+                    <div class="wrap feature">
+                        <h4>{{ _('Unlock geo-restricted media') }}</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <img class="img-fluid mx-auto d-block feature-image"
+                         src="{{ url_for('static', filename='main/index/images/features/mascot_anonym.png') }}">
+                    <div class="wrap feature">
+                        <h4>{{ _('Anonymous access to internet') }}</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <img class="img-fluid mx-auto d-block feature-image"
+                         src="{{ url_for('static', filename='main/index/images/features/mascot_network.png') }}">
+                    <div class="wrap feature">
+                        <h4>{{ _('Build your own vpn network') }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="content-section">
+        <div class="container content">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="pricing hover-effect">
+                        <div class="pricing-head">
+                            <h3>Begginer
+                                <span> Officia deserunt mollitia </span>
+                            </h3>
+                            <h4><i>$</i>5<i>.49</i>
+                                <span> Per Month </span>
+                            </h4>
+                        </div>
+                        <ul class="pricing-content list-unstyled">
+                            <li>At vero eos</li>
+                            <li>No Support</li>
+                            <li>Fusce condimentum</li>
+                            <li>Ut non libero</li>
+                            <li>Consecte adiping elit</li>
+                        </ul>
+                        <div class="pricing-footer">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
+                            </p>
+                            <a href="javascript:;" class="btn yellow-crusta">
+                                Sign Up
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="pricing hover-effect">
+                        <div class="pricing-head">
+                            <h3>Pro
+                                <span>Officia deserunt mollitia</span>
+                            </h3>
+                            <h4><i>$</i>8<i>.69</i>
+                                <span>Per Month </span>
+                            </h4>
+                        </div>
+                        <ul class="pricing-content list-unstyled">
+                            <li>
+                                At vero eos
+                            </li>
+                            <li>
+                                No Support
+                            </li>
+                            <li>
+                                Fusce condimentum
+                            </li>
+                            <li>
+                                Ut non libero
+                            </li>
+                            <li>
+                                Consecte adiping elit
+                            </li>
+                        </ul>
+                        <div class="pricing-footer">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
+                            </p>
+                            <a href="javascript:;" class="btn yellow-crusta">
+                                Sign Up
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="pricing pricing-active hover-effect">
+                        <div class="pricing-head pricing-head-active">
+                            <h3>Expert
+                                <span> Officia deserunt mollitia </span>
+                            </h3>
+                            <h4><i>$</i>13<i>.99</i>
+                                <span>Per Month </span>
+                            </h4>
+                        </div>
+                        <ul class="pricing-content list-unstyled">
+                            <li>
+                                At vero eos
+                            </li>
+                            <li>
+                                No Support
+                            </li>
+                            <li>
+                                Fusce condimentum
+                            </li>
+                            <li>
+                                Ut non libero
+                            </li>
+                            <li>
+                                Consecte adiping elit
+                            </li>
+                        </ul>
+                        <div class="pricing-footer">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
+                            </p>
+                            <a href="javascript:;" class="btn yellow-crusta">
+                                Sign Up
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="pricing hover-effect">
+                        <div class="pricing-head">
+                            <h3>Hi-Tech
+                                <span>Officia deserunt mollitia </span>
+                            </h3>
+                            <h4><i>$</i>99<i>.00</i>
+                                <span>Per Month </span>
+                            </h4>
+                        </div>
+                        <ul class="pricing-content list-unstyled">
+                            <li>
+                                At vero eos
+                            </li>
+                            <li>
+                                No Support
+                            </li>
+                            <li>
+                                Fusce condimentum
+                            </li>
+                            <li>
+                                Ut non libero
+                            </li>
+                            <li>
+                                Consecte adiping elit
+                            </li>
+                        </ul>
+                        <div class="pricing-footer">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
+                            </p>
+                            <a href="javascript:;" class="btn yellow-crusta">
+                                Sign Up
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,7 +235,7 @@
             <div class="col-lg-8 mx-auto">
                 <h2>Download </h2>
                 <p>You can download for free on the preview page.</p>
-                <a href="#" class="btn btn-default btn-lg">Visit zDownload Page</a>
+                <a href="#" class="btn btn-default btn-lg">Visit Download Page</a>
             </div>
         </div>
     </section>
