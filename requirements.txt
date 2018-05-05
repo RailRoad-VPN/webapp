@@ -3,7 +3,7 @@ Flask
 Flask-Babel
 idna
 itsdangerous
-Jinja2=
+Jinja2
 MarkupSafe
 pbr
 python-dateutil
