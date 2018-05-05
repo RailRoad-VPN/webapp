@@ -1,9 +1,10 @@
 from pprint import pprint
 
+import logging
 from flask import Flask
 from flask_babel import Babel
 
-from app.service import *
+from app.service import UserService
 
 logging.basicConfig(level=logging.DEBUG)
 
