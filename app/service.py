@@ -7,7 +7,7 @@ from json import JSONDecodeError
 
 import requests
 
-from exception import APIException, DFNError
+from dfnex import APIException, DFNError
 
 
 class RESTService(object):

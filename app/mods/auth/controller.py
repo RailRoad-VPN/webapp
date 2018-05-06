@@ -8,7 +8,7 @@ from flask import Blueprint, request, render_template, \
 from werkzeug.security import check_password_hash
 
 from app import user_service
-from app.objects.exception import UserException, UserNotFoundException, DFNError, APIException
+from app.objects.dfnex import UserException, UserNotFoundException, DFNError, APIException
 from common import AjaxResponse
 
 
