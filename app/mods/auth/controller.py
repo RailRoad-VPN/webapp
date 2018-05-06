@@ -30,7 +30,12 @@ def authorize_user(user_json):
 
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
-mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
+mod_auth = Blueprint('auth', __name__, url_prefix='/<lang_code>/auth')
+
+
+@mod_auth.url_defaults
+def add_language_code(endpoint, values):
+    values.setdefault('lang_code', session['lang_code'])
 
 
 @mod_auth.route('/signin', methods=['GET', 'POST'])

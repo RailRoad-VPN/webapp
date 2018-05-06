@@ -58,6 +58,10 @@ a:focus, a:hover {
     background-color: black;
 }
 
+#mainNav .container {
+    margin-right: 0px;
+}
+
 #mainNav .navbar-toggler {
     font-size: 14px;
     padding: 11px;
@@ -118,6 +122,30 @@ a:focus, a:hover {
     #mainNav .nav-link.active:hover {
         color: white;
     }
+}
+
+.btn-group img {
+    margin-right: 10px
+}
+
+#lang-btn {
+    color: white;
+}
+
+#lang-btn a {
+    color: black;
+}
+
+#lang-bar .dropdown-menu {
+    padding: inherit;
+}
+
+#lang-bar .dropdown-menu .dropdown-item {
+    color: black;
+    text-transform: capitalize;
+    padding: 0.5rem;
+    font-weight: 100;
+    font-size: medium;
 }
 
 footer {
@@ -199,4 +227,10 @@ img::-moz-selection {
     color: #f8cc46;
     background-color: black;
     border-color: black;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #f8cc46;
 }

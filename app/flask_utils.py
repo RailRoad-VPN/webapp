@@ -2,7 +2,6 @@ import datetime
 import logging
 from functools import wraps
 
-from dateutil.parser import parse
 from flask import session, g, request, redirect, url_for
 
 from app import app, babel
@@ -16,9 +15,9 @@ def login_required(f):
         try:
             user = g.user
             if user is None:
-                return redirect(url_for('login', next=request.url))
+                return redirect(url_for('auth.signin', next=request.url))
         except AttributeError:
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('auth.signin', next=request.url))
         return f(*args, **kwargs)
 
     return decorated_function
@@ -28,7 +27,8 @@ def before_request():
     # clean jinja_env cache
     app.jinja_env.cache = {}
 
-    g.locale = str(get_locale())
+    if 'lang_code' not in session:
+        session['lang_code'] = str(get_locale())
 
     # check DEBUG is False
     if app.config['DEBUG'] is False:
@@ -49,7 +49,11 @@ def before_request():
 
 @babel.localeselector
 def get_locale():
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    if 'lang_code' not in session:
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
+    else:
+        return session['lang_code']
+
 
 decCache = dict()
 decCases = [2, 0, 1, 1, 1, 2]
