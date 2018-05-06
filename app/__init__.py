@@ -3,6 +3,7 @@ from pprint import pprint
 import logging
 from flask import Flask
 from flask_babel import Babel
+from flask_moment import Moment
 
 from app.service import UserService
 
@@ -11,6 +12,11 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
 babel = Babel(app)
+
+# TODO i10n dates
+moment = Moment(app)
+
+from app import cli
 
 # Load the default configuration
 app.config.from_object('config.DevelopmentConfig')
