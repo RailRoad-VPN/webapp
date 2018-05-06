@@ -8,8 +8,8 @@ from flask import Blueprint, request, render_template, \
 from werkzeug.security import check_password_hash
 
 from app import user_service
-from app.objects.dfnex import UserException, UserNotFoundException, DFNError, APIException
-from common import AjaxResponse
+from app.models.exception import UserException, UserNotFoundException, DFNError, APIException
+from app.models import AjaxResponse
 
 
 def login_required(f):

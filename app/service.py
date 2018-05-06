@@ -1,13 +1,10 @@
 import json
 import logging
-import sys
-
-import os
 from json import JSONDecodeError
 
 import requests
-sys.path.insert(0, 'objects')
-from dfnex import APIException, DFNError
+
+from app.models.exception import APIException, DFNError
 
 
 class RESTService(object):
