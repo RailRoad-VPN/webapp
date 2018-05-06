@@ -6,7 +6,7 @@ import os
 from json import JSONDecodeError
 
 import requests
-
+sys.path.insert(0, 'objects')
 from dfnex import APIException, DFNError
 
 
