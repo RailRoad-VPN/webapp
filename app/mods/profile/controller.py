@@ -2,9 +2,8 @@ import logging
 
 from flask import Blueprint, render_template
 
-from auth.controller import login_required
+from app.flask_utils import login_required
 
-# Define the blueprint: 'auth', set its url prefix: app.url/profile
 mod_profile = Blueprint('profile', __name__, url_prefix='/profile')
 
 

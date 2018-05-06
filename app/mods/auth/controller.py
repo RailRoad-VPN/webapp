@@ -1,29 +1,15 @@
 import hashlib
 import logging
 import uuid
-from functools import wraps
 
 from flask import Blueprint, request, render_template, \
     g, session, redirect, url_for, jsonify
 from werkzeug.security import check_password_hash
 
 from app import user_service
-from app.models.exception import UserException, UserNotFoundException, DFNError, APIException
+from app.flask_utils import login_required
 from app.models import AjaxResponse
-
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        try:
-            user = g.user
-            if user is None:
-                return redirect(url_for('auth.signin', next=request.url))
-        except AttributeError:
-            return redirect(url_for('auth.signin', next=request.url))
-        return f(*args, **kwargs)
-
-    return decorated_function
+from app.models.exception import UserException, UserNotFoundException, DFNError, APIException
 
 
 def authorize_user(user_json):
