@@ -8,6 +8,18 @@ body {
     padding-top: 6rem;
 }
 
+@media (max-width: 812px) {
+    body {
+        padding-top: 4rem;
+    }
+}
+
+@media (max-width: 374px) {
+    body {
+        padding-top: 6rem;
+    }
+}
+
 html {
     width: 100%;
     height: 100%;

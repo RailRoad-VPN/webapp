@@ -30,7 +30,12 @@
 
 #header .intro-body .intro-text {
     font-size: 18px;
-    margin-right: -100%;
+}
+
+@media (max-width: 384px) {
+    #header #intro-btn {
+        font-size: xx-small;
+    }
 }
 
 @media screen {
@@ -83,7 +88,7 @@
     padding-top: 50px;
     padding-bottom: 30px;
     background-color: #333333;
-    box-shadow: 5px 8px 13px 0 rgba(0,0,0,.33);
+    box-shadow: 5px 8px 13px 0 rgba(0, 0, 0, .33);
 }
 
 #features .feature .wrap {
