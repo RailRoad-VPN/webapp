@@ -1,0 +1,34 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    {{ _('Pricing') }}
+{% endblock %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/index/pricing.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/index/pricing.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/index/pricing.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/index/pricing.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <p>PRICING!</p>
+    </section>
+{% endblock %}

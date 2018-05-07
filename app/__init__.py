@@ -1,7 +1,7 @@
+import logging
 from pprint import pprint
 
-import logging
-from flask import Flask
+from flask import Flask, url_for, redirect, session
 from flask_babel import Babel
 from flask_moment import Moment
 
@@ -38,5 +38,13 @@ app.register_blueprint(index_module)
 from app.mods.profile.controller import mod_profile as profile_module
 
 app.register_blueprint(profile_module)
+
+
+@app.route('/', methods=['GET'])
+def index_page():
+    logging.info('index page')
+    redirect_url = url_for('index.index_lang_page', lang_code=session['lang_code'])
+    return redirect(redirect_url)
+
 
 pprint(app.url_map._rules_by_endpoint)

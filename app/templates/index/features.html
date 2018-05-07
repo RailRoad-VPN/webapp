@@ -1,0 +1,33 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    {{ _('Features') }}
+{% endblock %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/index/features.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/index/features.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/index/features.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/index/features.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <p>FEATURES!</p>
+    </section>
+{% endblock %}

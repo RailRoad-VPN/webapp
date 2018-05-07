@@ -38,6 +38,14 @@ def add_language_code(endpoint, values):
     values.setdefault('lang_code', session['lang_code'])
 
 
+@mod_auth.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    try:
+        values.pop('lang_code')
+    except:
+        pass
+
+
 @mod_auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     logging.info('signin method')
@@ -132,4 +140,4 @@ def logout():
     logging.info('logout method')
     session.clear()
     g.user = None
-    return redirect(url_for('index.index'))
+    return redirect(url_for('index.index_page'))

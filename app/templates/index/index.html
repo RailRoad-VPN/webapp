@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block import_js %}
-    {{ moment.include_moment() }}
-    {{ moment.lang(g.locale) }}
     {% if 'debug' in session %}
         <script src="{{ url_for('static', filename='main/index/index.js') }}" type="text/javascript"
                 charset="utf-8"></script>
@@ -21,18 +19,7 @@
 {% endblock %}
 
 {% block nav_menu %}
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#about">{{ _('Features') }}</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#pricing">{{ _('Pricing') }}</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#download">{{ _('Download') }}</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link js-scroll-trigger" href="#contact">{{ _('Contact') }}</a>
-    </li>
+    {{ super() }}
 {% endblock %}
 
 {% block body %}
@@ -55,8 +42,8 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="">
+    <!-- Features Section -->
+    <section id="features">
         <div class="container">
             <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('WHAT FEATURES YOU WILL GET?') }}</h2>
             <div class="row">
@@ -235,43 +222,9 @@
     <section id="download" class="download-section content-section text-center">
         <div class="container">
             <div class="col-lg-8 mx-auto">
-                <h2>Download </h2>
-                <p>You can download for free on the preview page.</p>
-                <a href="#" class="btn btn-default btn-lg">Visit Download Page</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="content-section text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2>Contact</h2>
-                    <p>Feel free to leave us a comment on the
-                        <a href="#">link</a>
-                    </p>
-                    <ul class="list-inline banner-social-buttons">
-                        <li class="list-inline-item">
-                            <a href="https://twitter.com/" class="btn btn-default btn-lg">
-                                <i class="fa fa-twitter fa-fw"></i>
-                                <span class="network-name">Twitter</span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="https://github.com/" class="btn btn-default btn-lg">
-                                <i class="fa fa-github fa-fw"></i>
-                                <span class="network-name">Github</span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="https://plus.google.com/" class="btn btn-default btn-lg">
-                                <i class="fa fa-google-plus fa-fw"></i>
-                                <span class="network-name">Google+</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <h2>{{ _('Download') }}</h2>
+                <p>{{ _('You can download for free on the preview page.') }}</p>
+                <a href="#" class="btn btn-default btn-lg">{{ _('Visit Download Page') }}</a>
             </div>
         </div>
     </section>
