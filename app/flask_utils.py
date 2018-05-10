@@ -49,7 +49,7 @@ def before_request():
 
 @babel.localeselector
 def get_locale():
-    if 'lang_code' not in session or session['lang_code'] is not None:
+    if 'lang_code' not in session:
         locale = request.accept_languages.best_match(app.config['LANGUAGES'])
         if locale is None:
             locale = request.accept_languages.best.split('-')[0]
