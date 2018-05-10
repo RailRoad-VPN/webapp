@@ -27,7 +27,7 @@ def before_request():
     # clean jinja_env cache
     app.jinja_env.cache = {}
 
-    if 'lang_code' not in session:
+    if 'lang_code' not in session or session['lang_code'] == 'None':
         session['lang_code'] = str(get_locale())
 
     # check DEBUG is False
@@ -49,8 +49,13 @@ def before_request():
 
 @babel.localeselector
 def get_locale():
-    if 'lang_code' not in session:
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
+    if 'lang_code' not in session or session['lang_code'] is not None:
+        locale = request.accept_languages.best_match(app.config['LANGUAGES'])
+        if locale is None:
+            locale = request.accept_languages.best.split('-')[0]
+            if locale not in app.config['LANGUAGES']:
+                locale = 'en'
+        return locale
     else:
         return session['lang_code']
 

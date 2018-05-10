@@ -23,7 +23,7 @@ app.config.from_object('config.DevelopmentConfig')
 
 user_service = UserService(api_url=app.config['API_URL'])
 
-from app.flask_utils import before_request
+from app.flask_utils import before_request, get_locale
 
 app.before_request(before_request)
 
