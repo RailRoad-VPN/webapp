@@ -127,20 +127,6 @@ class RESTService(object):
         return self.__dict__
 
 
-class FeedbackService(RESTService):
-    __version__ = 1
-
-    _headers = {'Content-Type': 'application/json', 'Accept': 'text/plain'}
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    def create_feedback(self, feedback_dict) -> dict:
-        self._post(data=feedback_dict, headers=self._headers)
-        # TODO get feedback
-        return {}
-
-
 class UserService(RESTService):
     __version__ = 1
 
@@ -150,7 +136,6 @@ class UserService(RESTService):
         super().__init__(**kwargs)
 
     def create_user(self, user_dict: dict) -> dict:
-        # TODO role
         user_dict['role_id'] = 1
         user_dict['enabled'] = True
         user_dict['account_non_expired'] = True
@@ -167,10 +152,6 @@ class UserService(RESTService):
 
     def get_user_by_uuid(self, uuid: str) -> dict:
         url = '%s/uuid/%s' % (self._url, uuid)
-        return self._get(url=url)
-
-    def get_user_by_username(self, username: str) -> dict:
-        url = '%s/username/%s' % (self._url, username)
         return self._get(url=url)
 
     def get_user_by_email(self, email: str) -> dict:

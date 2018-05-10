@@ -21,7 +21,7 @@ from app import cli
 # Load the default configuration
 app.config.from_object('config.DevelopmentConfig')
 
-user_service = UserService(api_url=app.config['USER_SERVICE_URL'])
+user_service = UserService(api_url=app.config['API_URL'])
 
 from app.flask_utils import before_request
 

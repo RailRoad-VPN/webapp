@@ -2,7 +2,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
-    APP_SESSION_SK = '127roseQ'
+    APP_SESSION_SK = '4yjBJ6pDwfFKh8UR2yM'
     SESSION_TYPE = 'filesystem'
     SECRET_KEY = APP_SESSION_SK
     TEMPLATES_AUTO_RELOAD = True
@@ -11,15 +11,15 @@ class Config(object):
 
     LANGUAGES = ['ru', 'en']
 
-    USER_SERVICE_URL = 'http://127.0.0.1/api/1.0/'
-
 
 class ProductionConfig(Config):
-    DATABASE_URI = 'mysql://user@localhost/foo'
+    API_URL = 'http://IP:6000/api/1.0/'
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
+
+    API_URL = 'http://127.0.0.1:6000/api/1.0/'
 
 
 class TestingConfig(Config):
