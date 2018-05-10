@@ -19,7 +19,10 @@ def add_language_code(endpoint, values):
 def pull_lang_code(endpoint, values):
     if 'lang_code' in values:
         lang_code = values['lang_code']
-        if lang_code != session['lang_code']:
+        if 'lang_code' in session:
+            if lang_code != session['lang_code']:
+                session['lang_code'] = lang_code
+        else:
             session['lang_code'] = lang_code
         values.pop('lang_code')
 
