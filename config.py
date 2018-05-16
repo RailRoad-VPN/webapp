@@ -13,13 +13,13 @@ class Config(object):
 
 
 class ProductionConfig(Config):
-    API_URL = 'http://IP:6000/api/1.0/'
+    API_URL = 'http://IP:8000/api/v1'
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
 
-    API_URL = 'http://127.0.0.1:6000/api/1.0/'
+    API_URL = 'http://127.0.0.1:8000/api/v1'
 
 
 class TestingConfig(Config):

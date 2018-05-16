@@ -5,7 +5,7 @@ from flask import Flask, url_for, redirect, session
 from flask_babel import Babel
 from flask_moment import Moment
 
-from app.service import UserService
+from app.service import RailRoadAPIService
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -21,7 +21,7 @@ from app import cli
 # Load the default configuration
 app.config.from_object('config.DevelopmentConfig')
 
-user_service = UserService(api_url=app.config['API_URL'])
+railroad_api_service = RailRoadAPIService(api_url=app.config['API_URL'])
 
 from app.flask_utils import before_request, get_locale
 

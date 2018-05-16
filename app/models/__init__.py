@@ -22,7 +22,7 @@ class AjaxResponse(object):
     def add_error(self, error):
         if self.errors is None:
             self.errors = []
-        self.errors.append(error.serialize())
+        self.errors.append(error)
 
     def set_success(self):
         self.success = True
@@ -37,9 +37,27 @@ class AjaxResponse(object):
         errors_dict = {}
         if self.errors is not None:
             for ob in self.errors:
-                errors_dict[ob.code] = ob.serialize()
+                errors_dict[ob.error_code] = ob.serialize()
         return {
             'success': self.success,
             'data': self.data,
             'errors': errors_dict,
+        }
+
+
+class AjaxError(object):
+    error = None
+    error_code = None
+    developer_message = None
+
+    def __init__(self, error: str, error_code: int, developer_message: str = None):
+        self.error = error
+        self.error_code = error_code
+        self.developer_message = developer_message
+
+    def serialize(self):
+        return {
+            'error': self.error,
+            'error_code': self.error_code,
+            'developer_message': self.developer_message,
         }
