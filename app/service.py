@@ -1,12 +1,11 @@
 import sys
 
 sys.path.insert(0, '../rest_api_library')
-from services.rest import RESTService
-from services.response import APIResponse
+from rest import RESTService
+from response import APIResponse
 
 
 class RailRoadAPIService(RESTService):
-
     _user_resource_uri = 'users'
 
     def __init__(self, api_url: str):

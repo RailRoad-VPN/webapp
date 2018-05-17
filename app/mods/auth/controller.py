@@ -12,10 +12,10 @@ from app import railroad_api_service
 from app.flask_utils import login_required
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
-from services.response import APIResponseStatus
 
 sys.path.insert(0, '../rest_api_library')
-from services.rest import APIException
+from rest import APIException
+from response import APIResponseStatus
 
 
 def authorize_user(user_json):
