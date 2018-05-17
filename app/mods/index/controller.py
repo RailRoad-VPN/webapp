@@ -32,7 +32,7 @@ def index_lang_page():
     logging.info('index_lang page')
     redirect_url = request.args.get('next', None)
     if redirect_url:
-        return redirect(request.base_url[:-1] + redirect_url) # remove trailing slash after base url
+        return redirect(request.base_url[:-1] + redirect_url)  # remove trailing slash after base url
     return render_template('index/index.html', code=200)
 
 
