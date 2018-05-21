@@ -86,7 +86,10 @@ def signin():
                     return resp
             except APIException as e:
                 r.set_failed()
-                r.add_error(e.message)
+                # TODO fix it
+                error = AjaxError(error='api not available', error_code=0,
+                                  developer_message='something goes wrong')
+                r.add_error(error)
                 resp = jsonify(r.serialize())
                 resp.code = e.http_code
                 return resp
