@@ -11,6 +11,8 @@ class Config(object):
 
     LANGUAGES = ['ru', 'en']
 
+    USERS_API_RESOURCE_NAME = 'users'
+
 
 class ProductionConfig(Config):
     API_URL = 'http://IP:8000/api/v1'

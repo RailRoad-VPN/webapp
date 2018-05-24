@@ -8,7 +8,7 @@ from flask import Blueprint, request, render_template, \
     g, session, redirect, url_for, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import railroad_api_service
+from app import rrn_user_service
 from app.flask_utils import login_required
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
@@ -73,7 +73,7 @@ def signin():
             r.add_error(error)
         else:
             try:
-                api_response = railroad_api_service.get_user(email=email)
+                api_response = rrn_user_service.get_user(email=email)
                 if api_response.status == APIResponseStatus.success.value:
                     user_json = api_response.data
                 else:
@@ -96,7 +96,8 @@ def signin():
             is_ok = check_password_hash(user_json['password'], password)
             if not is_ok:
                 r.set_failed()
-                error = AjaxError(error=DFNError.USER_LOGIN_BAD_PASSWORD.phrase, error_code=DFNError.USER_LOGIN_BAD_PASSWORD,
+                error = AjaxError(error=DFNError.USER_LOGIN_BAD_PASSWORD.phrase,
+                                  error_code=DFNError.USER_LOGIN_BAD_PASSWORD,
                                   developer_message=DFNError.USER_LOGIN_BAD_PASSWORD.description)
                 r.add_error(error)
             else:
@@ -119,7 +120,7 @@ def signup():
 
         try:
             # try to find user by email
-            user_by_email = railroad_api_service.get_user_by_email(email=email)
+            user_by_email = rrn_user_service.get_user_by_email(email=email)
             if user_by_email is not None:
                 r.add_error(DFNError.USER_SIGNUP_EMAIL_BUSY.phrase)
                 resp = jsonify(r)
@@ -141,7 +142,7 @@ def signup():
         }
 
         try:
-            user = railroad_api_service.create_user(user_dict=user_dict)
+            user = rrn_user_service.create_user(user_dict=user_dict)
         except APIException as e:
             logging.error("APIException", e)
             return render_template("errors/%s.html" % e.http_code, code=e.http_code)

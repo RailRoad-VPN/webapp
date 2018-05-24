@@ -5,27 +5,26 @@ from rest import RESTService
 from response import APIResponse
 
 
-class RailRoadAPIService(RESTService):
+class RRNUsersAPIService(RESTService):
     _user_resource_uri = 'users'
 
-    def __init__(self, api_url: str):
-        super().__init__(api_url)
+    def __init__(self, api_url: str, resource_name: str):
+        super().__init__(api_url=api_url, resource_name=resource_name)
 
     def create_user(self, user_json: dict) -> APIResponse:
-        url = "%s/%s" % (self._url, self._user_resource_uri)
-        api_response = self._post(url=url, data=user_json, headers=self._headers)
+        api_response = self._post(data=user_json, headers=self._headers)
         return api_response
 
     def update_user(self, user_json: dict):
-        url = '%s/%s/uuid/%s' % (self._url, self._user_resource_uri, user_json['uuid'])
+        url = '%s/uuid/%s' % (self._url, user_json['uuid'])
         api_response = self._put(url=url, data=user_json, headers=self._headers)
         return api_response
 
     def get_user(self, uuid: str = None, email: str = None) -> APIResponse:
         if uuid:
-            url = '%s/%s/uuid/%s' % (self._url, self._user_resource_uri, uuid)
+            url = '%s/uuid/%s' % (self._url, uuid)
         elif email:
-            url = '%s/%s/email/%s' % (self._url, self._user_resource_uri, email)
+            url = '%s/email/%s' % (self._url, email)
         else:
             raise KeyError
         api_response = self._get(url=url)
