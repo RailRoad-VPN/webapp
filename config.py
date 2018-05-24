@@ -26,3 +26,6 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    DEBUG = True
+
+    API_URL = 'http://127.0.0.1:61885/api/v1'
