@@ -6,18 +6,18 @@
 
 {% block import_css %}
     {% if 'debug' in session %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='main/index/features.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/features/features.css') }}">
     {% else %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='main/index/features.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/features/features.min.css') }}">
     {% endif %}
 {% endblock %}
 
 {% block import_js %}
     {% if 'debug' in session %}
-        <script src="{{ url_for('static', filename='main/index/features.js') }}" type="text/javascript"
+        <script src="{{ url_for('static', filename='main/features/features.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% else %}
-        <script src="{{ url_for('static', filename='main/index/features.min.js') }}" type="text/javascript"
+        <script src="{{ url_for('static', filename='main/features/features.min.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% endif %}
 {% endblock %}
@@ -27,7 +27,118 @@
 {% endblock %}
 
 {% block body %}
-    <section class="container">
-        <p>FEATURES!</p>
-    </section>
+    <div class="content-section">
+        <div class="container">
+            <h1 class="text-center default-text">{{ _('SECURITY') }}</h1>
+            <div class="row feature">
+                <div class="col-sm-12 col-md-12 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 feature-box">
+                    <img class="img-fluid"
+                         src="{{ url_for('static', filename='main/features/images/military_security.jpg') }}">
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 feature-content">
+                    <h3>
+                        Military-grade <span class="default-text">256-bit encryption</span>
+                    </h3>
+                    <p>
+                        Our VPN servers encrypt and secure users traffic by employing high-level cryptographic
+                        algorithms and keys.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-section" style="background-color: rgb(248, 248, 248);">
+        <div class="container">
+            <div class="row feature">
+                <div class="col-sm-12 col-md-12 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 feature-content">
+                    <h3>
+                        Feel free use <span class="default-text">public WiFi</span>
+                    </h3>
+                    <p>
+                        Using Railroad VPN Network you can use public WiFi anywhere without fear enter personal data
+                        or to do payment around the world
+                    </p>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 feature-box">
+                    <img class="img-fluid"
+                         src="{{ url_for('static', filename='main/features/images/cafe_wifi.jpg') }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-section">
+        <div class="container">
+            <h1 class="text-center default-text">{{ _('DISENGAGEMENT') }}</h1>
+            <div class="row feature">
+                <div class="col-sm-12 col-md-12 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 feature-box">
+                    <img class="img-fluid"
+                         src="{{ url_for('static', filename='main/features/images/fast_connect.jpg') }}">
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 feature-content">
+                    <h3>
+                        <span class="default-text">Fast Connect</span> Feature
+                    </h3>
+                    <p>
+                        Railroad VPN clients allow you immediately connect to VPN server and get maximum speed and
+                        security to use Internet
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-section" style="background-color: rgb(248, 248, 248);">
+        <div class="container">
+            <div class="row feature">
+                <div class="col-sm-12 col-md-12 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 feature-content">
+                    <h3>
+                        Build your <span class="default-text">network</span>
+                    </h3>
+                    <p>
+                        Connect your devices into network and get access to them anywhere
+                    </p>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 feature-box">
+                    <img class="img-fluid"
+                         src="{{ url_for('static', filename='main/features/images/network.jpg') }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-section">
+        <div class="container">
+            <h1 class="text-center default-text">{{ _('PRIVACY') }}</h1>
+            <div class="row feature">
+                <div class="col-sm-12 col-md-12 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 feature-box">
+                    <img class="img-fluid"
+                         src="{{ url_for('static', filename='main/features/images/anonymous.jpg') }}">
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 feature-content">
+                    <h3>
+                        <span class="default-text">Be anonymous</span> when you want it
+                    </h3>
+                    <p>
+                        You can be anonymous and don't leave any trace of your Internet activity
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-section" style="background-color: rgb(248, 248, 248);">
+        <div class="container">
+            <div class="row feature">
+                <div class="col-sm-12 col-md-12 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 feature-content">
+                    <h3>
+                        Access to <span class="default-text">geo restricted</span> content
+                    </h3>
+                    <p>
+                        Get access to restricted content anywhere anytime.
+                    </p>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 feature-box">
+                    <img class="img-fluid"
+                         src="{{ url_for('static', filename='main/features/images/geo_restricted.jpg') }}">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

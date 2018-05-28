@@ -46,27 +46,51 @@
     <!-- Features Section -->
     <section id="features">
         <div class="container">
-            <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('WHAT FEATURES YOU WILL GET?') }}</h2>
+            <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('WHY USE VPN?') }}</h2>
             <div class="row">
                 <div class="col-lg-4">
                     <img class="img-fluid mx-auto d-block feature-image"
                          src="{{ url_for('static', filename='main/index/images/features/mascot_geo.png') }}">
                     <div class="wrap feature">
-                        <h4>{{ _('Unlock geo-restricted media') }}</h4>
+                        <h4>{{ _('SECURITY') }}</h4>
+                        <p>
+                            {{ _('Protect your access to Internet') }}
+                        </p>
+                        <p>
+                            <a href="{{ url_for('index.features_page') }}">
+                                {{ _('Learn more') }}
+                            </a>
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <img class="img-fluid mx-auto d-block feature-image"
                          src="{{ url_for('static', filename='main/index/images/features/mascot_anonym.png') }}">
                     <div class="wrap feature">
-                        <h4>{{ _('Anonymous access to internet') }}</h4>
+                        <h4>{{ _('PRIVACY') }}</h4>
+                        <p>
+                            {{ _('Be anonymous when you need this') }}
+                        </p>
+                        <p>
+                            <a href="{{ url_for('index.features_page') }}">
+                                {{ _('Learn more') }}
+                            </a>
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <img class="img-fluid mx-auto d-block feature-image"
                          src="{{ url_for('static', filename='main/index/images/features/mascot_network.png') }}">
                     <div class="wrap feature">
-                        <h4>{{ _('Build your own vpn network') }}</h4>
+                        <h4>{{ _('DISENGAGEMENT') }}</h4>
+                        <p>
+                            {{ _('Create your own network over Internet') }}
+                        </p>
+                        <p>
+                            <a href="{{ url_for('index.features_page') }}">
+                                {{ _('Learn more') }}
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
