@@ -19,7 +19,7 @@ moment = Moment(app)
 from app import cli
 
 # Load the default configuration
-app.config.from_object('config.TestingConfig')
+app.config.from_object('config.DevelopmentConfig')
 
 rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'], resource_name=app.config['USERS_API_RESOURCE_NAME'])
 

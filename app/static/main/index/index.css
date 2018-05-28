@@ -128,8 +128,8 @@
 
 .pricing-active {
     border: 5px solid #f8cc46;;
-    margin-top: -10px;
-    box-shadow: 7px 7px rgba(230, 218, 7, 0.2)
+    margin-top: -50px;
+    box-shadow: 0 0 40px rgba(54, 67, 77, .2);
 }
 
 .pricing:hover {
@@ -196,10 +196,16 @@
     position: relative;
 }
 
+.pricing-head h4 span.small {
+    font-size: 10px;
+    text-transform: initial;
+    font-style: italic;
+}
+
 /*Pricing Content*/
 .pricing-content li {
     color: #888;
-    font-size: 12px;
+    font-size: 15px;
     padding: 7px 15px;
     border-bottom: solid 1px #f5f9e7;
 }
@@ -246,6 +252,88 @@
 .yellow-crusta.btn.active {
     color: #FFFFFF;
     background-color: #cfa500;
+}
+
+/*
+    PRICING
+ */
+
+#pricing .pricing-content .sub-feature-tooltip {
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+    cursor: pointer;
+}
+
+#pricing .pricing-content li.no-feature {
+    background: #f4f4f4;
+    -webkit-text-decoration-color: rgba(0, 0, 0, .5);
+    text-decoration-color: rgba(0, 0, 0, .5);
+    color: #202126;
+    opacity: .5;
+    text-decoration: line-through;
+}
+
+.price-badge {
+    position: absolute;
+    text-align: center;
+    width: 170px;
+    height: 170px;
+    top: -2px;
+    right: -2px;
+    overflow: hidden;
+}
+
+.price-badge span {
+    color: #fff;
+    background-color: rgb(237, 97, 80);
+    position: absolute;
+    display: block;
+    -webkit-transform: translateX(30%) translateY(0%) rotate(45deg);
+    transform: translateX(30%) translateY(0%) rotate(45deg);
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+    font-size: 12px;
+    padding: 5px;
+    text-transform: uppercase;
+    top: 0;
+    right: 0;
+    font-weight: 700;
+    max-width: 100px;
+}
+
+.price-badge span:before, .price-badge span:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    margin: 0 -1px;
+    width: 100%;
+    height: 100%;
+    background: rgb(237, 97, 80);
+}
+
+.price-badge span:before {
+    right: 100%;
+}
+
+.price-badge span:after {
+    left: 100%;
+}
+
+.pricing-footer p.small {
+    color: #b9babd;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: inherit;
+    line-height: 20px;
+    margin: 0;
+    fill: #b9babd;
+}
+
+.pricing-footer p.small span.old-price {
+    -webkit-text-decoration-color: rgba(0, 0, 0, .5);
+    text-decoration-color: rgba(0, 0, 0, .5);
+    color: rgb(237, 97, 80);
+    text-decoration: line-through;
 }
 
 .content-section {

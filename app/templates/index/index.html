@@ -31,7 +31,8 @@
                     <div class="col-lg-4">
                         <h1 class="brand-heading">{{ _('VPN Service') }}</h1>
                         <p class="intro-text">{{ _('Get access to internet anonymously and without any restricts!') }}</p>
-                        <button id="intro-btn" class="btn btn-outline-secondary">{{ _('BUILD YOUR OWN RAILROAD!') }}</button>
+                        <button id="intro-btn"
+                                class="btn btn-outline-secondary">{{ _('BUILD YOUR OWN RAILROAD!') }}</button>
                     </div>
                     <div class="col-lg-8">
                         <img class="intro-image img-fluid"
@@ -75,142 +76,438 @@
     <!-- Pricing Section -->
     <section id="pricing" class="content-section">
         <div class="container content">
+            <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="pricing hover-effect">
                         <div class="pricing-head">
-                            <h3>Begginer
-                                <span> Officia deserunt mollitia </span>
+                            <h3>{{ _('FREE PACK') }}
+                                <span> {{ _('Try it!') }} </span>
                             </h3>
-                            <h4><i>$</i>5<i>.49</i>
-                                <span> Per Month </span>
-                            </h4>
+                            <h4>{{ _('FREE') }}</h4>
                         </div>
                         <ul class="pricing-content list-unstyled">
-                            <li>At vero eos</li>
-                            <li>No Support</li>
-                            <li>Fusce condimentum</li>
-                            <li>Ut non libero</li>
-                            <li>Consecte adiping elit</li>
+                            <li>
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">{{ _('Country') }}
+                                </span>
+                            </li>
+                            <li>
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Connection') }}
+                                </span>
+                            </li>
+                            <li>
+                                <strong>{{ _('Speed') }}: </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Lowest') }}
+                                </span>
+                            </li>
+                            <li>
+                                <strong>{{ _('No Browsing') }} </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Logs Policy') }}
+                                </span>
+                            </li>
+                            <li>{{ _('Virus Protection') }}</li>
+                            <li>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Smart Connect') }}
+                                </span>
+                                {{ _('Feature') }}
+                            </li>
+                            <li>
+                                <strong>{{ _('No') }}</strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('support') }}
+                                </span>
+                            </li>
+                            <li class="no-feature">
+                                {{ _('Military Grade') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('256-Bit Encryption') }}
+                                </span>
+                            </li>
+                            <li class="no-feature">
+                                {{ _('Advanced') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('IPSec & IKEv2 Protocols') }}
+                                </span>
+                            </li>
+                            <li class="no-feature">
+                                {{ _('Plus') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Service') }}
+                                </span>
+                            </li>
+                            <li class="no-feature">
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Streaming Services') }}
+                                </span>
+                            </li>
                         </ul>
                         <div class="pricing-footer">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
-                            </p>
-                            <a href="javascript:;" class="btn yellow-crusta">
-                                Sign Up
-                            </a>
+                            <a href="javascript:;" class="btn yellow-crusta">{{ _('Sign Up') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="pricing hover-effect">
                         <div class="pricing-head">
-                            <h3>Pro
-                                <span>Officia deserunt mollitia</span>
+                            <h3>{{ _('START PACK') }}
+                                <span> {{ _('Good pack to start!') }} </span>
                             </h3>
                             <h4><i>$</i>8<i>.69</i>
-                                <span>Per Month </span>
+                                <span> {{ _('per month') }} </span>
+                                <span class="small">({{ _('billed monthly') }})</span>
                             </h4>
                         </div>
                         <ul class="pricing-content list-unstyled">
                             <li>
-                                At vero eos
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Country') }}
+                                </span>
                             </li>
                             <li>
-                                No Support
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Connection') }}
+                                </span>
                             </li>
                             <li>
-                                Fusce condimentum
+                                <strong>{{ _('Speed') }}: </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Low') }}
+                                </span>
                             </li>
                             <li>
-                                Ut non libero
+                                <strong>{{ _('No Browsing') }} </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Logs Policy') }}
+                                </span>
+                            </li>
+                            <li>{{ _('Virus Protection') }}</li>
+                            <li>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Smart Connect') }}
+                                </span>
+                                {{ _('Feature') }}
                             </li>
                             <li>
-                                Consecte adiping elit
+                                <strong>{{ _('No') }}</strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('support') }}
+                                </span>
+                            </li>
+                            <li>{{ _('Military Grade') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('256-Bit Encryption') }}
+                                </span>
+                            </li>
+                            <li>
+                                {{ _('Advanced') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('IPSec & IKEv2') }}
+                                </span>
+                                {{ _('Protocols') }}
+                            </li>
+                            <li class="no-feature">
+                                {{ _('Plus') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Service') }}
+                                </span>
+                            </li>
+                            <li class="no-feature">
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Streaming Services') }}
+                                </span>
                             </li>
                         </ul>
                         <div class="pricing-footer">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
-                            </p>
-                            <a href="javascript:;" class="btn yellow-crusta">
-                                Sign Up
-                            </a>
+                            <a href="javascript:;" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                            <p class="small">$8.69 {{ _('billed every month') }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="pricing pricing-active hover-effect">
+                        <div class="price-badge"><span>{{ _('best pack') }}</span></div>
                         <div class="pricing-head pricing-head-active">
-                            <h3>Expert
-                                <span> Officia deserunt mollitia </span>
+                            <h3>{{ _('NORMAL PACK') }}
+                                <span> {{ _('We know what you need!') }} </span>
                             </h3>
-                            <h4><i>$</i>13<i>.99</i>
-                                <span>Per Month </span>
+                            <h4><i>$</i>6<i>.25</i>
+                                <span> {{ _('per month') }} </span>
+                                <span class="small">({{ _('billed yearly') }})</span>
                             </h4>
                         </div>
                         <ul class="pricing-content list-unstyled">
                             <li>
-                                At vero eos
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Country') }}
+                                </span>
                             </li>
                             <li>
-                                No Support
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Connection') }}
+                                </span>
                             </li>
                             <li>
-                                Fusce condimentum
+                                <strong>{{ _('Speed') }}: </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('High') }}
+                                </span>
                             </li>
                             <li>
-                                Ut non libero
+                                <strong>{{ _('No Browsing') }} </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                {{ _('Logs Policy') }}
+                            </span>
                             </li>
                             <li>
-                                Consecte adiping elit
+                                {{ _('Virus Protection') }}
+                            </li>
+                            <li>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Smart Connect') }}
+                                </span>
+                                {{ _('Feature') }}
+                            </li>
+                            <li><span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                {{ _('Support') }}
+                            </span>
+                            </li>
+                            <li>{{ _('Military Grade') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('256-Bit Encryption') }}
+                                </span>
+                            </li>
+                            <li>
+                                {{ _('Advanced') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('IPSec & IKEv2') }}
+                                </span>
+                                {{ _('Protocols') }}
+                            </li>
+                            <li>
+                                {{ _('Plus') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Service') }}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Streaming Services') }}
+                                </span>
                             </li>
                         </ul>
                         <div class="pricing-footer">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
-                            </p>
-                            <a href="javascript:;" class="btn yellow-crusta">
-                                Sign Up
-                            </a>
+                            <a href="javascript:;" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                            <p class="small"><span class="old-price">$125</span> $75 {{ _('billed every year') }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="pricing hover-effect">
                         <div class="pricing-head">
-                            <h3>Hi-Tech
-                                <span>Officia deserunt mollitia </span>
+                            <h3>{{ _('PRO PACK') }}
+                                <span> {{ _('You know what you want!') }} </span>
                             </h3>
-                            <h4><i>$</i>99<i>.00</i>
-                                <span>Per Month </span>
+                            <h4><i>$</i>2<i>.25</i>
+                                <span> {{ _('per month') }} </span>
+                                <span class="small">({{ _('billed yearly') }})</span>
                             </h4>
                         </div>
                         <ul class="pricing-content list-unstyled">
                             <li>
-                                At vero eos
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Country') }}
+                                </span>
                             </li>
                             <li>
-                                No Support
+                                <strong>1 </strong>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">{{ _('Connection') }}
+                                </span>
                             </li>
                             <li>
-                                Fusce condimentum
+                                <strong>{{ _('Speed') }}: </strong>
+                                <span class="sub-feature-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="TITLE">
+                                    {{ _('Highest') }}
+                                </span>
                             </li>
                             <li>
-                                Ut non libero
+                                <strong>{{ _('No Browsing') }} </strong>
+                                <span class="sub-feature-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="TITLE">
+                                    {{ _('Logs Policy') }}
+                                </span>
                             </li>
                             <li>
-                                Consecte adiping elit
+                                {{ _('Virus Protection') }}
+                            </li>
+                            <li>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Smart Connect') }}
+                                </span>
+                                {{ _('Feature') }}
+                            </li>
+                            <li>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Support') }}
+                                </span>
+                            </li>
+                            <li>
+                                {{ _('Military Grade') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('256-Bit Encryption') }}
+                                </span>
+                            </li>
+                            <li>
+                                {{ _('Advanced') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('IPSec & IKEv2') }}
+                                </span>
+                                {{ _('Protocols') }}
+                            </li>
+                            <li>
+                                {{ _('Plus') }}
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Service') }}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="sub-feature-tooltip"
+                                      data-toggle="tooltip"
+                                      data-placement="top"
+                                      title="TITLE">
+                                    {{ _('Streaming Services') }}
+                                </span>
                             </li>
                         </ul>
                         <div class="pricing-footer">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
-                            </p>
-                            <a href="javascript:;" class="btn yellow-crusta">
-                                Sign Up
-                            </a>
+                            <a href="javascript:;" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                            <p class="small"><span class="old-price">$76</span> $54 {{ _('billed every 2 years') }}</p>
                         </div>
                     </div>
                 </div>
