@@ -6,7 +6,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, request, render_template, \
     g, session, redirect, url_for, jsonify
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 
 from app import rrn_user_service
 from app.flask_utils import login_required
@@ -78,9 +78,16 @@ def signin():
                     user_json = api_response.data
                 else:
                     r.set_failed()
-                    error = AjaxError(error=api_response.error, error_code=api_response.error_code,
-                                      developer_message=api_response.developer_message)
-                    r.add_error(error)
+                    if api_response.errors is not None:
+                        for err in api_response.errors:
+                            error = AjaxError(error=err['message'], error_code=err['code'],
+                                              developer_message=err['developer_message'])
+                            r.add_error(error)
+                    else:
+                        error = AjaxError(error=DFNError.UNKNOWN_ERROR_CODE.phrase,
+                                          error_code=DFNError.UNKNOWN_ERROR_CODE.value,
+                                          developer_message=DFNError.UNKNOWN_ERROR_CODE.description)
+                        r.add_error(error)
                     resp = jsonify(r.serialize())
                     resp.code = api_response.code
                     return resp
