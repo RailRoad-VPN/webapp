@@ -101,7 +101,9 @@
     <section id="pricing" class="content-section">
         <div class="container content">
             <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
-            {% include 'partials/pricing-packs.html' %}
+            {% with order=false %}
+                {% include 'partials/pricing-packs.html' %}
+            {% endwith %}
         </div>
     </section>
 

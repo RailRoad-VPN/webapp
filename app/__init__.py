@@ -21,7 +21,8 @@ from app import cli
 # Load the default configuration
 app.config.from_object('config.DevelopmentConfig')
 
-rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'], resource_name=app.config['USERS_API_RESOURCE_NAME'])
+rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
+                                      resource_name=app.config['USERS_API_RESOURCE_NAME'])
 
 from app.flask_utils import before_request, get_locale
 
@@ -38,6 +39,10 @@ app.register_blueprint(index_module)
 from app.mods.profile.controller import mod_profile as profile_module
 
 app.register_blueprint(profile_module)
+
+from app.mods.order.controller import mod_order as order_module
+
+app.register_blueprint(order_module)
 
 
 @app.route('/', methods=['GET'])

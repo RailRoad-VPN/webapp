@@ -28,7 +28,10 @@
 {% endblock %}
 
 {% block body %}
-    <section class="container">
-        <p>PRICING!</p>
-    </section>
+    <div class="container content-section">
+        <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
+        {% with order=false %}
+            {% include 'partials/pricing-packs.html' %}
+        {% endwith %}
+    </div>
 {% endblock %}

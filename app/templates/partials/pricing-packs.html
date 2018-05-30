@@ -1,3 +1,10 @@
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/pricing/pricing-packs.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/pricing/pricing-packs.min.css') }}">
+    {% endif %}
+{% endblock %}
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="pricing hover-effect">
@@ -88,7 +95,11 @@
                 </li>
             </ul>
             <div class="pricing-footer">
-                <a href="javascript:;" class="btn yellow-crusta">{{ _('Sign Up') }}</a>
+                {% if order == false %}
+                    <a href="{{ url_for('order.order_page', pack='free') }}" class="btn yellow-crusta">{{ _('Sign Up') }}</a>
+                {% else %}
+                    <button id="free" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -191,7 +202,11 @@
                 </li>
             </ul>
             <div class="pricing-footer">
-                <a href="javascript:;" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                {% if order == false %}
+                    <a href="{{ url_for('order.order_page', pack='start') }}" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                {% else %}
+                    <button id="start" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
+                {% endif %}
                 <p class="small">$8.69 {{ _('billed every month') }}</p>
             </div>
         </div>
@@ -300,7 +315,11 @@
                 </li>
             </ul>
             <div class="pricing-footer">
-                <a href="javascript:;" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                {% if order == false %}
+                    <a href="{{ url_for('order.order_page', pack='normal') }}" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                {% else %}
+                    <button id="normal" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
+                {% endif %}
                 <p class="small"><span class="old-price">$125</span> $75 {{ _('billed every year') }}</p>
             </div>
         </div>
@@ -411,7 +430,11 @@
                 </li>
             </ul>
             <div class="pricing-footer">
-                <a href="javascript:;" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                {% if order == false %}
+                    <a href="{{ url_for('order.order_page', pack='pro') }}" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
+                {% else %}
+                    <button id="pro" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
+                {% endif %}
                 <p class="small"><span class="old-price">$76</span> $54 {{ _('billed every 2 years') }}</p>
             </div>
         </div>
