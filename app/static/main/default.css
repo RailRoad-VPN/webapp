@@ -146,6 +146,10 @@ a:focus, a:hover {
     }
 }
 
+main {
+
+}
+
 .btn-group img {
     margin-right: 10px
 }
@@ -174,7 +178,9 @@ div.content {
 }
 
 footer {
+    right: 0;
     bottom: 0;
+    left: 0;
     width: 100%;
     border-top: solid #f8cc46 1px;
     padding: 50px 0 0;

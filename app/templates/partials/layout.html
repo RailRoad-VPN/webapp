@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- HTML -->
-<html>
+<html lang="{{ session['lang_code'] }}">
 
 <!-- Head -->
 <head>
@@ -166,7 +166,9 @@
 </nav>
 
 <!-- Body -->
+<main>
 {% block body %}{% endblock %}
+</main>
 
 <!-- Javascript -->
 

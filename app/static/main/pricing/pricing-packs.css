@@ -10,14 +10,13 @@
 
 .pricing-active {
     border: 5px solid #f8cc46;;
-    margin-top: -50px;
     box-shadow: 0 0 40px rgba(54, 67, 77, .2);
 }
 
 .pricing:hover {
+    box-shadow: 0 0 40px rgba(54, 67, 77, .2);
     -webkit-box-shadow: 0 0 40px rgba(54, 67, 77, .2);
     -moz-box-shadow: 0 0 40px rgba(54, 67, 77, .2);
-    box-shadow: 0 0 40px rgba(54, 67, 77, .2);
 }
 
 .pricing:hover h4 {
@@ -58,26 +57,6 @@
     font-weight: 300;
     background: #fbfef2;
     border-bottom: solid 1px #f5f9e7;
-}
-
-@media (max-width: 992px) {
-    .pricing-head h4 {
-        font-size: 34px;
-    }
-}
-
-@media (max-width: 310px) {
-    .pricing-head h4 {
-        font-size: 34px;
-    }
-}
-
-@media (min-width: 992px) {
-    .pricing-head h4 {
-        font-size: 54px;
-        font-size: -webkit-xxx-large;
-        font-size: xx-large;
-    }
 }
 
 .pricing-head-active h4 {
@@ -153,7 +132,7 @@
     background-color: #cfa500;
 }
 
-#pricing .pricing-content .sub-feature-tooltip {
+#pricing .pricing-content li:not(.no-feature) .sub-feature-tooltip {
     text-decoration: none;
     border-bottom: 1px dotted #999;
     cursor: pointer;
@@ -229,4 +208,44 @@
     text-decoration-color: rgba(0, 0, 0, .5);
     color: rgb(237, 97, 80);
     text-decoration: line-through;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .pricing-head h3 span {
+        font-size: 12px;
+    }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 321px) {
+
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+    .pricing-active {
+        margin-top: -50px;
+    }
+}
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    .pricing-head h4 {
+        font-size: 34px;
+    }
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    .pricing-head h4 {
+        font-size: 54px;
+        font-size: -webkit-xxx-large;
+        font-size: xx-large;
+    }
 }

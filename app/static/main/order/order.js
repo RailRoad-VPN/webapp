@@ -72,7 +72,7 @@ $(document).ready(function () {
                 // show next step
                 $(this).next().fadeIn();
                 // scroll window to beginning of the form
-                scroll_to_class($('.f1'), 20);
+                scrollToTop();
             });
         }
     });
@@ -104,7 +104,7 @@ $(document).ready(function () {
             // show previous step
             $(this).prev().fadeIn();
             // scroll window to beginning of the form
-            scroll_to_class($('.f1'), 20);
+            scrollToTop();
         });
     });
 

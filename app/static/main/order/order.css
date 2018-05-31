@@ -1,16 +1,12 @@
-    body {
-    font-size: 16px;
-    font-weight: 300;
-    color: #888;
-    line-height: 30px;
+#order-form-container {
     text-align: center;
 }
 
-strong {
+#order-form-container strong {
     font-weight: 500;
 }
 
-a, a:hover, a:focus {
+#order-form-container a, #order-form-container a:hover, #order-form-container a:focus {
     color: #f35b3f;
     text-decoration: none;
     -o-transition: all .3s;
@@ -20,27 +16,6 @@ a, a:hover, a:focus {
     transition: all .3s;
 }
 
-h1, h2 {
-    margin-top: 10px;
-    font-size: 38px;
-    font-weight: 100;
-    color: #555;
-    line-height: 50px;
-}
-
-h3 {
-    font-size: 22px;
-    font-weight: 300;
-    color: #555;
-    line-height: 30px;
-}
-
-h4 {
-    font-size: 18px;
-    font-weight: 300;
-    color: #555;
-    line-height: 26px;
-}
 
 .form-box {
     padding-top: 40px;
@@ -143,9 +118,4 @@ h4 {
 
 .f1 .input-error {
     border-color: #f35b3f;
-}
-
-fieldset#pricing {
-    margin-left: -67%;
-    width: 240%;
 }
