@@ -15,16 +15,20 @@ class Config(object):
 
 
 class ProductionConfig(Config):
+    ENV = 'production'
+
     API_URL = 'http://IP:8000/api/v1'
 
 
 class DevelopmentConfig(Config):
+    ENV = 'development'
     DEBUG = True
 
     API_URL = 'http://127.0.0.1:8000/api/v1'
 
 
 class TestingConfig(Config):
+    ENV = 'testing'
     TESTING = True
     DEBUG = True
 

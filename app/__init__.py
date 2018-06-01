@@ -1,4 +1,5 @@
 import logging
+import os
 from pprint import pprint
 
 from flask import Flask, url_for, redirect, session
@@ -18,8 +19,9 @@ moment = Moment(app)
 
 from app import cli
 
-# Load the default configuration
-app.config.from_object('config.DevelopmentConfig')
+# Load config based on env variable
+ENVIRONMENT_CONFIG = os.environ.get("ENVIRONMENT_CONFIG", default='DevelopmentConfig')
+app.config.from_object("%s.%s" % ('config', ENVIRONMENT_CONFIG))
 
 rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
                                       resource_name=app.config['USERS_API_RESOURCE_NAME'])
