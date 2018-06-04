@@ -19,6 +19,9 @@ moment = Moment(app)
 
 from app import cli
 
+for param in os.environ.keys():
+    print("%s: %s " % (param, os.environ[param]))
+
 # Load config based on env variable
 ENVIRONMENT_CONFIG = os.environ.get("ENVIRONMENT_CONFIG", default='DevelopmentConfig')
 logging.info("Got ENVIRONMENT_CONFIG variable: %s" % ENVIRONMENT_CONFIG)
