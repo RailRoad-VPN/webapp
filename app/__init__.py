@@ -21,7 +21,10 @@ from app import cli
 
 # Load config based on env variable
 ENVIRONMENT_CONFIG = os.environ.get("ENVIRONMENT_CONFIG", default='DevelopmentConfig')
-app.config.from_object("%s.%s" % ('config', ENVIRONMENT_CONFIG))
+logging.info("Got ENVIRONMENT_CONFIG variable: %s" % ENVIRONMENT_CONFIG)
+config_name = "%s.%s" % ('config', ENVIRONMENT_CONFIG)
+logging.info("Config name: %s" % config_name)
+app.config.from_object(config_name)
 
 rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
                                       resource_name=app.config['USERS_API_RESOURCE_NAME'])
