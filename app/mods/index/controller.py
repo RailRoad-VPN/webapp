@@ -36,16 +36,16 @@ def pull_lang_code(endpoint, values):
 @mod_index.route('/', methods=['GET'])
 def index_lang_page():
     logging.info('index_lang page')
-    redirect_url = request.args.get('next', None)
+
+    if 'locale' in request.args:
+        r_url = str(request.base_url) + str(request.referrer).split("/")[-1]
+        return redirect(r_url)
 
     subscriptions = None
     try:
         subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
     except APIException as e:
         pass
-
-    if redirect_url:
-        return redirect(request.base_url[:-1] + redirect_url)  # remove trailing slash after base url
     return render_template('index/index.html', code=200, subscriptions=subscriptions)
 
 
@@ -58,7 +58,13 @@ def features_page():
 @mod_index.route('/pricing', methods=['GET'])
 def pricing_page():
     logging.info('pricing_page method')
-    return render_template('index/pricing.html', code=200)
+
+    subscriptions = None
+    try:
+        subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
+    except APIException as e: pass
+
+    return render_template('index/pricing.html', code=200, subscriptions=subscriptions)
 
 
 @mod_index.route('/download', methods=['GET'])

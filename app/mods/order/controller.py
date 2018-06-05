@@ -1,21 +1,14 @@
-import hashlib
+import logging
 import logging
 import sys
-import uuid
-from http import HTTPStatus
 
 from flask import Blueprint, request, render_template, \
-    g, session, redirect, url_for, jsonify
-from werkzeug.security import check_password_hash
+    session
 
-from app import rrn_user_service
-from app.flask_utils import login_required
-from app.models import AjaxResponse, AjaxError
-from app.models.exception import DFNError
+from app import rrn_billing_service
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
-from response import APIResponseStatus
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_order = Blueprint('order', __name__, url_prefix='/<lang_code>/order')
@@ -40,4 +33,10 @@ def order_page():
 
     pack = request.args.get('pack', None)
 
-    return render_template('index/order.html', pack=pack, code=200)
+    subscriptions = None
+    try:
+        subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
+    except APIException as e:
+        pass
+
+    return render_template('index/order.html', pack=pack, subscriptions=subscriptions, code=200)

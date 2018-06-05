@@ -152,7 +152,8 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         {% for lang in config['LANGUAGES'] %}
-                            <a class="dropdown-item" href="/{{ lang }}?next={{ request.path[3:] }}">
+                            <a class="dropdown-item"
+                               href="/{{ lang }}?locale">
                                 <img class="flag-icon" width="25"
                                      src="{{ url_for('static', filename='assets/flags-lip/flags/4x3/' + lang ) }}.svg">
                                 <span class="flag-name">{{ lang }}</span>

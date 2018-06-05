@@ -1,11 +1,11 @@
 'use strict';
 
-function scroll_to_class(element_class, removed_height) {
-    var scroll_to = $(element_class).offset().top - removed_height;
-    if ($(window).scrollTop() !== scroll_to) {
-        $('html, body').stop().animate({scrollTop: scroll_to}, 0);
-    }
-}
+// function scroll_to_class(element_class, removed_height) {
+//     var scroll_to = $(element_class).offset().top - removed_height;
+//     if ($(window).scrollTop() !== scroll_to) {
+//         $('html, body').stop().animate({scrollTop: scroll_to}, 0);
+//     }
+// }
 
 function bar_progress(progress_line_object, direction) {
     var number_of_steps = progress_line_object.data('number-of-steps');
@@ -124,4 +124,8 @@ $(document).ready(function () {
         // fields validation
 
     });
+
+    if ($packInput.val() !== '') {
+        $("#pricing-pack").find("#" + $packInput.val()).find('.btn-checkout').click();
+    }
 });
