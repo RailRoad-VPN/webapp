@@ -12,6 +12,7 @@ class Config(object):
     LANGUAGES = ['ru', 'en']
 
     USERS_API_RESOURCE_NAME = 'users'
+    SUBSCRIPTIONS_API_RESOURCE_NAME = 'subscriptions'
 
 
 class ProductionConfig(Config):

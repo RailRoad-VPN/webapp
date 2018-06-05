@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-05-28 15:26+0300\n"
+"POT-Creation-Date: 2018-06-05 12:15+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -32,35 +32,35 @@ msgstr "Невозможно войти. Пожалуйста проверье �
 msgid "Email is busy."
 msgstr "Данный email занят"
 
-#: app/templates/auth/signin.html:34
+#: app/templates/auth/signin.html:35
 msgid "Log in"
 msgstr "Вход"
 
-#: app/templates/auth/signin.html:37
+#: app/templates/auth/signin.html:38
 msgid "Email address"
 msgstr "Email адресс"
 
-#: app/templates/auth/signin.html:39
+#: app/templates/auth/signin.html:40
 msgid "Password"
 msgstr "Пароль"
 
-#: app/templates/auth/signin.html:40
+#: app/templates/auth/signin.html:41
 msgid "Log In"
 msgstr "Вход"
 
-#: app/templates/auth/signin.html:43
+#: app/templates/auth/signin.html:44
 msgid "Forgot the password?"
 msgstr "Забыли пароль?"
 
-#: app/templates/auth/signin.html:46
+#: app/templates/auth/signin.html:47
 msgid "Don’t have an account yet?"
 msgstr "Нет аккаунта?"
 
-#: app/templates/auth/signin.html:46
+#: app/templates/auth/signin.html:47
 msgid "Sign up"
 msgstr "Создайте!"
 
-#: app/templates/index/download.html:4 app/templates/index/index.html:88
+#: app/templates/index/download.html:4 app/templates/index/index.html:114
 #: app/templates/partials/layout.html:122
 msgid "Download"
 msgstr "Скачать"
@@ -68,6 +68,18 @@ msgstr "Скачать"
 #: app/templates/index/features.html:4 app/templates/partials/layout.html:114
 msgid "Features"
 msgstr "Особенности"
+
+#: app/templates/index/features.html:32 app/templates/index/index.html:55
+msgid "SECURITY"
+msgstr "БЕЗОПАСНОСТЬ"
+
+#: app/templates/index/features.html:71 app/templates/index/index.html:85
+msgid "DISENGAGEMENT"
+msgstr "СВОБОДА"
+
+#: app/templates/index/features.html:109 app/templates/index/index.html:70
+msgid "PRIVACY"
+msgstr "ПРИВАТНОСТЬ"
 
 #: app/templates/index/index.html:32
 msgid "VPN Service"
@@ -82,36 +94,55 @@ msgid "BUILD YOUR OWN RAILROAD!"
 msgstr "Построй свою VPN железную дорогу!"
 
 #: app/templates/index/index.html:49
-msgid "WHAT FEATURES YOU WILL GET?"
-msgstr "КАКИЕ ВОЗМОЖНОСТИ ВЫ ПОЛУЧИТЕ?"
+msgid "WHY USE VPN?"
+msgstr "ЗАЧЕМ ВАМ VPN?"
 
-#: app/templates/index/index.html:55
-msgid "Unlock geo-restricted media"
-msgstr "Доступ ко всем ресурсам"
+#: app/templates/index/index.html:57
+msgid "Protect your access to Internet"
+msgstr "Защитите доступ в интернет"
 
-#: app/templates/index/index.html:62
-msgid "Anonymous access to internet"
-msgstr "Анонимный доступ в интернет"
+#: app/templates/index/index.html:61 app/templates/index/index.html:76
+#: app/templates/index/index.html:91
+msgid "Learn more"
+msgstr "Узнать больше"
 
-#: app/templates/index/index.html:69
-msgid "Build your own vpn network"
-msgstr "Построй собственную VPN сеть"
+#: app/templates/index/index.html:72
+msgid "Be anonymous when you need this"
+msgstr "Сохраните анонимность, когда вам это нужно"
 
-#: app/templates/index/index.html:79
+#: app/templates/index/index.html:87
+msgid "Create your own network over Internet"
+msgstr "Создай свою собственную сеть в сети Интернет"
+
+#: app/templates/index/index.html:103 app/templates/index/order.html:62
+#: app/templates/index/pricing.html:32
 msgid "CHOOSE YOUR PACK"
 msgstr "ВЫБЕРИТЕ СВОЙ ПАК"
 
-#: app/templates/index/index.html:89
+#: app/templates/index/index.html:115
 msgid "You can download for free on the preview page."
 msgstr "Вы можете бесплатно скачать"
 
-#: app/templates/index/index.html:90
+#: app/templates/index/index.html:116
 msgid "Visit Download Page"
 msgstr "Перейти на страницу скачивания"
 
-#: app/templates/index/pricing.html:4 app/templates/partials/layout.html:118
+#: app/templates/index/order.html:4 app/templates/index/pricing.html:4
+#: app/templates/partials/layout.html:118
 msgid "Pricing"
 msgstr "Купить"
+
+#: app/templates/index/order.html:48
+msgid "pack"
+msgstr "пак"
+
+#: app/templates/index/order.html:52
+msgid "account"
+msgstr "аккаунт"
+
+#: app/templates/index/order.html:56
+msgid "payment"
+msgstr "платеж"
 
 #: app/templates/partials/layout.html:126
 msgid "Contact"
@@ -125,410 +156,110 @@ msgstr "Мой аккаунт"
 msgid "Logout"
 msgstr "Выйти"
 
-#: app/templates/partials/layout.html:246
+#: app/templates/partials/layout.html:248
 msgid "PRODUCTS"
 msgstr "ПРОДУКТЫ"
 
-#: app/templates/partials/layout.html:248
+#: app/templates/partials/layout.html:250
 msgid "VPN for Windows"
 msgstr "VPN для Windows"
 
-#: app/templates/partials/layout.html:249
+#: app/templates/partials/layout.html:251
 msgid "VPN for iOS"
 msgstr "VPN для iOS"
 
-#: app/templates/partials/layout.html:250
+#: app/templates/partials/layout.html:252
 msgid "VPN for Android"
 msgstr "VPN для Android"
 
-#: app/templates/partials/layout.html:251
+#: app/templates/partials/layout.html:253
 msgid "VPN for macOS"
 msgstr "VPN для macOS"
 
-#: app/templates/partials/layout.html:255
+#: app/templates/partials/layout.html:257
 msgid "TUTORIALS"
 msgstr "РУКОВОДСТВА"
 
-#: app/templates/partials/layout.html:257
+#: app/templates/partials/layout.html:259
 msgid "How to use VPN?"
 msgstr "Как использовать VPN?"
 
-#: app/templates/partials/layout.html:258
+#: app/templates/partials/layout.html:260
 msgid "Why I need VPN?"
 msgstr "Зачем мне нужен VPN?"
 
-#: app/templates/partials/layout.html:259
+#: app/templates/partials/layout.html:261
 msgid "Which VPN to choose?"
 msgstr "Какой VPN использовать?"
 
-#: app/templates/partials/layout.html:260
+#: app/templates/partials/layout.html:262
 msgid "Why VPN is dangerous?"
 msgstr "Почему VPN это опасно?"
 
-#: app/templates/partials/layout.html:264
+#: app/templates/partials/layout.html:266
 msgid "INFORMATION"
 msgstr "ИНФОРМАЦИЯ"
 
-#: app/templates/partials/layout.html:266
+#: app/templates/partials/layout.html:268
 msgid "About us"
 msgstr "О нас"
 
-#: app/templates/partials/layout.html:267
+#: app/templates/partials/layout.html:269
 msgid "Plans and Pricing"
 msgstr "Планы и цены"
 
-#: app/templates/partials/layout.html:268
-#: app/templates/partials/pricing-packs.html:265
-#: app/templates/partials/pricing-packs.html:373
+#: app/templates/partials/layout.html:270
 msgid "Support"
 msgstr "Поддержка"
 
-#: app/templates/partials/layout.html:269
+#: app/templates/partials/layout.html:271
 msgid "Partnership"
 msgstr "Партнерство"
 
-#: app/templates/partials/layout.html:270
+#: app/templates/partials/layout.html:272
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: app/templates/partials/layout.html:274
+#: app/templates/partials/layout.html:276
 msgid "SOCIAL"
 msgstr "СОЦИАЛЬНЫЕ СЕТИ"
 
-#: app/templates/partials/layout.html:276
+#: app/templates/partials/layout.html:278
 msgid "Facebook"
 msgstr ""
 
-#: app/templates/partials/layout.html:277
+#: app/templates/partials/layout.html:279
 msgid "Vkontakte"
 msgstr "Вконтакте"
 
-#: app/templates/partials/layout.html:278
+#: app/templates/partials/layout.html:280
 msgid "Twitter"
 msgstr "Твиттер"
 
-#: app/templates/partials/layout.html:279
+#: app/templates/partials/layout.html:281
 msgid "YouTube"
 msgstr ""
 
-#: app/templates/partials/layout.html:291
+#: app/templates/partials/layout.html:293
 msgid "Privacy Policy"
 msgstr "Политика Конфиденциальности"
 
-#: app/templates/partials/layout.html:294
+#: app/templates/partials/layout.html:296
 msgid "Terms Of Service"
 msgstr "Условия использования"
 
-#: app/templates/partials/pricing-packs.html:5
-msgid "FREE PACK"
-msgstr "БЕСПЛАТНЫЙ ПАК"
-
-#: app/templates/partials/pricing-packs.html:6
-msgid "Try it!"
-msgstr "Попробуйте!"
-
-#: app/templates/partials/pricing-packs.html:8
-msgid "FREE"
-msgstr "БЕСПЛАТНО"
-
-#: app/templates/partials/pricing-packs.html:16
-#: app/templates/partials/pricing-packs.html:113
-msgid "Number of countries where you can choose VPN server"
-msgstr "Количество стран, в которых вы можете выбрать VPN сервер"
-
-#: app/templates/partials/pricing-packs.html:17
-#: app/templates/partials/pricing-packs.html:114
-#: app/templates/partials/pricing-packs.html:218
-msgid "Country"
-msgstr "Страна"
-
-#: app/templates/partials/pricing-packs.html:25
-#: app/templates/partials/pricing-packs.html:122
-#: app/templates/partials/pricing-packs.html:226
-#: app/templates/partials/pricing-packs.html:334
-msgid "Number of simultaneous connections"
-msgstr "Количество одновременных подключений"
-
-#: app/templates/partials/pricing-packs.html:26
-#: app/templates/partials/pricing-packs.html:123
-#: app/templates/partials/pricing-packs.html:227
-#: app/templates/partials/pricing-packs.html:335
-msgid "Connection"
-msgstr "Соединение"
-
-#: app/templates/partials/pricing-packs.html:30
-#: app/templates/partials/pricing-packs.html:127
-#: app/templates/partials/pricing-packs.html:231
-#: app/templates/partials/pricing-packs.html:339
-msgid "Speed"
-msgstr "Скорость"
-
-#: app/templates/partials/pricing-packs.html:34
-msgid "Your connection will be on Lowes speed"
-msgstr "Ваше соединение будет на минимальной скорости"
-
-#: app/templates/partials/pricing-packs.html:35
-msgid "Lowest"
-msgstr "Самая низкая"
-
-#: app/templates/partials/pricing-packs.html:39
-#: app/templates/partials/pricing-packs.html:136
-#: app/templates/partials/pricing-packs.html:240
-#: app/templates/partials/pricing-packs.html:348
-msgid "No Browsing"
-msgstr "Нет браузерной"
-
-#: app/templates/partials/pricing-packs.html:43
-#: app/templates/partials/pricing-packs.html:140
-#: app/templates/partials/pricing-packs.html:244
-#: app/templates/partials/pricing-packs.html:352
-msgid ""
-"We do not collect logs about your connection, which means you can browse "
-"the internet without any worry of being recorded"
-msgstr "Мы не собираем никакой информации о вашем подключении и трафике"
-
-#: app/templates/partials/pricing-packs.html:44
-#: app/templates/partials/pricing-packs.html:141
-#: app/templates/partials/pricing-packs.html:245
-#: app/templates/partials/pricing-packs.html:353
-msgid "Logs Policy"
-msgstr "истории логов"
-
-#: app/templates/partials/pricing-packs.html:47
-#: app/templates/partials/pricing-packs.html:144
-#: app/templates/partials/pricing-packs.html:249
-#: app/templates/partials/pricing-packs.html:357
-msgid "Virus Protection"
-msgstr "Защита от вирусов"
-
-#: app/templates/partials/pricing-packs.html:52
-#: app/templates/partials/pricing-packs.html:149
-#: app/templates/partials/pricing-packs.html:255
-#: app/templates/partials/pricing-packs.html:363
-msgid ""
-"VPN client connects automatically to the fastest server available within "
-"few seconds"
-msgstr ""
-"Наш VPN клиент автоматически соединяется с быстрейшим сервером за "
-"несколько секунд"
-
-#: app/templates/partials/pricing-packs.html:53
-#: app/templates/partials/pricing-packs.html:150
-#: app/templates/partials/pricing-packs.html:256
-#: app/templates/partials/pricing-packs.html:364
-msgid "Smart Connect"
-msgstr "Умное подключение"
-
-#: app/templates/partials/pricing-packs.html:55
-#: app/templates/partials/pricing-packs.html:152
-#: app/templates/partials/pricing-packs.html:258
-#: app/templates/partials/pricing-packs.html:366
-msgid "Feature"
-msgstr " "
-
-#: app/templates/partials/pricing-packs.html:58
-#: app/templates/partials/pricing-packs.html:155
-msgid "No"
-msgstr "Нет"
-
-#: app/templates/partials/pricing-packs.html:62
-#: app/templates/partials/pricing-packs.html:159
-msgid "This pack has no support"
-msgstr "У этого пака нет поддержки"
-
-#: app/templates/partials/pricing-packs.html:63
-#: app/templates/partials/pricing-packs.html:160
-msgid "support"
-msgstr "поддержки"
-
-#: app/templates/partials/pricing-packs.html:67
-#: app/templates/partials/pricing-packs.html:163
-#: app/templates/partials/pricing-packs.html:269
-#: app/templates/partials/pricing-packs.html:377
-msgid "Military Grade"
-msgstr "Военный стандарт"
-
-#: app/templates/partials/pricing-packs.html:69
-#: app/templates/partials/pricing-packs.html:168
-#: app/templates/partials/pricing-packs.html:274
-#: app/templates/partials/pricing-packs.html:382
-msgid "256-Bit Encryption"
-msgstr "256 битного шифрования"
-
-#: app/templates/partials/pricing-packs.html:73
-#: app/templates/partials/pricing-packs.html:172
-#: app/templates/partials/pricing-packs.html:278
-#: app/templates/partials/pricing-packs.html:386
-msgid "Advanced"
-msgstr "Продвинутые"
-
-#: app/templates/partials/pricing-packs.html:75
-msgid "IPSec & IKEv2 Protocols"
-msgstr "IPSec и IKEv2 протоколы"
-
-#: app/templates/partials/pricing-packs.html:79
-#: app/templates/partials/pricing-packs.html:182
-#: app/templates/partials/pricing-packs.html:296
-#: app/templates/partials/pricing-packs.html:396
-msgid "Plus"
-msgstr "Плюс"
-
-#: app/templates/partials/pricing-packs.html:81
-#: app/templates/partials/pricing-packs.html:184
-#: app/templates/partials/pricing-packs.html:298
-#: app/templates/partials/pricing-packs.html:401
-msgid "Service"
-msgstr "Сервис"
-
-#: app/templates/partials/pricing-packs.html:86
-#: app/templates/partials/pricing-packs.html:189
-#: app/templates/partials/pricing-packs.html:292
-#: app/templates/partials/pricing-packs.html:409
-msgid "Streaming Services"
-msgstr "Стриминговые сервисы"
-
-#: app/templates/partials/pricing-packs.html:91
-msgid "Sign Up"
-msgstr "Получить"
-
-#: app/templates/partials/pricing-packs.html:98
-msgid "START PACK"
-msgstr "Начальный пак"
-
-#: app/templates/partials/pricing-packs.html:99
-msgid "Good pack to start!"
-msgstr "Хорошее начало!"
-
-#: app/templates/partials/pricing-packs.html:103
-#: app/templates/partials/pricing-packs.html:207
-#: app/templates/partials/pricing-packs.html:315
-msgid "per month"
-msgstr "в месяц"
-
-#: app/templates/partials/pricing-packs.html:104
-msgid "billed monthly"
-msgstr "оплачивается ежемесячно"
-
-#: app/templates/partials/pricing-packs.html:131
-msgid "Your connection will be on Low speed"
-msgstr "Ваше соединение будет на медленной скорости"
-
-#: app/templates/partials/pricing-packs.html:132
-msgid "Low"
-msgstr "Низкая"
-
-#: app/templates/partials/pricing-packs.html:167
-#: app/templates/partials/pricing-packs.html:273
-#: app/templates/partials/pricing-packs.html:381
-msgid ""
-"Our servers use advanced 256-bit encryption to offer best protection for "
-"you!"
-msgstr ""
-"Наши сервера используют продвинутое 256 битное шифрование, чтобы "
-"предложить вам наилучшую защиту!"
-
-#: app/templates/partials/pricing-packs.html:176
-#: app/templates/partials/pricing-packs.html:282
-#: app/templates/partials/pricing-packs.html:390
-msgid ""
-"We support multiple VPN security protocols for you to choose from to "
-"fulfill your needs and requirements"
-msgstr ""
-"Мы поддерживаем несколько VPN протоколов безопасности, чтобы Вы могли "
-"выбрать подходящий для себя"
-
-#: app/templates/partials/pricing-packs.html:177
-#: app/templates/partials/pricing-packs.html:283
-#: app/templates/partials/pricing-packs.html:391
-msgid "IPSec & IKEv2"
-msgstr "IPSec & IKEv2"
-
-#: app/templates/partials/pricing-packs.html:179
-#: app/templates/partials/pricing-packs.html:285
-#: app/templates/partials/pricing-packs.html:393
-msgid "Protocols"
-msgstr "Прокотолы"
-
-#: app/templates/partials/pricing-packs.html:194
-#: app/templates/partials/pricing-packs.html:303
-#: app/templates/partials/pricing-packs.html:414
-msgid "Buy Now"
-msgstr "Купить"
-
-#: app/templates/partials/pricing-packs.html:195
-msgid "billed every month"
-msgstr "оплачивается ежемесячно"
-
-#: app/templates/partials/pricing-packs.html:201
+#: app/templates/partials/pricing-packs.html:13
 msgid "best pack"
 msgstr "лучший выбор"
 
-#: app/templates/partials/pricing-packs.html:203
-msgid "NORMAL PACK"
-msgstr "ОБЫЧНЫЙ ПАК"
+#: app/templates/partials/pricing-packs.html:48
+msgid "Buy Now"
+msgstr "Купить"
 
-#: app/templates/partials/pricing-packs.html:204
-msgid "We know what you need!"
-msgstr "Мы знаем, что вам нужно!"
+#: app/templates/partials/pricing-packs.html:50
+msgid "Sign Up"
+msgstr "Получить"
 
-#: app/templates/partials/pricing-packs.html:208
-#: app/templates/partials/pricing-packs.html:316
-msgid "billed yearly"
-msgstr "оплачивается ежегодно"
-
-#: app/templates/partials/pricing-packs.html:217
-#: app/templates/partials/pricing-packs.html:325
-msgid "Number countries where you can choose VPN server"
-msgstr ""
-
-#: app/templates/partials/pricing-packs.html:235
-msgid "Your connection will be on High speed"
-msgstr "Ваше соединение будет на Высокой скорости"
-
-#: app/templates/partials/pricing-packs.html:236
-msgid "High"
-msgstr "Высокая"
-
-#: app/templates/partials/pricing-packs.html:264
-#: app/templates/partials/pricing-packs.html:372
-msgid "This pack has support"
-msgstr "Нет поддержки"
-
-#: app/templates/partials/pricing-packs.html:291
-#: app/templates/partials/pricing-packs.html:408
-msgid ""
-"Watch Netflix, Twitch, Youtube. Download torrents without restricts or "
-"limits"
-msgstr "Смотрите Ivi, Twitch, Youtube. Скачивайте торренты без ограничений!"
-
-#: app/templates/partials/pricing-packs.html:304
-msgid "billed every year"
-msgstr "оплачивается ежегодно"
-
-#: app/templates/partials/pricing-packs.html:311
-msgid "PRO PACK"
-msgstr "PRO ПАК"
-
-#: app/templates/partials/pricing-packs.html:312
-msgid "You know what you want!"
-msgstr "Ты знаешь, что хочешь!"
-
-#: app/templates/partials/pricing-packs.html:326
-msgid "Countries"
-msgstr "Страны"
-
-#: app/templates/partials/pricing-packs.html:343
-msgid "Your connection will be on the Highest speed"
-msgstr "Ваше соединение будет на масимальной скорости"
-
-#: app/templates/partials/pricing-packs.html:344
-msgid "Highest"
-msgstr "Максимальная"
-
-#: app/templates/partials/pricing-packs.html:400
-msgid "Servers only available to VIP users with the highest speed"
-msgstr "Сервера доступны только для VIP пользователей на максимальной скорости"
-
-#: app/templates/partials/pricing-packs.html:415
-msgid "billed every 2 years"
-msgstr "оплачивается каждые 2 года"
+#: app/templates/partials/pricing-packs.html:54
+msgid "Checkout"
+msgstr "Выбрать"

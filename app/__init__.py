@@ -6,7 +6,7 @@ from flask import Flask, url_for, redirect, session
 from flask_babel import Babel
 from flask_moment import Moment
 
-from app.service import RRNUsersAPIService
+from app.service import RRNUsersAPIService, RRNBillingAPIService
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -19,9 +19,6 @@ moment = Moment(app)
 
 from app import cli
 
-for param in os.environ.keys():
-    print("%s: %s " % (param, os.environ[param]))
-
 # Load config based on env variable
 ENVIRONMENT_CONFIG = os.environ.get("ENVIRONMENT_CONFIG", default='DevelopmentConfig')
 logging.info("Got ENVIRONMENT_CONFIG variable: %s" % ENVIRONMENT_CONFIG)
@@ -31,6 +28,9 @@ app.config.from_object(config_name)
 
 rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
                                       resource_name=app.config['USERS_API_RESOURCE_NAME'])
+
+rrn_billing_service = RRNBillingAPIService(api_url=app.config['API_URL'],
+                                           resource_name=app.config['SUBSCRIPTIONS_API_RESOURCE_NAME'])
 
 from app.flask_utils import before_request, get_locale
 

@@ -1,8 +1,14 @@
 import logging
+import sys
 
 from flask import Blueprint, render_template, session, request, redirect
 
 # Define the blueprint: 'index', set its url prefix: app.url/
+from app import rrn_billing_service
+
+sys.path.insert(0, '../rest_api_library')
+from rest import APIException
+
 mod_index = Blueprint('index', __name__, url_prefix='/<lang_code>/')
 
 
@@ -31,9 +37,16 @@ def pull_lang_code(endpoint, values):
 def index_lang_page():
     logging.info('index_lang page')
     redirect_url = request.args.get('next', None)
+
+    subscriptions = None
+    try:
+        subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
+    except APIException as e:
+        pass
+
     if redirect_url:
         return redirect(request.base_url[:-1] + redirect_url)  # remove trailing slash after base url
-    return render_template('index/index.html', code=200)
+    return render_template('index/index.html', code=200, subscriptions=subscriptions)
 
 
 @mod_index.route('/features', methods=['GET'])

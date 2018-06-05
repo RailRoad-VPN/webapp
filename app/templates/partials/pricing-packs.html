@@ -6,437 +6,58 @@
     {% endif %}
 {% endblock %}
 <div id="pricing-pack" class="row">
-    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
-        <div class="pricing hover-effect">
-            <div class="pricing-head">
-                <h3>{{ _('FREE PACK') }}
-                    <span> {{ _('Try it!') }} </span>
-                </h3>
-                <h4>{{ _('FREE') }}</h4>
-            </div>
-            <ul class="pricing-content list-unstyled">
-                <li>
-                    <strong>1 </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number of countries where you can choose VPN server') }}">
-                        {{ _('Country') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>1 </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number of simultaneous connections') }}">
-                        {{ _('Connection') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('Speed') }}: </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Your connection will be on Lowes speed') }}">
-                        {{ _('Lowest') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('No Browsing') }} </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('We do not collect logs about your connection, which means you can browse the internet without any worry of being recorded') }}">
-                        {{ _('Logs Policy') }}
-                    </span>
-                </li>
-                <li>{{ _('Virus Protection') }}</li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('VPN client connects automatically to the fastest server available within few seconds') }}">
-                        {{ _('Fast Connect') }}
-                    </span>
-                    {{ _('Feature') }}
-                </li>
-                <li>
-                    <strong>{{ _('No') }}</strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('This pack has no support') }}">
-                        {{ _('support') }}
-                    </span>
-                </li>
-                <li class="no-feature">
-                    {{ _('Military Grade') }}
-                    <span class="sub-feature-tooltip">
-                        {{ _('256-Bit Encryption') }}
-                    </span>
-                </li>
-                <li class="no-feature">
-                    {{ _('Advanced') }}
-                    <span class="sub-feature-tooltip">
-                        {{ _('IPSec & IKEv2 Protocols') }}
-                    </span>
-                </li>
-                <li class="no-feature">
-                    {{ _('Plus') }}
-                    <span class="sub-feature-tooltip">
-                        {{ _('Service') }}
-                    </span>
-                </li>
-                <li class="no-feature">
-                    <span class="sub-feature-tooltip">
-                        {{ _('Streaming Services') }}
-                    </span>
-                </li>
-            </ul>
-            <div class="pricing-footer">
-                {% if order == false %}
-                    <a href="{{ url_for('order.order_page', pack='free') }}" class="btn yellow-crusta">{{ _('Sign Up') }}</a>
-                {% else %}
-                    <button id="free" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
+    {% for subscription in subscriptions %}
+        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+            <div class="pricing {% if subscription['is_best'] == true %}pricing-active{% endif %} hover-effect">
+                {% if subscription['is_best'] == true %}
+                    <div class="price-badge"><span>{{ _('best pack') }}</span></div>
                 {% endif %}
+                <div class="pricing-head {% if subscription['is_best'] == true %}pricing-head-active{% endif %}">
+                    <h3>
+                        {{ subscription['name'] }}
+                        <span>{{ subscription['description'] }}</span>
+                    </h3>
+                    {% if subscription['bill_freq'] is not none %}
+                        <h4>
+                            <i>$</i>{{ subscription['price_per_month'] }}
+                            <span>{{ subscription['price_freq'] }}</span>
+                            <span class="small">({{ subscription['bill_freq'] }})</span>
+                        </h4>
+                    {% endif %}
+                </div>
+                <ul class="pricing-content list-unstyled">
+                    {% for feature in subscription['features'] %}
+                        <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
+                            <span
+                                {% if feature['tooltip'] is not none and feature['enabled'] == true %}
+                                    class="sub-feature-tooltip"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="{{ feature['tooltip'] }}"
+                                {% endif %}
+                            >
+                                {{ feature['name'] }}
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="pricing-footer">
+                    {% if order == false %}
+                        <a href="{{ url_for('order.order_page', pack='free') }}" class="btn yellow-crusta">
+                            {% if subscription['bill_freq'] is not none %}
+                                {{ _('Buy Now') }}
+                            {% else %}
+                                {{ _('Sign Up') }}
+                            {% endif %}
+                        </a>
+                    {% else %}
+                        <button id="free" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
+                    {% endif %}
+                    {% if subscription['bill_freq'] is not none %}
+                        <p class="small"><span class="old-price">${{ (subscription['old_price_per_month'] * subscription['billed_period_in_months'])|round(2) }}</span> ${{ (subscription['price_per_month'] * subscription['billed_period_in_months'])|round(2) }} {{ subscription['bill_freq'] }}</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
-        <div class="pricing hover-effect">
-            <div class="pricing-head">
-                <h3>{{ _('START PACK') }}
-                    <span> {{ _('Good pack to start!') }} </span>
-                </h3>
-                <h4>
-                    <i>$</i>8<i>.69</i>
-                    <span> {{ _('per month') }} </span>
-                    <span class="small">({{ _('billed monthly') }})</span>
-                </h4>
-            </div>
-            <ul class="pricing-content list-unstyled">
-                <li>
-                    <strong>3 </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number of countries where you can choose VPN server') }}">
-                        {{ _('Country') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>3 </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number of simultaneous connections') }}">
-                        {{ _('Connection') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('Speed') }}: </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Your connection will be on Low speed') }}">
-                        {{ _('Low') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('No Browsing') }} </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('We do not collect logs about your connection, which means you can browse the internet without any worry of being recorded') }}">
-                        {{ _('Logs Policy') }}
-                    </span>
-                </li>
-                <li>{{ _('Virus Protection') }}</li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('VPN client connects automatically to the fastest server available within few seconds') }}">
-                        {{ _('Fast Connect') }}
-                    </span>
-                    {{ _('Feature') }}
-                </li>
-                <li>
-                    <strong>{{ _('No') }}</strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('This pack has no support') }}">
-                        {{ _('support') }}
-                    </span>
-                </li>
-                <li>{{ _('Military Grade') }}
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Our servers use advanced 256-bit encryption to offer best protection for you!') }}">
-                        {{ _('256-Bit Encryption') }}
-                    </span>
-                </li>
-                <li>
-                    {{ _('Advanced') }}
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('We support multiple VPN security protocols for you to choose from to fulfill your needs and requirements') }}">
-                        {{ _('IPSec & IKEv2') }}
-                    </span>
-                    {{ _('Protocols') }}
-                </li>
-                <li class="no-feature">
-                    {{ _('Plus') }}
-                    <span class="sub-feature-tooltip">
-                        {{ _('Service') }}
-                    </span>
-                </li>
-                <li class="no-feature">
-                    <span class="sub-feature-tooltip">
-                        {{ _('Streaming Services') }}
-                    </span>
-                </li>
-            </ul>
-            <div class="pricing-footer">
-                {% if order == false %}
-                    <a href="{{ url_for('order.order_page', pack='start') }}" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
-                {% else %}
-                    <button id="start" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
-                {% endif %}
-                <p class="small">$8.69 {{ _('billed every month') }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
-        <div class="pricing pricing-active hover-effect">
-            <div class="price-badge"><span>{{ _('best pack') }}</span></div>
-            <div class="pricing-head pricing-head-active">
-                <h3>{{ _('NORMAL PACK') }}
-                    <span> {{ _('We know what you need!') }} </span>
-                </h3>
-                <h4><i>$</i>6<i>.25</i>
-                    <span> {{ _('per month') }} </span>
-                    <span class="small">({{ _('billed yearly') }})</span>
-                </h4>
-            </div>
-            <ul class="pricing-content list-unstyled">
-                <li>
-                    <strong>ALL </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number countries where you can choose VPN server') }}">
-                        {{ _('Country') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>5 </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number of simultaneous connections') }}">
-                        {{ _('Connection') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('Speed') }}: </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Your connection will be on High speed') }}">
-                        {{ _('High') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('No Browsing') }} </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('We do not collect logs about your connection, which means you can browse the internet without any worry of being recorded') }}">
-                    {{ _('Logs Policy') }}
-                </span>
-                </li>
-                <li>
-                    {{ _('Virus Protection') }}
-                </li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('VPN client connects automatically to the fastest server available within few seconds') }}">
-                        {{ _('Fast Connect') }}
-                    </span>
-                    {{ _('Feature') }}
-                </li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('This pack has support') }}">
-                        {{ _('Support') }}
-                    </span>
-                </li>
-                <li>
-                    {{ _('Military Grade') }}
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Our servers use advanced 256-bit encryption to offer best protection for you!') }}">
-                        {{ _('256-Bit Encryption') }}
-                    </span>
-                </li>
-                <li>
-                    {{ _('Advanced') }}
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('We support multiple VPN security protocols for you to choose from to fulfill your needs and requirements') }}">
-                        {{ _('IPSec & IKEv2') }}
-                    </span>
-                    {{ _('Protocols') }}
-                </li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Watch Netflix, Twitch, Youtube. Download torrents without restricts or limits') }}">
-                        {{ _('Streaming Services') }}
-                    </span>
-                </li>
-                <li class="no-feature">
-                    {{ _('Plus') }}
-                    <span class="sub-feature-tooltip">
-                        {{ _('Service') }}
-                    </span>
-                </li>
-            </ul>
-            <div class="pricing-footer">
-                {% if order == false %}
-                    <a href="{{ url_for('order.order_page', pack='normal') }}" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
-                {% else %}
-                    <button id="normal" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
-                {% endif %}
-                <p class="small"><span class="old-price">$125</span> $75 {{ _('billed every year') }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
-        <div class="pricing hover-effect">
-            <div class="pricing-head">
-                <h3>{{ _('PRO PACK') }}
-                    <span> {{ _('You know what you want!') }} </span>
-                </h3>
-                <h4><i>$</i>2<i>.25</i>
-                    <span> {{ _('per month') }} </span>
-                    <span class="small">({{ _('billed yearly') }})</span>
-                </h4>
-            </div>
-            <ul class="pricing-content list-unstyled">
-                <li>
-                    <strong>ALL </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number countries where you can choose VPN server') }}">
-                        {{ _('Countries') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>1 </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Number of simultaneous connections') }}">
-                        {{ _('Connection') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('Speed') }}: </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Your connection will be on the Highest speed') }}">
-                        {{ _('Highest') }}
-                    </span>
-                </li>
-                <li>
-                    <strong>{{ _('No Browsing') }} </strong>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('We do not collect logs about your connection, which means you can browse the internet without any worry of being recorded') }}">
-                        {{ _('Logs Policy') }}
-                    </span>
-                </li>
-                <li>
-                    {{ _('Virus Protection') }}
-                </li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('VPN client connects automatically to the fastest server available within few seconds') }}">
-                        {{ _('Fast Connect') }}
-                    </span>
-                    {{ _('Feature') }}
-                </li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('This pack has support') }}">
-                        {{ _('Support') }}
-                    </span>
-                </li>
-                <li>
-                    {{ _('Military Grade') }}
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Our servers use advanced 256-bit encryption to offer best protection for you!') }}">
-                        {{ _('256-Bit Encryption') }}
-                    </span>
-                </li>
-                <li>
-                    {{ _('Advanced') }}
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('We support multiple VPN security protocols for you to choose from to fulfill your needs and requirements') }}">
-                        {{ _('IPSec & IKEv2') }}
-                    </span>
-                    {{ _('Protocols') }}
-                </li>
-                <li>
-                    {{ _('Plus') }}
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Servers only available to VIP users with the highest speed') }}">
-                        {{ _('Service') }}
-                    </span>
-                </li>
-                <li>
-                    <span class="sub-feature-tooltip"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="{{ _('Watch Netflix, Twitch, Youtube. Download torrents without restricts or limits') }}">
-                        {{ _('Streaming Services') }}
-                    </span>
-                </li>
-            </ul>
-            <div class="pricing-footer">
-                {% if order == false %}
-                    <a href="{{ url_for('order.order_page', pack='pro') }}" class="btn yellow-crusta">{{ _('Buy Now') }}</a>
-                {% else %}
-                    <button id="pro" class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
-                {% endif %}
-                <p class="small"><span class="old-price">$76</span> $54 {{ _('billed every 2 years') }}</p>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
