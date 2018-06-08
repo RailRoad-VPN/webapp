@@ -1,131 +1,230 @@
 'use strict';
 
-// function scroll_to_class(element_class, removed_height) {
-//     var scroll_to = $(element_class).offset().top - removed_height;
-//     if ($(window).scrollTop() !== scroll_to) {
-//         $('html, body').stop().animate({scrollTop: scroll_to}, 0);
-//     }
-// }
-
-function bar_progress(progress_line_object, direction) {
-    var number_of_steps = progress_line_object.data('number-of-steps');
-    var now_value = progress_line_object.data('now-value');
+function bar_progress(direction) {
+    var $progressBar = $("#progress-bar");
+    var number_of_steps = $progressBar.data('number-of-steps');
+    var now_value = $progressBar.data('now-value');
     var new_value = 0;
     if (direction === 'right') {
         new_value = now_value + ( 100 / number_of_steps );
     } else if (direction === 'left') {
         new_value = now_value - ( 100 / number_of_steps );
     }
-    progress_line_object.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
+    $progressBar.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 
 $(document).ready(function () {
 
+    var emailCheckURL = $("meta#email_check_url").data("url");
+
     var $packInput = $("#pack_id");
+    var $emailInput = $("#email-input");
+    var $passwordInput = $("#password-input");
+    var $passwordConfirmInput = $("#repeat-password-input");
+
+    $(".form-group .error").hide();
 
     /*
      Form
      */
-    $('.f1 fieldset:first').fadeIn('slow');
-
-    $('.f1 input[type="text"], .f1 input[type="password"], .f1 textarea').on('focus', function () {
-        $(this).removeClass('input-error');
-    });
+    if (window.location.href.indexOf('pack=') !== -1) {
+        $("fieldset:first").fadeOut('fast');
+        goToStep('right', 'account');
+    } else {
+        $('.order-form fieldset:first').fadeIn('slow');
+    }
 
     // next step
-    $('.f1 .btn-next, .btn-checkout').on('click', function () {
-        var parent_fieldset = $(this).parents('fieldset');
-        var next_step = true;
-        // navigation steps / progress steps
-        var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-        var current_active_step_id = current_active_step.next().attr('id');
-        var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-
-        // fields validation
-        parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function () {
-            if ($(this).val() === "") {
-                $(this).addClass('input-error');
-                next_step = false;
-            }
-            else {
-                $(this).removeClass('input-error');
-            }
-        });
-        // fields validation
-
-        // business logic
-        if (current_active_step_id === 'pack') {
-            next_step = packToAccount();
-        } else if (current_active_step_id === 'account') {
-            next_step = accountToPayment();
-        } else if (current_active_step_id === 'payment') {
-            next_step = finish();
-        }
-        // business logic
-
-        if (next_step) {
-            parent_fieldset.fadeOut(400, function () {
-                // change icons
-                current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-                // progress bar
-                bar_progress(progress_line, 'right');
-                // show next step
-                $(this).next().fadeIn();
-                // scroll window to beginning of the form
-                scrollToTop();
-            });
-        }
+    $('.btn-next, .btn-checkout').on('click', function () {
+        goToStep('right');
     });
 
-    function packToAccount() {
+    // previous step
+    $('.order-form .btn-previous').on('click', function () {
+        goToStep('left');
+    });
+
+    // input focus
+    $('.order-form input[type="text"], .order-form input[type="password"], .order-form textarea').on('focus', function () {
+        markInput($(this), true);
+    });
+
+    $('input[type="text"], input[type="password"]').on('focus', function () {
+        $(this).parent().find('.error').hide();
+    });
+
+    // submit
+    $('.order-form').on('submit', function (e) {
+        alert('ORDER FORM SUBMITTED!');
+        e.preventDefault();
+    });
+
+    function goToStep(progress_direction, newStepId) {
+        var $currentStep = $('.order-form').find('.order-progress-step.active');
+        var currentStepId = $currentStep.data('id');
+
+        var is_allow_next_step = true;
+
+        if (!newStepId || newStepId === '') {
+            if (progress_direction === 'left') {
+                newStepId = $currentStep.prev().data('id');
+            } else {
+                $currentStep.addClass('activated');
+                newStepId = $currentStep.next().data('id');
+            }
+        } else {
+            $currentStep.addClass('activated');
+        }
+
+
+        if (progress_direction === 'right') {
+            is_allow_next_step = stepFieldSetValidation(currentStepId);
+
+            // business logic
+            if (currentStepId === 'pack') {
+                is_allow_next_step = packToAccount(this);
+            } else if (currentStepId === 'account') {
+                is_allow_next_step = accountToPayment();
+            } else if (currentStepId === 'payment') {
+                is_allow_next_step = finish();
+            }
+        }
+
+        if (!is_allow_next_step) {
+            return;
+        }
+
+        var $newStep = $('.order-progress-step[data-id="' + newStepId + '"]');
+        var $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
+        var $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
+
+        // hide new step fieldset
+        $currentStepFieldset.fadeOut(400, function () {
+            $currentStep.removeClass('active');
+            $newStep.addClass('active').removeClass('activated');
+            // progress bar
+            bar_progress(progress_direction);
+            // show new step fieldset
+            $newStepFieldset.fadeIn();
+            // scroll window to beginning of the form
+            scrollToTop();
+        });
+    }
+
+    function packToAccount(checkoutBtn) {
+        var subs_id = $(checkoutBtn).data('subscription_id');
+        $packInput.val(subs_id);
         return true;
     }
 
     function accountToPayment() {
-        return true;
+        var is_ok = checkPassword();
+        is_ok = checkRepeatPassword();
+        return is_ok;
     }
 
     function finish() {
         return true;
     }
 
-
-    // previous step
-    $('.f1 .btn-previous').on('click', function () {
-        // navigation steps / progress steps
-        var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-        var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-
-        $(this).parents('fieldset').fadeOut(400, function () {
-            // change icons
-            current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
-            // progress bar
-            bar_progress(progress_line, 'left');
-            // show previous step
-            $(this).prev().fadeIn();
-            // scroll window to beginning of the form
-            scrollToTop();
-        });
-    });
-
-    // submit
-    $('.f1').on('submit', function (e) {
-
-        // fields validation
-        $(this).find('input[type="text"], input[type="password"], textarea').each(function () {
+    function stepFieldSetValidation(currentStepId) {
+        var is_alllow = true;
+        $('fieldset[data-id="' + currentStepId + '"]').find('input[type="text"], input[type="password"]').each(function () {
             if ($(this).val() === "") {
-                e.preventDefault();
-                $(this).addClass('input-error');
-            }
-            else {
-                $(this).removeClass('input-error');
+                markInput($(this), false);
+                $(this).parent().find('.empty_error').show();
+                is_alllow = false;
+            } else {
+                markInput($(this), true);
+                $(this).parent().find('.empty_error').hide();
             }
         });
-        // fields validation
+        return is_alllow
+    }
 
+    $emailInput.on('focusout', function () {
+        checkEmail();
     });
 
-    if ($packInput.val() !== '') {
-        $("#pricing-pack").find("#" + $packInput.val()).find('.btn-checkout').click();
+    $passwordInput.on('focusout', function () {
+        checkPassword();
+        checkRepeatPassword();
+    });
+
+    $passwordConfirmInput.on('focusout', function () {
+        checkRepeatPassword();
+    });
+
+    function checkEmail() {
+        var emailVal = $.trim($emailInput.val());
+        if (emailVal === '') {
+            markInput($emailInput, false);
+            return false;
+        }
+
+        var type = 'GET';
+        var data = {
+            'email': emailVal,
+        };
+        var isAsync = true;
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && !response['success']) {
+                $emailInput.parent().find('.busy_error').show();
+                markInput($emailInput, false);
+            } else {
+                $emailInput.parent().find('.busy_error').hide();
+                markInput($emailInput, true);
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax(emailCheckURL, type, data, isAsync, successCallback, errorCallback)
+    }
+
+    function checkPassword() {
+        var pwd = $.trim($passwordInput.val());
+        var $pwdFormGroup = $passwordInput.parent();
+
+        if (pwd === '') {
+            $pwdFormGroup.find('.empty_error').show();
+            markInput($passwordInput, false);
+            return false;
+        } else if (pwd.length < 6) {
+            $pwdFormGroup.find('.short_error').show();
+            markInput($passwordInput, false);
+            return false;
+        } else {
+            $pwdFormGroup.find('.short_error').hide();
+            markInput($passwordInput, true);
+            return true;
+        }
+    }
+
+    function checkRepeatPassword() {
+        var pwd = $.trim($passwordInput.val());
+        var pwdConfirm = $.trim($passwordConfirmInput.val());
+
+
+        if (pwd !== pwdConfirm) {
+            markInput($(this), false);
+            $passwordConfirmInput.parent().find('.match_error').show();
+            return false;
+        } else {
+            markInput($(this), true);
+            $passwordConfirmInput.parent().find('.match_error').hide();
+            return true;
+        }
+    }
+
+    function markInput($input, is_valid) {
+        if (is_valid) {
+            $input.removeClass('is-invalid').addClass('is-valid');
+        } else {
+            $input.removeClass('is-valid').addClass('is-invalid');
+        }
     }
 });

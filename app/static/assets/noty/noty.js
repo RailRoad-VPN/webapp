@@ -1162,7 +1162,7 @@
 
                                 try {
                                     for (var _iterator = registrations[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                                        var registration = _step.value;
+                                        var registration = _step.code;
 
                                         registration.unregister();
                                         self.fire('onSubscriptionCancel');

@@ -34,9 +34,9 @@
             <div class="card card-container">
                 <p class="login-header">{{ _('Log in') }}</p>
                 <form id="login-form" class="form-signin" action="{{ url_for('auth.signin') }}" method="POST">
-                    <input type="email" id="email-input" name="email" class="form-control"
+                    <input type="email" id="email_input" name="email" class="form-control"
                            placeholder="{{ _('Email address') }}" required autofocus>
-                    <input type="password" id="password-input" name="password" class="form-control"
+                    <input type="password" id="password_input" name="password" class="form-control"
                            placeholder="{{ _('Password') }}" required>
                     <button class="btn btn-lg btn-block btn-signin" type="submit">{{ _('Log In') }}</button>
                 </form>

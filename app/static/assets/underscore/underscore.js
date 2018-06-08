@@ -268,7 +268,7 @@
             var computed = iterator ? iterator.call(context, value, index, list) : value;
             computed >= result.computed && (result = {value: value, computed: computed});
         });
-        return result.value;
+        return result.code;
     };
 
     // Return the minimum element (or element-based computation).
@@ -282,7 +282,7 @@
             var computed = iterator ? iterator.call(context, value, index, list) : value;
             computed < result.computed && (result = {value: value, computed: computed});
         });
-        return result.value;
+        return result.code;
     };
 
     // Shuffle an array.
@@ -372,7 +372,7 @@
         if (!obj) return [];
         if (_.isArray(obj)) return slice.call(obj);
         if (obj.length === +obj.length) return _.map(obj, _.identity);
-        return _.values(obj);
+        return _.codes(obj);
     };
 
     // Return the number of elements in an object.
@@ -743,7 +743,7 @@
         };
 
     // Retrieve the values of an object's properties.
-    _.values = function (obj) {
+    _.codes = function (obj) {
         var values = [];
         for (var key in obj) if (_.has(obj, key)) values.push(obj[key]);
         return values;

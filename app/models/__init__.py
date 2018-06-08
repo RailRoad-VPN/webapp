@@ -37,7 +37,7 @@ class AjaxResponse(object):
         errors_dict = {}
         if self.errors is not None:
             for ob in self.errors:
-                errors_dict[ob.error_code] = ob.serialize()
+                errors_dict[ob.code] = ob.serialize()
         return {
             'success': self.success,
             'data': self.data,
@@ -46,18 +46,18 @@ class AjaxResponse(object):
 
 
 class AjaxError(object):
-    error = None
-    error_code = None
+    code = None
+    message = None
     developer_message = None
 
-    def __init__(self, error: str, error_code: int, developer_message: str = None):
-        self.error = error
-        self.error_code = error_code
+    def __init__(self, code: str, message: str, developer_message: str = None):
+        self.code = code
+        self.message = message
         self.developer_message = developer_message
 
     def serialize(self):
         return {
-            'error': self.error,
-            'error_code': self.error_code,
+            'code': self.code,
+            'message': self.message,
             'developer_message': self.developer_message,
         }

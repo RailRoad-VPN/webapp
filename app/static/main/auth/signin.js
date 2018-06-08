@@ -1,10 +1,11 @@
 'use strict';
 
 $(document).ready(function () {
-    $("#login-form").on('submit', function (e) {
+    var $loginForm = $("#login-form");
+
+    $loginForm.on('submit', function (e) {
         e.preventDefault(); // prevent native submit
         var that = this;
-        // showLoader(function () {
         $(that).ajaxSubmit({
             success: function (response) {
                 // hideLoader();
@@ -15,24 +16,15 @@ $(document).ready(function () {
                         window.location = "/"
                     }
                 } else {
-                    var errors = response['errors'];
-                    Object.keys(errors).forEach(function (error_code) {
-                        var error = errors[error_code];
-                        if (error.hasOwnProperty('error')) {
-                            notyError(error['error']);
-                        }
-                        if (error.hasOwnProperty('developer_message')) {
-                            console.log(error['developer_message']);
-                        }
-                    });
+                    if (response.hasOwnProperty('errors')) {
+                        showErrors(response);
+                    }
                 }
             },
             error: function (response) {
-                // hideLoader();
                 console.log(JSON.stringify(response));
                 notyError("error");
             }
         })
-        // });
     });
 });

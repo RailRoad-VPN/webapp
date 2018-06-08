@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-05 12:15+0300\n"
+"POT-Creation-Date: 2018-06-06 19:57+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,17 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/models/exception.py:13
+#: app/models/exception.py:28
 msgid "Internal Server Error"
 msgstr ""
 
-#: app/models/exception.py:15 app/models/exception.py:17
-#: app/models/exception.py:18
+#: app/models/exception.py:28 app/models/exception.py:30
+#: app/models/exception.py:31 app/models/exception.py:32
+#: app/models/exception.py:33
+msgid "d"
+msgstr ""
+
+#: app/models/exception.py:30 app/models/exception.py:32
+#: app/models/exception.py:33
 msgid "Unable to log in. Please check the login details."
 msgstr ""
 
-#: app/models/exception.py:16
-msgid "Email is busy."
+#: app/models/exception.py:31 app/templates/index/order.html:79
+msgid "Entered email is busy"
 msgstr ""
 
 #: app/templates/auth/signin.html:35
@@ -39,7 +45,8 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: app/templates/auth/signin.html:40
+#: app/templates/auth/signin.html:40 app/templates/index/order.html:83
+#: app/templates/index/order.html:85
 msgid "Password"
 msgstr ""
 
@@ -131,6 +138,15 @@ msgstr ""
 msgid "Pricing"
 msgstr ""
 
+#: app/templates/index/order.html:39
+#: app/templates/partials/pricing-packs.html:50
+msgid "Sign Up"
+msgstr ""
+
+#: app/templates/index/order.html:40
+msgid "Build your own railroad in 3 easy steps"
+msgstr ""
+
 #: app/templates/index/order.html:48
 msgid "pack"
 msgstr ""
@@ -141,6 +157,46 @@ msgstr ""
 
 #: app/templates/index/order.html:56
 msgid "payment"
+msgstr ""
+
+#: app/templates/index/order.html:70
+msgid "CREATE ACCOUNT"
+msgstr ""
+
+#: app/templates/index/order.html:72 app/templates/index/order.html:73
+msgid "Email"
+msgstr ""
+
+#: app/templates/index/order.html:76
+msgid "Enter email please"
+msgstr ""
+
+#: app/templates/index/order.html:89
+msgid "Enter password please"
+msgstr ""
+
+#: app/templates/index/order.html:92
+msgid "Entered password too short. Minimum length 6 chars"
+msgstr ""
+
+#: app/templates/index/order.html:96 app/templates/index/order.html:98
+msgid "Verify password"
+msgstr ""
+
+#: app/templates/index/order.html:102
+msgid "Enter password again to verify it"
+msgstr ""
+
+#: app/templates/index/order.html:106
+msgid "Entered passwords does not match"
+msgstr ""
+
+#: app/templates/index/order.html:111
+msgid "Previous"
+msgstr ""
+
+#: app/templates/index/order.html:112
+msgid "Next"
 msgstr ""
 
 #: app/templates/partials/layout.html:126
@@ -155,95 +211,95 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: app/templates/partials/layout.html:248
+#: app/templates/partials/layout.html:249
 msgid "PRODUCTS"
 msgstr ""
 
-#: app/templates/partials/layout.html:250
+#: app/templates/partials/layout.html:251
 msgid "VPN for Windows"
 msgstr ""
 
-#: app/templates/partials/layout.html:251
+#: app/templates/partials/layout.html:252
 msgid "VPN for iOS"
 msgstr ""
 
-#: app/templates/partials/layout.html:252
+#: app/templates/partials/layout.html:253
 msgid "VPN for Android"
 msgstr ""
 
-#: app/templates/partials/layout.html:253
+#: app/templates/partials/layout.html:254
 msgid "VPN for macOS"
 msgstr ""
 
-#: app/templates/partials/layout.html:257
+#: app/templates/partials/layout.html:258
 msgid "TUTORIALS"
 msgstr ""
 
-#: app/templates/partials/layout.html:259
+#: app/templates/partials/layout.html:260
 msgid "How to use VPN?"
 msgstr ""
 
-#: app/templates/partials/layout.html:260
+#: app/templates/partials/layout.html:261
 msgid "Why I need VPN?"
 msgstr ""
 
-#: app/templates/partials/layout.html:261
+#: app/templates/partials/layout.html:262
 msgid "Which VPN to choose?"
 msgstr ""
 
-#: app/templates/partials/layout.html:262
+#: app/templates/partials/layout.html:263
 msgid "Why VPN is dangerous?"
 msgstr ""
 
-#: app/templates/partials/layout.html:266
+#: app/templates/partials/layout.html:267
 msgid "INFORMATION"
 msgstr ""
 
-#: app/templates/partials/layout.html:268
+#: app/templates/partials/layout.html:269
 msgid "About us"
 msgstr ""
 
-#: app/templates/partials/layout.html:269
+#: app/templates/partials/layout.html:270
 msgid "Plans and Pricing"
 msgstr ""
 
-#: app/templates/partials/layout.html:270
+#: app/templates/partials/layout.html:271
 msgid "Support"
 msgstr ""
 
-#: app/templates/partials/layout.html:271
+#: app/templates/partials/layout.html:272
 msgid "Partnership"
 msgstr ""
 
-#: app/templates/partials/layout.html:272
+#: app/templates/partials/layout.html:273
 msgid "FAQ"
 msgstr ""
 
-#: app/templates/partials/layout.html:276
+#: app/templates/partials/layout.html:277
 msgid "SOCIAL"
 msgstr ""
 
-#: app/templates/partials/layout.html:278
+#: app/templates/partials/layout.html:279
 msgid "Facebook"
 msgstr ""
 
-#: app/templates/partials/layout.html:279
+#: app/templates/partials/layout.html:280
 msgid "Vkontakte"
 msgstr ""
 
-#: app/templates/partials/layout.html:280
+#: app/templates/partials/layout.html:281
 msgid "Twitter"
 msgstr ""
 
-#: app/templates/partials/layout.html:281
+#: app/templates/partials/layout.html:282
 msgid "YouTube"
 msgstr ""
 
-#: app/templates/partials/layout.html:293
+#: app/templates/partials/layout.html:294
 msgid "Privacy Policy"
 msgstr ""
 
-#: app/templates/partials/layout.html:296
+#: app/templates/partials/layout.html:297
 msgid "Terms Of Service"
 msgstr ""
 
@@ -255,10 +311,10 @@ msgstr ""
 msgid "Buy Now"
 msgstr ""
 
-#: app/templates/partials/pricing-packs.html:50
-msgid "Sign Up"
-msgstr ""
-
 #: app/templates/partials/pricing-packs.html:54
 msgid "Checkout"
 msgstr ""
+
+#~ msgid "Email is busy."
+#~ msgstr ""
+

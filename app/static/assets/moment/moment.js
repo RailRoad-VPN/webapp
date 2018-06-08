@@ -75,7 +75,7 @@
         }
 
         if (hasOwnProp(b, 'valueOf')) {
-            a.valueOf = b.valueOf;
+            a.codeOf = b.codeOf;
         }
 
         return a;
@@ -2454,7 +2454,7 @@
         if (input === undefined) {
             config._d = new Date(hooks.now());
         } else if (isDate(input)) {
-            config._d = new Date(input.valueOf());
+            config._d = new Date(input.codeOf());
         } else if (typeof input === 'string') {
             configFromString(config);
         } else if (isArray(input)) {
@@ -2664,9 +2664,9 @@
         var res, diff;
         if (model._isUTC) {
             res = model.clone();
-            diff = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
+            diff = (isMoment(input) || isDate(input) ? input.codeOf() : createLocal(input).codeOf()) - res.codeOf();
             // Use low-level api, because this fn is low-level api.
-            res._d.setTime(res._d.valueOf() + diff);
+            res._d.setTime(res._d.codeOf() + diff);
             hooks.updateOffset(res, false);
             return res;
         } else {
@@ -2976,7 +2976,7 @@
         updateOffset = updateOffset == null ? true : updateOffset;
 
         if (milliseconds) {
-            mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
+            mom._d.setTime(mom._d.codeOf() + milliseconds * isAdding);
         }
         if (days) {
             set$1(mom, 'Date', get(mom, 'Date') + days * isAdding);
@@ -3025,9 +3025,9 @@
         }
         units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
         if (units === 'millisecond') {
-            return this.valueOf() > localInput.valueOf();
+            return this.codeOf() > localInput.codeOf();
         } else {
-            return localInput.valueOf() < this.clone().startOf(units).valueOf();
+            return localInput.codeOf() < this.clone().startOf(units).codeOf();
         }
     }
 
@@ -3038,9 +3038,9 @@
         }
         units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
         if (units === 'millisecond') {
-            return this.valueOf() < localInput.valueOf();
+            return this.codeOf() < localInput.codeOf();
         } else {
-            return this.clone().endOf(units).valueOf() < localInput.valueOf();
+            return this.clone().endOf(units).codeOf() < localInput.codeOf();
         }
     }
 
@@ -3058,10 +3058,10 @@
         }
         units = normalizeUnits(units || 'millisecond');
         if (units === 'millisecond') {
-            return this.valueOf() === localInput.valueOf();
+            return this.codeOf() === localInput.codeOf();
         } else {
-            inputMs = localInput.valueOf();
-            return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
+            inputMs = localInput.codeOf();
+            return this.clone().startOf(units).codeOf() <= inputMs && inputMs <= this.clone().endOf(units).codeOf();
         }
     }
 
@@ -3304,15 +3304,15 @@
     }
 
     function valueOf() {
-        return this._d.valueOf() - ((this._offset || 0) * 60000);
+        return this._d.codeOf() - ((this._offset || 0) * 60000);
     }
 
     function unix() {
-        return Math.floor(this.valueOf() / 1000);
+        return Math.floor(this.codeOf() / 1000);
     }
 
     function toDate() {
-        return new Date(this.valueOf());
+        return new Date(this.codeOf());
     }
 
     function toArray() {
@@ -3696,7 +3696,7 @@
     proto.toJSON = toJSON;
     proto.toString = toString;
     proto.unix = unix;
-    proto.valueOf = valueOf;
+    proto.codeOf = valueOf;
     proto.creationData = creationData;
 
 // Year
@@ -4246,7 +4246,7 @@
     proto$2.asWeeks = asWeeks;
     proto$2.asMonths = asMonths;
     proto$2.asYears = asYears;
-    proto$2.valueOf = valueOf$1;
+    proto$2.codeOf = valueOf$1;
     proto$2._bubble = bubble;
     proto$2.get = get$2;
     proto$2.milliseconds = milliseconds;

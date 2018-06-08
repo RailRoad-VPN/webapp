@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-05 12:15+0300\n"
+"POT-Creation-Date: 2018-06-06 19:57+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,18 +19,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/models/exception.py:13
+#: app/models/exception.py:28
 msgid "Internal Server Error"
 msgstr "Внутренняя ошибка сервера"
 
-#: app/models/exception.py:15 app/models/exception.py:17
-#: app/models/exception.py:18
+#: app/models/exception.py:28 app/models/exception.py:30
+#: app/models/exception.py:31 app/models/exception.py:32
+#: app/models/exception.py:33
+msgid "d"
+msgstr ""
+
+#: app/models/exception.py:30 app/models/exception.py:32
+#: app/models/exception.py:33
 msgid "Unable to log in. Please check the login details."
 msgstr "Невозможно войти. Пожалуйста проверье данные для входа."
 
-#: app/models/exception.py:16
-msgid "Email is busy."
-msgstr "Данный email занят"
+#: app/models/exception.py:31 app/templates/index/order.html:79
+msgid "Entered email is busy"
+msgstr "Введенный электронный адрес занят"
 
 #: app/templates/auth/signin.html:35
 msgid "Log in"
@@ -40,7 +46,8 @@ msgstr "Вход"
 msgid "Email address"
 msgstr "Email адресс"
 
-#: app/templates/auth/signin.html:40
+#: app/templates/auth/signin.html:40 app/templates/index/order.html:83
+#: app/templates/index/order.html:85
 msgid "Password"
 msgstr "Пароль"
 
@@ -117,7 +124,7 @@ msgstr "Создай свою собственную сеть в сети Инт
 #: app/templates/index/index.html:103 app/templates/index/order.html:62
 #: app/templates/index/pricing.html:32
 msgid "CHOOSE YOUR PACK"
-msgstr "ВЫБЕРИТЕ СВОЙ ПАК"
+msgstr "ВЫБЕРИТЕ СВОЙ ПЛАН"
 
 #: app/templates/index/index.html:115
 msgid "You can download for free on the preview page."
@@ -132,9 +139,18 @@ msgstr "Перейти на страницу скачивания"
 msgid "Pricing"
 msgstr "Купить"
 
+#: app/templates/index/order.html:39
+#: app/templates/partials/pricing-packs.html:50
+msgid "Sign Up"
+msgstr "Получить"
+
+#: app/templates/index/order.html:40
+msgid "Build your own railroad in 3 easy steps"
+msgstr "Постройте свою железную дорогу в 3 простых шага"
+
 #: app/templates/index/order.html:48
 msgid "pack"
-msgstr "пак"
+msgstr "план"
 
 #: app/templates/index/order.html:52
 msgid "account"
@@ -143,6 +159,46 @@ msgstr "аккаунт"
 #: app/templates/index/order.html:56
 msgid "payment"
 msgstr "платеж"
+
+#: app/templates/index/order.html:70
+msgid "CREATE ACCOUNT"
+msgstr "СОЗДАЙТЕ АККАУНТ"
+
+#: app/templates/index/order.html:72 app/templates/index/order.html:73
+msgid "Email"
+msgstr "Электронная почта"
+
+#: app/templates/index/order.html:76
+msgid "Enter email please"
+msgstr "Введите электронную почту пожалуйста"
+
+#: app/templates/index/order.html:89
+msgid "Enter password please"
+msgstr "Введите пароль пожалуйста"
+
+#: app/templates/index/order.html:92
+msgid "Entered password too short. Minimum length 6 chars"
+msgstr "Введенный пароль слишком короткий. Минимальная длина 6 символов"
+
+#: app/templates/index/order.html:96 app/templates/index/order.html:98
+msgid "Verify password"
+msgstr "Подтвердите пароль"
+
+#: app/templates/index/order.html:102
+msgid "Enter password again to verify it"
+msgstr "Введите пароль еще раз"
+
+#: app/templates/index/order.html:106
+msgid "Entered passwords does not match"
+msgstr "Введенные пароли не совпадают"
+
+#: app/templates/index/order.html:111
+msgid "Previous"
+msgstr "Назад"
+
+#: app/templates/index/order.html:112
+msgid "Next"
+msgstr "Дальше"
 
 #: app/templates/partials/layout.html:126
 msgid "Contact"
@@ -156,95 +212,95 @@ msgstr "Мой аккаунт"
 msgid "Logout"
 msgstr "Выйти"
 
-#: app/templates/partials/layout.html:248
+#: app/templates/partials/layout.html:249
 msgid "PRODUCTS"
 msgstr "ПРОДУКТЫ"
 
-#: app/templates/partials/layout.html:250
+#: app/templates/partials/layout.html:251
 msgid "VPN for Windows"
 msgstr "VPN для Windows"
 
-#: app/templates/partials/layout.html:251
+#: app/templates/partials/layout.html:252
 msgid "VPN for iOS"
 msgstr "VPN для iOS"
 
-#: app/templates/partials/layout.html:252
+#: app/templates/partials/layout.html:253
 msgid "VPN for Android"
 msgstr "VPN для Android"
 
-#: app/templates/partials/layout.html:253
+#: app/templates/partials/layout.html:254
 msgid "VPN for macOS"
 msgstr "VPN для macOS"
 
-#: app/templates/partials/layout.html:257
+#: app/templates/partials/layout.html:258
 msgid "TUTORIALS"
 msgstr "РУКОВОДСТВА"
 
-#: app/templates/partials/layout.html:259
+#: app/templates/partials/layout.html:260
 msgid "How to use VPN?"
 msgstr "Как использовать VPN?"
 
-#: app/templates/partials/layout.html:260
+#: app/templates/partials/layout.html:261
 msgid "Why I need VPN?"
 msgstr "Зачем мне нужен VPN?"
 
-#: app/templates/partials/layout.html:261
+#: app/templates/partials/layout.html:262
 msgid "Which VPN to choose?"
 msgstr "Какой VPN использовать?"
 
-#: app/templates/partials/layout.html:262
+#: app/templates/partials/layout.html:263
 msgid "Why VPN is dangerous?"
 msgstr "Почему VPN это опасно?"
 
-#: app/templates/partials/layout.html:266
+#: app/templates/partials/layout.html:267
 msgid "INFORMATION"
 msgstr "ИНФОРМАЦИЯ"
 
-#: app/templates/partials/layout.html:268
+#: app/templates/partials/layout.html:269
 msgid "About us"
 msgstr "О нас"
 
-#: app/templates/partials/layout.html:269
+#: app/templates/partials/layout.html:270
 msgid "Plans and Pricing"
 msgstr "Планы и цены"
 
-#: app/templates/partials/layout.html:270
+#: app/templates/partials/layout.html:271
 msgid "Support"
 msgstr "Поддержка"
 
-#: app/templates/partials/layout.html:271
+#: app/templates/partials/layout.html:272
 msgid "Partnership"
 msgstr "Партнерство"
 
-#: app/templates/partials/layout.html:272
+#: app/templates/partials/layout.html:273
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: app/templates/partials/layout.html:276
+#: app/templates/partials/layout.html:277
 msgid "SOCIAL"
 msgstr "СОЦИАЛЬНЫЕ СЕТИ"
 
-#: app/templates/partials/layout.html:278
+#: app/templates/partials/layout.html:279
 msgid "Facebook"
 msgstr ""
 
-#: app/templates/partials/layout.html:279
+#: app/templates/partials/layout.html:280
 msgid "Vkontakte"
 msgstr "Вконтакте"
 
-#: app/templates/partials/layout.html:280
+#: app/templates/partials/layout.html:281
 msgid "Twitter"
 msgstr "Твиттер"
 
-#: app/templates/partials/layout.html:281
+#: app/templates/partials/layout.html:282
 msgid "YouTube"
 msgstr ""
 
-#: app/templates/partials/layout.html:293
+#: app/templates/partials/layout.html:294
 msgid "Privacy Policy"
 msgstr "Политика Конфиденциальности"
 
-#: app/templates/partials/layout.html:296
+#: app/templates/partials/layout.html:297
 msgid "Terms Of Service"
 msgstr "Условия использования"
 
@@ -256,10 +312,7 @@ msgstr "лучший выбор"
 msgid "Buy Now"
 msgstr "Купить"
 
-#: app/templates/partials/pricing-packs.html:50
-msgid "Sign Up"
-msgstr "Получить"
-
 #: app/templates/partials/pricing-packs.html:54
 msgid "Checkout"
 msgstr "Выбрать"
+

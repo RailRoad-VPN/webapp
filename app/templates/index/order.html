@@ -28,70 +28,105 @@
 {% endblock %}
 
 {% block meta %}
-
+    <meta id="email_check_url" data-url="{{ url_for('auth.is_email_busy') }}">
 {% endblock %}
 
 {% block body %}
     <div id="order-form-container" class="container content-section" style="padding-top: 50px;">
         <div class="row text-center justify-content-center">
             <div class="form-box">
-                <form role="form" action="" method="POST" class="f1">
-                    <h3>{{ _('Sign Up') }}</h3>
+                <form class="order-form" role="form" action="{{ url_for('order.order') }}" method="POST">
+                    <h3>{{ _('Order') }}
+                        <small>#123</small>
+                    </h3>
                     <p>{{ _('Build your own railroad in 3 easy steps') }}</p>
-                    <div class="f1-steps">
-                        <div class="f1-progress">
-                            <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3"
+                    <div class="order-steps">
+                        <div class="order-progress">
+                            <div id="progress-bar" class="order-progress-line" data-now-value="16.66"
+                                 data-number-of-steps="3"
                                  style="width: 16.66%;"></div>
                         </div>
-                        <div id="pack" class="f1-step active">
-                            <div class="f1-step-icon"><i class="fa fa-cube"></i></div>
+                        <div id="pack-step" class="order-progress-step active" data-id="pack">
+                            <div class="order-progress-step-icon"><i class="fa fa-cube"></i></div>
                             <p>{{ _('pack') }}</p>
                         </div>
-                        <div id="account" class="f1-step">
-                            <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                        <div id="account-step" class="order-progress-step " data-id="account">
+                            <div class="order-progress-step-icon"><i class="fa fa-user"></i></div>
                             <p>{{ _('account') }}</p>
                         </div>
-                        <div id="payment" class="f1-step">
-                            <div class="f1-step-icon"><i class="fa fa-credit-card"></i></div>
+                        <div id="payment-step" class="order-progress-step " data-id="payment">
+                            <div class="order-progress-step-icon"><i class="fa fa-credit-card"></i></div>
                             <p>{{ _('payment') }}</p>
                         </div>
                     </div>
 
-                    <fieldset id="pricing">
-                        <input id="pack_id" type="hidden" name="pack" value="{{ pack }}">
+                    <fieldset id="pack-fieldset" data-id="pack">
+                        <input id="subscription-id" type="hidden" name="pack" value="{{ pack }}">
                         <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
                         {% with order=true %}
                             {% include 'partials/pricing-packs.html' %}
                         {% endwith %}
                     </fieldset>
 
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-12 form-group">
-                                <label class="sr-only" for="f1-email">Email</label>
-                                <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control"
-                                       id="f1-email">
+                    <fieldset id="account-fieldset" class="container" data-id="account">
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xl-4 col-xs-12 justify-content-center offset-lg-4 offset-lx-4 text-center">
+                            <h2 class="text-center text-dark"
+                                style="margin-bottom: 100px;">{{ _('CREATE ACCOUNT') }}</h2>
+                            <div class="form-group">
+                                <label class="sr-only" for="email">{{ _('Email') }}</label>
+                                <input id="email-input" type="text" name="email" placeholder="{{ _('Email') }}..."
+                                       autocomplete="email"
+                                       class="order-form-email form-control">
+                                <div class="col-12 error small empty_error">
+                                    <i class="fa fa-exclamation-triangle"></i> {{ _('Enter email please') }}
+                                </div>
+                                <div class="col-12 error small busy_error">
+                                    <i class="fa fa-exclamation-triangle"></i> {{ _('Entered email is busy') }}
+                                </div>
                             </div>
-                            <div class="col-12 form-group">
-                                <label class="sr-only" for="f1-password">Password</label>
-                                <input type="password" name="f1-password" placeholder="Password..."
-                                       class="f1-password form-control" id="f1-password">
+                            <div class="form-group">
+                                <label class="sr-only" for="password">{{ _('Password') }}</label>
+                                <input id="password-input" type="password" name="password"
+                                       placeholder="{{ _('Password') }}..."
+                                       autocomplete="new-password"
+                                       class="order-form-password form-control">
+                                <div class="col-12 error small empty_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Enter password please') }}</div>
+                                <div class="col-12 error small short_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Entered password too short. Minimum length 6 chars') }}
+                                </div>
                             </div>
-                            <div class="col-12 form-group">
-                                <label class="sr-only" for="f1-repeat-password">Verify password</label>
-                                <input type="password" name="f1-repeat-password" placeholder="Verify password..."
-                                       class="f1-repeat-password form-control" id="f1-repeat-password">
+                            <div class="form-group">
+                                <label class="sr-only" for="repeat-password">{{ _('Verify password') }}</label>
+                                <input id="repeat-password-input" type="password" name="repeat-password"
+                                       placeholder="{{ _('Verify password') }}..."
+                                       autocomplete="new-password"
+                                       class="order-form-repeat-password form-control">
+                                <div class="col-12 error small empty_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Enter password again to verify it') }}
+                                </div>
+                                <div class="col-12 error small match_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Entered passwords does not match') }}
+                                </div>
                             </div>
-                            <div class="col-12 f1-buttons">
-                                <button type="button" class="btn btn-previous">Previous</button>
-                                <button type="button" class="btn btn-next">Next</button>
-                            </div>
+                        </div>
+                        <div class="form-group order-form-buttons text-center">
+                            <button type="button" class="btn btn-previous">{{ _('Previous') }}</button>
+                            <button type="button" class="btn btn-next">{{ _('Next') }}</button>
                         </div>
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset id="payment-fieldset" data-id="payment">
                         <div class="row">
                             <div class="col-12"></div>
+                        </div>
+                        <div class="form-group order-form-buttons text-center">
+                            <button type="button" class="btn btn-previous">{{ _('Previous') }}</button>
+                            <button type="button" class="btn btn-next">{{ _('Next') }}</button>
                         </div>
                     </fieldset>
 
