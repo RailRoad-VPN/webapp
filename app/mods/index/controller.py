@@ -62,7 +62,8 @@ def pricing_page():
     subscriptions = None
     try:
         subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
-    except APIException:pass
+    except APIException:
+        pass
 
     return render_template('index/pricing.html', code=200, subscriptions=subscriptions)
 

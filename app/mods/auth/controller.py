@@ -1,4 +1,4 @@
-import hashlib
+import logging
 import logging
 import sys
 import uuid

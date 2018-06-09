@@ -69,48 +69,61 @@
                     </fieldset>
 
                     <fieldset id="account-fieldset" class="container" data-id="account">
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-xl-4 col-xs-12 justify-content-center offset-lg-4 offset-lx-4 text-center">
-                            <h2 class="text-center text-dark"
-                                style="margin-bottom: 100px;">{{ _('CREATE ACCOUNT') }}</h2>
-                            <div class="form-group">
-                                <label class="sr-only" for="email">{{ _('Email') }}</label>
-                                <input id="email-input" type="text" name="email" placeholder="{{ _('Email') }}..."
-                                       autocomplete="email"
-                                       class="order-form-email form-control">
-                                <div class="col-12 error small empty_error">
-                                    <i class="fa fa-exclamation-triangle"></i> {{ _('Enter email please') }}
-                                </div>
-                                <div class="col-12 error small busy_error">
-                                    <i class="fa fa-exclamation-triangle"></i> {{ _('Entered email is busy') }}
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make
+                                            up
+                                            the bulk of the card's content.</p>
+                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="password">{{ _('Password') }}</label>
-                                <input id="password-input" type="password" name="password"
-                                       placeholder="{{ _('Password') }}..."
-                                       autocomplete="new-password"
-                                       class="order-form-password form-control">
-                                <div class="col-12 error small empty_error">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    {{ _('Enter password please') }}</div>
-                                <div class="col-12 error small short_error">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    {{ _('Entered password too short. Minimum length 6 chars') }}
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-xl-4 col-xs-12 justify-content-center text-center">
+                                <h2 class="text-center text-dark"
+                                    style="margin-bottom: 100px;">{{ _('CREATE ACCOUNT') }}</h2>
+                                <div class="form-group">
+                                    <label class="sr-only" for="email">{{ _('Email') }}</label>
+                                    <input id="email-input" type="text" name="email" placeholder="{{ _('Email') }}..."
+                                           autocomplete="email" class="order-form-email form-control">
+                                    <div class="col-12 error small empty_error">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ _('Enter email please') }}
+                                    </div>
+                                    <div class="col-12 error small busy_error">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ _('Entered email is busy') }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="repeat-password">{{ _('Verify password') }}</label>
-                                <input id="repeat-password-input" type="password" name="repeat-password"
-                                       placeholder="{{ _('Verify password') }}..."
-                                       autocomplete="new-password"
-                                       class="order-form-repeat-password form-control">
-                                <div class="col-12 error small empty_error">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    {{ _('Enter password again to verify it') }}
+                                <div class="form-group">
+                                    <label class="sr-only" for="password">{{ _('Password') }}</label>
+                                    <input id="password-input" type="password" name="password"
+                                           placeholder="{{ _('Password') }}..."
+                                           autocomplete="new-password" class="order-form-password form-control">
+                                    <div class="col-12 error small empty_error">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ _('Enter password please') }}
+                                    </div>
+                                    <div class="col-12 error small short_error">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ _('Entered password too short. Minimum length 6 chars') }}
+                                    </div>
                                 </div>
-                                <div class="col-12 error small match_error">
-                                    <i class="fa fa-exclamation-triangle"></i>
-                                    {{ _('Entered passwords does not match') }}
+                                <div class="form-group">
+                                    <label class="sr-only" for="repeat-password">{{ _('Verify password') }}</label>
+                                    <input id="repeat-password-input" type="password" name="repeat-password"
+                                           placeholder="{{ _('Verify password') }}..."  autocomplete="new-password"
+                                           class="order-form-repeat-password form-control">
+                                    <div class="col-12 error small empty_error">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ _('Enter password again to verify it') }}
+                                    </div>
+                                    <div class="col-12 error small match_error">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ _('Entered passwords does not match') }}
+                                    </div>
                                 </div>
                             </div>
                         </div>

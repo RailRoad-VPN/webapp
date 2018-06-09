@@ -24,9 +24,7 @@ $(document).ready(function () {
 
     $(".form-group .error").hide();
 
-    /*
-     Form
-     */
+    // check chosen pack
     if (window.location.href.indexOf('pack=') !== -1) {
         $("fieldset:first").fadeOut('fast');
         goToStep('right', 'account');

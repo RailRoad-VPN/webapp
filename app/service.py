@@ -6,7 +6,6 @@ from response import APIResponse, APIResponseStatus
 
 
 class RRNUsersAPIService(RESTService):
-
     def __init__(self, api_url: str, resource_name: str):
         super().__init__(api_url=api_url, resource_name=resource_name)
 
@@ -32,7 +31,6 @@ class RRNUsersAPIService(RESTService):
 
 
 class RRNBillingAPIService(RESTService):
-
     def __init__(self, api_url: str, resource_name: str):
         super().__init__(api_url=api_url, resource_name=resource_name)
 

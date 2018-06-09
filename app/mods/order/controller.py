@@ -9,7 +9,6 @@ from flask import Blueprint, request, render_template, \
 from app import rrn_billing_service, DFNError, rrn_user_service
 from app.models import AjaxResponse, AjaxError
 from auth.controller import authorize_user
-from response import APIResponse, APIResponseStatus
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
