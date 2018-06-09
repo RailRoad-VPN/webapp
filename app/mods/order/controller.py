@@ -6,9 +6,10 @@ from http import HTTPStatus
 from flask import Blueprint, request, render_template, \
     session, jsonify
 
-from app import rrn_billing_service, DFNError, rrn_user_service
+from app import rrn_billing_service, rrn_user_service
 from app.models import AjaxResponse, AjaxError
 from auth.controller import authorize_user
+from app.models.exception import DFNError
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
