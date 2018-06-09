@@ -61,7 +61,8 @@
                     </div>
 
                     <fieldset id="pack-fieldset" data-id="pack">
-                        <input id="subscription-id" type="hidden" name="pack" value="{{ pack }}">
+                        <input id="subscription-id" type="hidden" name="pack_id" value="{{ pack_id }}"
+                               data-subscription="">
                         <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
                         {% with order=true %}
                             {% include 'partials/pricing-packs.html' %}
@@ -71,13 +72,41 @@
                     <fieldset id="account-fieldset" class="container" data-id="account">
                         <div class="row">
                             <div class="col-lg-4">
-                                <div class="card" style="width: 18rem;">
+                                <div id="chosen-subscription" class="card text-center" style="width: 18rem;">
+                                    <h5 class="card-header">
+                                        {{ chosen_subscription['name'] }}
+                                        <p class="card-text"
+                                           style="font-size: 50%;">{{ chosen_subscription['description'] }}</p>
+                                    </h5>
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up
-                                            the bulk of the card's content.</p>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <h5 class="card-title">{{ _('What will you get?') }}</h5>
+                                        <ul class="subscription-features list-group list-group-flush list-unstyled text-left">
+                                            {% for feature in chosen_subscription['features'] %}
+                                                <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
+                                                    <span
+                                                            {% if feature['tooltip'] is not none and feature['enabled'] == true %}
+                                                                class="sub-feature-tooltip"
+                                                                data-toggle="tooltip"
+                                                                data-placement="top"
+                                                                title="{{ feature['tooltip'] }}"
+                                                            {% endif %}
+                                                    >
+                                                        {{ feature['name'] }}
+                                                    </span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% if chosen_subscription['is_best'] == true %}
+                                            <div class="blockquote-footer pull-right">
+                                                <small class="text-muted">
+                                                    <cite>{{ _('Best plan!') }}</cite>
+                                                </small>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-footer bg-transparent border-warning">
+                                        <button id="change_plan-btn"
+                                                class="btn btn-link">{{ _('Change Plan') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +143,7 @@
                                 <div class="form-group">
                                     <label class="sr-only" for="repeat-password">{{ _('Verify password') }}</label>
                                     <input id="repeat-password-input" type="password" name="repeat-password"
-                                           placeholder="{{ _('Verify password') }}..."  autocomplete="new-password"
+                                           placeholder="{{ _('Verify password') }}..." autocomplete="new-password"
                                            class="order-form-repeat-password form-control">
                                     <div class="col-12 error small empty_error">
                                         <i class="fa fa-exclamation-triangle"></i>
@@ -139,7 +168,7 @@
                         </div>
                         <div class="form-group order-form-buttons text-center">
                             <button type="button" class="btn btn-previous">{{ _('Previous') }}</button>
-                            <button type="button" class="btn btn-next">{{ _('Next') }}</button>
+                            <button id="finish-order-btn" type="submit" class="btn">{{ _('Go to payment page') }}</button>
                         </div>
                     </fieldset>
 

@@ -52,9 +52,31 @@ $(document).ready(function () {
     });
 
     // submit
-    $('.order-form').on('submit', function (e) {
+    $(".order-form").submit(function (e) {
+        // TODO
         alert('ORDER FORM SUBMITTED!');
         e.preventDefault();
+
+        $(that).ajaxSubmit({
+            success: function (response) {
+                // hideLoader();
+                if (response['success']) {
+                    if (response['next']) {
+                        window.location = response['next']
+                    } else {
+                        window.location = "/"
+                    }
+                } else {
+                    if (response.hasOwnProperty('errors')) {
+                        showErrors(response);
+                    }
+                }
+            },
+            error: function (response) {
+                console.log(JSON.stringify(response));
+                notyError("error");
+            }
+        })
     });
 
     function goToStep(progress_direction, newStepId) {

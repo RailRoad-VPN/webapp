@@ -43,18 +43,17 @@
                     {% endfor %}
                 </ul>
                 <div class="pricing-footer">
-                    {% if order == false %}
-                        <a href="{{ url_for('order.order', pack=subscription['id']) }}" class="btn yellow-crusta">
+                    <a href="{{ url_for('order.order', pack=subscription['id']) }}" class="btn yellow-crusta btn-checkout">
+                        {% if order == true %}
+                            {{ _('Checkout') }}
+                        {% else %}
                             {% if subscription['bill_freq'] is not none %}
                                 {{ _('Buy Now') }}
                             {% else %}
                                 {{ _('Sign Up') }}
                             {% endif %}
-                        </a>
-                    {% else %}
-                        <button data-subscription_id="{{ subscription['id'] }}"
-                                class="btn yellow-crusta btn-checkout">{{ _('Checkout') }}</button>
-                    {% endif %}
+                        {% endif %}
+                    </a>
                     {% if subscription['bill_freq'] is not none %}
                         <p class="small"><span
                                 class="old-price">${{ (subscription['old_price_per_month'] * subscription['billed_period_in_months'])|round(2) }}</span>

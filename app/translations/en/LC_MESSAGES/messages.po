@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-06 19:57+0300\n"
+"POT-Creation-Date: 2018-06-09 16:35+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,23 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/models/exception.py:28
+#: app/models/exception.py:32
 msgid "Internal Server Error"
 msgstr ""
 
-#: app/models/exception.py:28 app/models/exception.py:30
-#: app/models/exception.py:31 app/models/exception.py:32
-#: app/models/exception.py:33
+#: app/models/exception.py:32 app/models/exception.py:34
+#: app/models/exception.py:35 app/models/exception.py:36
+#: app/models/exception.py:37 app/models/exception.py:38
+#: app/models/exception.py:39
 msgid "d"
 msgstr ""
 
-#: app/models/exception.py:30 app/models/exception.py:32
-#: app/models/exception.py:33
-msgid "Unable to log in. Please check the login details."
+#: app/models/exception.py:34 app/models/exception.py:36
+#: app/models/exception.py:37
+msgid "Unable to log in. Please check the login details"
 msgstr ""
 
-#: app/models/exception.py:31 app/templates/index/order.html:79
+#: app/models/exception.py:35 app/templates/index/order.html:126
 msgid "Entered email is busy"
+msgstr ""
+
+#: app/models/exception.py:38
+msgid "Fill all fields to complete creating account"
+msgstr ""
+
+#: app/models/exception.py:39
+msgid "Password does not match"
 msgstr ""
 
 #: app/templates/auth/signin.html:35
@@ -45,8 +54,8 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: app/templates/auth/signin.html:40 app/templates/index/order.html:83
-#: app/templates/index/order.html:85
+#: app/templates/auth/signin.html:40 app/templates/index/order.html:130
+#: app/templates/index/order.html:132
 msgid "Password"
 msgstr ""
 
@@ -120,7 +129,7 @@ msgstr ""
 msgid "Create your own network over Internet"
 msgstr ""
 
-#: app/templates/index/index.html:103 app/templates/index/order.html:62
+#: app/templates/index/index.html:103 app/templates/index/order.html:66
 #: app/templates/index/pricing.html:32
 msgid "CHOOSE YOUR PACK"
 msgstr ""
@@ -139,64 +148,79 @@ msgid "Pricing"
 msgstr ""
 
 #: app/templates/index/order.html:39
-#: app/templates/partials/pricing-packs.html:50
-msgid "Sign Up"
+msgid "Order"
 msgstr ""
 
-#: app/templates/index/order.html:40
+#: app/templates/index/order.html:42
 msgid "Build your own railroad in 3 easy steps"
 msgstr ""
 
-#: app/templates/index/order.html:48
+#: app/templates/index/order.html:51
 msgid "pack"
 msgstr ""
 
-#: app/templates/index/order.html:52
+#: app/templates/index/order.html:55
 msgid "account"
 msgstr ""
 
-#: app/templates/index/order.html:56
+#: app/templates/index/order.html:59
 msgid "payment"
 msgstr ""
 
-#: app/templates/index/order.html:70
-msgid "CREATE ACCOUNT"
-msgstr ""
-
-#: app/templates/index/order.html:72 app/templates/index/order.html:73
-msgid "Email"
-msgstr ""
-
-#: app/templates/index/order.html:76
-msgid "Enter email please"
-msgstr ""
-
-#: app/templates/index/order.html:89
-msgid "Enter password please"
-msgstr ""
-
-#: app/templates/index/order.html:92
-msgid "Entered password too short. Minimum length 6 chars"
-msgstr ""
-
-#: app/templates/index/order.html:96 app/templates/index/order.html:98
-msgid "Verify password"
+#: app/templates/index/order.html:82
+msgid "What will you get?"
 msgstr ""
 
 #: app/templates/index/order.html:102
+msgid "Best plan!"
+msgstr ""
+
+#: app/templates/index/order.html:109
+msgid "Change Plan"
+msgstr ""
+
+#: app/templates/index/order.html:115
+msgid "CREATE ACCOUNT"
+msgstr ""
+
+#: app/templates/index/order.html:117 app/templates/index/order.html:118
+msgid "Email"
+msgstr ""
+
+#: app/templates/index/order.html:122
+msgid "Enter email please"
+msgstr ""
+
+#: app/templates/index/order.html:136
+msgid "Enter password please"
+msgstr ""
+
+#: app/templates/index/order.html:140
+msgid "Entered password too short. Minimum length 6 chars"
+msgstr ""
+
+#: app/templates/index/order.html:144 app/templates/index/order.html:146
+msgid "Verify password"
+msgstr ""
+
+#: app/templates/index/order.html:150
 msgid "Enter password again to verify it"
 msgstr ""
 
-#: app/templates/index/order.html:106
+#: app/templates/index/order.html:154
 msgid "Entered passwords does not match"
 msgstr ""
 
-#: app/templates/index/order.html:111
+#: app/templates/index/order.html:160 app/templates/index/order.html:170
 msgid "Previous"
 msgstr ""
 
-#: app/templates/index/order.html:112
+#: app/templates/index/order.html:161
 msgid "Next"
+msgstr ""
+
+#: app/templates/index/order.html:171
+msgid "Go to payment page"
 msgstr ""
 
 #: app/templates/partials/layout.html:126
@@ -303,18 +327,25 @@ msgstr ""
 msgid "Terms Of Service"
 msgstr ""
 
-#: app/templates/partials/pricing-packs.html:13
+#: app/templates/partials/pricing-packs.html:14
 msgid "best pack"
 msgstr ""
 
 #: app/templates/partials/pricing-packs.html:48
-msgid "Buy Now"
-msgstr ""
-
-#: app/templates/partials/pricing-packs.html:54
 msgid "Checkout"
 msgstr ""
 
+#: app/templates/partials/pricing-packs.html:51
+msgid "Buy Now"
+msgstr ""
+
+#: app/templates/partials/pricing-packs.html:53
+msgid "Sign Up"
+msgstr ""
+
 #~ msgid "Email is busy."
+#~ msgstr ""
+
+#~ msgid "Unable to log in. Please check the login details."
 #~ msgstr ""
 

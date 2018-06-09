@@ -5,7 +5,7 @@ from http import HTTPStatus
 from flask import Blueprint, request, render_template, \
     session, jsonify
 
-from app import rrn_billing_service, rrn_user_service
+from app import rrn_billing_service, rrn_user_service, cache_service
 from app.flask_utils import authorize_user
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
@@ -34,7 +34,7 @@ def pull_lang_code(endpoint, values):
 def order():
     logging.info('order method')
 
-    pack = request.args.get('pack', None)
+    pack_id = request.args.get('pack', None)
 
     if request.method == 'POST':
         r = AjaxResponse(success=True)
@@ -119,10 +119,24 @@ def order():
             return resp
 
     else:
-        subscriptions = None
-        try:
-            subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
-        except APIException as e:
-            pass
+        subscriptions = cache_service.get(key='subscriptions', prefix=session['lang_code'])
+        if subscriptions is None:
+            try:
+                subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
+                cache_service.set('subscriptions', subscriptions)
+            except APIException as e:
+                pass
 
-        return render_template('index/order.html', pack=pack, subscriptions=subscriptions, code=200)
+        subscription = None
+        if pack_id is not None:
+            for sub in subscriptions:
+                if str(sub['id']) == pack_id:
+                    subscription = sub
+                    break
+
+        if pack_id is not None and subscription is None:
+            # TODO think here
+            raise KeyError
+
+        return render_template('index/order.html', pack_id=pack_id, chosen_subscription=subscription,
+                               subscriptions=subscriptions, code=200)

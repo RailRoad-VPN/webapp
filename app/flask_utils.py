@@ -9,6 +9,7 @@ from app import app, babel
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 def authorize_user(user_json):
     session['logged_in'] = True
     session['user'] = user_json
@@ -24,6 +25,7 @@ def authorize_user(user_json):
         session['notifications'].append(notification)
     else:
         session['notifications'] = []
+
 
 def login_required(f):
     @wraps(f)

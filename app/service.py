@@ -34,7 +34,7 @@ class RRNBillingAPIService(RESTService):
     def __init__(self, api_url: str, resource_name: str):
         super().__init__(api_url=api_url, resource_name=resource_name)
 
-    def get_subscriptions(self, lang_code: str) -> APIResponse:
+    def get_subscriptions(self, lang_code: str) -> dict:
         headers = {
             'Accept-Language': lang_code
         }

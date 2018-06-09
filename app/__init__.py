@@ -6,6 +6,7 @@ from flask import Flask, url_for, redirect, session
 from flask_babel import Babel
 from flask_moment import Moment
 
+from app.cache import CacheService
 from app.service import RRNUsersAPIService, RRNBillingAPIService
 
 logging.basicConfig(level=logging.DEBUG)
@@ -25,6 +26,8 @@ logging.info("Got ENVIRONMENT_CONFIG variable: %s" % ENVIRONMENT_CONFIG)
 config_name = "%s.%s" % ('config', ENVIRONMENT_CONFIG)
 logging.info("Config name: %s" % config_name)
 app.config.from_object(config_name)
+
+cache_service = CacheService(app=app)
 
 rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
                                       resource_name=app.config['USERS_API_RESOURCE_NAME'])

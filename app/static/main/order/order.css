@@ -126,6 +126,31 @@
     color: red;
 }
 
+#chosen-subscription .card-header {
+    background-color: rgba(248, 204, 70, 3);
+}
+
+#chosen-subscription .subscription-features li {
+    color: #888;
+    font-size: 15px;
+    padding: 0px 0px;
+    border-bottom: solid 1px #f5f9e7;
+}
+
+#chosen-subscription .subscription-features li:not(.no-feature) .sub-feature-tooltip {
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+    cursor: pointer;
+}
+
+#chosen-subscription .subscription-features li.no-feature {
+    -webkit-text-decoration-color: rgba(0, 0, 0, .5);
+    text-decoration-color: rgba(0, 0, 0, .5);
+    color: #202126;
+    opacity: .5;
+    text-decoration: line-through;
+}
+
 @-webkit-keyframes breathing {
     0% {
         -webkit-transform: scale(0.9);
