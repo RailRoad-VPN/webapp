@@ -1,5 +1,6 @@
 import datetime
 import logging
+import uuid
 from functools import wraps
 
 from flask import session, g, request, redirect, url_for
@@ -8,6 +9,21 @@ from app import app, babel
 
 logging.basicConfig(level=logging.DEBUG)
 
+def authorize_user(user_json):
+    session['logged_in'] = True
+    session['user'] = user_json
+    session['notifications'] = []
+    session['locale'] = request.accept_languages.best
+    g.user = user_json
+    notification = {
+        'id': uuid.uuid4(),
+        'message': 'You were logged in',
+        'time': 'just now'
+    }
+    if 'notifications' in session:
+        session['notifications'].append(notification)
+    else:
+        session['notifications'] = []
 
 def login_required(f):
     @wraps(f)

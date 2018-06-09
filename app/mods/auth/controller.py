@@ -1,7 +1,6 @@
 import logging
 import logging
 import sys
-import uuid
 from http import HTTPStatus
 
 from flask import Blueprint, request, render_template, \
@@ -9,31 +8,13 @@ from flask import Blueprint, request, render_template, \
 from werkzeug.security import check_password_hash
 
 from app import rrn_user_service
-from app.flask_utils import login_required
+from app.flask_utils import login_required, authorize_user
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
 from response import APIResponseStatus
-
-
-def authorize_user(user_json):
-    session['logged_in'] = True
-    session['user'] = user_json
-    session['notifications'] = []
-    session['locale'] = request.accept_languages.best
-    g.user = user_json
-    notification = {
-        'id': uuid.uuid4(),
-        'message': 'You were logged in',
-        'time': 'just now'
-    }
-    if 'notifications' in session:
-        session['notifications'].append(notification)
-    else:
-        session['notifications'] = []
-
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/<lang_code>/auth')
