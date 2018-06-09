@@ -53,9 +53,9 @@ $(document).ready(function () {
 
     // submit
     $(".order-form").submit(function (e) {
-        // TODO
-        alert('ORDER FORM SUBMITTED!');
         e.preventDefault();
+        // // TODO
+        alert('ORDER FORM SUBMITTED!');
 
         $(that).ajaxSubmit({
             success: function (response) {
@@ -139,8 +139,8 @@ $(document).ready(function () {
 
     function accountToPayment() {
         var is_ok = checkPassword();
-        is_ok = checkRepeatPassword();
-        return is_ok;
+        if (!is_ok) {return false;}
+        return checkRepeatPassword();
     }
 
     function finish() {
@@ -150,7 +150,7 @@ $(document).ready(function () {
     function stepFieldSetValidation(currentStepId) {
         var is_alllow = true;
         $('fieldset[data-id="' + currentStepId + '"]').find('input[type="text"], input[type="password"]').each(function () {
-            if ($(this).val() === "") {
+            if ($.trim($(this).val()) === "") {
                 markInput($(this), false);
                 $(this).parent().find('.empty_error').show();
                 is_alllow = false;
@@ -229,7 +229,7 @@ $(document).ready(function () {
         var pwdConfirm = $.trim($passwordConfirmInput.val());
 
 
-        if (pwd !== pwdConfirm) {
+        if (pwd !== pwdConfirm && pwd !== '') {
             markInput($(this), false);
             $passwordConfirmInput.parent().find('.match_error').show();
             return false;

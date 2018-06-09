@@ -43,7 +43,7 @@ def order():
         password = request.args.get('password', None)
         password_repeat = request.args.get('password_repeat', None)
 
-        if pack is None or email is None or password is None or password_repeat is None:
+        if pack_id is None or email is None or password is None or password_repeat is None:
             r.set_failed()
             error = AjaxError(message=DFNError.ORDER_SUB_FIELDS_INCOMPLETE.message,
                               code=DFNError.ORDER_SUB_FIELDS_INCOMPLETE.code,
