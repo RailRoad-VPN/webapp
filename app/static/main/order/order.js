@@ -179,6 +179,7 @@ $(document).ready(function () {
         var emailVal = $.trim($emailInput.val());
         if (emailVal === '') {
             markInput($emailInput, false);
+            $emailInput.parent().find('.empty_error').show();
             return false;
         }
 
@@ -228,13 +229,18 @@ $(document).ready(function () {
         var pwd = $.trim($passwordInput.val());
         var pwdConfirm = $.trim($passwordConfirmInput.val());
 
+        if (pwdConfirm === '') {
+            markInput($passwordConfirmInput, false);
+            $passwordConfirmInput.parent().find('.empty_error').show();
+            return false;
+        }
 
-        if (pwd !== pwdConfirm && pwd !== '') {
-            markInput($(this), false);
+        if (pwd !== pwdConfirm) {
+            markInput($passwordConfirmInput, false);
             $passwordConfirmInput.parent().find('.match_error').show();
             return false;
         } else {
-            markInput($(this), true);
+            markInput($passwordConfirmInput, true);
             $passwordConfirmInput.parent().find('.match_error').hide();
             return true;
         }
