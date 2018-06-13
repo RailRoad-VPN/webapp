@@ -102,7 +102,14 @@ def order():
             user_json = api_response.data
             authorize_user(user_json=user_json)
 
-            # TODO create subscription request
+            # TODO create order with status - new
+            order_json = {
+                'status_id': 1
+            }
+
+            order = rrn_billing_service.
+
+            # TODO create user subscription with created order
 
             r.set_success()
 
@@ -117,7 +124,6 @@ def order():
             resp = jsonify(r)
             resp.code = e.http_code
             return resp
-
     else:
         subscriptions = cache_service.get(key='subscriptions', prefix=session['lang_code'])
         if subscriptions is None:

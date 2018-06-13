@@ -35,6 +35,8 @@ rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
 rrn_billing_service = RRNBillingAPIService(api_url=app.config['API_URL'],
                                            resource_name=app.config['SUBSCRIPTIONS_API_RESOURCE_NAME'])
 
+RRNOrdersAPIService(api_url=app.config['API_URL'], resource_name=app.config['ORDERS_API_RESOURCE_NAME'])
+
 from app.flask_utils import before_request, get_locale
 
 app.before_request(before_request)
