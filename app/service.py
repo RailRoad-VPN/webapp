@@ -41,7 +41,7 @@ class RRNBillingAPIService(RESTService):
 
         api_response = self._get(headers=headers)
 
-        if api_response.status == APIResponseStatus.success.value:
+        if api_response.status == APIResponseStatus.success.status:
             return api_response.data
         else:
             raise APIException(http_code=api_response.code, errors=api_response.errors)
@@ -50,7 +50,7 @@ class RRNBillingAPIService(RESTService):
         url = "%s/%s" % (self._url, id)
         api_response = self._get(url=url)
 
-        if api_response.status == APIResponseStatus.success.value:
+        if api_response.status == APIResponseStatus.success.status:
             return api_response.data
         else:
             raise APIException(http_code=api_response.code, errors=api_response.errors)

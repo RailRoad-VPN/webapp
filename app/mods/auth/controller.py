@@ -55,7 +55,7 @@ def signin():
         else:
             try:
                 api_response = rrn_user_service.get_user(email=email)
-                if api_response.status == APIResponseStatus.success.value:
+                if api_response.status == APIResponseStatus.success.status:
                     user_json = api_response.data
                 else:
                     r.set_failed()
@@ -129,7 +129,7 @@ def is_email_busy():
     try:
         # try to find user by email
         api_response = rrn_user_service.get_user(email=email)
-        if api_response.status == APIResponseStatus.success.value:
+        if api_response.status == APIResponseStatus.success.status:
             r.set_failed()
             error = AjaxError(message=DFNError.USER_SIGNUP_EMAIL_BUSY.message,
                               code=DFNError.USER_SIGNUP_EMAIL_BUSY.code,

@@ -1,7 +1,9 @@
-from enum import Enum
-
+import sys
 from flask_babel import _
 from flask_babel import lazy_gettext as _l
+
+sys.path.insert(0, '../rest_api_library')
+from response import APIErrorEnum
 
 name = 'WEB-'
 i = 0
@@ -17,17 +19,14 @@ def get_all_error_codes():
     return [e.code for e in DFNError]
 
 
-class DFNError(Enum):
+class DFNError(APIErrorEnum):
+    __version__ = 1
+
     def __new__(cls, *args, **kwds):
         value = len(cls.__members__) + 1
         obj = object.__new__(cls)
         obj._value_ = value
         return obj
-
-    def __init__(self, code, message, developer_message):
-        self.code = code
-        self.message = message
-        self.developer_message = developer_message
 
     UNKNOWN_ERROR_CODE = (name + str(count()), _l('Internal Server Error'), _('d'))
 
