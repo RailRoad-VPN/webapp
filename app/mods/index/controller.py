@@ -11,6 +11,8 @@ from rest import APIException
 
 mod_index = Blueprint('index', __name__, url_prefix='/<lang_code>/')
 
+logger = logging.getLogger(__name__)
+
 
 @mod_index.url_defaults
 def add_language_code(endpoint, values):
@@ -35,7 +37,7 @@ def pull_lang_code(endpoint, values):
 
 @mod_index.route('/', methods=['GET'])
 def index_lang_page():
-    logging.info('index_lang page')
+    logger.info('index_lang page')
 
     if 'locale' in request.args:
         r_url = str(request.base_url) + str(request.referrer).split("/")[-1]
@@ -51,13 +53,13 @@ def index_lang_page():
 
 @mod_index.route('/features', methods=['GET'])
 def features_page():
-    logging.info('features_page method')
+    logger.info('features_page method')
     return render_template('index/features.html', code=200)
 
 
 @mod_index.route('/pricing', methods=['GET'])
 def pricing_page():
-    logging.info('pricing_page method')
+    logger.info('pricing_page method')
 
     subscriptions = None
     try:
@@ -70,11 +72,11 @@ def pricing_page():
 
 @mod_index.route('/download', methods=['GET'])
 def download_page():
-    logging.info('download_page method')
+    logger.info('download_page method')
     return render_template('index/download.html', code=200)
 
 
 @mod_index.route('/contact', methods=['GET'])
 def contact_page():
-    logging.info('contact_page method')
+    logger.info('contact_page method')
     return render_template('index/download.html', code=200)

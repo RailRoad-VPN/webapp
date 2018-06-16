@@ -1,4 +1,5 @@
 import sys
+
 from flask_babel import _
 from flask_babel import lazy_gettext as _l
 

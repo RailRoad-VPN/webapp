@@ -17,10 +17,13 @@ $(document).ready(function () {
 
     var emailCheckURL = $("meta#email_check_url").data("url");
 
+    var $form = $(".order-form");
     var $packInput = $("#pack_id");
     var $emailInput = $("#email-input");
     var $passwordInput = $("#password-input");
     var $passwordConfirmInput = $("#repeat-password-input");
+
+    var ACCOUNT_CREATED = false;
 
     $(".form-group .error").hide();
 
@@ -51,49 +54,19 @@ $(document).ready(function () {
         $(this).parent().find('.error').hide();
     });
 
-    // submit
-    $(".order-form").submit(function (e) {
-        e.preventDefault();
-        // // TODO
-        alert('ORDER FORM SUBMITTED!');
-
-        $(that).ajaxSubmit({
-            success: function (response) {
-                // hideLoader();
-                if (response['success']) {
-                    if (response['next']) {
-                        window.location = response['next']
-                    } else {
-                        window.location = "/"
-                    }
-                } else {
-                    if (response.hasOwnProperty('errors')) {
-                        showErrors(response);
-                    }
-                }
-            },
-            error: function (response) {
-                console.log(JSON.stringify(response));
-                notyError("error");
-            }
-        })
-    });
-
     function goToStep(progress_direction, newStepId) {
         var $currentStep = $('.order-form').find('.order-progress-step.active');
         var currentStepId = $currentStep.data('id');
 
         var is_allow_next_step = true;
+        var need_create_order = false;
 
         if (!newStepId || newStepId === '') {
             if (progress_direction === 'left') {
                 newStepId = $currentStep.prev().data('id');
             } else {
-                $currentStep.addClass('activated');
                 newStepId = $currentStep.next().data('id');
             }
-        } else {
-            $currentStep.addClass('activated');
         }
 
 
@@ -104,7 +77,14 @@ $(document).ready(function () {
             if (currentStepId === 'pack') {
                 is_allow_next_step = packToAccount(this);
             } else if (currentStepId === 'account') {
-                is_allow_next_step = accountToPayment();
+                // if account was created - just to step
+                if (ACCOUNT_CREATED) {
+                    is_allow_next_step = true;
+                    need_create_order = false;
+                } else {
+                    is_allow_next_step = accountToPayment();
+                    need_create_order = true;
+                }
             } else if (currentStepId === 'payment') {
                 is_allow_next_step = finish();
             }
@@ -118,6 +98,20 @@ $(document).ready(function () {
         var $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
         var $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
 
+        if (need_create_order) {
+            createOrder(function () {
+                _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
+            })
+        } else {
+            _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
+        }
+    }
+
+    function _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset) {
+        if (progress_direction === 'right') {
+            $currentStep.addClass('activated');
+        }
+        $currentStep.addClass('activated');
         // hide new step fieldset
         $currentStepFieldset.fadeOut(400, function () {
             $currentStep.removeClass('active');
@@ -139,7 +133,9 @@ $(document).ready(function () {
 
     function accountToPayment() {
         var is_ok = checkPassword();
-        if (!is_ok) {return false;}
+        if (!is_ok) {
+            return false;
+        }
         return checkRepeatPassword();
     }
 
@@ -252,5 +248,32 @@ $(document).ready(function () {
         } else {
             $input.removeClass('is-valid').addClass('is-invalid');
         }
+    }
+
+    function createOrder(callback) {
+        $form.ajaxSubmit({
+            success: function (response) {
+                if (response['success']) {
+                    console.log(JSON.stringify(response));
+                    // set order code number and email
+                    var data = response['data'];
+                    $("#order_code").text(data['order']['code']);
+                    $("#account_email").text(data['user']['email']);
+                    // hide create account fields and show text
+                    $("#create_account").remove();
+                    $("#created_account").show();
+                    ACCOUNT_CREATED = true
+                    callback()
+                } else {
+                    if (response.hasOwnProperty('errors')) {
+                        showErrors(response);
+                    }
+                }
+            },
+            error: function (response) {
+                console.log(JSON.stringify(response));
+                notyError("error");
+            }
+        })
     }
 });

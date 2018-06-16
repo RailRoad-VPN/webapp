@@ -1,8 +1,7 @@
-import logging
-import logging
 import sys
 from http import HTTPStatus
 
+import logging
 from flask import Blueprint, request, render_template, \
     g, session, redirect, url_for, jsonify
 from werkzeug.security import check_password_hash
@@ -14,7 +13,8 @@ from app.models.exception import DFNError
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
-from response import APIResponseStatus
+
+logger = logging.getLogger(__name__)
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/<lang_code>/auth')
@@ -35,7 +35,7 @@ def pull_lang_code(endpoint, values):
 
 @mod_auth.route('/signin', methods=['GET', 'POST'])
 def signin():
-    logging.info('signin method')
+    logger.info('signin method')
     r = AjaxResponse(success=True)
     if request.method == 'POST':
         email = request.form.get('email', None)
@@ -54,25 +54,9 @@ def signin():
             r.add_error(error)
         else:
             try:
-                api_response = rrn_user_service.get_user(email=email)
-                if api_response.is_ok:
-                    user_json = api_response.data
-                else:
-                    r.set_failed()
-                    if api_response.errors is not None:
-                        for err in api_response.errors:
-                            error = AjaxError(message=err.message, code=err.code,
-                                              developer_message=err['developer_message'])
-                            r.add_error(error)
-                    else:
-                        error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
-                                          code=DFNError.UNKNOWN_ERROR_CODE.code,
-                                          developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
-                        r.add_error(error)
-                    resp = jsonify(r.serialize())
-                    resp.code = api_response.code
-                    return resp
+                user_json = rrn_user_service.get_user(email=email)
             except APIException as e:
+                logging.debug(e.serialize())
                 r.set_failed()
                 # TODO fix it
                 error = AjaxError(message='api not available', code='0', developer_message='something goes wrong')
@@ -80,8 +64,8 @@ def signin():
                 resp = jsonify(r.serialize())
                 resp.code = e.http_code
                 return resp
-            is_ok = check_password_hash(user_json['password'], password)
-            if not is_ok:
+            is_password_valid = check_password_hash(user_json['password'], password)
+            if not is_password_valid:
                 r.set_failed()
                 error = AjaxError(message=DFNError.USER_LOGIN_BAD_PASSWORD.message,
                                   code=DFNError.USER_LOGIN_BAD_PASSWORD.code,
@@ -100,7 +84,7 @@ def signin():
 @mod_auth.route('/logout', methods=['GET'])
 @login_required
 def logout():
-    logging.info('logout method')
+    logger.info('logout method')
     lang_code = session['lang_code']
     session.clear()
     session['lang_code'] = lang_code
@@ -110,7 +94,7 @@ def logout():
 
 @mod_auth.route('/isEmailBusy', methods=['GET'])
 def is_email_busy():
-    logging.info('is_email_busy method')
+    logger.info('is_email_busy method')
 
     r = AjaxResponse(success=True)
 
@@ -128,28 +112,17 @@ def is_email_busy():
 
     try:
         # try to find user by email
-        api_response = rrn_user_service.get_user(email=email)
-        if api_response.is_ok:
-            r.set_failed()
-            error = AjaxError(message=DFNError.USER_SIGNUP_EMAIL_BUSY.message,
-                              code=DFNError.USER_SIGNUP_EMAIL_BUSY.code,
-                              developer_message=DFNError.USER_SIGNUP_EMAIL_BUSY.developer_message)
-            r.add_error(error)
-            resp = jsonify(r.serialize())
-            resp.code = HTTPStatus.OK
-            return resp
-
-        r.set_success()
+        rrn_user_service.get_user(email=email)
+        r.set_failed()
+        error = AjaxError(message=DFNError.USER_SIGNUP_EMAIL_BUSY.message,
+                          code=DFNError.USER_SIGNUP_EMAIL_BUSY.code,
+                          developer_message=DFNError.USER_SIGNUP_EMAIL_BUSY.developer_message)
+        r.add_error(error)
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
         return resp
     except APIException as e:
-        logging.error("APIException", e)
-        r.set_failed()
-        error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
-                          code=DFNError.UNKNOWN_ERROR_CODE.code,
-                          developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
-        r.add_error(error)
+        r.set_success()
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
         return resp

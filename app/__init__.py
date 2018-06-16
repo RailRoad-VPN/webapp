@@ -7,9 +7,17 @@ from flask_babel import Babel
 from flask_moment import Moment
 
 from app.cache import CacheService
-from app.service import RRNUsersAPIService, RRNBillingAPIService
+from app.service import RRNUsersAPIService, RRNBillingAPIService, RRNOrdersAPIService
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+logger = logging.getLogger(__name__)
+
+logger.debug('debug message')
+logger.info('info message')
+logger.warning('warning message')
+logger.error('error message')
+logger.critical('critical message')
 
 app = Flask(__name__)
 
@@ -22,9 +30,9 @@ from app import cli
 
 # Load config based on env variable
 ENVIRONMENT_CONFIG = os.environ.get("ENVIRONMENT_CONFIG", default='DevelopmentConfig')
-logging.info("Got ENVIRONMENT_CONFIG variable: %s" % ENVIRONMENT_CONFIG)
+logger.info("Got ENVIRONMENT_CONFIG variable: %s" % ENVIRONMENT_CONFIG)
 config_name = "%s.%s" % ('config', ENVIRONMENT_CONFIG)
-logging.info("Config name: %s" % config_name)
+logger.info("Config name: %s" % config_name)
 app.config.from_object(config_name)
 
 cache_service = CacheService(app=app)
@@ -35,7 +43,8 @@ rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
 rrn_billing_service = RRNBillingAPIService(api_url=app.config['API_URL'],
                                            resource_name=app.config['SUBSCRIPTIONS_API_RESOURCE_NAME'])
 
-RRNOrdersAPIService(api_url=app.config['API_URL'], resource_name=app.config['ORDERS_API_RESOURCE_NAME'])
+rrn_orders_service = RRNOrdersAPIService(api_url=app.config['API_URL'],
+                                         resource_name=app.config['ORDERS_API_RESOURCE_NAME'])
 
 from app.flask_utils import before_request, get_locale
 
@@ -60,7 +69,7 @@ app.register_blueprint(order_module)
 
 @app.route('/', methods=['GET'])
 def index_page():
-    logging.info('index page')
+    logger.info('index page')
     redirect_url = url_for('index.index_lang_page', lang_code=session['lang_code'])
     return redirect(redirect_url)
 

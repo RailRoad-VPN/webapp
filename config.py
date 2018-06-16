@@ -13,6 +13,7 @@ class Config(object):
 
     USERS_API_RESOURCE_NAME = 'users'
     SUBSCRIPTIONS_API_RESOURCE_NAME = 'subscriptions'
+    ORDERS_API_RESOURCE_NAME = 'orders'
 
 
 class ProductionConfig(Config):

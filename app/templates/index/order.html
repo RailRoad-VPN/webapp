@@ -37,7 +37,8 @@
             <div class="form-box">
                 <form class="order-form" role="form" action="{{ url_for('order.order') }}" method="POST">
                     <h3>{{ _('Order') }}
-                        <small>#123</small>
+                        <small>#</small>
+                        <small id="order_code">123</small>
                     </h3>
                     <p>{{ _('Build your own railroad in 3 easy steps') }}</p>
                     <div class="order-steps">
@@ -50,11 +51,11 @@
                             <div class="order-progress-step-icon"><i class="fa fa-cube"></i></div>
                             <p>{{ _('pack') }}</p>
                         </div>
-                        <div id="account-step" class="order-progress-step " data-id="account">
+                        <div id="account-step" class="order-progress-step" data-id="account">
                             <div class="order-progress-step-icon"><i class="fa fa-user"></i></div>
                             <p>{{ _('account') }}</p>
                         </div>
-                        <div id="payment-step" class="order-progress-step " data-id="payment">
+                        <div id="payment-step" class="order-progress-step" data-id="payment">
                             <div class="order-progress-step-icon"><i class="fa fa-credit-card"></i></div>
                             <p>{{ _('payment') }}</p>
                         </div>
@@ -110,7 +111,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-12 col-sm-12 col-xl-4 col-xs-12 justify-content-center text-center">
+                            <div id="create_account"
+                                 class="col-lg-4 col-md-12 col-sm-12 col-xl-4 col-xs-12 justify-content-center text-center">
                                 <h2 class="text-center text-dark"
                                     style="margin-bottom: 100px;">{{ _('CREATE ACCOUNT') }}</h2>
                                 <div class="form-group">
@@ -142,7 +144,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="repeat-password">{{ _('Verify password') }}</label>
-                                    <input id="repeat-password-input" type="password" name="repeat-password"
+                                    <input id="repeat-password-input" type="password" name="password_repeat"
                                            placeholder="{{ _('Verify password') }}..." autocomplete="new-password"
                                            class="order-form-repeat-password form-control">
                                     <div class="col-12 error small empty_error">
@@ -154,21 +156,33 @@
                                         {{ _('Entered passwords does not match') }}
                                     </div>
                                 </div>
+                                <div class="form-group order-form-buttons text-center">
+                                    <button type="button" class="btn btn-previous">{{ _('Previous') }}</button>
+                                    <button type="button" class="btn btn-next">{{ _('Next') }}</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group order-form-buttons text-center">
-                            <button type="button" class="btn btn-previous">{{ _('Previous') }}</button>
-                            <button type="button" class="btn btn-next">{{ _('Next') }}</button>
+                            <div id="created_account"
+                                 class="col-lg-8 col-md-12 col-sm-12 col-xl-8 col-xs-12 justify-content-center text-center"
+                                 style="display: none;">
+                                <h5>
+                                    {{ _('Your account has been created. We send you email with all information to ') }}
+                                    <small id="account_email"></small>
+                                </h5>
+                                <div class="form-group order-form-buttons text-center">
+                                    <button type="button" class="btn btn-previous">{{ _('Previous') }}</button>
+                                    <button type="button" class="btn btn-next">{{ _('Next') }}</button>
+                                </div>
+                            </div>
                         </div>
                     </fieldset>
 
                     <fieldset id="payment-fieldset" data-id="payment">
                         <div class="row">
-                            <div class="col-12"></div>
+                            <div class="col-lg-12"></div>
                         </div>
                         <div class="form-group order-form-buttons text-center">
                             <button type="button" class="btn btn-previous">{{ _('Previous') }}</button>
-                            <button id="finish-order-btn" type="submit" class="btn">{{ _('Go to payment page') }}</button>
+                            <button type="button" class="btn">{{ _('Go to payment page') }}</button>
                         </div>
                     </fieldset>
 
