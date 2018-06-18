@@ -6,7 +6,7 @@
     font-weight: 500;
 }
 
-#order-form-container a, #order-form-container a:hover, #order-form-container a:focus {
+#order-form-container a:not(.btn), #order-form-container a:not(.btn):hover, #order-form-container a:not(.btn):focus {
     color: #f35b3f;
     text-decoration: none;
     -o-transition: all .3s;
@@ -202,22 +202,13 @@
 /* payment step */
 
 .payment-method {
-    max-height: 200px;
+    position: relative;
+    min-height: 200px;
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
     cursor: pointer;
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-    justify-content: center;
-    -ms-align-items: center;
-    align-items: center;
-}
-
-#payment-fieldset .payment-method {
-    min-height: 200px;
 }
 
 .payment-method:hover {
@@ -231,20 +222,11 @@
 }
 
 .payment-method img.img-fluid {
-    padding: 4rem;
-}
-
-#payment_methods-modal .payment-method {
-    height: 9rem;
-    max-height: 9rem;
-}
-
-#payment_methods-modal .payment-method.additional {
-    max-height: 150px;
-}
-
-#payment_methods-modal .payment-method.additional img.img-fluid {
-    padding: 3rem;
+    width: 10rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #show_more_payment_methods-text {
