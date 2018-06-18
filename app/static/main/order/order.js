@@ -15,9 +15,11 @@ function bar_progress(direction) {
 
 $(document).ready(function () {
 
-    var emailCheckURL = $("meta#email_check_url").data("url");
-    var signUpUserURL = $("meta#signup_user_url").data("url");
+    var $emailCheckURLObj = $("meta#email_check_url");
+    var $getPaymentUrlURLObj = $("meta#get_payment_url_url");
+    var $signUpUserURLObj = $("meta#signup_user_url");
 
+    var $orderForm = $('.order-form');
     var $packInput = $("#pack_id");
     var $emailInput = $("#email-input");
     var $passwordInput = $("#password-input");
@@ -117,7 +119,6 @@ $(document).ready(function () {
     }
 
     function accountToPayment() {
-        return true;
         var is_ok = checkPassword();
         if (!is_ok) {
             return false;
@@ -168,7 +169,6 @@ $(document).ready(function () {
             return false;
         }
 
-        var type = 'GET';
         var data = {
             'email': emailVal,
         };
@@ -188,7 +188,7 @@ $(document).ready(function () {
             notyError("System Error");
         };
 
-        doAjax(emailCheckURL, type, data, isAsync, successCallback, errorCallback)
+        doAjax($emailCheckURLObj.data('url'), $emailCheckURLObj.data('method'), data, isAsync, successCallback, errorCallback)
     }
 
     function checkPassword() {
@@ -239,20 +239,46 @@ $(document).ready(function () {
         }
     }
 
-    function signUpUser(callback) {
-        var emailVal = $.trim($emailInput.val());
-        var passwordVal = $.trim($passwordInput.val());
+    $orderForm.on('submit', function (e) {
+        e.preventDefault();
+        var that = this;
+        $(that).ajaxSubmit({
+            success: function (response) {
+                if (response['success']) {
+                    console.log(JSON.stringify(response));
+                    getPaymentPageURL();
+                } else {
+                    if (response.hasOwnProperty('errors')) {
+                        showErrors(response);
+                    }
+                }
+            },
+            error: function (response) {
+                console.log(JSON.stringify(response));
+                notyError("error");
+            }
+        });
+    });
 
-        var type = 'GET';
+    function getPaymentPageURL(callback) {
+        var orderCodeVal = $.trim($("#order_code").text());
+        var subscriptionIdVal = $.trim($("#subscription-id").val());
+        var paymentMethodVal = $.trim($("#payment_method").val());
+
         var data = {
-            'email': emailVal,
-            'password': passwordVal,
+            'order_code': orderCodeVal,
+            'subscription_id': subscriptionIdVal,
+            'payment_method_id': paymentMethodVal,
         };
         var isAsync = true;
 
         var successCallback = function (response) {
-            if (response.hasOwnProperty('success') && !response['success']) {
-                callback();
+            if (response.hasOwnProperty('success') && response['success']) {
+                if (response.hasOwnProperty('data')) {
+                    window.location = response['data']['redirect_url'];
+                } else {
+                    callback ? callback() : ''
+                }
             } else {
                 showErrors(response);
             }
@@ -262,8 +288,33 @@ $(document).ready(function () {
             notyError("System Error");
         };
 
-        doAjax(signUpUserURL, type, data, isAsync, successCallback, errorCallback)
+        doAjax($getPaymentUrlURLObj.data('url'), $getPaymentUrlURLObj.data('method'), data, isAsync, successCallback, errorCallback)
     }
+
+    // function signUpUser(callback) {
+    //     var emailVal = $.trim($emailInput.val());
+    //     var passwordVal = $.trim($passwordInput.val());
+    //
+    //     var data = {
+    //         'email': emailVal,
+    //         'password': passwordVal,
+    //     };
+    //     var isAsync = true;
+    //
+    //     var successCallback = function (response) {
+    //         if (response.hasOwnProperty('success') && !response['success']) {
+    //             callback();
+    //         } else {
+    //             showErrors(response);
+    //         }
+    //     };
+    //
+    //     var errorCallback = function (response) {
+    //         notyError("System Error");
+    //     };
+    //
+    //     doAjax($signUpUserURLObj.data('url'), $signUpUserURLObj.data('method'), data, isAsync, successCallback, errorCallback)
+    // }
 
     $paymentMethodsModal.on('hide.bs.modal', function (e) {
         // if in modal nothing was chosen - do nothing

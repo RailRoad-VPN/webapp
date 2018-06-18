@@ -15,6 +15,16 @@ class Config(object):
     SUBSCRIPTIONS_API_RESOURCE_NAME = 'subscriptions'
     ORDERS_API_RESOURCE_NAME = 'orders'
 
+    PAY_PRO_GLOBAL = {
+        'base_url': 'https://store.payproglobal.com/checkout?products[1][id]=%s&use-test-mode=%s&secret-key=%s',
+        'secret_key': '848dee',
+        'params_name': {
+            'payment_method': '&payment-method=%s',
+            'language': '&language=%s',
+            'order_code': '&x-ordercode=%s',
+        }
+    }
+
 
 class ProductionConfig(Config):
     ENV = 'production'

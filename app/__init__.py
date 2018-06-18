@@ -1,13 +1,12 @@
-import logging
 import os
 from pprint import pprint
 
-from flask import Flask, url_for, redirect, session
+from flask import Flask, url_for, redirect, session, request
 from flask_babel import Babel
 from flask_moment import Moment
 
 from app.cache import CacheService
-from app.service import RRNUsersAPIService, RRNBillingAPIService, RRNOrdersAPIService
+from app.service import *
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -47,6 +46,8 @@ rrn_billing_service = RRNBillingAPIService(api_url=app.config['API_URL'],
 
 rrn_orders_service = RRNOrdersAPIService(api_url=app.config['API_URL'],
                                          resource_name=app.config['ORDERS_API_RESOURCE_NAME'])
+
+ppg_payments_service = PayProGlobalPaymentService(config=app_config)
 
 from app.flask_utils import before_request, get_locale
 

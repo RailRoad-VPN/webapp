@@ -5,7 +5,8 @@ from http import HTTPStatus
 from flask import Blueprint, request, render_template, \
     session, jsonify, abort
 
-from app import rrn_billing_service, rrn_user_service, cache_service, rrn_orders_service, app_config
+from app import rrn_billing_service, rrn_user_service, cache_service, rrn_orders_service, app_config, \
+    ppg_payments_service
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 from app.models.order_status import OrderStatus
@@ -66,6 +67,10 @@ def create_user_subscription():
 def order():
     logger.info('order method')
 
+    if 'x-ordercode' in request.args:
+        order_code = request.args.get('x-ordercode', None)
+        logger.info('Order Code: %s' % order_code)
+
     pack_id = request.args.get('pack', None)
 
     logger.info("Check subscriptions in cache")
@@ -107,3 +112,23 @@ def order():
 
     return render_template('index/order.html', pack_id=pack_id, chosen_subscription=subscription,
                            subscriptions=subscriptions, code=200)
+
+
+@mod_order.route('payment_url', methods=['GET'])
+def payment_url():
+    logger.info('generate_payment_redirect_url method')
+
+    r = AjaxResponse(success=True)
+
+    order_code = request.args.get('order_code', None)
+    subscription_id = request.args.get('subscription_id', None)
+    payment_method_id = request.args.get('payment_method_id', None)
+    user_locale = request.accept_languages.best
+
+    redirect_url = ppg_payments_service.build_redirect_url(order_code=order_code, subscription_id=subscription_id,
+                                                           payment_method_id=payment_method_id, user_locale=user_locale)
+    r.add_data('redirect_url', redirect_url)
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp

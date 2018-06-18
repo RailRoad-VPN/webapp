@@ -178,3 +178,57 @@ class RRNBillingAPIService(RESTService):
         else:
             logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
+
+
+class PayProGlobalPaymentService(object):
+    __version__ = 1
+
+    _base_url = None
+    _secret_key = None
+    _test_mode = None
+
+    _recurring_products = ['47197', '47198', '47199']
+    _buy_products = ['47303', '47305', '47304']
+
+    def __init__(self, config: dict):
+        cfg = config['PAY_PRO_GLOBAL']
+        self._base_url = cfg['base_url']
+        self._secret_key = cfg['secret_key']
+        self._test_mode = 'true' if config['DEBUG'] else 'false'
+        self._params_dict = cfg['params_name']
+
+    def build_redirect_url(self, order_code: str, subscription_id: int, payment_method_id: str,
+                           user_locale: str = None):
+        payment_method_id = str(payment_method_id)
+        logger.info("build_redirect_url method with params [subscription_id=%s, user_locale=%s, payment_method_id=%s]"
+                    % (str(subscription_id), str(user_locale), str(payment_method_id)))
+        logger.info('Buy or Recurring? Depends on payment method.')
+        if payment_method_id in ['1', '14']:
+            logger.info('Payment method is CC or PayPal. Use RECURRING payments')
+            product_id = self._recurring_products[int(subscription_id) - 1]
+        else:
+            logger.info('Payment method is NOT CC or PayPal. Use BUY payments')
+            product_id = self._buy_products[int(subscription_id) - 1]
+
+        logger.info('Production ID: %s' % product_id)
+
+        logger.info('Create base url with base required parameters')
+        redirect_url = self._base_url % (str(product_id), str(self._test_mode), str(self._secret_key))
+        logger.info('Phrase #1. Redirect URL: %s' % str(redirect_url))
+
+        logger.info('Add payment and order fields to URL.')
+        redirect_url += self._params_dict['payment_method'] % str(payment_method_id)
+        redirect_url += self._params_dict['order_code'] % str(order_code)
+        logger.info('Phrase #1. Redirect URL: %s' % str(redirect_url))
+
+        logger.info('Check user locale')
+        if user_locale:
+            logger.info('We have user locale: %s' % str(user_locale))
+            if len(user_locale) > 2:
+                logger.info('Too long user locale. Make it short.')
+                user_locale = user_locale[0:2]
+                logger.info('New user locale: %s' % str(user_locale))
+            redirect_url += self._params_dict['language'] % str(user_locale)
+            logger.info('Phrase #2. Redirect URL: %s' % str(redirect_url))
+
+        return redirect_url
