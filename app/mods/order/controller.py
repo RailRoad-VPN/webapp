@@ -8,7 +8,7 @@ from flask import Blueprint, request, render_template, \
 from app import rrn_billing_service, rrn_user_service, cache_service, rrn_orders_service, app_config
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
-from order_status import OrderStatus
+from app.models.order_status import OrderStatus
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
