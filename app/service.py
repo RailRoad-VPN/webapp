@@ -2,7 +2,7 @@ import logging
 import sys
 from http import HTTPStatus
 
-from order_status import OrderStatus
+from app.models.order_status import OrderStatus
 
 sys.path.insert(0, '../rest_api_library')
 from rest import RESTService, APIException, APINotFoundException
