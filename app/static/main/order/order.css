@@ -126,24 +126,24 @@
     color: red;
 }
 
-#chosen-subscription .card-header {
+.chosen-subscription .card-header {
     background-color: rgba(248, 204, 70, 3);
 }
 
-#chosen-subscription .subscription-features li {
+.chosen-subscription .subscription-features li {
     color: #888;
     font-size: 15px;
     padding: 0px 0px;
     border-bottom: solid 1px #f5f9e7;
 }
 
-#chosen-subscription .subscription-features li:not(.no-feature) .sub-feature-tooltip {
+.chosen-subscription .subscription-features li:not(.no-feature) .sub-feature-tooltip {
     text-decoration: none;
     border-bottom: 1px dotted #999;
     cursor: pointer;
 }
 
-#chosen-subscription .subscription-features li.no-feature {
+.chosen-subscription .subscription-features li.no-feature {
     -webkit-text-decoration-color: rgba(0, 0, 0, .5);
     text-decoration-color: rgba(0, 0, 0, .5);
     color: #202126;
@@ -197,4 +197,56 @@
         -ms-transform: scale(0.9);
         transform: scale(0.9);
     }
+}
+
+/* payment step */
+
+.payment-method {
+    max-height: 200px;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+}
+
+#payment-fieldset .payment-method {
+    min-height: 200px;
+}
+
+.payment-method:hover {
+    box-shadow: 0 0 40px rgba(54, 67, 77, .2);
+    -webkit-box-shadow: 0 0 40px rgba(54, 67, 77, .2);
+    -moz-box-shadow: 0 0 40px rgba(54, 67, 77, .2);
+}
+
+.payment-method.active {
+    border: 5px solid #f8cc46;
+}
+
+.payment-method img.img-fluid {
+    padding: 4rem;
+}
+
+#payment_methods-modal .payment-method {
+    height: 9rem;
+    max-height: 9rem;
+}
+
+#payment_methods-modal .payment-method.additional {
+    max-height: 150px;
+}
+
+#payment_methods-modal .payment-method.additional img.img-fluid {
+    padding: 3rem;
+}
+
+#show_more_payment_methods-text {
+    padding-top: 50px;
 }

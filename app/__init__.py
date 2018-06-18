@@ -35,6 +35,8 @@ config_name = "%s.%s" % ('config', ENVIRONMENT_CONFIG)
 logger.info("Config name: %s" % config_name)
 app.config.from_object(config_name)
 
+app_config = app.config
+
 cache_service = CacheService(app=app)
 
 rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],

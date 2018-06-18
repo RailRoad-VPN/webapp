@@ -33,7 +33,7 @@ class DFNError(APIErrorEnum):
 
     USER_LOGIN_NOT_EXIST = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
     USER_SIGNUP_EMAIL_BUSY = (name + str(count()), _l('Entered email is busy'), _('d'))
+    USER_SIGNUP_FIELDS_INCOMPLETE = (name + str(count()), _l('Fill all fields to create account'), _('d'))
     USER_LOGIN_BAD_PASSWORD = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
     USER_UNKNOWN_ERROR = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
-    ORDER_SUB_FIELDS_INCOMPLETE = (name + str(count()), _l('Fill all fields to complete creating account'), _('d'))
     USER_PASSWORDS_NOT_MATCH = (name + str(count()), _l('Password does not match'), _('d'))

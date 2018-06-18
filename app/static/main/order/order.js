@@ -16,14 +16,14 @@ function bar_progress(direction) {
 $(document).ready(function () {
 
     var emailCheckURL = $("meta#email_check_url").data("url");
+    var signUpUserURL = $("meta#signup_user_url").data("url");
 
-    var $form = $(".order-form");
     var $packInput = $("#pack_id");
     var $emailInput = $("#email-input");
     var $passwordInput = $("#password-input");
     var $passwordConfirmInput = $("#repeat-password-input");
 
-    var ACCOUNT_CREATED = false;
+    var $paymentMethodsModal = $("#payment_methods-modal");
 
     $(".form-group .error").hide();
 
@@ -59,7 +59,6 @@ $(document).ready(function () {
         var currentStepId = $currentStep.data('id');
 
         var is_allow_next_step = true;
-        var need_create_order = false;
 
         if (!newStepId || newStepId === '') {
             if (progress_direction === 'left') {
@@ -69,7 +68,6 @@ $(document).ready(function () {
             }
         }
 
-
         if (progress_direction === 'right') {
             is_allow_next_step = stepFieldSetValidation(currentStepId);
 
@@ -77,14 +75,7 @@ $(document).ready(function () {
             if (currentStepId === 'pack') {
                 is_allow_next_step = packToAccount(this);
             } else if (currentStepId === 'account') {
-                // if account was created - just to step
-                if (ACCOUNT_CREATED) {
-                    is_allow_next_step = true;
-                    need_create_order = false;
-                } else {
-                    is_allow_next_step = accountToPayment();
-                    need_create_order = true;
-                }
+                is_allow_next_step = accountToPayment();
             } else if (currentStepId === 'payment') {
                 is_allow_next_step = finish();
             }
@@ -98,13 +89,7 @@ $(document).ready(function () {
         var $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
         var $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
 
-        if (need_create_order) {
-            createOrder(function () {
-                _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
-            })
-        } else {
-            _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
-        }
+        _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
     }
 
     function _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset) {
@@ -132,6 +117,7 @@ $(document).ready(function () {
     }
 
     function accountToPayment() {
+        return true;
         var is_ok = checkPassword();
         if (!is_ok) {
             return false;
@@ -140,6 +126,9 @@ $(document).ready(function () {
     }
 
     function finish() {
+        // signup user
+        // prepare redirect URL to payment page
+        // send to payment page
         return true;
     }
 
@@ -250,30 +239,55 @@ $(document).ready(function () {
         }
     }
 
-    function createOrder(callback) {
-        $form.ajaxSubmit({
-            success: function (response) {
-                if (response['success']) {
-                    console.log(JSON.stringify(response));
-                    // set order code number and email
-                    var data = response['data'];
-                    $("#order_code").text(data['order']['code']);
-                    $("#account_email").text(data['user']['email']);
-                    // hide create account fields and show text
-                    $("#create_account").remove();
-                    $("#created_account").show();
-                    ACCOUNT_CREATED = true
-                    callback()
-                } else {
-                    if (response.hasOwnProperty('errors')) {
-                        showErrors(response);
-                    }
-                }
-            },
-            error: function (response) {
-                console.log(JSON.stringify(response));
-                notyError("error");
+    function signUpUser(callback) {
+        var emailVal = $.trim($emailInput.val());
+        var passwordVal = $.trim($passwordInput.val());
+
+        var type = 'GET';
+        var data = {
+            'email': emailVal,
+            'password': passwordVal,
+        };
+        var isAsync = true;
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && !response['success']) {
+                callback();
+            } else {
+                showErrors(response);
             }
-        })
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax(signUpUserURL, type, data, isAsync, successCallback, errorCallback)
     }
+
+    $paymentMethodsModal.on('hide.bs.modal', function (e) {
+        // if in modal nothing was chosen - do nothing
+        if ($paymentMethodsModal.find('.modal-body').find('.payment-method.active').length === 0) {
+            return;
+        }
+        var $activePaymentMethodClone = $(".payment-method.active").parent().clone();
+        // css fix
+        $activePaymentMethodClone.addClass('col-xl-2');
+        $("#payment_methods-container").append($activePaymentMethodClone);
+    });
+
+    $(document).on('click', ".payment-method", function () {
+        if ($(this).hasClass('active')) {
+            return;
+        }
+
+        $(".payment-method.active").removeClass('active');
+        $(this).addClass('active');
+
+        // delete payment method from main container only if modal with additional methods was shown
+        if ($paymentMethodsModal.hasClass('show')) {
+            $("#payment_methods-container").find('.payment-method.additional').parent().remove();
+        }
+        $("#payment_method").val($(this).data('id'));
+    });
 });
