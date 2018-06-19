@@ -45,6 +45,9 @@ def before_request():
     # clean jinja_env cache
     app.jinja_env.cache = {}
 
+    if 'user_locale' in session and 'gdpr' not in session:
+        session['gdpr'] = True
+
     if 'lang_code' not in session or session['lang_code'] == 'None':
         session['lang_code'] = str(get_locale())
 

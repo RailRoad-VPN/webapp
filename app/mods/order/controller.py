@@ -84,6 +84,9 @@ def order():
         except APIException:
             pass
 
+    if subscriptions is None:
+        raise abort(500)
+
     logger.info("Got subscriptions. Size: %s" % len(subscriptions))
     if app_config['DEBUG'] is True:
         for sub in subscriptions:
@@ -95,10 +98,6 @@ def order():
             if str(sub['id']) == pack_id:
                 subscription = sub
                 break
-
-    if pack_id is not None and subscription is None:
-        # TODO think here
-        raise abort(404)
 
     if 'order' not in session or session['order'] is None:
         # create new order

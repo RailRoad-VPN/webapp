@@ -1,10 +1,10 @@
 import logging
 import sys
 
-from flask import Blueprint, render_template, session, request, redirect
+from flask import Blueprint, render_template, session, request, redirect, abort
 
 # Define the blueprint: 'index', set its url prefix: app.url/
-from app import rrn_billing_service
+from app import rrn_billing_service, app_config
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
@@ -27,6 +27,8 @@ def add_language_code(endpoint, values):
 def pull_lang_code(endpoint, values):
     if 'lang_code' in values:
         lang_code = values['lang_code']
+        if lang_code not in app_config['LANGUAGES']:
+            lang_code = 'en'
         if 'lang_code' in session:
             if lang_code != session['lang_code']:
                 session['lang_code'] = lang_code
@@ -43,11 +45,11 @@ def index_lang_page():
         r_url = str(request.base_url) + str(request.referrer).split("/")[-1]
         return redirect(r_url)
 
-    subscriptions = None
     try:
         subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
     except APIException as e:
-        pass
+        raise abort(500)
+
     return render_template('index/index.html', code=200, subscriptions=subscriptions)
 
 

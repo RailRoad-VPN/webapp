@@ -78,6 +78,7 @@
 
         <!-- custom css -->
         <link href="{{ url_for('static', filename='main/default.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='main/common/gdpr/gdpr.css') }}" type="text/css" rel="stylesheet"/>
     {% else %}
         <!-- Bootstrap -->
         <link href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}" type="text/css"
@@ -92,6 +93,7 @@
 
         <!-- custom css -->
         <link href="{{ url_for('static', filename='main/default.min.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='main/common/gdpr/gdpr.min.css') }}" type="text/css" rel="stylesheet"/>
     {% endif %}
 
     {% block import_css %}{% endblock %}
@@ -204,13 +206,16 @@
             charset="utf-8"></script>
 
     <!-- custom js -->
-    <script src="{{ url_for('static', filename='main/init.js') }}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/navigation.js') }}" type="text/javascript"
+    <script src="{{ url_for('static', filename='main/common/init.js') }}" type="text/javascript"
             charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/utils.js') }}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/notification.js') }}" type="text/javascript"
+    <script src="{{ url_for('static', filename='main/common/navigation.js') }}" type="text/javascript"
             charset="utf-8"></script>
-
+    <script src="{{ url_for('static', filename='main/common/utils.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/notification.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.js') }}" type="text/javascript"
+            charset="utf-8"></script>
 {% else %}
     <!-- JQuery Resources -->
     <script src="{{ url_for('static', filename='assets/jquery/jquery.form.min.js') }}" type="text/javascript"
@@ -235,11 +240,15 @@
             charset="utf-8"></script>
 
     <!-- custom js -->
-    <script src="{{ url_for('static', filename='main/init.min.js') }}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/navigation.min.js') }}" type="text/javascript"
+    <script src="{{ url_for('static', filename='main/common/init.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/utils.min.js') }}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/notification.min.js') }}" type="text/javascript"
+    <script src="{{ url_for('static', filename='main/common/navigation.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/utils.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/notification.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
 
 {% endif %}
@@ -303,6 +312,21 @@
         </div>
     </div>
 </footer>
+
+{% if 'gdpr' not in session %}
+<div id="gdpr-notification">
+    <p>
+        Please know that our website uses cookies to provide you with a complete experience. By means of
+        cookies, you
+        can enjoy all website features, including a fast account login. If you disagree...
+        <a id="gdpr-read_more-btn">Read more...</a>
+    </p>
+    <p id="gdpr_more-p" style="display: none;">
+        Please know that our website uses cookies to provide you with a complete experience. By means of cookies, you can enjoy all website features, including a fast account login. If you disagree with our usage of cookies, please make the necessary changes, to either block or disable them, from your browser\'s settings at any time. The option to continue visiting the website without making any changes will be regarded as an acceptance of cookies.
+    </p>
+    <div id="gdpr-notification-close" class="gdpr-notification-close">X</div>
+</div>
+{% endif %}
 
 {% block import_js %}{% endblock %}
 </body>
