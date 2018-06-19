@@ -119,18 +119,12 @@ $(document).ready(function () {
     }
 
     function accountToPayment() {
-        var is_ok = checkPassword();
-        if (!is_ok) {
+        var is_pwd_ok = checkPassword();
+        if (!is_pwd_ok) {
             return false;
         }
-        return checkRepeatPassword();
-    }
-
-    function finish() {
-        // signup user
-        // prepare redirect URL to payment page
-        // send to payment page
-        return true;
+        is_pwd_ok = checkRepeatPassword();
+        return is_pwd_ok;
     }
 
     function stepFieldSetValidation(currentStepId) {
@@ -148,7 +142,85 @@ $(document).ready(function () {
         return is_alllow
     }
 
-    $emailInput.on('focusout', function () {
+    $orderForm.on('submit', function (e) {
+        e.preventDefault();
+        var that = this;
+        $(that).ajaxSubmit({
+            success: function (response) {
+                if (response['success']) {
+                    console.log(JSON.stringify(response));
+                    getPaymentPageURL();
+                } else {
+                    if (response.hasOwnProperty('errors')) {
+                        showErrors(response);
+                    }
+                }
+            },
+            error: function (response) {
+                console.log(JSON.stringify(response));
+                notyError("error");
+            }
+        });
+    });
+
+    function getPaymentPageURL(callback) {
+        var orderCodeVal = $.trim($("#order_code").text());
+        var subscriptionIdVal = $.trim($("#subscription-id").val());
+        var paymentMethodVal = $.trim($("#payment_method").val());
+
+        var data = {
+            'order_code': orderCodeVal,
+            'subscription_id': subscriptionIdVal,
+            'payment_method_id': paymentMethodVal,
+        };
+        var isAsync = true;
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && response['success']) {
+                if (response.hasOwnProperty('data')) {
+                    window.location = response['data']['redirect_url'];
+                } else {
+                    callback ? callback() : ''
+                }
+            } else {
+                showErrors(response);
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($getPaymentUrlURLObj.data('url'), $getPaymentUrlURLObj.data('method'), data, isAsync, successCallback, errorCallback)
+    }
+
+    $paymentMethodsModal.on('hide.bs.modal', function (e) {
+        // if in modal nothing was chosen - do nothing
+        if ($paymentMethodsModal.find('.modal-body').find('.payment-method.active').length === 0) {
+            return;
+        }
+        var $activePaymentMethodClone = $(".payment-method.active").parent().clone();
+        // css fix
+        $activePaymentMethodClone.addClass('col-xl-2');
+        $("#payment_methods-container").append($activePaymentMethodClone);
+    });
+
+    $(document).on('click', ".payment-method", function () {
+        if ($(this).hasClass('active')) {
+            return;
+        }
+
+        $(".payment-method.active").removeClass('active');
+        $(this).addClass('active');
+
+        // delete payment method from main container only if modal with additional methods was shown
+        if ($paymentMethodsModal.hasClass('show')) {
+            $("#payment_methods-container").find('.payment-method.additional').parent().remove();
+        }
+        $("#payment_method").val($(this).data('id'));
+    });
+
+        $emailInput.on('focusout', function () {
         checkEmail();
     });
 
@@ -238,107 +310,4 @@ $(document).ready(function () {
             $input.removeClass('is-valid').addClass('is-invalid');
         }
     }
-
-    $orderForm.on('submit', function (e) {
-        e.preventDefault();
-        var that = this;
-        $(that).ajaxSubmit({
-            success: function (response) {
-                if (response['success']) {
-                    console.log(JSON.stringify(response));
-                    getPaymentPageURL();
-                } else {
-                    if (response.hasOwnProperty('errors')) {
-                        showErrors(response);
-                    }
-                }
-            },
-            error: function (response) {
-                console.log(JSON.stringify(response));
-                notyError("error");
-            }
-        });
-    });
-
-    function getPaymentPageURL(callback) {
-        var orderCodeVal = $.trim($("#order_code").text());
-        var subscriptionIdVal = $.trim($("#subscription-id").val());
-        var paymentMethodVal = $.trim($("#payment_method").val());
-
-        var data = {
-            'order_code': orderCodeVal,
-            'subscription_id': subscriptionIdVal,
-            'payment_method_id': paymentMethodVal,
-        };
-        var isAsync = true;
-
-        var successCallback = function (response) {
-            if (response.hasOwnProperty('success') && response['success']) {
-                if (response.hasOwnProperty('data')) {
-                    window.location = response['data']['redirect_url'];
-                } else {
-                    callback ? callback() : ''
-                }
-            } else {
-                showErrors(response);
-            }
-        };
-
-        var errorCallback = function (response) {
-            notyError("System Error");
-        };
-
-        doAjax($getPaymentUrlURLObj.data('url'), $getPaymentUrlURLObj.data('method'), data, isAsync, successCallback, errorCallback)
-    }
-
-    // function signUpUser(callback) {
-    //     var emailVal = $.trim($emailInput.val());
-    //     var passwordVal = $.trim($passwordInput.val());
-    //
-    //     var data = {
-    //         'email': emailVal,
-    //         'password': passwordVal,
-    //     };
-    //     var isAsync = true;
-    //
-    //     var successCallback = function (response) {
-    //         if (response.hasOwnProperty('success') && !response['success']) {
-    //             callback();
-    //         } else {
-    //             showErrors(response);
-    //         }
-    //     };
-    //
-    //     var errorCallback = function (response) {
-    //         notyError("System Error");
-    //     };
-    //
-    //     doAjax($signUpUserURLObj.data('url'), $signUpUserURLObj.data('method'), data, isAsync, successCallback, errorCallback)
-    // }
-
-    $paymentMethodsModal.on('hide.bs.modal', function (e) {
-        // if in modal nothing was chosen - do nothing
-        if ($paymentMethodsModal.find('.modal-body').find('.payment-method.active').length === 0) {
-            return;
-        }
-        var $activePaymentMethodClone = $(".payment-method.active").parent().clone();
-        // css fix
-        $activePaymentMethodClone.addClass('col-xl-2');
-        $("#payment_methods-container").append($activePaymentMethodClone);
-    });
-
-    $(document).on('click', ".payment-method", function () {
-        if ($(this).hasClass('active')) {
-            return;
-        }
-
-        $(".payment-method.active").removeClass('active');
-        $(this).addClass('active');
-
-        // delete payment method from main container only if modal with additional methods was shown
-        if ($paymentMethodsModal.hasClass('show')) {
-            $("#payment_methods-container").find('.payment-method.additional').parent().remove();
-        }
-        $("#payment_method").val($(this).data('id'));
-    });
 });
