@@ -7,7 +7,12 @@
 {% endblock %}
 <div id="pricing-pack" class="row">
     {% for subscription in subscriptions %}
-        <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+        <!-- skip free subscription -->
+        {% if subscription['id'] == 1 %}
+            {% continue %}
+        {% endif %}
+        <!--/ skip free subscription -->
+        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
             <div id="{{ subscription['id'] }}"
                  class="pricing {% if subscription['is_best'] == true %}pricing-active{% endif %} hover-effect">
                 {% if subscription['is_best'] == true %}

@@ -1,9 +1,11 @@
 import os
 from pprint import pprint
 
+import jinja2
 from flask import Flask, url_for, redirect, session, request
 from flask_babel import Babel
 from flask_moment import Moment
+from jinja2 import Environment
 
 from app.cache import CacheService
 from app.service import *
@@ -19,6 +21,8 @@ logger.error('error message')
 logger.critical('critical message')
 
 app = Flask(__name__)
+
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
 babel = Babel(app)
 
