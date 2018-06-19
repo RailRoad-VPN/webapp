@@ -48,6 +48,9 @@ def before_request():
     if 'lang_code' not in session or session['lang_code'] == 'None':
         session['lang_code'] = str(get_locale())
 
+    if 'user_locale' not in session:
+        session['user_locale'] = request.accept_languages.best
+
     # check DEBUG is False
     if app.config['DEBUG'] is False:
         # Debug is False

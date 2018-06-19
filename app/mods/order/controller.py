@@ -123,7 +123,7 @@ def payment_url():
     order_code = request.args.get('order_code', None)
     subscription_id = request.args.get('subscription_id', None)
     payment_method_id = request.args.get('payment_method_id', None)
-    user_locale = request.accept_languages.best
+    user_locale = session['user_locale']
 
     redirect_url = ppg_payments_service.build_redirect_url(order_code=order_code, subscription_id=subscription_id,
                                                            payment_method_id=payment_method_id, user_locale=user_locale)
