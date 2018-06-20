@@ -74,7 +74,7 @@
                     <fieldset id="account-fieldset" class="container" data-id="account">
                         <div class="row">
                             <div class="col-lg-4 col-xl-4 col-xxl-4 d-none d-xs-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
-                                {% with chosen_subscription=chosen_subscription, width="width: 18rem;"%}
+                                {% with chosen_subscription=chosen_subscription, width="width: 18rem;" %}
                                     {% include 'partials/chosen_subscription.html' %}
                                 {% endwith %}
                             </div>
@@ -128,7 +128,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 d-none d-xs-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
-                                {% with chosen_subscription=chosen_subscription, width="width: 100%"%}
+                                {% with chosen_subscription=chosen_subscription, width="width: 100%" %}
                                     {% include 'partials/chosen_subscription.html' %}
                                 {% endwith %}
                             </div>
@@ -174,6 +174,12 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9 col-xxl-9 justify-content-center text-center">
+                                <div class="form-group">
+                                    <div id="payment-method-error" class="col-12 error small">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        {{ _('Choose payment method before proceed to payment page') }}
+                                    </div>
+                                </div>
                                 <div id="payment_methods-container" class="row">
                                     <div class="col-sm-12 col-md-6 col-xl-4 col-xxl-4 px-0 p-4">
                                         <div class="payment-method" data-id="1">
@@ -196,7 +202,7 @@
                                 </div>
                                 <div class="order-form-buttons" style="padding-bottom: 50px">
                                     <button type="button" class="btn btn-link btn-previous">{{ _('BACK') }}</button>
-                                    <button type="submit" class="btn btn-next">
+                                    <button type="submit" class="btn">
                                         {{ _('Proceed to payment page') }}
                                     </button>
                                 </div>
@@ -244,11 +250,11 @@
         </div>
     </div>
 
-    <div id="payment_methods-modal" class="modal" tabindex="-1" role="dialog">
+    <div id="payment_methods-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ _('Choose your favorite payment method') }}</h5>
+                    <h5 class="modal-title">{{ _('Choose your favorite payment method') }}<sup>*</sup></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -311,6 +317,12 @@
                                 <h5>{{ _('Other...') }}</h5>
                             </div>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <span style="padding: 0 10px 0 10px">
+                            <small>* {{ _('Some payment methods can be unavaiable on payment page. Don\'t worry, you can change payment method any time on payment page.') }}</small>
+                        </span>
                     </div>
                 </div>
             </div>

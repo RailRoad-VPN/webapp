@@ -78,8 +78,6 @@ $(document).ready(function () {
                 is_allow_next_step = packToAccount(this);
             } else if (currentStepId === 'account') {
                 is_allow_next_step = accountToPayment();
-            } else if (currentStepId === 'payment') {
-                is_allow_next_step = finish();
             }
         }
 
@@ -119,7 +117,6 @@ $(document).ready(function () {
     }
 
     function accountToPayment() {
-        return true;
         var is_pwd_ok = checkPassword();
         if (!is_pwd_ok) {
             return false;
@@ -143,8 +140,21 @@ $(document).ready(function () {
         return is_alllow
     }
 
+    // prevent form submit by pressing enter button
+    $(window).keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
     $orderForm.on('submit', function (e) {
         e.preventDefault();
+        var paymentMethodVal = $.trim($("#payment_method").val());
+        if (!paymentMethodVal || paymentMethodVal === '') {
+            $('#payment-method-error').show();
+            return false;
+        }
         var that = this;
         $(that).ajaxSubmit({
             success: function (response) {
@@ -207,6 +217,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', ".payment-method", function () {
+        $('#payment-method-error').hide();
         if ($(this).hasClass('active')) {
             return;
         }
@@ -217,11 +228,12 @@ $(document).ready(function () {
         // delete payment method from main container only if modal with additional methods was shown
         if ($paymentMethodsModal.hasClass('show')) {
             $("#payment_methods-container").find('.payment-method.additional').parent().remove();
+            $paymentMethodsModal.modal('hide');
         }
         $("#payment_method").val($(this).data('id'));
     });
 
-        $emailInput.on('focusout', function () {
+    $emailInput.on('focusout', function () {
         checkEmail();
     });
 
