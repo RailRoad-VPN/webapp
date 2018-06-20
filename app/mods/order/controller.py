@@ -109,7 +109,7 @@ def order():
         except APIException as e:
             logging.debug(e.serialize())
 
-    return render_template('index/order.html', pack_id=pack_id, chosen_subscription=subscription,
+    return render_template('order/order.html', pack_id=pack_id, chosen_subscription=subscription,
                            subscriptions=subscriptions, code=200)
 
 

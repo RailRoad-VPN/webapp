@@ -56,7 +56,7 @@ def index_lang_page():
 @mod_index.route('/features', methods=['GET'])
 def features_page():
     logger.info('features_page method')
-    return render_template('index/features.html', code=200)
+    return render_template('features/features.html', code=200)
 
 
 @mod_index.route('/pricing', methods=['GET'])
@@ -69,16 +69,16 @@ def pricing_page():
     except APIException:
         pass
 
-    return render_template('index/pricing.html', code=200, subscriptions=subscriptions)
+    return render_template('pricing/pricing.html', code=200, subscriptions=subscriptions)
 
 
 @mod_index.route('/download', methods=['GET'])
 def download_page():
     logger.info('download_page method')
-    return render_template('index/download.html', code=200)
+    return render_template('download/download.html', code=200)
 
 
 @mod_index.route('/contact', methods=['GET'])
 def contact_page():
     logger.info('contact_page method')
-    return render_template('index/download.html', code=200)
+    return render_template('contact/contact.html', code=200)

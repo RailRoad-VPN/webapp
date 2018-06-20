@@ -15,10 +15,10 @@
 {% block import_js %}
 
     {% if 'debug' in session %}
-        <script src="{{ url_for('static', filename='main/index/download.js') }}" type="text/javascript"
+        <script src="{{ url_for('static', filename='main/download/download.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% else %}
-        <script src="{{ url_for('static', filename='main/index/download.min.js') }}" type="text/javascript"
+        <script src="{{ url_for('static', filename='main/download/download.min.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% endif %}
 {% endblock %}
