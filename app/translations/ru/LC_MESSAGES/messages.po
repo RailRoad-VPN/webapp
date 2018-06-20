@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-09 16:35+0300\n"
+"POT-Creation-Date: 2018-06-20 18:12+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -30,18 +30,18 @@ msgstr "Внутренняя ошибка сервера"
 msgid "d"
 msgstr ""
 
-#: app/models/exception.py:34 app/models/exception.py:36
-#: app/models/exception.py:37
+#: app/models/exception.py:34 app/models/exception.py:37
+#: app/models/exception.py:38
 msgid "Unable to log in. Please check the login details"
 msgstr "Невозможно войти. Пожалуйста проверьте правильность данных для входа."
 
-#: app/models/exception.py:35 app/templates/index/order.html:126
+#: app/models/exception.py:35 app/templates/index/order.html:94
 msgid "Entered email is busy"
 msgstr "Введенный электронный адрес занят"
 
-#: app/models/exception.py:38
-msgid "Fill all fields to complete creating account"
-msgstr "Заполните все поля для создания аккаунта"
+#: app/models/exception.py:36
+msgid "Fill all fields to create account"
+msgstr "Заполните все поля, чтобы создать аккаунт"
 
 #: app/models/exception.py:39
 msgid "Password does not match"
@@ -55,8 +55,8 @@ msgstr "Вход"
 msgid "Email address"
 msgstr "Email адресс"
 
-#: app/templates/auth/signin.html:40 app/templates/index/order.html:130
-#: app/templates/index/order.html:132
+#: app/templates/auth/signin.html:40 app/templates/index/order.html:98
+#: app/templates/index/order.html:100
 msgid "Password"
 msgstr "Пароль"
 
@@ -77,11 +77,11 @@ msgid "Sign up"
 msgstr "Создайте!"
 
 #: app/templates/index/download.html:4 app/templates/index/index.html:114
-#: app/templates/partials/layout.html:122
+#: app/templates/partials/layout.html:134
 msgid "Download"
 msgstr "Скачать"
 
-#: app/templates/index/features.html:4 app/templates/partials/layout.html:114
+#: app/templates/index/features.html:4 app/templates/partials/layout.html:126
 msgid "Features"
 msgstr "Особенности"
 
@@ -130,7 +130,7 @@ msgstr "Сохраните анонимность, когда вам это ну
 msgid "Create your own network over Internet"
 msgstr "Создай свою собственную сеть в сети Интернет"
 
-#: app/templates/index/index.html:103 app/templates/index/order.html:66
+#: app/templates/index/index.html:103 app/templates/index/order.html:68
 #: app/templates/index/pricing.html:32
 msgid "CHOOSE YOUR PACK"
 msgstr "ВЫБЕРИТЕ СВОЙ ПЛАН"
@@ -144,202 +144,252 @@ msgid "Visit Download Page"
 msgstr "Перейти на страницу скачивания"
 
 #: app/templates/index/order.html:4 app/templates/index/pricing.html:4
-#: app/templates/partials/layout.html:118
+#: app/templates/partials/layout.html:130
 msgid "Pricing"
 msgstr "Купить"
 
-#: app/templates/index/order.html:39
+#: app/templates/index/order.html:41
 msgid "Order"
 msgstr "Заказ"
 
-#: app/templates/index/order.html:42
+#: app/templates/index/order.html:45
 msgid "Build your own railroad in 3 easy steps"
 msgstr "Постройте свою железную дорогу в 3 простых шага"
 
-#: app/templates/index/order.html:51
+#: app/templates/index/order.html:54
 msgid "pack"
 msgstr "план"
 
-#: app/templates/index/order.html:55
+#: app/templates/index/order.html:58
 msgid "account"
 msgstr "аккаунт"
 
-#: app/templates/index/order.html:59
+#: app/templates/index/order.html:62
 msgid "payment"
 msgstr "платеж"
 
-#: app/templates/index/order.html:82
-msgid "What will you get?"
-msgstr "Что вы получите?"
-
-#: app/templates/index/order.html:102
-msgid "Best plan!"
-msgstr "Лучший план!"
-
-#: app/templates/index/order.html:109
-msgid "Change Plan"
-msgstr "Изменить план"
-
-#: app/templates/index/order.html:115
+#: app/templates/index/order.html:83
 msgid "CREATE ACCOUNT"
 msgstr "СОЗДАЙТЕ АККАУНТ"
 
-#: app/templates/index/order.html:117 app/templates/index/order.html:118
+#: app/templates/index/order.html:85 app/templates/index/order.html:86
 msgid "Email"
 msgstr "Электронная почта"
 
-#: app/templates/index/order.html:122
+#: app/templates/index/order.html:90
 msgid "Enter email please"
 msgstr "Введите электронную почту пожалуйста"
 
-#: app/templates/index/order.html:136
+#: app/templates/index/order.html:104
 msgid "Enter password please"
 msgstr "Введите пароль пожалуйста"
 
-#: app/templates/index/order.html:140
+#: app/templates/index/order.html:108
 msgid "Entered password too short. Minimum length 6 chars"
 msgstr "Введенный пароль слишком короткий. Минимальная длина 6 символов"
 
-#: app/templates/index/order.html:144 app/templates/index/order.html:146
+#: app/templates/index/order.html:112 app/templates/index/order.html:114
 msgid "Verify password"
 msgstr "Подтвердите пароль"
 
-#: app/templates/index/order.html:150
+#: app/templates/index/order.html:118
 msgid "Enter password again to verify it"
 msgstr "Введите пароль еще раз"
 
-#: app/templates/index/order.html:154
+#: app/templates/index/order.html:122
 msgid "Entered passwords does not match"
 msgstr "Введенные пароли не совпадают"
 
-#: app/templates/index/order.html:160 app/templates/index/order.html:170
-msgid "Previous"
+#: app/templates/index/order.html:126 app/templates/index/order.html:174
+msgid "Back"
 msgstr "Назад"
 
-#: app/templates/index/order.html:161
+#: app/templates/index/order.html:127
 msgid "Next"
 msgstr "Дальше"
 
-#: app/templates/index/order.html:171
-msgid "Go to payment page"
-msgstr "Перейти на страницу оплаты"
+#: app/templates/index/order.html:150
+msgid "Choose payment method before proceed to payment page"
+msgstr "Выберите способ оплаты, чтобы перейди на страницу оплаты"
 
-#: app/templates/partials/layout.html:126
+#: app/templates/index/order.html:170
+msgid "Show more ways to pay"
+msgstr "Выбрать другой способ оплаты"
+
+#: app/templates/index/order.html:176
+msgid "Proceed to payment page"
+msgstr "Перейтим на страницу оплаты"
+
+#: app/templates/index/order.html:197
+msgid "Choose your favorite payment method"
+msgstr "Выберите ваш любый способ оплаты"
+
+#: app/templates/index/order.html:257
+msgid "Other..."
+msgstr "Другой..."
+
+#: app/templates/index/order.html:264
+msgid ""
+"Some payment methods can be unavailable on payment page. Don't worry, you "
+"can change payment method any time on payment page."
+msgstr "Некоторые способы оплаты могут быть недоступны на странице оплаты. Вы всегда можете выбрать другой способ оплаты на странице оплаты."
+
+#: app/templates/partials/layout.html:138
 msgid "Contact"
 msgstr "Контакты"
 
-#: app/templates/partials/layout.html:136
+#: app/templates/partials/layout.html:148
 msgid "My Account"
 msgstr "Мой аккаунт"
 
-#: app/templates/partials/layout.html:142
+#: app/templates/partials/layout.html:154
 msgid "Logout"
 msgstr "Выйти"
 
-#: app/templates/partials/layout.html:249
+#: app/templates/partials/layout.html:192
 msgid "PRODUCTS"
 msgstr "ПРОДУКТЫ"
 
-#: app/templates/partials/layout.html:251
+#: app/templates/partials/layout.html:194
 msgid "VPN for Windows"
 msgstr "VPN для Windows"
 
-#: app/templates/partials/layout.html:252
+#: app/templates/partials/layout.html:195
 msgid "VPN for iOS"
 msgstr "VPN для iOS"
 
-#: app/templates/partials/layout.html:253
+#: app/templates/partials/layout.html:196
 msgid "VPN for Android"
 msgstr "VPN для Android"
 
-#: app/templates/partials/layout.html:254
+#: app/templates/partials/layout.html:197
 msgid "VPN for macOS"
 msgstr "VPN для macOS"
 
-#: app/templates/partials/layout.html:258
+#: app/templates/partials/layout.html:201
 msgid "TUTORIALS"
 msgstr "РУКОВОДСТВА"
 
-#: app/templates/partials/layout.html:260
+#: app/templates/partials/layout.html:203
 msgid "How to use VPN?"
 msgstr "Как использовать VPN?"
 
-#: app/templates/partials/layout.html:261
+#: app/templates/partials/layout.html:204
 msgid "Why I need VPN?"
 msgstr "Зачем мне нужен VPN?"
 
-#: app/templates/partials/layout.html:262
+#: app/templates/partials/layout.html:205
 msgid "Which VPN to choose?"
 msgstr "Какой VPN использовать?"
 
-#: app/templates/partials/layout.html:263
+#: app/templates/partials/layout.html:206
 msgid "Why VPN is dangerous?"
 msgstr "Почему VPN это опасно?"
 
-#: app/templates/partials/layout.html:267
+#: app/templates/partials/layout.html:210
 msgid "INFORMATION"
 msgstr "ИНФОРМАЦИЯ"
 
-#: app/templates/partials/layout.html:269
+#: app/templates/partials/layout.html:212
 msgid "About us"
 msgstr "О нас"
 
-#: app/templates/partials/layout.html:270
+#: app/templates/partials/layout.html:213
 msgid "Plans and Pricing"
 msgstr "Планы и цены"
 
-#: app/templates/partials/layout.html:271
+#: app/templates/partials/layout.html:214
 msgid "Support"
 msgstr "Поддержка"
 
-#: app/templates/partials/layout.html:272
+#: app/templates/partials/layout.html:215
 msgid "Partnership"
 msgstr "Партнерство"
 
-#: app/templates/partials/layout.html:273
+#: app/templates/partials/layout.html:216
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: app/templates/partials/layout.html:277
+#: app/templates/partials/layout.html:220
 msgid "SOCIAL"
 msgstr "СОЦИАЛЬНЫЕ СЕТИ"
 
-#: app/templates/partials/layout.html:279
+#: app/templates/partials/layout.html:222
 msgid "Facebook"
 msgstr ""
 
-#: app/templates/partials/layout.html:280
+#: app/templates/partials/layout.html:223
 msgid "Vkontakte"
 msgstr "Вконтакте"
 
-#: app/templates/partials/layout.html:281
+#: app/templates/partials/layout.html:224
 msgid "Twitter"
 msgstr "Твиттер"
 
-#: app/templates/partials/layout.html:282
+#: app/templates/partials/layout.html:225
 msgid "YouTube"
 msgstr ""
 
-#: app/templates/partials/layout.html:294
+#: app/templates/partials/layout.html:237
 msgid "Privacy Policy"
 msgstr "Политика Конфиденциальности"
 
-#: app/templates/partials/layout.html:297
+#: app/templates/partials/layout.html:240
 msgid "Terms Of Service"
 msgstr "Условия использования"
 
-#: app/templates/partials/pricing-packs.html:14
+#: app/templates/partials/order/chosen_subscription.html:8
+msgid "What will you get?"
+msgstr "Что вы получите?"
+
+#: app/templates/partials/order/chosen_subscription.html:28
+msgid "Best plan!"
+msgstr "Лучший план!"
+
+#: app/templates/partials/order/chosen_subscription.html:35
+msgid "Change Plan"
+msgstr "Изменить план"
+
+#: app/templates/partials/order/last_step.html:3
+msgid "Just last step to get..."
+msgstr "Последний шаг чтобы.."
+
+#: app/templates/partials/order/last_step.html:5
+msgid "be a king of internet"
+msgstr "статья королем интернета"
+
+#: app/templates/partials/order/last_step.html:11
+msgid "acquire"
+msgstr "получить"
+
+#: app/templates/partials/order/last_step.html:16
 msgid "best pack"
 msgstr "лучший выбор"
 
-#: app/templates/partials/pricing-packs.html:48
-msgid "Checkout"
-msgstr "Выбрать"
+#: app/templates/partials/order/last_step.html:20
+msgid "access to geo-restricted resources"
+msgstr "получить доступ к заблокированным ресусра"
 
-#: app/templates/partials/pricing-packs.html:51
-msgid "Buy Now"
-msgstr "Купить"
+#: app/templates/partials/order/last_step.html:23
+msgid "possibility cancel anytime anywhere"
+msgstr "возможность отменить подписку в любое время"
 
-#: app/templates/partials/pricing-packs.html:53
-msgid "Sign Up"
-msgstr "Получить"
+#: app/templates/partials/order/last_step.html:26
+msgid "kill-switch"
+msgstr ""
+
+#: app/templates/partials/order/last_step.html:29
+msgid "easy to use"
+msgstr "легкость в использовании"
+
+#: app/templates/partials/order/last_step.html:32
+msgid "friendly customer support"
+msgstr "дружественную клиентскую поддержку"
+
+#: app/templates/partials/order/last_step.html:35
+msgid "possibility use public wifi"
+msgstr "возможность использовать публичный WiFi"
+
+#: app/templates/partials/order/last_step.html:38
+msgid "build your network"
+msgstr "построить свою сеть"

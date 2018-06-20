@@ -18,6 +18,7 @@
           content="{{ url_for('static', filename='main/img/favicon/ms-icon-144x144.png') }}">
     <meta name="theme-color" content="#ff6600">
 
+    <meta id="particlesJSConfigURL" data-method="GET" data-url="{{ url_for('static', filename='assets/particles/particles.json') }}">
     {% block meta %}{% endblock %}
 
     <link type="image/png" rel="icon" href="{{ url_for('static', filename='main/img/favicon/favicon.ico') }}">
@@ -75,7 +76,8 @@
         <!-- custom css -->
         <link href="{{ url_for('static', filename='main/common/fonts.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/default.css') }}" type="text/css" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='main/common/bootstrap-fixes.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='main/common/bootstrap-fixes.css') }}" type="text/css"
+              rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/common/gdpr/gdpr.css') }}" type="text/css" rel="stylesheet"/>
     {% else %}
         <!-- Bootstrap -->
@@ -95,8 +97,10 @@
         <!-- custom css -->
         <link href="{{ url_for('static', filename='main/common/fonts.min.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/default.min.css') }}" type="text/css" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='main/common/bootstrap-fixes.min.css') }}" type="text/css" rel="stylesheet"/>
-        <link href="{{ url_for('static', filename='main/common/gdpr/gdpr.min.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='main/common/bootstrap-fixes.min.css') }}" type="text/css"
+              rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='main/common/gdpr/gdpr.min.css') }}" type="text/css"
+              rel="stylesheet"/>
     {% endif %}
 
     {% block import_css %}{% endblock %}
@@ -104,7 +108,7 @@
 
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-md navbar-dark fixed-top" id="mainNav">
+<nav id="mainNav" class="navbar navbar-expand-md navbar-dark fixed-top">
     <a class="navbar-brand js-scroll-trigger"
        href="{{ url_for('index.index_lang_page', lang_code=session['lang_code']) }}">
         <img class="" width="50" src="{{ url_for('static', filename='main/mascot_head.png') }}">
@@ -172,89 +176,13 @@
             </li>
         </ul>
     </div>
+    <div id="particles-js"></div>
 </nav>
 
 <!-- Body -->
 <main>
     {% block body %}{% endblock %}
 </main>
-
-<!-- Javascript -->
-
-<!-- moment -->
-{{ moment.include_moment() }}
-{{ moment.lang(g.locale) }}
-
-{% if 'debug' in session %}
-    <!-- JQuery Resources -->
-    <script src="{{ url_for('static', filename='assets/jquery/jquery.form.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- Bootstrap -->
-    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- underscore -->
-    <script src="{{ url_for('static', filename='assets/underscore/underscore.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- moment -->
-    <script src="{{ url_for('static', filename='assets/moment/moment.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- noty -->
-    <script src="{{ url_for('static', filename='assets/noty/noty.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- custom js -->
-    <script src="{{ url_for('static', filename='main/common/init.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/navigation.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/utils.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/notification.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-{% else %}
-    <!-- JQuery Resources -->
-    <script src="{{ url_for('static', filename='assets/jquery/jquery.form.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- Bootstrap -->
-    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- moment -->
-    <script src="{{ url_for('static', filename='assets/moment/moment.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- noty -->
-    <script src="{{ url_for('static', filename='assets/noty/noty.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- underscore -->
-    <script src="{{ url_for('static', filename='assets/underscore/underscore.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- custom js -->
-    <script src="{{ url_for('static', filename='main/common/init.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/navigation.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/utils.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/notification.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-{% endif %}
 
 <!-- Footer -->
 <footer>
@@ -317,18 +245,107 @@
 </footer>
 
 {% if 'gdpr' not in session %}
-<div id="gdpr-notification">
-    <p>
-        Please know that our website uses cookies to provide you with a complete experience. By means of
-        cookies, you
-        can enjoy all website features, including a fast account login. If you disagree...
-        <a id="gdpr-read_more-btn">Read more...</a>
-    </p>
-    <p id="gdpr_more-p" style="display: none;">
-        Please know that our website uses cookies to provide you with a complete experience. By means of cookies, you can enjoy all website features, including a fast account login. If you disagree with our usage of cookies, please make the necessary changes, to either block or disable them, from your browser\'s settings at any time. The option to continue visiting the website without making any changes will be regarded as an acceptance of cookies.
-    </p>
-    <div id="gdpr-notification-close" class="gdpr-notification-close">X</div>
-</div>
+    <div id="gdpr-notification">
+        <p>
+            Please know that our website uses cookies to provide you with a complete experience. By means of
+            cookies, you
+            can enjoy all website features, including a fast account login. If you disagree...
+            <a id="gdpr-read_more-btn">Read more...</a>
+        </p>
+        <p id="gdpr_more-p" style="display: none;">
+            Please know that our website uses cookies to provide you with a complete experience. By means of cookies,
+            you can enjoy all website features, including a fast account login. If you disagree with our usage of
+            cookies, please make the necessary changes, to either block or disable them, from your browser\'s settings
+            at any time. The option to continue visiting the website without making any changes will be regarded as an
+            acceptance of cookies.
+        </p>
+        <div id="gdpr-notification-close" class="gdpr-notification-close">X</div>
+    </div>
+{% endif %}
+
+<!-- Javascript -->
+
+<!-- moment -->
+{{ moment.include_moment() }}
+{{ moment.lang(g.locale) }}
+
+{% if 'debug' in session %}
+    <!-- JQuery Resources -->
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.form.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- underscore -->
+    <script src="{{ url_for('static', filename='assets/underscore/underscore.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- moment -->
+    <script src="{{ url_for('static', filename='assets/moment/moment.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- noty -->
+    <script src="{{ url_for('static', filename='assets/noty/noty.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- particlesjs -->
+    <script src="{{ url_for('static', filename='assets/particles/particles.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- custom js -->
+    <script src="{{ url_for('static', filename='main/common/init.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/navigation.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/utils.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/notification.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+{% else %}
+    <!-- JQuery Resources -->
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.form.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- moment -->
+    <script src="{{ url_for('static', filename='assets/moment/moment.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- noty -->
+    <script src="{{ url_for('static', filename='assets/noty/noty.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- underscore -->
+    <script src="{{ url_for('static', filename='assets/underscore/underscore.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- particlesjs -->
+    <script src="{{ url_for('static', filename='assets/particles/particles.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- custom js -->
+    <script src="{{ url_for('static', filename='main/common/init.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/navigation.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/utils.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/notification.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
 {% endif %}
 
 {% block import_js %}{% endblock %}
