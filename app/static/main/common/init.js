@@ -10,7 +10,9 @@ $(document).ready(function () {
 });
 
 function initParticleJS() {
-        particlesJS.load('particles-js', $("#particlesJSConfigURL").data('url'), function () {
+    $("#particles-js").hide();
+    particlesJS.load('particles-js', $("#particlesJSConfigURL").data('url'), function () {
         console.log('callback - particles.js config loaded');
+        $("#particles-js").show();
     });
 }
