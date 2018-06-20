@@ -242,3 +242,7 @@
         width: 7rem;
     }
 }
+
+#payment-fieldset .card-body {
+    padding: 0;
+}

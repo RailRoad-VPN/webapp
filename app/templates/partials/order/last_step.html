@@ -1,0 +1,42 @@
+<div class="card">
+    <h5 class="card-header" style="background-color: rgba(248, 204, 70, 3);">
+        {{ _('Just last step to get...') }}
+        <p class="card-text" style="font-size: 50%; text-decoration: line-through;">
+            {{ _('be a king of internet') }}
+        </p>
+    </h5>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('acquire') }}
+                <span style="color: rgba(248, 204, 70, 3)">
+                                                    {{ chosen_subscription['name'] }}
+                                                </span>
+                {% if chosen_subscription['is_best'] == true %}
+                    <sup>{{ _('best pack') }}</sup>
+                {% endif %}
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('access to geo-restricted resources') }}
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('possibility cancel anytime anywhere') }}
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('kill-switch') }}
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('easy to use') }}
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('friendly customer support') }}
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('possibility use public wifi') }}
+            </li>
+            <li class="list-group-item">
+                <i class="fa fa-check-circle"></i> {{ _('build your network') }}
+            </li>
+        </ul>
+    </div>
+</div>

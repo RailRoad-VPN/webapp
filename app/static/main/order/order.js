@@ -17,7 +17,6 @@ $(document).ready(function () {
 
     var $emailCheckURLObj = $("meta#email_check_url");
     var $getPaymentUrlURLObj = $("meta#get_payment_url_url");
-    var $signUpUserURLObj = $("meta#signup_user_url");
 
     var $orderForm = $('.order-form');
     var $packInput = $("#pack_id");
@@ -117,6 +116,7 @@ $(document).ready(function () {
     }
 
     function accountToPayment() {
+        return true;
         var is_pwd_ok = checkPassword();
         if (!is_pwd_ok) {
             return false;
