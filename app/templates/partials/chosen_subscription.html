@@ -1,0 +1,37 @@
+<div class="chosen-subscription card text-center" style="{{ width }}">
+    <h5 class="card-header">
+        {{ chosen_subscription['name'] }}
+        <p class="card-text"
+           style="font-size: 50%;">{{ chosen_subscription['description'] }}</p>
+    </h5>
+    <div class="card-body">
+        <h5 class="card-title">{{ _('What will you get?') }}</h5>
+        <ul class="subscription-features list-group list-group-flush list-unstyled text-left">
+            {% for feature in chosen_subscription['features'] %}
+                <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
+                    <span
+                            {% if feature['tooltip'] is not none and feature['enabled'] == true %}
+                                class="sub-feature-tooltip"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="{{ feature['tooltip'] }}"
+                            {% endif %}
+                    >
+                        {{ feature['name'] }}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
+        {% if chosen_subscription['is_best'] == true %}
+            <div class="blockquote-footer pull-right">
+                <small class="text-muted">
+                    <cite>{{ _('Best plan!') }}</cite>
+                </small>
+            </div>
+        {% endif %}
+    </div>
+    <div class="card-footer bg-transparent border-warning">
+        <button type="button"
+                class="btn btn-previous">{{ _('Change Plan') }}</button>
+    </div>
+</div>

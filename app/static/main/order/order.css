@@ -118,10 +118,6 @@
     text-align: left;
 }
 
-.order-form-buttons {
-    text-align: right;
-}
-
 .form-group .error {
     color: red;
 }
@@ -221,7 +217,7 @@
     border: 5px solid #f8cc46;
 }
 
-.payment-method img.img-fluid {
+.payment-method img.img-fluid, .payment-method h5 {
     width: 10rem;
     position: absolute;
     top: 50%;
@@ -229,6 +225,20 @@
     transform: translate(-50%, -50%);
 }
 
+.payment-method h5 {
+    width: 6rem;
+}
+
 #show_more_payment_methods-text {
     padding-top: 50px;
+}
+
+@media (max-width: 1600px) {
+    .payment-method {
+        min-height: 100px;
+    }
+
+    .payment-method img.img-fluid {
+        width: 7rem;
+    }
 }
