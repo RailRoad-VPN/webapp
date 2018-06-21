@@ -10,9 +10,17 @@
 
 {% block import_js %}
     {% if 'debug' in session %}
+        <!-- particlesjs -->
+        <script src="{{ url_for('static', filename='assets/particles/particles.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+
         <script src="{{ url_for('static', filename='main/index/index.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% else %}
+        <!-- particlesjs -->
+        <script src="{{ url_for('static', filename='assets/particles/particles.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+
         <script src="{{ url_for('static', filename='main/index/index.min.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% endif %}
@@ -45,52 +53,55 @@
 
     <!-- Features Section -->
     <section id="features">
-        <div class="container">
-            <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('WHY USE VPN?') }}</h2>
-            <div class="row">
-                <div class="col-lg-4">
-                    <img class="img-fluid mx-auto d-block feature-image"
-                         src="{{ url_for('static', filename='main/index/images/features/mascot_geo.png') }}">
-                    <div class="wrap feature">
-                        <h4>{{ _('SECURITY') }}</h4>
-                        <p>
-                            {{ _('Protect your access to Internet') }}
-                        </p>
-                        <p>
-                            <a href="{{ url_for('index.features_page') }}">
-                                {{ _('Learn more') }}
-                            </a>
-                        </p>
+        <div style="position:relative;">
+            <div id="particles-js"></div>
+            <div class="container">
+                <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('WHY USE VPN?') }}</h2>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img class="img-fluid mx-auto d-block feature-image"
+                             src="{{ url_for('static', filename='main/index/images/features/mascot_geo.png') }}">
+                        <div class="wrap feature">
+                            <h4>{{ _('SECURITY') }}</h4>
+                            <p>
+                                {{ _('Protect your access to Internet') }}
+                            </p>
+                            <p>
+                                <a href="{{ url_for('index.features_page') }}">
+                                    {{ _('Learn more') }}
+                                </a>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <img class="img-fluid mx-auto d-block feature-image"
-                         src="{{ url_for('static', filename='main/index/images/features/mascot_anonym.png') }}">
-                    <div class="wrap feature">
-                        <h4>{{ _('PRIVACY') }}</h4>
-                        <p>
-                            {{ _('Be anonymous when you need this') }}
-                        </p>
-                        <p>
-                            <a href="{{ url_for('index.features_page') }}">
-                                {{ _('Learn more') }}
-                            </a>
-                        </p>
+                    <div class="col-lg-4">
+                        <img class="img-fluid mx-auto d-block feature-image"
+                             src="{{ url_for('static', filename='main/index/images/features/mascot_anonym.png') }}">
+                        <div class="wrap feature">
+                            <h4>{{ _('PRIVACY') }}</h4>
+                            <p>
+                                {{ _('Be anonymous when you need this') }}
+                            </p>
+                            <p>
+                                <a href="{{ url_for('index.features_page') }}">
+                                    {{ _('Learn more') }}
+                                </a>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <img class="img-fluid mx-auto d-block feature-image"
-                         src="{{ url_for('static', filename='main/index/images/features/mascot_network.png') }}">
-                    <div class="wrap feature">
-                        <h4>{{ _('DISENGAGEMENT') }}</h4>
-                        <p>
-                            {{ _('Create your own network over Internet') }}
-                        </p>
-                        <p>
-                            <a href="{{ url_for('index.features_page') }}">
-                                {{ _('Learn more') }}
-                            </a>
-                        </p>
+                    <div class="col-lg-4">
+                        <img class="img-fluid mx-auto d-block feature-image"
+                             src="{{ url_for('static', filename='main/index/images/features/mascot_network.png') }}">
+                        <div class="wrap feature">
+                            <h4>{{ _('DISENGAGEMENT') }}</h4>
+                            <p>
+                                {{ _('Create your own network over Internet') }}
+                            </p>
+                            <p>
+                                <a href="{{ url_for('index.features_page') }}">
+                                    {{ _('Learn more') }}
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

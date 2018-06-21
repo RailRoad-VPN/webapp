@@ -38,4 +38,8 @@ $(document).ready(function () {
     navbarCollapse();
     // Collapse the navbar when page is scrolled
     $(window).scroll(navbarCollapse);
+
+    particlesJS.load('particles-js', $("#particlesJSConfigURL").data('url'), function () {
+        console.log('callback - particles.js config loaded');
+    });
 });
