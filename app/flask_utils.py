@@ -71,6 +71,27 @@ def before_request():
             logging.error(e)
 
 
+def _add_language_code(endpoint, values):
+    if 'lang_code' in values:
+        lang_code = values['lang_code']
+        if lang_code != session['lang_code']:
+            session['lang_code'] = lang_code
+    values.setdefault('lang_code', session['lang_code'])
+
+
+def _pull_lang_code(endpoint, values, app_config):
+    if 'lang_code' in values:
+        lang_code = values['lang_code']
+        if lang_code not in app_config['LANGUAGES']:
+            lang_code = 'en'
+        if 'lang_code' in session:
+            if lang_code != session['lang_code']:
+                session['lang_code'] = lang_code
+        else:
+            session['lang_code'] = lang_code
+        values.pop('lang_code')
+
+
 @babel.localeselector
 def get_locale():
     if 'lang_code' not in session:

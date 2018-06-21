@@ -55,6 +55,52 @@ a:focus, a:hover {
     color: rgba(248, 204, 70, 0.85);
 }
 
+.bg-gray {
+    background-color: #f8f8f8 !important
+}
+
+
+.pt-7 {
+    padding-top: 7.5rem !important
+}
+
+.pb-7 {
+    padding-bottom: 7.5rem !important
+}
+
+.pt-5 {
+    padding-top: 5rem !important
+}
+
+.pb-5 {
+    padding-bottom: 5rem !important
+}
+
+.pb-5-5 {
+    padding-bottom: 5.625rem !important
+}
+
+.pt-4 {
+    padding-top: 4rem !important
+}
+
+.pb-4 {
+    padding-bottom: 4rem !important
+}
+
+.pt-2 {
+    padding-top: 2rem !important
+}
+
+.pb-2 {
+    padding-bottom: 2rem !important
+}
+
+.mb-5 {
+    margin-bottom: 4rem !important
+}
+
+
 #mainNav {
     font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin-bottom: 0;

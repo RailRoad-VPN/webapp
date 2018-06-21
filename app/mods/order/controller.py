@@ -5,8 +5,9 @@ from http import HTTPStatus
 from flask import Blueprint, request, render_template, \
     session, jsonify, abort
 
-from app import rrn_billing_service, rrn_user_service, cache_service, rrn_orders_service, app_config, \
-    ppg_payments_service
+from app import rrn_user_service, rrn_orders_service, app_config, \
+    ppg_payments_service, subscription_service
+from app.flask_utils import _add_language_code, _pull_lang_code
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 from app.models.order_status import OrderStatus
@@ -22,15 +23,13 @@ logger = logging.getLogger(__name__)
 
 @mod_order.url_defaults
 def add_language_code(endpoint, values):
-    values.setdefault('lang_code', session['lang_code'])
+    _add_language_code(endpoint=endpoint, values=values)
 
 
 @mod_order.url_value_preprocessor
 def pull_lang_code(endpoint, values):
-    try:
-        values.pop('lang_code')
-    except:
-        pass
+    _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
+
 
 
 def create_user_subscription():
@@ -73,16 +72,7 @@ def order():
 
     pack_id = request.args.get('pack', None)
 
-    logger.info("Check subscriptions in cache")
-    subscriptions = cache_service.get(key='subscriptions', prefix=session['lang_code'])
-    if subscriptions is None:
-        logger.info("There are no subscriptions in cache. Call billing service")
-        try:
-            subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
-            logger.info("Called. Save in cache.")
-            cache_service.set('subscriptions', subscriptions)
-        except APIException:
-            pass
+    subscriptions = subscription_service.get_subscriptions(lang_code=session['lang_code'])
 
     if subscriptions is None:
         raise abort(500)

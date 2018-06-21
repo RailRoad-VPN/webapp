@@ -53,17 +53,39 @@ rrn_orders_service = RRNOrdersAPIService(api_url=app.config['API_URL'],
 
 ppg_payments_service = PayProGlobalPaymentService(config=app_config)
 
+subscription_service = SubscriptionService(billing_service=rrn_billing_service, cache_service=cache_service)
+
 from app.flask_utils import before_request, get_locale
 
 app.before_request(before_request)
 
-from app.mods.auth.controller import mod_auth as auth_module
-
-app.register_blueprint(auth_module)
-
 from app.mods.index.controller import mod_index as index_module
 
 app.register_blueprint(index_module)
+
+from app.mods.about.controller import mod_about as about_module
+
+app.register_blueprint(about_module)
+
+from app.mods.contact.controller import mod_contact as contact_module
+
+app.register_blueprint(contact_module)
+
+from app.mods.features.controller import mod_features as features_module
+
+app.register_blueprint(features_module)
+
+from app.mods.pricing.controller import mod_pricing as pricing_module
+
+app.register_blueprint(pricing_module)
+
+from app.mods.download.controller import mod_download as download_module
+
+app.register_blueprint(download_module)
+
+from app.mods.auth.controller import mod_auth as auth_module
+
+app.register_blueprint(auth_module)
 
 from app.mods.profile.controller import mod_profile as profile_module
 

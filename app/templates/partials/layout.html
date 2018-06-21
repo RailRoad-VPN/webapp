@@ -123,19 +123,19 @@
             {% block nav_menu %}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
-                       href="{{ url_for('index.features_page') }}">{{ _('Features') }}</a>
+                       href="{{ url_for('features.features_page') }}">{{ _('Features') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
-                       href="{{ url_for('index.pricing_page') }}">{{ _('Pricing') }}</a>
+                       href="{{ url_for('pricing.pricing_page') }}">{{ _('Pricing') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
-                       href="{{ url_for('index.download_page') }}">{{ _('Download') }}</a>
+                       href="{{ url_for('download.download_page') }}">{{ _('Download') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
-                       href="{{ url_for('index.contact_page') }}">{{ _('Contact') }}</a>
+                       href="{{ url_for('contact.contact_page') }}">{{ _('Contact') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="
@@ -208,8 +208,8 @@
             <div id="info" class="col-lg-3 col-md-3 col-sm-6">
                 <h6>{{ _('INFORMATION') }}</h6>
                 <ul>
-                    <li><a href="#">{{ _('About us') }}</a></li>
-                    <li><a href="#">{{ _('Plans and Pricing') }}</a></li>
+                    <li><a href="{{ url_for('about.about_page') }}">{{ _('About us') }}</a></li>
+                    <li><a href="{{ url_for('pricing.pricing_page') }}">{{ _('Plans and Pricing') }}</a></li>
                     <li><a href="#">{{ _('Support') }}</a></li>
                     <li><a href="#">{{ _('Partnership') }}</a></li>
                     <li><a href="#">{{ _('FAQ') }}</a></li>

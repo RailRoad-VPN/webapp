@@ -2,6 +2,7 @@ import logging
 import sys
 from http import HTTPStatus
 
+from app.cache import CacheService
 from app.models.order_status import OrderStatus
 
 sys.path.insert(0, '../rest_api_library')
@@ -232,3 +233,28 @@ class PayProGlobalPaymentService(object):
             logger.info('Phrase #2. Redirect URL: %s' % str(redirect_url))
 
         return redirect_url
+
+
+class SubscriptionService(object):
+    __version__ = 1
+
+    _billing_service = None
+    _cache_service = None
+
+    def __init__(self, billing_service: RRNBillingAPIService, cache_service: CacheService):
+        self._billing_service = billing_service
+        self._cache_service = cache_service
+
+    def get_subscriptions(self, lang_code):
+        logger.info("Check subscriptions in cache")
+        subscriptions = self._cache_service.get(key='subscriptions', prefix=lang_code)
+        logger.info("Subscriptions cache: %s" % subscriptions is None)
+        if subscriptions is None:
+            logger.info("There are no subscriptions in cache. Call billing service")
+            try:
+                subscriptions = self._billing_service.get_subscriptions(lang_code=lang_code)
+                logger.info("Called. Save in cache.")
+                self._cache_service.set('subscriptions', subscriptions)
+            except APIException:
+                pass
+        return subscriptions

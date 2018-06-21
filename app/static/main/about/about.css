@@ -1,0 +1,33 @@
+.about-title p {
+    font-size: 1.125rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.75rem;
+}
+
+.about-target p {
+    font-family: 'Cabin', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #717271;
+}
+
+.write-about-us {
+    box-shadow: 0 0 0.625rem rgba(0,0,0,0.1);
+    padding: 3.5rem 1rem 4rem 1rem;
+    margin-top: 3.5rem;
+}
+
+.data-centers li {
+    font-size: 0.9rem;
+    color: #555c55;
+}
+
+.clients-wrap {
+    border-top: 1px solid #e9eae9;
+}
+
+.brand-image {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
