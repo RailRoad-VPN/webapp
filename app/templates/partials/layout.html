@@ -76,6 +76,7 @@
         <!-- custom css -->
         <link href="{{ url_for('static', filename='main/common/fonts.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/default.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='main/common/canimate.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/common/bootstrap-fixes.css') }}" type="text/css"
               rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/common/gdpr/gdpr.css') }}" type="text/css" rel="stylesheet"/>
@@ -97,6 +98,7 @@
         <!-- custom css -->
         <link href="{{ url_for('static', filename='main/common/fonts.min.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/default.min.css') }}" type="text/css" rel="stylesheet"/>
+        <link href="{{ url_for('static', filename='main/common/canimate.min.css') }}" type="text/css" rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/common/bootstrap-fixes.min.css') }}" type="text/css"
               rel="stylesheet"/>
         <link href="{{ url_for('static', filename='main/common/gdpr/gdpr.min.css') }}" type="text/css"
@@ -135,7 +137,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
-                       href="{{ url_for('contact.contact_page') }}">{{ _('Contact') }}</a>
+                       href="{{ url_for('contact.contact') }}">{{ _('Contact') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="
@@ -291,6 +293,12 @@
     <script src="{{ url_for('static', filename='assets/noty/noty.js') }}" type="text/javascript"
             charset="utf-8"></script>
 
+    <!-- waypoints -->
+    <script src="{{ url_for('static', filename='assets/waypoints/jquery.waypoints.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/waypoints/shortcuts/sticky.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
     <!-- custom js -->
     <script src="{{ url_for('static', filename='main/common/init.js') }}" type="text/javascript"
             charset="utf-8"></script>
@@ -323,6 +331,12 @@
 
     <!-- underscore -->
     <script src="{{ url_for('static', filename='assets/underscore/underscore.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <!-- waypoints -->
+    <script src="{{ url_for('static', filename='assets/waypoints/jquery.waypoints.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/waypoints/shortcuts/sticky.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
 
     <!-- custom js -->

@@ -141,3 +141,15 @@
     top: 0;
     left: 0;
 }
+
+@media (max-width: 1600px) {
+    .container {
+        max-width: 1600px;
+    }
+}
+
+@media (min-width: 1900px) {
+    .container {
+        max-width: 1900px;
+    }
+}

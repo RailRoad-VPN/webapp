@@ -38,6 +38,22 @@ function checkCookie(cname) {
     return gdpr_cookie !== "";
 }
 
+function markInput($input, is_valid) {
+    if (is_valid) {
+        $input.removeClass('is-invalid').addClass('is-valid');
+    } else {
+        $input.removeClass('is-valid').addClass('is-invalid');
+    }
+}
+
+function showInputError($input, error_class) {
+    $input.parent().find(error_class).show();
+}
+
+function hideInputError($input, error_class) {
+    $input.parent().find(error_class).hide();
+}
+
 var doAjax = function (_url, _type, _data, isAsync, _successCallback, _errorCallback, _completeCallback) {
 
     // Handling _url

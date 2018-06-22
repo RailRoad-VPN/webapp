@@ -59,6 +59,10 @@ a:focus, a:hover {
     background-color: #f8f8f8 !important
 }
 
+.form-group .error {
+    color: red;
+}
+
 
 .pt-7 {
     padding-top: 7.5rem !important

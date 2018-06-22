@@ -315,12 +315,4 @@ $(document).ready(function () {
             return true;
         }
     }
-
-    function markInput($input, is_valid) {
-        if (is_valid) {
-            $input.removeClass('is-invalid').addClass('is-valid');
-        } else {
-            $input.removeClass('is-valid').addClass('is-invalid');
-        }
-    }
 });

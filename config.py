@@ -31,12 +31,20 @@ class ProductionConfig(Config):
 
     API_URL = 'http://IP:8000/api/v1'
 
+    FS = {
+        'contact': '/opt/apps/dfn/contact/'
+    }
+
 
 class DevelopmentConfig(Config):
     ENV = 'development'
     DEBUG = True
 
     API_URL = 'http://127.0.0.1:8000/api/v1'
+
+    FS = {
+        'contact': './'
+    }
 
 
 class TestingConfig(Config):
@@ -45,3 +53,7 @@ class TestingConfig(Config):
     DEBUG = True
 
     API_URL = 'http://127.0.0.1:61885/api/v1'
+
+    FS = {
+        'contact': '/opt/apps/dfn/contact/'
+    }

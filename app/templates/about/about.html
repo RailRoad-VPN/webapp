@@ -81,23 +81,27 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <h2>Want To Write About Railroad Network?</h2>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                eaque
-                                ipsa quae ab illo inventore veritatis et quasi architecto beatae</p>
-                            <a href="#" class="btn btn-warning">Contact With Us</a></div>
+                            <p>
+                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
+                            </p>
+                            <a href="{{ url_for('contact.contact') }}" class="btn btn-warning">Contact With Us</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class="servers bg-gray pt-7">
+    <section class="servers bg-gray pt-7 pb-7">
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-xl-4">
                     <div class="section-title">
                         <h2>865 Server In 197 Country</h2>
-                        <p>There are many variations of passages of Lorem Ipsum ailable, but the majority have suffered
-                            hmour</p>
+                        <p>
+                            There are many variations of passages of Lorem Ipsum ailable, but the majority have suffered
+                            hmour
+                        </p>
                     </div>
                     <div class="row">
                         <div class="col-6">
@@ -115,7 +119,7 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="#" class="btn server-btn">View Payment Methods</a>
+                    <a href="{{ url_for('order.order') }}" class="btn server-btn">View Payment Methods</a>
                 </div>
                 <div class="col-xl-8 col-lg-7 d-none d-lg-block">
                     <div class="server-map">
@@ -123,57 +127,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="clients-wrap bg-light pt-4 pb-4">
-        <div class="container">
-            <ul class="our-clients list-unstyled d-md-flex align-items-md-center justify-content-md-between m-0">
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand1@2x.png" alt="" width="35"  height="49">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand2@2x.png" alt="" width="35"  height="36">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand3@2x.png" alt="" width="40"  height="40">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand4@2x.png" alt="" width="42"  height="44">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand5@2x.png" alt="" width="46"  height="44">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand6@2x.png" alt="" width="46"  height="44">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand7@2x.png" alt="" width="48"  height="30">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand8@2x.png" alt="" width="50"  height="50">
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <img class="brand-image" src="http://themelooks.net/demo/vpnet/html/preview/img/brands/brand9@2x.png" alt="" width="37"  height="37">
-                    </a>
-                </li>
-            </ul>
         </div>
     </section>
 {% endblock %}

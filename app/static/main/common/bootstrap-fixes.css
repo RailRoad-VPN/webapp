@@ -105,17 +105,7 @@
     }
 }
 
-@media (min-width: 1600px) {
-    .container {
-        max-width: 1600px;
-    }
-}
-
 @media (min-width: 1900px) {
-    .container {
-        max-width: 1900px;
-    }
-
     .col-xxl {
         -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -364,11 +354,5 @@
         display: -webkit-inline-box !important;
         display: -ms-inline-flexbox !important;
         display: inline-flex !important;
-    }
-}
-
-@media (min-width: 2100px) {
-    .container {
-        max-width: 2000px;
     }
 }
