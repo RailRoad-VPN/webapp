@@ -75,6 +75,10 @@ from app.mods.features.controller import mod_features as features_module
 
 app.register_blueprint(features_module)
 
+from app.mods.faq.controller import mod_faq as faq_module
+
+app.register_blueprint(faq_module)
+
 from app.mods.pricing.controller import mod_pricing as pricing_module
 
 app.register_blueprint(pricing_module)

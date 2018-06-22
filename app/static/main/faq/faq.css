@@ -1,0 +1,35 @@
+.faq-title h2 {
+
+}
+
+.faq-title p {
+    font-size: 1.125rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.75rem;
+}
+
+.single-faq-wrap h2 {
+    text-transform: capitalize;
+    font-size: x-large;
+}
+
+.single-faq-wrap h4 {
+    text-transform: none;
+    font-size: initial;
+    font-weight: 100;
+    margin-bottom: 0.5rem;
+}
+
+.single-faq-wrap p {
+    font-family: 'Cabin', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #717271;
+    margin-bottom: 1.5rem;
+}
+
+.single-faq-wrap h4 .fa-question-circle {
+    padding-right: 10px;
+    color: #f8cc46;
+}

@@ -214,7 +214,7 @@
                     <li><a href="{{ url_for('pricing.pricing_page') }}">{{ _('Plans and Pricing') }}</a></li>
                     <li><a href="#">{{ _('Support') }}</a></li>
                     <li><a href="#">{{ _('Partnership') }}</a></li>
-                    <li><a href="#">{{ _('FAQ') }}</a></li>
+                    <li><a href="{{ url_for('faq.faq_page') }}">{{ _('FAQ') }}</a></li>
                 </ul>
             </div>
             <div id="info" class="col-lg-3 col-md-3 col-sm-6">
@@ -350,7 +350,6 @@
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
-
 {% endif %}
 
 {% block import_js %}{% endblock %}
