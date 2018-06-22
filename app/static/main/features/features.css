@@ -1,8 +1,10 @@
 .services-title {
     height: 840px;
     background: url(../../../static/main/features/images/bg_features.jpg) no-repeat center scroll;
+    -moz-background-image: url(../../../static/main/features/images/bg_features.jpg);;
     background-size: cover;
     background-position-y: -600px;
+    -ms-background-position-y: -600px;
 }
 
 .services-title:before {
@@ -17,10 +19,44 @@
 
 .services-wrap {
     max-width: 1360px;
-    margin: -20rem auto 0 auto;
+    margin: -30rem auto 0 auto;
     box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
     margin-bottom: 3rem;
+}
+
+.services-title h2 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #262e26;
+}
+
+.services-title p {
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #717271;
+}
+
+.single-service {
+    margin-bottom: 3.5rem;
+}
+
+.single-service h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-transform: inherit;
+}
+
+.single-service span {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    color: #717271;
+}
+
+.call-me {
+    font-size: small;
+    font-weight: 600;
 }
