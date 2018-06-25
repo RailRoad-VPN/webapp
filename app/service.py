@@ -293,7 +293,9 @@ class UserDiscoveryResponse(object):
             self.is_anonymous = json.get('is_anonymous', False)
 
             # TODO
-            self.status = self.is_tor or self.is_proxy or self.is_anonymous
+            self.status = False
+            if self.is_tor or self.is_proxy or self.is_anonymous:
+                self.status = True
         else:
             self.country_name = json.get('country', '???')
             self.country_code = json.get('countryCode', '')
