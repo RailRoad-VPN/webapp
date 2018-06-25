@@ -2,11 +2,8 @@ import datetime
 import logging
 import uuid
 from functools import wraps
-from urllib.request import urlopen
 
-import requests
-from flask import session, g, request, redirect, url_for, Request
-from flask_babel import _
+from flask import session, g, request, redirect, url_for
 
 from app import app, babel, user_discovery_service
 
@@ -62,7 +59,8 @@ def before_request():
     # clean jinja_env cache
     app.jinja_env.cache = {}
 
-    if 'network-status' not in session:
+    if 'network-status' not in session or (
+            session['network-status'] is not None and session['network-status']['ip'] != request.remote_addr):
         _set_user_network_status(request.remote_addr)
 
     if 'user_locale' in session and 'gdpr' not in session:
