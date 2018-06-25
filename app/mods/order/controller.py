@@ -3,7 +3,7 @@ import sys
 from http import HTTPStatus
 
 from flask import Blueprint, request, render_template, \
-    session, jsonify, abort
+    session, jsonify
 
 from app import rrn_user_service, rrn_orders_service, app_config, \
     ppg_payments_service, subscription_service
@@ -29,7 +29,6 @@ def add_language_code(endpoint, values):
 @mod_order.url_value_preprocessor
 def pull_lang_code(endpoint, values):
     _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
-
 
 
 def create_user_subscription():
@@ -72,10 +71,21 @@ def order():
 
     pack_id = request.args.get('pack', None)
 
+    if 'order' not in session or session['order'] is None:
+        # create new order
+        try:
+            logging.info("Creating order...")
+            order_json = rrn_orders_service.create_order(status=OrderStatus.NEW)
+            session['order'] = order_json
+            logging.info("Order created: %s" % order_json)
+        except APIException as e:
+            logging.debug(e.serialize())
+
     subscriptions = subscription_service.get_subscriptions(lang_code=session['lang_code'])
 
     if subscriptions is None:
-        raise abort(500)
+        return render_template('order/order.html', pack_id=pack_id, chosen_subscription=None,
+                               subscriptions=None, code=200)
 
     logger.info("Got subscriptions. Size: %s" % len(subscriptions))
     if app_config['DEBUG'] is True:
@@ -88,16 +98,6 @@ def order():
             if str(sub['id']) == pack_id:
                 subscription = sub
                 break
-
-    if 'order' not in session or session['order'] is None:
-        # create new order
-        try:
-            logging.info("Creating order...")
-            order_json = rrn_orders_service.create_order(status=OrderStatus.NEW)
-            session['order'] = order_json
-            logging.info("Order created: %s" % order_json)
-        except APIException as e:
-            logging.debug(e.serialize())
 
     return render_template('order/order.html', pack_id=pack_id, chosen_subscription=subscription,
                            subscriptions=subscriptions, code=200)

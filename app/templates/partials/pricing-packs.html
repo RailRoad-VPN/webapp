@@ -6,34 +6,37 @@
     {% endif %}
 {% endblock %}
 <div id="pricing-pack" class="row">
-    {% for subscription in subscriptions %}
-        <!-- skip free subscription -->
-        {% if subscription['id'] == 1 %}
-            {% continue %}
-        {% endif %}
-        <!--/ skip free subscription -->
-        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
-            <div id="{{ subscription['id'] }}"
-                 class="pricing {% if subscription['is_best'] == true %}pricing-active{% endif %} hover-effect">
-                {% if subscription['is_best'] == true %}
-                    <div class="price-badge"><span>{{ _('best pack') }}</span></div>
-                {% endif %}
-                <div class="pricing-head {% if subscription['is_best'] == true %}pricing-head-active{% endif %}">
-                    <h3>
-                        {{ subscription['name'] }}
-                        <span>{{ subscription['description'] }}</span>
-                    </h3>
-                    {% if subscription['bill_freq'] is not none %}
-                        <h4>
-                            <i>$</i>{{ subscription['price_per_month'] }}
-                            <span>{{ subscription['price_freq'] }}</span>
-                            <span class="small">({{ subscription['bill_freq'] }})</span>
-                        </h4>
+    {% if subscriptions is none %}
+        <p>Error occured. Please contact us at support@railroadman.net</p>
+    {% else %}
+        {% for subscription in subscriptions %}
+            <!-- skip free subscription -->
+            {% if subscription['id'] == 1 %}
+                {% continue %}
+            {% endif %}
+            <!--/ skip free subscription -->
+            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+                <div id="{{ subscription['id'] }}"
+                     class="pricing {% if subscription['is_best'] == true %}pricing-active{% endif %} hover-effect">
+                    {% if subscription['is_best'] == true %}
+                        <div class="price-badge"><span>{{ _('best pack') }}</span></div>
                     {% endif %}
-                </div>
-                <ul class="pricing-content list-unstyled">
-                    {% for feature in subscription['features'] %}
-                        <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
+                    <div class="pricing-head {% if subscription['is_best'] == true %}pricing-head-active{% endif %}">
+                        <h3>
+                            {{ subscription['name'] }}
+                            <span>{{ subscription['description'] }}</span>
+                        </h3>
+                        {% if subscription['bill_freq'] is not none %}
+                            <h4>
+                                <i>$</i>{{ subscription['price_per_month'] }}
+                                <span>{{ subscription['price_freq'] }}</span>
+                                <span class="small">({{ subscription['bill_freq'] }})</span>
+                            </h4>
+                        {% endif %}
+                    </div>
+                    <ul class="pricing-content list-unstyled">
+                        {% for feature in subscription['features'] %}
+                            <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
                             <span
                                     {% if feature['tooltip'] is not none and feature['enabled'] == true %}
                                         class="sub-feature-tooltip"
@@ -44,29 +47,31 @@
                             >
                                 {{ feature['name'] }}
                             </span>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <div class="pricing-footer">
-                    <a href="{{ url_for('order.order', pack=subscription['id']) }}" class="btn yellow-crusta btn-checkout">
-                        {% if order == true %}
-                            {{ _('Checkout') }}
-                        {% else %}
-                            {% if subscription['bill_freq'] is not none %}
-                                {{ _('Buy Now') }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="{{ url_for('order.order', pack=subscription['id']) }}"
+                           class="btn yellow-crusta btn-checkout">
+                            {% if order == true %}
+                                {{ _('Checkout') }}
                             {% else %}
-                                {{ _('Sign Up') }}
+                                {% if subscription['bill_freq'] is not none %}
+                                    {{ _('Buy Now') }}
+                                {% else %}
+                                    {{ _('Sign Up') }}
+                                {% endif %}
                             {% endif %}
+                        </a>
+                        {% if subscription['bill_freq'] is not none %}
+                            <p class="small"><span
+                                    class="old-price">${{ (subscription['old_price_per_month'] * subscription['billed_period_in_months'])|round(2) }}</span>
+                                ${{ (subscription['price_per_month'] * subscription['billed_period_in_months'])|round(2) }} {{ subscription['bill_freq'] }}
+                            </p>
                         {% endif %}
-                    </a>
-                    {% if subscription['bill_freq'] is not none %}
-                        <p class="small"><span
-                                class="old-price">${{ (subscription['old_price_per_month'] * subscription['billed_period_in_months'])|round(2) }}</span>
-                            ${{ (subscription['price_per_month'] * subscription['billed_period_in_months'])|round(2) }} {{ subscription['bill_freq'] }}
-                        </p>
-                    {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </div>

@@ -1,10 +1,8 @@
 .services-title {
-    height: 840px;
+    height: 55vh;
     background: url(../../../static/main/features/images/bg_features.jpg) no-repeat center scroll;
     -moz-background-image: url(../../../static/main/features/images/bg_features.jpg);;
     background-size: cover;
-    background-position-y: -600px;
-    -ms-background-position-y: -600px;
 }
 
 .services-title:before {
@@ -18,8 +16,8 @@
 }
 
 .services-wrap {
-    max-width: 1360px;
-    margin: -30rem auto 0 auto;
+    max-width: 1200px;
+    margin: -15rem auto 0 auto;
     box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 
@@ -59,4 +57,26 @@
 .call-me {
     font-size: small;
     font-weight: 600;
+}
+
+@media (max-height: 1200px) {
+    .services-wrap {
+        margin: -10rem auto 0 auto;
+    }
+}
+
+@media (max-height: 900px) {
+    .services-wrap {
+        margin: -5rem auto 0 auto;
+    }
+}
+
+@media (max-height: 800px) {
+    .services-title {
+        height: inherit;
+    }
+
+    .services-wrap {
+        margin: -1rem auto 0 auto;
+    }
 }

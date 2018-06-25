@@ -9,6 +9,7 @@ from jinja2 import Environment
 
 from app.cache import CacheService
 from app.service import *
+from error import page_not_found, forbidden, internal_server_error
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -98,6 +99,10 @@ app.register_blueprint(profile_module)
 from app.mods.order.controller import mod_order as order_module
 
 app.register_blueprint(order_module)
+
+app.register_error_handler(HTTPStatus.NOT_FOUND, page_not_found)
+app.register_error_handler(HTTPStatus.FORBIDDEN, forbidden)
+app.register_error_handler(HTTPStatus.INTERNAL_SERVER_ERROR, internal_server_error)
 
 
 @app.route('/', methods=['GET'])

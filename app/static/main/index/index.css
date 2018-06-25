@@ -110,7 +110,7 @@
     position: absolute;
     height: 4px;
     width: 50px;
-    margin-left: 44%;
+    left: 45%;
     display: block;
     background: #f8cc46;
     margin-top: 10px;
@@ -138,16 +138,4 @@
     height: 100%;
     top: 0;
     left: 0;
-}
-
-@media (max-width: 1600px) {
-    .container {
-        max-width: 1600px;
-    }
-}
-
-@media (min-width: 1900px) {
-    .container {
-        max-width: 1900px;
-    }
 }

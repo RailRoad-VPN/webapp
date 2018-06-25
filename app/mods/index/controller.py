@@ -35,7 +35,7 @@ def index_lang_page():
 
     try:
         subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
-    except APIException as e:
-        raise abort(500)
+    except APIException:
+        subscriptions = None
 
     return render_template('index/index.html', code=200, subscriptions=subscriptions)

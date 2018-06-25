@@ -31,6 +31,6 @@ def pricing_page():
     subscriptions = subscription_service.get_subscriptions(lang_code=session['lang_code'])
 
     if subscriptions is None:
-        raise abort(500)
+        raise abort(404)
 
     return render_template('pricing/pricing.html', code=200, subscriptions=subscriptions)

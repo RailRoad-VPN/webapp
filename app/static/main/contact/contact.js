@@ -15,7 +15,7 @@ $(document).ready(function () {
     });
 
     $($messageTa).on('focusout', function () {
-        var val = $.trim($(this).text());
+        var val = $.trim($(this).val());
         if (!val || val === '') {
             showInputError($(this), '.empty_error');
         } else {
@@ -28,7 +28,7 @@ $(document).ready(function () {
 
         var nameVal = $.trim($nameInput.val());
         var emailVal = $.trim($emailInput.val());
-        var messVal = $.trim($messageTa.text());
+        var messVal = $.trim($messageTa.val());
 
         if (!nameVal || nameVal === '') {
             showInputError($nameInput, '.empty_error');
