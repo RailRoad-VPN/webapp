@@ -206,7 +206,7 @@ a:focus, a:hover {
 }
 
 #network-status ul {
-        margin-top: -10px;
+    margin-top: -10px;
 }
 
 #network-status .network-info li {
@@ -221,6 +221,20 @@ a:focus, a:hover {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+#network-status .status-protected {
+    color: #27be56;
+    font-family: Gordita, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+#network-status .status-unprotected {
+    color: #f64f64;
+    font-family: Gordita, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 .btn-group img {

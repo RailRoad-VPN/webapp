@@ -50,7 +50,8 @@ def _set_user_network_status(ip: str):
         ns = {
             'ip': ip,
             'city': net_st.city,
-            'status': _('protected') if net_st.status else _('unprotected'),
+            'isp': net_st.isp,
+            'status': net_st.status
         }
     else:
         ns = None

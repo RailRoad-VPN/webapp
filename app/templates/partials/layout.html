@@ -116,7 +116,12 @@
         <ul class="network-info list-inline text-white text-center mb-md-0">
             <li>{{ _('Your IP') }}: <span data-id="ip">{{ session['network-status']['ip'] }}</span></li>
             <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>
-            <li>{{ _('Your Status') }}: <span data-id="status" class="alert-danger">{{ session['network-status']['status'] }}</span></li>
+            <li>{{ _('Your ISP') }}: <span data-id="loc">{{ session['network-status']['isp'] }}</span></li>
+            {% if session['network-status']['status'] %}
+                <li>{{ _('Your Status') }}: <span data-id="status" class="status-protected">{{ _('protected') }}</span></li>
+            {% else %}
+                <li>{{ _('Your Status') }}: <span data-id="status" class="status-unprotected">{{ _('unprotected') }}</span></li>
+            {% endif %}
             <li class="pull-right close-btn pt-0 pb-0">
                 <button onclick="$('#network-status').remove();" class="btn btn-link">x</button>
             </li>
