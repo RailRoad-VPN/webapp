@@ -42,7 +42,7 @@ def login_required(f):
 
 
 def _set_user_network_status(ip: str):
-    if app.config['DEBUG']:
+    if ip == '127.0.0.1':
         ip = '185.89.8.144'
     net_st = user_discovery_service.discover_ip(ip)
     if net_st is not None:
@@ -62,8 +62,7 @@ def before_request():
     app.jinja_env.cache = {}
 
     if 'network-status' not in session or (
-                    session['network-status'] is not None and session['network-status']['ip'] != request.remote_addr) \
-            or app.config['DEBUG'] == True:
+                    session['network-status'] is not None and session['network-status']['ip'] != request.remote_addr):
         _set_user_network_status(request.remote_addr)
 
     if 'user_locale' in session and 'gdpr' not in session:
