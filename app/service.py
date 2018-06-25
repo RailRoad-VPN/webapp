@@ -330,7 +330,7 @@ class UserDiscoveryService(object):
         url1 = 'https://api.ipdata.co/%s?api-key=9eaf33b7865b0441717e0c85ba6373f63e4178ab5abbcdbf0815441f' % ip
         url2 = 'http://ip-api.com/json/%s' % ip
         try:
-            req = requests.get(url=url1, headers=self.__headers, timeout=1)
+            req = requests.get(url=url1, headers=self.__headers, timeout=0.5)
             if req.ok:
                 req_json = req.json()
                 req_json['primary'] = True
