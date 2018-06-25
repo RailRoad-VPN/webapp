@@ -9,7 +9,7 @@ from jinja2 import Environment
 
 from app.cache import CacheService
 from app.service import *
-from error import page_not_found, forbidden, internal_server_error
+from app.mods.error import page_not_found, forbidden, internal_server_error
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
