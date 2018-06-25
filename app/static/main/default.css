@@ -103,72 +103,73 @@ a:focus, a:hover {
     margin-bottom: 4rem !important
 }
 
-#mainNav {
+#main-navbar {
     font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin-bottom: 0;
     text-transform: uppercase;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     background-color: black;
+    padding-top: 30px;
 }
 
-#mainNav .container {
+#main-navbar .container {
     margin-right: 0px;
 }
 
-#mainNav .navbar-toggler {
+#main-navbar .navbar-toggler {
     font-size: 14px;
     padding: 11px;
     color: white;
     border: 1px solid white;
 }
 
-#mainNav a {
+#main-navbar a {
     color: white;
 }
 
 @media (min-width: 768px) and (max-width: 990px) {
-    #mainNav a {
+    #main-navbar a {
         font-size: small
     }
 }
 
-#mainNav .navbar-nav .nav-item {
+#main-navbar .navbar-nav .nav-item {
     -webkit-transition: background 0.3s ease-in-out;
     -moz-transition: background 0.3s ease-in-out;
     transition: background 0.3s ease-in-out;
 }
 
-#mainNav .navbar-nav .nav-item:hover {
+#main-navbar .navbar-nav .nav-item:hover {
     color: fade(white, 80%);
     outline: none;
     background-color: transparent;
 }
 
-#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+#main-navbar .navbar-nav .nav-item:active, #main-navbar .navbar-nav .nav-item:focus {
     outline: none;
     background-color: transparent;
 }
 
 @media (max-width: 992px) {
-    #mainNav .navbar-brand {
+    #main-navbar .navbar-brand {
         font-size: inherit;
     }
 }
 
 @media (max-width: 310px) {
-    #mainNav .navbar-brand {
+    #main-navbar .navbar-brand {
         font-size: smaller;
     }
 }
 
 @media (min-width: 992px) {
-    #mainNav .navbar-brand {
+    #main-navbar .navbar-brand {
         padding-left: 25px;
         font-weight: 700;
     }
 
-    #mainNav {
-        padding-top: 20px;
+    #main-navbar {
+        padding-top: 30px;
         padding-bottom: 20px;
         -webkit-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
         -moz-transition: background 0.3s ease-in-out, padding-top 0.3s ease-in-out, padding-bottom 0.3s;
@@ -177,21 +178,49 @@ a:focus, a:hover {
         border-bottom: none;
     }
 
-    #mainNav.navbar-shrink {
-        padding-top: 10px;
-        padding-bottom: 10px;
+    #main-navbar.navbar-shrink {
+        padding-top: 0px;
+        padding-bottom: 0px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         background: black;
     }
 
-    #mainNav .nav-link.active {
+    #main-navbar .nav-link.active {
         outline: none;
         background-color: rgba(255, 255, 255, 0.3);
     }
 
-    #mainNav .nav-link.active:hover {
+    #main-navbar .nav-link.active:hover {
         color: white;
     }
+}
+
+#network-status {
+    position: absolute;
+    height: 20px;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #262E26;
+    z-index: 99999;
+}
+
+#network-status ul {
+        margin-top: -10px;
+}
+
+#network-status .network-info li {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    padding: 0.625rem 0;
+}
+
+#network-status .close-btn {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .btn-group img {

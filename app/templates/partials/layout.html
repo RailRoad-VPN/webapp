@@ -110,8 +110,20 @@
 </head>
 
 <body>
-<!-- Navigation -->
-<nav id="mainNav" class="navbar navbar-expand-md navbar-dark fixed-top">
+
+{% if session['network-status'] is not none %}
+    <div id="network-status">
+        <ul class="network-info list-inline text-white text-center mb-md-0">
+            <li>{{ _('Your IP') }}: <span data-id="ip">{{ session['network-status']['ip'] }}</span></li>
+            <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>
+            <li>{{ _('Your Status') }}: <span data-id="status" class="alert-danger">{{ session['network-status']['status'] }}</span></li>
+            <li class="pull-right close-btn pt-0 pb-0">
+                <button onclick="$('#network-status').remove();" class="btn btn-link">x</button>
+            </li>
+        </ul>
+    </div>
+{% endif %}
+<nav id="main-navbar" class="navbar navbar-expand-md navbar-dark fixed-top">
     <a class="navbar-brand js-scroll-trigger"
        href="{{ url_for('index.index_lang_page', lang_code=session['lang_code']) }}">
         <img class="" width="50" src="{{ url_for('static', filename='main/mascot_head.png') }}">

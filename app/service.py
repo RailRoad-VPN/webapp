@@ -1,6 +1,9 @@
 import logging
 import sys
 from http import HTTPStatus
+from typing import Optional
+
+import requests
 
 from app.cache import CacheService
 from app.models.order_status import OrderStatus
@@ -150,9 +153,6 @@ class RRNUsersAPIService(RESTService):
 class RRNBillingAPIService(RESTService):
     __version__ = 1
 
-    def __init__(self, api_url: str, resource_name: str):
-        super().__init__(api_url=api_url, resource_name=resource_name)
-
     def get_subscriptions(self, lang_code: str) -> dict:
         headers = {
             'Accept-Language': lang_code
@@ -258,3 +258,91 @@ class SubscriptionService(object):
             except APIException:
                 pass
         return subscriptions
+
+
+class UserDiscoveryResponse(object):
+    __version__ = 1
+
+    ip = None
+    city = None
+    country_name = None
+    country_code = None
+    continent_name = None
+    latitude = None
+    longitude = None
+    isp = None
+    is_tor = False
+    is_proxy = False
+    is_anonymous = False
+
+    status = False
+
+    def __init__(self, json):
+        self.ip = json.get('ip', '???')
+        self.city = json.get('city', '???')
+        if json.get('primary', False):
+            self.country_name = json.get('country_name', '???')
+            self.country_code = json.get('country_code', '')
+            self.continent_name = json.get('continent_name', '???')
+            self.continent_code = json.get('continent_code', '')
+            self.latitude = json.get('latitude', 0)
+            self.longitude = json.get('longitude', 0)
+            self.isp = json.get('organisation', '???')
+            self.is_tor = json.get('is_tor', False)
+            self.is_proxy = json.get('is_proxy', False)
+            self.is_anonymous = json.get('is_anonymous', False)
+
+            # TODO
+            self.status = self.is_tor or self.is_proxy or self.is_anonymous
+        else:
+            self.country_name = json.get('country', '???')
+            self.country_code = json.get('countryCode', '')
+            self.latitude = json.get('lat', 0)
+            self.longitude = json.get('lon', 0)
+            self.isp = json.get('isp', '???')
+
+            # TODO
+            self.status = False
+
+
+class UserDiscoveryService(object):
+    __version__ = 1
+
+    __cache = {}
+
+    __headers = {
+        'Accept': 'application/json'
+    }
+
+    def __init__(self):
+        pass
+
+    def discover_ip(self, ip) -> Optional[UserDiscoveryResponse]:
+        # TODO expire cache entry
+        cached_json = self.__cache.get(ip, None)
+        if cached_json is None:
+            req_json = self.__discover_ip(ip=ip)
+            return UserDiscoveryResponse(json=req_json) if req_json is not None else None
+        else:
+            return UserDiscoveryResponse(json=cached_json)
+
+    def __discover_ip(self, ip: str):
+        url1 = 'https://api.ipdata.co/%s?api-key=9eaf33b7865b0441717e0c85ba6373f63e4178ab5abbcdbf0815441f' % ip
+        url2 = 'http://ip-api.com/json/%s' % ip
+        try:
+            req = requests.get(url=url1, headers=self.__headers, timeout=1)
+            if req.ok:
+                req_json = req.json()
+                req_json['primary'] = True
+                return req_json
+        except (requests.exceptions.ConnectTimeout, requests.exceptions.ConnectionError):
+            try:
+                req = requests.get(url=url2, headers=self.__headers, timeout=1)
+                if req.ok:
+                    req_json = req.json()
+                    req_json['primary'] = False
+                    return req_json
+            except (requests.exceptions.ConnectTimeout, requests.exceptions.ConnectionError):
+                return None
+
+        return None

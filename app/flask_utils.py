@@ -2,10 +2,13 @@ import datetime
 import logging
 import uuid
 from functools import wraps
+from urllib.request import urlopen
 
-from flask import session, g, request, redirect, url_for
+import requests
+from flask import session, g, request, redirect, url_for, Request
+from flask_babel import _
 
-from app import app, babel
+from app import app, babel, user_discovery_service
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -41,9 +44,25 @@ def login_required(f):
     return decorated_function
 
 
+def _set_user_network_status(ip: str):
+    net_st = user_discovery_service.discover_ip(ip)
+    if net_st is not None:
+        ns = {
+            'ip': ip,
+            'city': net_st.city,
+            'status': _('protected') if net_st.status else _('unprotected'),
+        }
+    else:
+        ns = None
+    session['network-status'] = ns
+
+
 def before_request():
     # clean jinja_env cache
     app.jinja_env.cache = {}
+
+    if 'network-status' not in session:
+        _set_user_network_status(request.remote_addr)
 
     if 'user_locale' in session and 'gdpr' not in session:
         session['gdpr'] = True

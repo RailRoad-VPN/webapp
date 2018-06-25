@@ -41,16 +41,18 @@ app.config.from_object(config_name)
 
 app_config = app.config
 
+user_discovery_service = UserDiscoveryService()
+
 cache_service = CacheService(app=app)
 
-rrn_user_service = RRNUsersAPIService(api_url=app.config['API_URL'],
-                                      resource_name=app.config['USERS_API_RESOURCE_NAME'])
+rrn_user_service = RRNUsersAPIService(api_url=app_config['API_URL'],
+                                      resource_name=app_config['USERS_API_RESOURCE_NAME'])
 
-rrn_billing_service = RRNBillingAPIService(api_url=app.config['API_URL'],
-                                           resource_name=app.config['SUBSCRIPTIONS_API_RESOURCE_NAME'])
+rrn_billing_service = RRNBillingAPIService(api_url=app_config['API_URL'],
+                                           resource_name=app_config['SUBSCRIPTIONS_API_RESOURCE_NAME'])
 
-rrn_orders_service = RRNOrdersAPIService(api_url=app.config['API_URL'],
-                                         resource_name=app.config['ORDERS_API_RESOURCE_NAME'])
+rrn_orders_service = RRNOrdersAPIService(api_url=app_config['API_URL'],
+                                         resource_name=app_config['ORDERS_API_RESOURCE_NAME'])
 
 ppg_payments_service = PayProGlobalPaymentService(config=app_config)
 
