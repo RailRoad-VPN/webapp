@@ -52,7 +52,7 @@
     <link rel="manifest" href="{{ url_for('static', filename='main/img/favicon/manifest.json') }}">
 
     <title>
-        {% block title %}Railroad VPN{% endblock %}
+        {% block title %}Railroad Network VPN{% endblock %}
     </title>
 
     <script src="{{ url_for('static', filename='assets/jquery/jquery.min.js') }}" type="text/javascript"
@@ -112,7 +112,7 @@
 <body>
 
 {% if session['network-status'] is not none %}
-    <div id="network-status">
+    <div id="network-status" class="d-none d-sm-block">
         <ul class="network-info list-inline text-white text-center mb-md-0">
             <li>{{ _('Your IP') }}: <span data-id="ip">{{ session['network-status']['ip'] }}</span></li>
             <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>
@@ -121,6 +121,7 @@
                 <li>{{ _('Your Status') }}: <span data-id="status" class="status-protected">{{ _('protected') }}</span></li>
             {% else %}
                 <li>{{ _('Your Status') }}: <span data-id="status" class="status-unprotected">{{ _('unprotected') }}</span></li>
+                <li><a href="{{ url_for('order.order', pack=3) }}">{{ _('Protect me!') }}</a></li>
             {% endif %}
             <li class="pull-right close-btn pt-0 pb-0">
                 <button onclick="$('#network-status').remove();" class="btn btn-link">x</button>

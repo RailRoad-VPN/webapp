@@ -291,11 +291,6 @@ class UserDiscoveryResponse(object):
             self.is_tor = json.get('is_tor', False)
             self.is_proxy = json.get('is_proxy', False)
             self.is_anonymous = json.get('is_anonymous', False)
-
-            # TODO
-            self.status = False
-            if self.is_tor or self.is_proxy or self.is_anonymous:
-                self.status = True
         else:
             self.country_name = json.get('country', '???')
             self.country_code = json.get('countryCode', '')
@@ -303,8 +298,8 @@ class UserDiscoveryResponse(object):
             self.longitude = json.get('lon', 0)
             self.isp = json.get('isp', '???')
 
-            # TODO
-            self.status = False
+        # TODO make status true if uses railroad network
+        self.status = False
 
 
 class UserDiscoveryService(object):
