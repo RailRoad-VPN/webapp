@@ -356,7 +356,7 @@ img::-moz-selection {
     BUTTONS
  */
 
-.btn:not(.btn) {
+.btn:not(.btn-link) {
     font-family: 'Roboto', sans-serif;
     font-size: 0.875rem;
     font-weight: 500;
