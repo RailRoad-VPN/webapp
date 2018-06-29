@@ -1,5 +1,21 @@
 'use strict';
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+
 function scrollToTop(speed) {
     if (!speed) {
         speed = 'slow'
@@ -124,3 +140,30 @@ var doAjax = function (_url, _type, _data, isAsync, _successCallback, _errorCall
 //
 //     return _$form.ajaxSubmit(ajaxObj);
 // };
+
+function setToLocalStorage(key, value) {
+    if (typeof(Storage) === 'undefined') {
+        return false;
+    }
+
+    value = JSON.stringify(value); //serializing non-string data types to string
+
+    try {
+        window.localStorage.setItem(key, value);
+    } catch (e) {
+        alert('Local storage Quota exceeded! .Clearing localStorage');
+        localStorage.clear();
+        window.localStorage.setItem(key, value); //Try saving the preference again
+    }
+
+    return true;
+}
+
+function getFromLocalStorage(key) {
+    if (typeof(Storage) === 'undefined') {
+        //Broswer doesnt support local storage
+        return null;
+    }
+
+    return JSON.parse(localStorage.getItem(key));
+}

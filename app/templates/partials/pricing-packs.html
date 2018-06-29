@@ -5,9 +5,22 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='main/pricing/pricing-packs.min.css') }}">
     {% endif %}
 {% endblock %}
+
+{% block import_js %}
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/pricing/pricing-packs.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/pricing/pricing-packs.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
 <div id="pricing-pack" class="row">
     {% if subscriptions is none %}
-        <p>Error occured. Please contact us at support@railroadman.net</p>
+        <p>
+            {{ _('Error occurred. Please contact us by email <a href="mailto:support@railroadman.net">support@railroadman.net</a> or ') }}
+            <a href="{{ url_for('contact.contact') }}">{{ _('contact form') }}</a>
+        </p>
     {% else %}
         {% for subscription in subscriptions %}
             <!-- skip free subscription -->
@@ -37,23 +50,24 @@
                     <ul class="pricing-content list-unstyled">
                         {% for feature in subscription['features'] %}
                             <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
-                            <span
-                                    {% if feature['tooltip'] is not none and feature['enabled'] == true %}
-                                        class="sub-feature-tooltip"
-                                        data-toggle="tooltip"
-                                        data-placement="top"
-                                        title="{{ feature['tooltip'] }}"
-                                    {% endif %}
-                            >
-                                {{ feature['name'] }}
-                            </span>
+                                <span {% if feature['tooltip'] is not none and feature['enabled'] == true %}
+                                    class="sub-feature-tooltip"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="{{ feature['tooltip'] }}"
+                                {% endif %}
+                                >{{ feature['name'] }}</span>
                             </li>
                         {% endfor %}
                     </ul>
                     <div class="pricing-footer">
-                        <a href="{{ url_for('order.order', pack=subscription['id']) }}"
-                           class="btn yellow-crusta btn-checkout">
-                            {% if order == true %}
+                        <a {% if order_page == true %}
+                            href="{{ url_for('order.order', pack=subscription['id']) }}" data-id="{{ subscription['id'] }}"
+                        {% else %}
+                            href="{{ url_for('order.order', pack=subscription['id']) }}"
+                        {% endif %}
+                            class="btn yellow-crusta btn-checkout">
+                            {% if order_page == true %}
                                 {{ _('Checkout') }}
                             {% else %}
                                 {% if subscription['bill_freq'] is not none %}

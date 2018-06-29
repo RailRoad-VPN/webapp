@@ -120,6 +120,17 @@ class RRNUsersAPIService(RESTService):
             logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
+    def get_user_subscriptions(self, user_uuid: str) -> dict:
+        url = self._url + '/%s/subscriptions' % (user_uuid)
+        api_response = self._get(url=url)
+        if api_response.is_ok:
+            return api_response.data
+        elif api_response.code == HTTPStatus.NOT_FOUND:
+            raise APINotFoundException(http_code=api_response.code, errors=api_response.errors)
+        else:
+            logging.debug(api_response.serialize())
+            raise APIException(http_code=api_response.code, errors=api_response.errors)
+
     def create_user_subscription(self, user_uuid: str, subscription_id: int, order_uuid: str) -> dict:
         data = {
             'user_uuid': user_uuid,
@@ -245,19 +256,37 @@ class SubscriptionService(object):
         self._billing_service = billing_service
         self._cache_service = cache_service
 
-    def get_subscriptions(self, lang_code):
+    def get_subscriptions(self, lang_code) -> list:
         logger.info("Check subscriptions in cache")
         subscriptions = self._cache_service.get(key='subscriptions', prefix=lang_code)
-        logger.info("Subscriptions cache: %s" % subscriptions is None)
+        logger.info("Is subscriptions exists in cache: %s" % subscriptions is not None)
         if subscriptions is None:
             logger.info("There are no subscriptions in cache. Call billing service")
-            try:
-                subscriptions = self._billing_service.get_subscriptions(lang_code=lang_code)
-                logger.info("Called. Save in cache.")
-                self._cache_service.set('subscriptions', subscriptions)
-            except APIException:
-                pass
+            self.__update_cache_subscriptions(lang_code=lang_code)
+            return self._cache_service.get(key='subscriptions', prefix=lang_code)
         return subscriptions
+
+    def get_subscriptions_dict(self, lang_code) -> dict:
+        logger.info("Check subscriptions_dict in cache")
+        subscriptions_dict = self._cache_service.get(key='subscriptions_dict', prefix=lang_code)
+        logger.info("Is subscriptions dict exists in cache: %s" % subscriptions_dict is not None)
+        if subscriptions_dict is None:
+            logger.info("There are no subscriptions_dict in cache.")
+            self.__update_cache_subscriptions(lang_code=lang_code)
+            return self._cache_service.get(key='subscriptions_dict', prefix=lang_code)
+        return subscriptions_dict
+
+    def __update_cache_subscriptions(self, lang_code):
+        logger.info("Call billing service")
+        try:
+            subscriptions = self._billing_service.get_subscriptions(lang_code=lang_code)
+            logger.info("Called. Place in cache.")
+            self._cache_service.set('subscriptions', subscriptions, prefix=lang_code)
+            logger.info("Create dict. Place in cache.")
+            subscriptions_dict = {subscriptions[i]['id']: subscriptions[i] for i in range(0, len(subscriptions))}
+            self._cache_service.set('subscriptions_dict', subscriptions_dict, prefix=lang_code)
+        except APIException:
+            pass
 
 
 class UserDiscoveryResponse(object):

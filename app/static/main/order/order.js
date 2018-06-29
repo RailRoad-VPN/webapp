@@ -13,12 +13,22 @@ function bar_progress(direction) {
     $progressBar.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
 
-$(document).ready(function () {
 
+// account details save in local storage
+var LS_ORDER_KEY = 'order';
+var LS_ORDER_PACK_ID_KEY = 'pack_id';
+var LS_ORDER_ACCOUNT_KEY = 'account';
+var LS_ORDER_ACCOUNT_EMAIL_KEY = 'email';
+var LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password';
+var LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY = 'password_confirm';
+
+$(document).ready(function () {
     var $emailCheckURLObj = $("meta#email_check_url");
+    var $orderPageURLObj = $("meta#order_page_url");
     var $getPaymentUrlURLObj = $("meta#get_payment_url_url");
 
     var $orderForm = $('.order-form');
+    var $userUuidInput = $("#user_uuid");
     var $packInput = $("#pack_id");
     var $emailInput = $("#email-input");
     var $passwordInput = $("#password-input");
@@ -26,18 +36,61 @@ $(document).ready(function () {
 
     var $paymentMethodsModal = $("#payment_methods-modal");
 
-    $(".form-group .error").hide();
+    var USER_REGISTERED = !!$userUuidInput.val();
 
-    // check chosen pack
-    if (window.location.href.indexOf('pack=') !== -1) {
-        $("fieldset:first").fadeOut('fast');
-        goToStep('right', 'account');
+    var ORDER_LS = getFromLocalStorage(LS_ORDER_KEY);
+    var ACCOUNT_LS;
+    if (ORDER_LS) {
+        ACCOUNT_LS = ORDER_LS[LS_ORDER_ACCOUNT_KEY];
     } else {
-        $('.order-form fieldset:first').fadeIn('slow');
+        ORDER_LS = {}
     }
 
+    if (!ACCOUNT_LS) {
+        ACCOUNT_LS = {}
+    }
+
+    function restoreOrderFromLS() {
+        if (ORDER_LS) {
+            $packInput.val(ORDER_LS[LS_ORDER_PACK_ID_KEY]);
+            if (ACCOUNT_LS) {
+                $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
+                $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
+                $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
+            }
+        }
+    }
+
+    function checkPackChosen() {
+        if (window.location.href.indexOf('pack=') !== -1 || (ORDER_LS && ORDER_LS[LS_ORDER_PACK_ID_KEY])) {
+            if (window.location.href.indexOf('pack=') !== -1) {
+                ORDER_LS[LS_ORDER_PACK_ID_KEY] = getUrlParameter('pack');
+                setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+            } else {
+                window.location = $orderPageURLObj.data('url') + "?pack=" + ORDER_LS[LS_ORDER_PACK_ID_KEY]
+            }
+            goToStep('right', 'account');
+        } else {
+            $('#pack-fieldset').fadeIn('slow');
+        }
+    }
+
+    restoreOrderFromLS();
+
+    checkPackChosen();
+
+    // checkout sub btn
+    $('.btn-checkout').on('click', function () {
+        ORDER_LS[LS_ORDER_PACK_ID_KEY] = $(this).data('id');
+        var is_ok = setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+        // for case when used local storage but browser does not support it
+        if (!is_ok) {
+            $packInput.val($(this).data('id'));
+        }
+    });
+
     // next step
-    $('.btn-next, .btn-checkout').on('click', function () {
+    $('.order-form .btn-next').on('click', function () {
         goToStep('right');
     });
 
@@ -74,7 +127,7 @@ $(document).ready(function () {
 
             // business logic
             if (currentStepId === 'pack') {
-                is_allow_next_step = packToAccount(this);
+                is_allow_next_step = packToAccount();
             } else if (currentStepId === 'account') {
                 is_allow_next_step = accountToPayment();
             }
@@ -109,14 +162,28 @@ $(document).ready(function () {
         });
     }
 
-    function packToAccount(checkoutBtn) {
-        var subs_id = $(checkoutBtn).data('subscription_id');
-        $packInput.val(subs_id);
+    function packToAccount(subscriptionIdVal) {
+        if (!subscriptionIdVal) {
+            subscriptionIdVal = getUrlParameter('pack');
+            if (!subscriptionIdVal) {
+                subscriptionIdVal = ORDER_LS[LS_ORDER_PACK_ID_KEY];
+                if (!subscriptionIdVal) {
+                    // for case when used local storage but browser does not support it
+                    subscriptionIdVal = $packInput.val();
+                    if (!subscriptionIdVal) {
+                        return false
+                    }
+                }
+            }
+        }
+        $packInput.val(subscriptionIdVal);
         return true;
     }
 
     function accountToPayment() {
-        return true;
+        if (USER_REGISTERED) {
+            return true;
+        }
         var is_pwd_ok = checkPassword();
         if (!is_pwd_ok) {
             return false;
@@ -266,6 +333,10 @@ $(document).ready(function () {
             } else {
                 $emailInput.parent().find('.busy_error').hide();
                 markInput($emailInput, true);
+                // update local storage
+                ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY] = emailVal;
+                ORDER_LS[LS_ORDER_ACCOUNT_KEY] = ACCOUNT_LS;
+                setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
             }
         };
 
@@ -277,41 +348,49 @@ $(document).ready(function () {
     }
 
     function checkPassword() {
-        var pwd = $.trim($passwordInput.val());
+        var pwdVal = $.trim($passwordInput.val());
         var $pwdFormGroup = $passwordInput.parent();
 
-        if (pwd === '') {
+        if (pwdVal === '') {
             $pwdFormGroup.find('.empty_error').show();
             markInput($passwordInput, false);
             return false;
-        } else if (pwd.length < 6) {
+        } else if (pwdVal.length < 6) {
             $pwdFormGroup.find('.short_error').show();
             markInput($passwordInput, false);
             return false;
         } else {
             $pwdFormGroup.find('.short_error').hide();
             markInput($passwordInput, true);
+
+            ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY] = pwdVal;
+            ORDER_LS[LS_ORDER_ACCOUNT_KEY] = ACCOUNT_LS;
+            setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
             return true;
         }
     }
 
     function checkRepeatPassword() {
-        var pwd = $.trim($passwordInput.val());
-        var pwdConfirm = $.trim($passwordConfirmInput.val());
+        var pwdVal = $.trim($passwordInput.val());
+        var pwdConfirmVal = $.trim($passwordConfirmInput.val());
 
-        if (pwdConfirm === '') {
+        if (pwdConfirmVal === '') {
             markInput($passwordConfirmInput, false);
             $passwordConfirmInput.parent().find('.empty_error').show();
             return false;
         }
 
-        if (pwd !== pwdConfirm) {
+        if (pwdVal !== pwdConfirmVal) {
             markInput($passwordConfirmInput, false);
             $passwordConfirmInput.parent().find('.match_error').show();
             return false;
         } else {
             markInput($passwordConfirmInput, true);
             $passwordConfirmInput.parent().find('.match_error').hide();
+
+            ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY] = pwdConfirmVal;
+            ORDER_LS[LS_ORDER_ACCOUNT_KEY] = ACCOUNT_LS;
+            setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
             return true;
         }
     }

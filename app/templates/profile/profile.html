@@ -30,7 +30,56 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <p>USER PROFILE! EMAIL IS {{ session['user']['email'] }}</p>
-    </div>
+    <section class="pt-6 pb-6" style="background-color: #f8f8f8;">
+        <div class="menu-header text-center" style="background-color: #fff; padding-top: 50px;">
+            <ul id="profile-menu" class="list-inline">
+                <li class="menu-entry active">
+                    <a href="#">
+                        <i class="fa fa-meetup"></i> Dashboard
+                    </a>
+                </li>
+                <li class="menu-entry">
+                    <a href="#">
+                        <i class="fa fa-user"></i> Account
+                    </a>
+                </li>
+                <li class="menu-entry">
+                    <a href="#">
+                        <i class="fa fa-download"></i> Downloads
+                    </a>
+                </li>
+                <li class="menu-entry">
+                    <a href="#">
+                        <i class="fa fa-server"></i> VPN Servers
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="container">
+                <h4 style="padding-top: 70px; text-transform: none;">Your Services</h4>
+                <div class="container" style="padding-top: 50px; background-color: #fff; border: 1px solid #cfcfcf; box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);">
+                    {% for us in user_subscriptions %}
+                        {% set sub = us['subscription'] %}
+                        <h4 class="d-inline">
+                            {{ sub['name'] }}
+                        </h4>
+                        <sup>
+                            <span class="badge badge-success">Active</span>
+                            <span class="badge badge-danger">Expired</span>
+                        </sup>
+                        {% if sub['price_per_month'] != 0 %}
+                            <span class="d-inline pull-right">
+                                    <small class="text-muted">Next payment at:</small>
+                                    <small>May 9th, 2018</small>
+                            </span>
+                        {% endif %}
+                        <small>{{ sub['bill_freq'] }}</small>
+                        <div class="clearfix"></div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

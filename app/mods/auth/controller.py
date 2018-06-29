@@ -154,8 +154,14 @@ def logout():
     logger.info('logout method')
     lang_code = session['lang_code']
     session.clear()
+    # setup base data
+    session['logged_in'] = False
     session['lang_code'] = lang_code
+    session['locale'] = request.accept_languages.best
     g.user = None
+    next = request.args.get('next', None)
+    if next is not None:
+        return redirect(next)
     return redirect(url_for('index.index_lang_page'))
 
 

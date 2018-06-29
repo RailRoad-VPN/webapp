@@ -62,7 +62,9 @@ def before_request():
     app.jinja_env.cache = {}
 
     if 'network-status' not in session or (
-                    session['network-status'] is not None and session['network-status']['ip'] != request.remote_addr):
+                        session['network-status'] is not None
+                and session['network-status']['ip'] != request.remote_addr
+            and app.config['DEBUG'] is False):
         _set_user_network_status(request.remote_addr)
 
     if 'user_locale' in session and 'gdpr' not in session:
