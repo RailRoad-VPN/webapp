@@ -144,6 +144,10 @@
             {% block nav_menu %}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
+                       href="{{ url_for('blog.blog_page') }}">{{ _('Blog') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger"
                        href="{{ url_for('features.features_page') }}">{{ _('Features') }}</a>
                 </li>
                 <li class="nav-item">
@@ -357,8 +361,6 @@
                     <ul class="footer-menu list-inline text-md-right mb-md-0 animated fadeInDown"
                         data-animate="fadeInDown" data-delay=".95"
                         style="animation-duration: 0.6s; animation-delay: 0.95s;">
-                        <li><a href="#">Afilliate</a></li>
-                        <li>|</li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li>|</li>
                         <li><a href="#">Terms &amp; Conditions</a></li>

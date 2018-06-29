@@ -1,0 +1,133 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    {{ _('FAQ') }}
+{% endblock %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/article.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/article.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/blog/article.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/blog/article.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+
+{% block meta %}
+    <meta name="description" content="">
+
+    <!-- OpenGraph -->
+    <meta property="og:url" content="{{ request.url }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image"
+          content="{{ request.host + '/123' }}"/>
+    <meta property="og:image:width" content="360"/>
+    <meta property="og:image:height" content="240"/>
+    <meta property="og:locale" content="ru_RU"/>
+    <meta property="og:site_name" content="RailroadNetworkVPN"/>
+
+    <!-- Facebook -->
+    <meta property="fb:app_id" content="{{ config['FACEBOOK_APP_ID'] }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content=""/>
+    <meta name="twitter:description" content=""/>
+    <meta name="twitter:image:src" content="{{ request.host + '/123' }}"/>
+    <meta name="twitter:image" content="{{ request.host + '/123' }}"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@giftshaker"/>
+    <meta name="twitter:domain" content="giftshaker.com">
+{% endblock %}
+
+{% block body %}
+    <section class="content-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h1>TITLE</h1>
+                <p class="article-paragraph">
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution
+                    of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                    Many
+                    desktop publishing packages and web page editors now use Lorem Ipsum as their default model text,
+                    and a
+                    search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have
+                    evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                </p>
+                <p class="article-paragraph">
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                    classical
+                    Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at
+                    Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from
+                    a
+                    Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the
+                    undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
+                    Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the
+                    theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum
+                    dolor
+                    sit amet..", comes from a line in section 1.10.32.
+
+                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
+                    Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in
+                    their
+                    exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+                </p>
+                <h2>TITLE #2</h2>
+                <p class="article-paragraph">
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when
+                    looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution
+                    of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                    Many
+                    desktop publishing packages and web page editors now use Lorem Ipsum as their default model text,
+                    and a
+                    search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have
+                    evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                </p>
+            </div>
+            {% if config['DEBUG'] == false %}
+                <div id="social-share_buttons-container" class="row hidden">
+                    <div class="col fb-social-btn">
+                        <div class="fb-share-button" data-href="{{ request.url }}" data-layout="button_count"
+                             data-size="small" data-mobile-iframe="true">
+                            <a class="fb-xfbml-parse-ignore" target="_blank"
+                               href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgiftshaker.com%2F&amp;src=sdkpreparse">
+                                Поделиться
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col vk-social-btn">
+                        <script type="text/javascript">
+                            document.write(VK.Share.button({url: "{{ request.url }}"}, {
+                                type: "round",
+                                text: "{{ _('Share') }}"
+                            }));
+                        </script>
+                    </div>
+                    <div class="col twitter-social-btn">
+                        <a class="twitter-share-button"
+                           href="https://twitter.com/intent/tweet?original_referer=https://giftshaker.com&text=GiftShaker.%20Статья%20на%20тему%20Что%20подарить%20маме&hashtags=подарок,giftshaker,подарокмаме,gift&tw_p=tweetbutton&url={{ request.url }}">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

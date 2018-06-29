@@ -4,6 +4,7 @@ from pprint import pprint
 import jinja2
 from flask import Flask, url_for, redirect, session, request
 from flask_babel import Babel
+from flask_disqus import Disqus
 from flask_moment import Moment
 from jinja2 import Environment
 
@@ -26,6 +27,8 @@ app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
 babel = Babel(app)
+
+disq = Disqus(app)
 
 # TODO i10n dates
 moment = Moment(app)
@@ -101,6 +104,10 @@ app.register_blueprint(profile_module)
 from app.mods.order.controller import mod_order as order_module
 
 app.register_blueprint(order_module)
+
+from app.mods.blog.controller import mod_blog as blog_module
+
+app.register_blueprint(blog_module)
 
 app.register_error_handler(HTTPStatus.NOT_FOUND, page_not_found)
 app.register_error_handler(HTTPStatus.FORBIDDEN, forbidden)

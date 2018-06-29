@@ -1,0 +1,24 @@
+h4.card-title {
+    letter-spacing: inherit;
+    font-size: 20px;
+    line-height: 32px;
+    text-transform: inherit;
+    font-weight: 500;
+}
+
+h4.blog-header {
+    text-transform: inherit;
+    font-size: 16px;
+}
+
+h5.card-title {
+    letter-spacing: inherit;
+    font-size: 18px;
+    line-height: 32px;
+    text-transform: inherit;
+    font-weight: 500;
+}
+
+.breadcrumb {
+    background-color: transparent;
+}
