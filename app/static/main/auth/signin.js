@@ -11,9 +11,9 @@ $(document).ready(function () {
                 // hideLoader();
                 if (response['success']) {
                     if (response['next']) {
-                        window.location = response['next']
+                        window.location = response['next'];
                     } else {
-                        window.location = "/"
+                        window.location = "/";
                     }
                 } else {
                     if (response.hasOwnProperty('errors')) {
