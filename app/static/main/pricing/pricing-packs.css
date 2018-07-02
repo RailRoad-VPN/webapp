@@ -1,7 +1,3 @@
-#pricing {
-    background-color: white;
-}
-
 .pricing {
     position: relative;
     margin-bottom: 15px;
@@ -132,13 +128,13 @@
     background-color: #cfa500;
 }
 
-#pricing .pricing-content li:not(.no-feature) .sub-feature-tooltip {
+.pricing-content li:not(.no-feature) .sub-feature-tooltip {
     text-decoration: none;
     border-bottom: 1px dotted #999;
     cursor: pointer;
 }
 
-#pricing .pricing-content li.no-feature {
+.pricing-content li.no-feature {
     background: #f4f4f4;
     -webkit-text-decoration-color: rgba(0, 0, 0, .5);
     text-decoration-color: rgba(0, 0, 0, .5);

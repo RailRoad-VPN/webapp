@@ -35,7 +35,7 @@
 {% endblock %}
 
 {% block body %}
-    <div id="order-form-container" class="container content-section" style="padding-top: 50px;">
+    <div id="order-form-container" class="container container-wide content-section" style="padding-top: 50px;">
         <div class="row text-center justify-content-center">
             <div class="form-box">
                 <form class="order-form" role="form" action="{{ url_for('auth.signup') }}" method="POST">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
 
-                    <fieldset id="pack-fieldset" data-id="pack">
+                    <fieldset id="pack-fieldset" class="container container-wide" data-id="pack">
                         <input id="subscription-id" type="hidden" value="{{ pack_id }}" data-subscription="">
                         <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
                         {% with order_page=true %}
