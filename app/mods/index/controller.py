@@ -36,12 +36,7 @@ def index_lang_page():
         r_url = str(request.base_url) + str(request.referrer).split("/")[-1]
         return redirect(r_url)
 
-    try:
-        subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
-    except APIException:
-        subscriptions = None
-
-    return render_template('index/index.html', code=200, subscriptions=subscriptions)
+    return render_template('index/index.html', code=200)
 
 
 @mod_index.route('/', methods=['POST'])
