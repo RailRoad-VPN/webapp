@@ -32,7 +32,8 @@ class ProductionConfig(Config):
     API_URL = 'http://IP:8000/api/v1'
 
     FS = {
-        'contact': '/opt/apps/dfn/contact/'
+        'contact': '/opt/apps/dfn/contact/',
+        'subscribe': '/opt/apps/dfn/subscribe.log'
     }
 
 
@@ -43,7 +44,8 @@ class DevelopmentConfig(Config):
     API_URL = 'http://127.0.0.1:8000/api/v1'
 
     FS = {
-        'contact': './'
+        'contact': './',
+        'subscribe': './subscribe.log'
     }
 
 
@@ -55,5 +57,6 @@ class TestingConfig(Config):
     API_URL = 'http://127.0.0.1:61885/api/v1'
 
     FS = {
-        'contact': '/opt/apps/dfn/contact/'
+        'contact': '/opt/apps/dfn/contact/',
+        'subscribe': '/opt/apps/dfn/subscribe.log'
     }
