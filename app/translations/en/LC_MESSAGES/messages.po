@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-06-20 18:12+0300\n"
+"POT-Creation-Date: 2018-07-02 16:51+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/models/exception.py:32
+#: app/models/exception.py:32 app/templates/error/internal_server_error.html:4
 msgid "Internal Server Error"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Unable to log in. Please check the login details"
 msgstr ""
 
-#: app/models/exception.py:35 app/templates/index/order.html:94
+#: app/models/exception.py:35 app/templates/order/order.html:104
 msgid "Entered email is busy"
 msgstr ""
 
@@ -46,6 +46,14 @@ msgstr ""
 msgid "Password does not match"
 msgstr ""
 
+#: app/templates/about/about.html:4 app/templates/partials/layout.html:172
+msgid "About Us"
+msgstr ""
+
+#: app/templates/about/about.html:35
+msgid "Welcome to Railroad Network"
+msgstr ""
+
 #: app/templates/auth/signin.html:35
 msgid "Log in"
 msgstr ""
@@ -54,8 +62,8 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: app/templates/auth/signin.html:40 app/templates/index/order.html:98
-#: app/templates/index/order.html:100
+#: app/templates/auth/signin.html:40 app/templates/order/order.html:108
+#: app/templates/order/order.html:110
 msgid "Password"
 msgstr ""
 
@@ -75,266 +83,320 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: app/templates/index/download.html:4 app/templates/index/index.html:114
-#: app/templates/partials/layout.html:134
-msgid "Download"
-msgstr ""
-
-#: app/templates/index/features.html:4 app/templates/partials/layout.html:126
-msgid "Features"
-msgstr ""
-
-#: app/templates/index/features.html:32 app/templates/index/index.html:55
-msgid "SECURITY"
-msgstr ""
-
-#: app/templates/index/features.html:71 app/templates/index/index.html:85
-msgid "DISENGAGEMENT"
-msgstr ""
-
-#: app/templates/index/features.html:109 app/templates/index/index.html:70
-msgid "PRIVACY"
-msgstr ""
-
-#: app/templates/index/index.html:32
-msgid "VPN Service"
-msgstr ""
-
-#: app/templates/index/index.html:33
-msgid "Get access to internet anonymously and without any restricts!"
-msgstr ""
-
-#: app/templates/index/index.html:35
-msgid "BUILD YOUR OWN RAILROAD!"
-msgstr ""
-
-#: app/templates/index/index.html:49
-msgid "WHY USE VPN?"
-msgstr ""
-
-#: app/templates/index/index.html:57
-msgid "Protect your access to Internet"
-msgstr ""
-
-#: app/templates/index/index.html:61 app/templates/index/index.html:76
-#: app/templates/index/index.html:91
-msgid "Learn more"
-msgstr ""
-
-#: app/templates/index/index.html:72
-msgid "Be anonymous when you need this"
-msgstr ""
-
-#: app/templates/index/index.html:87
-msgid "Create your own network over Internet"
-msgstr ""
-
-#: app/templates/index/index.html:103 app/templates/index/order.html:68
-#: app/templates/index/pricing.html:32
-msgid "CHOOSE YOUR PACK"
-msgstr ""
-
-#: app/templates/index/index.html:115
-msgid "You can download for free on the preview page."
-msgstr ""
-
-#: app/templates/index/index.html:116
-msgid "Visit Download Page"
-msgstr ""
-
-#: app/templates/index/order.html:4 app/templates/index/pricing.html:4
-#: app/templates/partials/layout.html:130
-msgid "Pricing"
-msgstr ""
-
-#: app/templates/index/order.html:41
-msgid "Order"
-msgstr ""
-
-#: app/templates/index/order.html:45
-msgid "Build your own railroad in 3 easy steps"
-msgstr ""
-
-#: app/templates/index/order.html:54
-msgid "pack"
-msgstr ""
-
-#: app/templates/index/order.html:58
-msgid "account"
-msgstr ""
-
-#: app/templates/index/order.html:62
-msgid "payment"
-msgstr ""
-
-#: app/templates/index/order.html:83
-msgid "CREATE ACCOUNT"
-msgstr ""
-
-#: app/templates/index/order.html:85 app/templates/index/order.html:86
-msgid "Email"
-msgstr ""
-
-#: app/templates/index/order.html:90
-msgid "Enter email please"
-msgstr ""
-
-#: app/templates/index/order.html:104
-msgid "Enter password please"
-msgstr ""
-
-#: app/templates/index/order.html:108
-msgid "Entered password too short. Minimum length 6 chars"
-msgstr ""
-
-#: app/templates/index/order.html:112 app/templates/index/order.html:114
-msgid "Verify password"
-msgstr ""
-
-#: app/templates/index/order.html:118
-msgid "Enter password again to verify it"
-msgstr ""
-
-#: app/templates/index/order.html:122
-msgid "Entered passwords does not match"
-msgstr ""
-
-#: app/templates/index/order.html:126 app/templates/index/order.html:174
-msgid "Back"
-msgstr ""
-
-#: app/templates/index/order.html:127
-msgid "Next"
-msgstr ""
-
-#: app/templates/index/order.html:150
-msgid "Choose payment method before proceed to payment page"
-msgstr ""
-
-#: app/templates/index/order.html:170
-msgid "Show more ways to pay"
-msgstr ""
-
-#: app/templates/index/order.html:176
-msgid "Proceed to payment page"
-msgstr ""
-
-#: app/templates/index/order.html:197
-msgid "Choose your favorite payment method"
-msgstr ""
-
-#: app/templates/index/order.html:257
-msgid "Other..."
-msgstr ""
-
-#: app/templates/index/order.html:264
-msgid ""
-"Some payment methods can be unavaiable on payment page. Don't worry, you "
-"can change payment method any time on payment page."
-msgstr ""
-
-#: app/templates/partials/layout.html:138
-msgid "Contact"
-msgstr ""
-
-#: app/templates/partials/layout.html:148
-msgid "My Account"
-msgstr ""
-
-#: app/templates/partials/layout.html:154
-msgid "Logout"
-msgstr ""
-
-#: app/templates/partials/layout.html:192
-msgid "PRODUCTS"
-msgstr ""
-
-#: app/templates/partials/layout.html:194
-msgid "VPN for Windows"
-msgstr ""
-
-#: app/templates/partials/layout.html:195
-msgid "VPN for iOS"
-msgstr ""
-
-#: app/templates/partials/layout.html:196
-msgid "VPN for Android"
-msgstr ""
-
-#: app/templates/partials/layout.html:197
-msgid "VPN for macOS"
-msgstr ""
-
-#: app/templates/partials/layout.html:201
-msgid "TUTORIALS"
-msgstr ""
-
-#: app/templates/partials/layout.html:203
-msgid "How to use VPN?"
-msgstr ""
-
-#: app/templates/partials/layout.html:204
-msgid "Why I need VPN?"
-msgstr ""
-
-#: app/templates/partials/layout.html:205
-msgid "Which VPN to choose?"
-msgstr ""
-
-#: app/templates/partials/layout.html:206
-msgid "Why VPN is dangerous?"
-msgstr ""
-
-#: app/templates/partials/layout.html:210
-msgid "INFORMATION"
-msgstr ""
-
-#: app/templates/partials/layout.html:212
-msgid "About us"
-msgstr ""
-
-#: app/templates/partials/layout.html:213
-msgid "Plans and Pricing"
-msgstr ""
-
-#: app/templates/partials/layout.html:214
-msgid "Support"
-msgstr ""
-
-#: app/templates/partials/layout.html:215
-msgid "Partnership"
-msgstr ""
-
-#: app/templates/partials/layout.html:216
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:4
+#: app/templates/blog/blog.html:4 app/templates/faq/faq.html:4
 msgid "FAQ"
 msgstr ""
 
-#: app/templates/partials/layout.html:220
-msgid "SOCIAL"
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:119
+msgid "Share"
 msgstr ""
 
-#: app/templates/partials/layout.html:222
-msgid "Facebook"
+#: app/templates/contact/contact.html:4 app/templates/partials/layout.html:176
+msgid "Contact"
 msgstr ""
 
-#: app/templates/partials/layout.html:223
-msgid "Vkontakte"
+#: app/templates/contact/contact.html:161
+#: app/templates/contact/contact.html:162
+msgid "Name"
 msgstr ""
 
-#: app/templates/partials/layout.html:224
-msgid "Twitter"
+#: app/templates/contact/contact.html:166
+msgid "Enter name please"
 msgstr ""
 
-#: app/templates/partials/layout.html:225
-msgid "YouTube"
+#: app/templates/contact/contact.html:170
+#: app/templates/contact/contact.html:171 app/templates/index/index.html:149
+#: app/templates/order/order.html:94 app/templates/order/order.html:96
+msgid "Email"
 msgstr ""
 
-#: app/templates/partials/layout.html:237
+#: app/templates/contact/contact.html:175 app/templates/index/index.html:150
+#: app/templates/order/order.html:100
+msgid "Enter email please"
+msgstr ""
+
+#: app/templates/contact/contact.html:179
+msgid "Message"
+msgstr ""
+
+#: app/templates/contact/contact.html:182
+msgid "Enter message please"
+msgstr ""
+
+#: app/templates/download/download.html:4
+msgid "Download"
+msgstr ""
+
+#: app/templates/error/forbidden.html:4
+msgid "Forbidden"
+msgstr ""
+
+#: app/templates/error/not_found.html:4
+msgid "Page not found"
+msgstr ""
+
+#: app/templates/features/features.html:4
+msgid "Features"
+msgstr ""
+
+#: app/templates/index/index.html:34
+msgid "Thank you! We send you email with all information!"
+msgstr ""
+
+#: app/templates/index/index.html:44
+msgid "Railroad VPN"
+msgstr ""
+
+#: app/templates/index/index.html:45
+msgid "the best way to get any content with the fastest speed"
+msgstr ""
+
+#: app/templates/index/index.html:47
+msgid ""
+"We under construction and will release first version soon. Be in touch "
+"and subscribe for news by email."
+msgstr ""
+
+#: app/templates/index/index.html:48
+msgid "Learn More!"
+msgstr ""
+
+#: app/templates/index/index.html:50
+msgid "Click Here To Get FREE Trial!"
+msgstr ""
+
+#: app/templates/index/index.html:68
+msgid "WHY Railroad VPN Services?"
+msgstr ""
+
+#: app/templates/index/index.html:70
+msgid ""
+"We developing VPN-service with the best features and service on market. "
+"What we can offer?"
+msgstr ""
+
+#: app/templates/index/index.html:77
+msgid "SECURITY"
+msgstr ""
+
+#: app/templates/index/index.html:79
+msgid "Protect your access to Internet"
+msgstr ""
+
+#: app/templates/index/index.html:87
+msgid "PRIVACY"
+msgstr ""
+
+#: app/templates/index/index.html:89
+msgid "Be anonymous when you need this"
+msgstr ""
+
+#: app/templates/index/index.html:97
+msgid "DISENGAGEMENT"
+msgstr ""
+
+#: app/templates/index/index.html:99
+msgid "Create your own network over Internet"
+msgstr ""
+
+#: app/templates/index/index.html:109
+msgid "VPN Apps"
+msgstr ""
+
+#: app/templates/index/index.html:111
+msgid "We offer the best VPN app. Simple. Fast. Nice."
+msgstr ""
+
+#: app/templates/index/index.html:119
+msgid "SUPPORT"
+msgstr ""
+
+#: app/templates/index/index.html:121
+msgid "Email, Telegram, Forum - we support you everywhere."
+msgstr ""
+
+#: app/templates/index/index.html:129
+msgid "EXTRA MONEY"
+msgstr ""
+
+#: app/templates/index/index.html:131
+msgid "Change your traffic for money."
+msgstr ""
+
+#: app/templates/index/index.html:144
+msgid "Subscribe and get free trial"
+msgstr ""
+
+#: app/templates/index/index.html:153
+msgid "GET FREE TRIAL"
+msgstr ""
+
+#: app/templates/order/order.html:4 app/templates/pricing/pricing.html:4
+msgid "Pricing"
+msgstr ""
+
+#: app/templates/order/order.html:43
+msgid "Order"
+msgstr ""
+
+#: app/templates/order/order.html:47
+msgid "Build your own railroad in 3 easy steps"
+msgstr ""
+
+#: app/templates/order/order.html:56
+msgid "pack"
+msgstr ""
+
+#: app/templates/order/order.html:60
+msgid "account"
+msgstr ""
+
+#: app/templates/order/order.html:64
+msgid "payment"
+msgstr ""
+
+#: app/templates/order/order.html:70 app/templates/pricing/pricing.html:32
+msgid "CHOOSE YOUR PACK"
+msgstr ""
+
+#: app/templates/order/order.html:87
+msgid ""
+"You already logged in, if you want buy subscription for other account you"
+" have to "
+msgstr ""
+
+#: app/templates/order/order.html:88
+msgid "and than login."
+msgstr ""
+
+#: app/templates/order/order.html:92
+msgid "CREATE ACCOUNT"
+msgstr ""
+
+#: app/templates/order/order.html:114
+msgid "Enter password please"
+msgstr ""
+
+#: app/templates/order/order.html:118
+msgid "Entered password too short. Minimum length 6 chars"
+msgstr ""
+
+#: app/templates/order/order.html:122 app/templates/order/order.html:124
+msgid "Verify password"
+msgstr ""
+
+#: app/templates/order/order.html:128
+msgid "Enter password again to verify it"
+msgstr ""
+
+#: app/templates/order/order.html:132
+msgid "Entered passwords does not match"
+msgstr ""
+
+#: app/templates/order/order.html:137 app/templates/order/order.html:185
+msgid "Back"
+msgstr ""
+
+#: app/templates/order/order.html:138
+msgid "Next"
+msgstr ""
+
+#: app/templates/order/order.html:161
+msgid "Choose payment method before proceed to payment page"
+msgstr ""
+
+#: app/templates/order/order.html:181
+msgid "Show more ways to pay"
+msgstr ""
+
+#: app/templates/order/order.html:187
+msgid "Proceed to payment page"
+msgstr ""
+
+#: app/templates/order/order.html:208
+msgid "Choose your favorite payment method"
+msgstr ""
+
+#: app/templates/order/order.html:268
+msgid "Other..."
+msgstr ""
+
+#: app/templates/order/order.html:275
+msgid ""
+"Some payment methods can be unavailable on payment page. Don't worry, you"
+" can change payment method any time on payment page."
+msgstr ""
+
+#: app/templates/partials/layout.html:73
+msgid "Services"
+msgstr ""
+
+#: app/templates/partials/layout.html:136
+msgid "Your IP"
+msgstr ""
+
+#: app/templates/partials/layout.html:137
+msgid "Your Location"
+msgstr ""
+
+#: app/templates/partials/layout.html:138
+msgid "Your ISP"
+msgstr ""
+
+#: app/templates/partials/layout.html:140
+#: app/templates/partials/layout.html:143
+msgid "Your Status"
+msgstr ""
+
+#: app/templates/partials/layout.html:140
+msgid "protected"
+msgstr ""
+
+#: app/templates/partials/layout.html:144
+msgid "unprotected"
+msgstr ""
+
+#: app/templates/partials/layout.html:145
+msgid "Subscribe to get protection!"
+msgstr ""
+
+#: app/templates/partials/layout.html:168
+msgid "Blog"
+msgstr ""
+
+#: app/templates/partials/layout.html:216
+msgid "© Copyright"
+msgstr ""
+
+#: app/templates/partials/layout.html:226
 msgid "Privacy Policy"
 msgstr ""
 
+#: app/templates/partials/layout.html:228
+msgid "Terms &amp; Conditions"
+msgstr ""
+
+#: app/templates/partials/layout.html:239
+msgid ""
+"Please know that our website uses cookies to provide you with a complete "
+"experience. By means of cookies, you can enjoy all website features, "
+"including a fast account login. If you disagree..."
+msgstr ""
+
 #: app/templates/partials/layout.html:240
-msgid "Terms Of Service"
+msgid "Read more..."
+msgstr ""
+
+#: app/templates/partials/layout.html:243
+msgid ""
+"Please know that our website uses cookies to provide you with a complete "
+"experience. By means of cookies, you can enjoy all website features, "
+"including a fast account login. If you disagree with our usage of "
+"cookies, please make the necessary changes, to either block or disable "
+"them, from your browser's settings at any time. The option to continue "
+"visiting the website without making any changes will be regarded as an "
+"acceptance of cookies."
 msgstr ""
 
 #: app/templates/partials/order/chosen_subscription.html:8
@@ -415,5 +477,147 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Sign Up"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Some payment methods can be unavaiable"
+#~ " on payment page. Don't worry, you"
+#~ " can change payment method any time"
+#~ " on payment page."
+#~ msgstr ""
+
+#~ msgid "My Account"
+#~ msgstr ""
+
+#~ msgid "Logout"
+#~ msgstr ""
+
+#~ msgid "PRODUCTS"
+#~ msgstr ""
+
+#~ msgid "TUTORIALS"
+#~ msgstr ""
+
+#~ msgid "Why VPN is dangerous?"
+#~ msgstr ""
+
+#~ msgid "INFORMATION"
+#~ msgstr ""
+
+#~ msgid "SOCIAL"
+#~ msgstr ""
+
+#~ msgid "Facebook"
+#~ msgstr ""
+
+#~ msgid "Vkontakte"
+#~ msgstr ""
+
+#~ msgid "Twitter"
+#~ msgstr ""
+
+#~ msgid "YouTube"
+#~ msgstr ""
+
+#~ msgid "Terms Of Service"
+#~ msgstr ""
+
+#~ msgid "VPN Service"
+#~ msgstr ""
+
+#~ msgid "Get access to internet anonymously and without any restricts!"
+#~ msgstr ""
+
+#~ msgid "BUILD YOUR OWN RAILROAD!"
+#~ msgstr ""
+
+#~ msgid "WHY USE VPN?"
+#~ msgstr ""
+
+#~ msgid "Learn more"
+#~ msgstr ""
+
+#~ msgid "You can download for free on the preview page."
+#~ msgstr ""
+
+#~ msgid "Visit Download Page"
+#~ msgstr ""
+
+#~ msgid "Click Here To Subscribe"
+#~ msgstr ""
+
+#~ msgid "VPN Clients"
+#~ msgstr ""
+
+#~ msgid "We offer the best VPN client. Easy. Fast. Free."
+#~ msgstr ""
+
+#~ msgid "EARN MONEY"
+#~ msgstr ""
+
+#~ msgid "New way to earn money. Change your traffic for money."
+#~ msgstr ""
+
+#~ msgid "Information"
+#~ msgstr ""
+
+#~ msgid "About us"
+#~ msgstr ""
+
+#~ msgid "Plans and Pricing"
+#~ msgstr ""
+
+#~ msgid "Support"
+#~ msgstr ""
+
+#~ msgid "Partnership"
+#~ msgstr ""
+
+#~ msgid "Tutorials"
+#~ msgstr ""
+
+#~ msgid "How to use VPN?"
+#~ msgstr ""
+
+#~ msgid "Why I need VPN?"
+#~ msgstr ""
+
+#~ msgid "Which VPN to choose?"
+#~ msgstr ""
+
+#~ msgid "VPN for business"
+#~ msgstr ""
+
+#~ msgid "Products"
+#~ msgstr ""
+
+#~ msgid "VPN for Windows"
+#~ msgstr ""
+
+#~ msgid "VPN for iOS"
+#~ msgstr ""
+
+#~ msgid "VPN for Android"
+#~ msgstr ""
+
+#~ msgid "VPN for macOS"
+#~ msgstr ""
+
+#~ msgid "Welcome to Railroad Network Services"
+#~ msgstr ""
+
+#~ msgid "Thank your! We send you email with all information!"
+#~ msgstr ""
+
+#~ msgid "New way to get extra money. Change your traffic for money."
+#~ msgstr ""
+
+#~ msgid "GET FREE TRIAL AND SUBSCRIBE FOR NEWS!"
+#~ msgstr ""
+
+#~ msgid "Subscribe for news and get free trial when it is done!"
+#~ msgstr ""
+
+#~ msgid "Protect me!"
 #~ msgstr ""
 

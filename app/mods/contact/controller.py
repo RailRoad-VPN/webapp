@@ -48,6 +48,7 @@ def contact():
 
         with open('%s/%s.data' % (app_config['FS']['contact'], tt), 'w') as file:
             file.write(data)
+            file.close()
 
         r.set_success()
         resp = jsonify(r.serialize())
