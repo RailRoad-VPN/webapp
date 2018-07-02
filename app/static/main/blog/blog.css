@@ -4,6 +4,7 @@ h4.card-title {
     line-height: 32px;
     text-transform: inherit;
     font-weight: 500;
+    color: black;
 }
 
 h4.blog-header {
@@ -21,4 +22,8 @@ h5.card-title {
 
 .breadcrumb {
     background-color: transparent;
+}
+
+.card:hover .card-title {
+    color: #f8cc46;
 }

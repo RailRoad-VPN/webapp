@@ -230,22 +230,12 @@
 }
 
 @media (max-width: 1600px) {
-    .container {
-        max-width: 1600px;
-    }
-
     .payment-method {
         min-height: 100px;
     }
 
     .payment-method img.img-fluid {
         width: 7rem;
-    }
-}
-
-@media (min-width: 1900px) {
-    .container {
-        max-width: 1900px;
     }
 }
 

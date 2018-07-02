@@ -521,44 +521,43 @@ img::-moz-selection {
     SHADOWS
  */
 
-.sha-1,.sha-2,.sha-3,.sha-4 {
+.sha-1, .sha-2, .sha-3, .sha-4 {
     -webkit-transition: -webkit-box-shadow .25s ease-out;
     transition: -webkit-box-shadow .25s ease-out;
     transition: box-shadow .25s ease-out;
-    transition: box-shadow .25s ease-out,-webkit-box-shadow .25s ease-out
+    transition: box-shadow .25s ease-out, -webkit-box-shadow .25s ease-out
 }
 
-.sha-1-hover,.sha-2-hover,.sha-3-hover,.sha-4-hover {
+.sha-1-hover, .sha-2-hover, .sha-3-hover, .sha-4-hover {
     cursor: pointer
 }
 
-.sha-1-hover:hover,.sha-2-hover:hover,.sha-3-hover:hover,.sha-4-hover:hover {
+.sha-1-hover:hover, .sha-2-hover:hover, .sha-3-hover:hover, .sha-4-hover:hover {
     -webkit-transition: -webkit-box-shadow .25s ease-out;
     transition: -webkit-box-shadow .25s ease-out;
     transition: box-shadow .25s ease-out;
-    transition: box-shadow .25s ease-out,-webkit-box-shadow .25s ease-out
+    transition: box-shadow .25s ease-out, -webkit-box-shadow .25s ease-out
 }
 
-.sha-1,.sha-1-hover:hover {
-    -webkit-box-shadow: 0 0 0 1px rgba(56,60,67,.05),0 1px 3px 0 rgba(56,60,67,.15);
-    box-shadow: 0 0 0 1px rgba(56,60,67,.05),0 1px 3px 0 rgba(56,60,67,.15)
+.sha-1, .sha-1-hover:hover {
+    -webkit-box-shadow: 0 0 0 1px rgba(56, 60, 67, .05), 0 1px 3px 0 rgba(56, 60, 67, .15);
+    box-shadow: 0 0 0 1px rgba(56, 60, 67, .05), 0 1px 3px 0 rgba(56, 60, 67, .15)
 }
 
-.sha-2,.sha-2-hover:hover {
-    -webkit-box-shadow: 0 0 0 1px rgba(56,60,67,.07),0 3px 6px 0 rgba(56,60,67,.15);
-    box-shadow: 0 0 0 1px rgba(56,60,67,.07),0 3px 6px 0 rgba(56,60,67,.15)
+.sha-2, .sha-2-hover:hover {
+    -webkit-box-shadow: 0 0 0 1px rgba(56, 60, 67, .07), 0 3px 6px 0 rgba(56, 60, 67, .15);
+    box-shadow: 0 0 0 1px rgba(56, 60, 67, .07), 0 3px 6px 0 rgba(56, 60, 67, .15)
 }
 
-.sha-3,.sha-3-hover:hover {
-    -webkit-box-shadow: 0 0 0 1px rgba(56,60,67,.07),0 8px 14px 1px rgba(56,60,67,.15);
-    box-shadow: 0 0 0 1px rgba(56,60,67,.07),0 8px 14px 1px rgba(56,60,67,.15)
+.sha-3, .sha-3-hover:hover {
+    -webkit-box-shadow: 0 0 0 1px rgba(56, 60, 67, .07), 0 8px 14px 1px rgba(56, 60, 67, .15);
+    box-shadow: 0 0 0 1px rgba(56, 60, 67, .07), 0 8px 14px 1px rgba(56, 60, 67, .15)
 }
 
-.sha-4,.sha-4-hover:hover {
-    -webkit-box-shadow: 0 0 0 1px rgba(56,60,67,.07),0 15px 20px 1px rgba(56,60,67,.12);
-    box-shadow: 0 0 0 1px rgba(56,60,67,.07),0 15px 20px 1px rgba(56,60,67,.12)
+.sha-4, .sha-4-hover:hover {
+    -webkit-box-shadow: 0 0 0 1px rgba(56, 60, 67, .07), 0 15px 20px 1px rgba(56, 60, 67, .12);
+    box-shadow: 0 0 0 1px rgba(56, 60, 67, .07), 0 15px 20px 1px rgba(56, 60, 67, .12)
 }
-
 
 .row-flex {
     display: -webkit-box;
@@ -568,4 +567,20 @@ img::-moz-selection {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+}
+
+/*
+    wiiiiide containers
+ */
+
+@media (min-width: 1400px) {
+    .container-wide {
+        max-width: 1310px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .container-wide {
+        max-width: 1510px;
+    }
 }
