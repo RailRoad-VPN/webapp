@@ -412,22 +412,25 @@ img::-moz-selection {
     BUTTONS
  */
 
-.btn:not(.btn-link) {
+.btn-primary {
     font-family: 'Roboto', sans-serif;
     font-size: 0.875rem;
     font-weight: 500;
     text-transform: uppercase;
-    border-radius: 1.25rem;
-    border: 0;
     padding: 0.6rem 1.875rem;
     position: relative;
     overflow: hidden;
     background-color: #f8cc46;
     color: black;
+    border: 0;
 
 }
 
-.btn:not(.btn-link):before, .btn:not(.btn-link):after {
+.btn-primary .btn-rad {
+    border-radius: 1.25rem;
+}
+
+.btn-primary:before, .btn-primary:after {
     content: '';
     width: 100%;
     height: 50px;
@@ -440,11 +443,11 @@ img::-moz-selection {
     transition: all .5s
 }
 
-.btn:hover,
-.btn:active,
-.btn:focus {
-    background-color: #f8cc46;
-    color: black;
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: black !important;
+    color: #f8cc46 !important;
 }
 
 .btn-link {
@@ -588,4 +591,16 @@ img::-moz-selection {
     .container-wide {
         max-width: 1510px;
     }
+}
+
+/*
+    TEMP CSS
+ */
+
+.menu-disabled {
+    text-decoration: line-through;
+}
+
+.menu-disabled a {
+    color: #3e3e3e !important;
 }

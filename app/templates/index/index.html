@@ -48,12 +48,11 @@
                                 {{ _('the best way to get content') }}
                             </h1>
                             <p class="text-white mb-30">
-                                {{ _('We under construction and will release first version soon. Be in touch and subscribe for news by email.') }}
+                                {{ _('Break down borders. Be anonymous. Obtain freedom.') }}
                             </p>
                             <a href="{{ url_for('about.about_page') }}" class="btn btn-link">{{ _('Learn More!') }}</a>
                             <a id="intro-subscribe" href="#subscription" class="btn btn-primary js-scroll-trigger">
-                                {{ _('Click Here To Get FREE Trial!') }}
-                                <i class="fa fa-long-arrow-alt-right"></i>
+                                {{ _('Get Railroad VPN') }}
                             </a>
                         </div>
                     </div>
@@ -142,7 +141,7 @@
 
     <!-- Pricing Section -->
     <section id="pricing" class="pb-7 pt-7">
-        <div class="container content">
+        <div class="container container-wide content">
             <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
             {% with order=false %}
                 {% include 'partials/pricing-packs.html' %}
