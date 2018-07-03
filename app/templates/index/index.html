@@ -62,30 +62,6 @@
         </div>
     </section>
 
-    <!-- Subscription Section -->
-    <section id="subscription" class="download-section pb-75 pt-75 d-flex text-center">
-        <div class="container shadow-text justify-content-center justify-content-center align-self-center">
-            <div class="col-lg-12 mx-auto">
-                <h2>{{ _('Subscribe and get free trial') }}</h2>
-                <form id="subscribe-form" class="justify-content-center" method="POST"
-                      action="{{ url_for('index.subscribe_trial') }}">
-                    <div class="form-group mx-sm-3 mb-2 mx-2">
-                        <div class="row">
-                            <div class="col-lg-10 mb-4">
-                                <label for="subscribe-email-input" class="sr-only">{{ _('Email') }}</label>
-                                <input id="subscribe-email-input" type="email" class="form-control" required name="email"
-                                       placeholder="example@mail.com">
-                            </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary col-12 mb-2">{{ _('GET FREE TRIAL') }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- Features Section -->
     <section id="features" class="pb-75 pt-75">
         <div style="position:relative;">
@@ -160,6 +136,27 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pb-7 pt-7">
+        <div class="container content">
+            <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
+            {% with order=false %}
+                {% include 'partials/pricing-packs.html' %}
+            {% endwith %}
+        </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="download" class="download-section pb-75 pt-75 d-flex text-center">
+        <div class="container shadow-text justify-content-center justify-content-center align-self-center">
+            <div class="col-lg-12 mx-auto">
+                <h2>{{ _('DOWNLOAD') }}</h2>
+                <p>{{ _('You can download for free on the preview page.') }}</p>
+                <a href="#" class="btn btn-link">{{ _('Visit Download Page') }}</a>
             </div>
         </div>
     </section>

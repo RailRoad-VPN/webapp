@@ -77,33 +77,33 @@ from app.mods.contact.controller import mod_contact as contact_module
 
 app.register_blueprint(contact_module)
 
-# from app.mods.features.controller import mod_features as features_module
-#
-# app.register_blueprint(features_module)
-#
-# from app.mods.faq.controller import mod_faq as faq_module
-#
-# app.register_blueprint(faq_module)
-#
-# from app.mods.pricing.controller import mod_pricing as pricing_module
-#
-# app.register_blueprint(pricing_module)
-#
-# from app.mods.download.controller import mod_download as download_module
-#
-# app.register_blueprint(download_module)
-#
-# from app.mods.auth.controller import mod_auth as auth_module
-#
-# app.register_blueprint(auth_module)
-#
-# from app.mods.profile.controller import mod_profile as profile_module
-#
-# app.register_blueprint(profile_module)
-#
-# from app.mods.order.controller import mod_order as order_module
-#
-# app.register_blueprint(order_module)
+from app.mods.features.controller import mod_features as features_module
+
+app.register_blueprint(features_module)
+
+from app.mods.faq.controller import mod_faq as faq_module
+
+app.register_blueprint(faq_module)
+
+from app.mods.pricing.controller import mod_pricing as pricing_module
+
+app.register_blueprint(pricing_module)
+
+from app.mods.download.controller import mod_download as download_module
+
+app.register_blueprint(download_module)
+
+from app.mods.auth.controller import mod_auth as auth_module
+
+app.register_blueprint(auth_module)
+
+from app.mods.profile.controller import mod_profile as profile_module
+
+app.register_blueprint(profile_module)
+
+from app.mods.order.controller import mod_order as order_module
+
+app.register_blueprint(order_module)
 
 from app.mods.blog.controller import mod_blog as blog_module
 

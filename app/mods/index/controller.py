@@ -31,7 +31,13 @@ def pull_lang_code(endpoint, values):
 @mod_index.route('/', methods=['GET'])
 def index_lang_page():
     logger.info('index_lang page')
-    return render_template('index/index.html', code=200)
+    
+    try:
+        subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
+    except APIException:
+        subscriptions = None
+
+    return render_template('index/index.html', code=200, subscriptions=subscriptions)
 
 
 @mod_index.route('/', methods=['POST'])
