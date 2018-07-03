@@ -3,7 +3,7 @@ import logging
 import uuid
 from functools import wraps
 
-from flask import session, g, request, redirect, url_for
+from flask import session, g, request, redirect, url_for, abort
 
 from app import app, babel, user_discovery_service
 
@@ -93,6 +93,15 @@ def before_request():
             logging.error(e)
 
 
+@app.before_request
+def ensure_lang_support():
+    if 'lang_code' not in session:
+        session['lang_code'] = 'en'
+    lang_code = session['lang_code']
+    if lang_code and lang_code not in app.config['LANGUAGES']:
+        return abort(404)
+
+
 def _add_language_code(endpoint, values):
     if 'lang_code' in values:
         lang_code = values['lang_code']
@@ -105,7 +114,7 @@ def _pull_lang_code(endpoint, values, app_config):
     if 'lang_code' in values:
         lang_code = values['lang_code']
         if lang_code not in app_config['LANGUAGES']:
-            lang_code = 'en'
+            return abort(404)
         if 'lang_code' in session:
             if lang_code != session['lang_code']:
                 session['lang_code'] = lang_code

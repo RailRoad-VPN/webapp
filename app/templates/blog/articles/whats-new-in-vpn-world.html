@@ -53,8 +53,18 @@
 {% endblock %}
 
 {% block body %}
-<section class="content-section">
+<section class="container pt-7 pb-7 pt-sm-5 pb-sm-5">
     <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('blog.blog_page') }}">{{ _('Blog') }}</a></li>
+                        <li class="breadcrumb-item active">{{ _('Article') }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
         <div class="row justify-content-center">
             <h1>TITLE</h1>
             <p class="article-paragraph">
@@ -105,48 +115,78 @@
             <ul class="list-unstyled list-inline">
                 <!-- Google+ -->
                 <li>
-                    <a href="https://plus.google.com/share?url=http://www.winusb.net" onclick="javascript:window.open(this.href,
+                    <a href="https://plus.google.com/share?url={{ request.url | urlencode }}" onclick="javascript:window.open(this.href,
 							  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                         <div class="row text-muted">
-                            <div class="col-lg-2">
-                                <i class="fa fa-google-plus-official"></i>
+                            <div class="col-2">
+                                <i class="fab fa-google-plus-g"></i>
                             </div>
-                            <div class="col-lg-10 pl-0">
-                                <small class="text-muted">Share on Google Plus</small>
+                            <div class="pl-2">
+                                <small class="text-muted">{{ _('Share on Google Plus') }}</small>
                             </div>
                         </div>
                     </a>
                 </li>
+                {% if session['lang_code'] == 'ru' %}
+                <!-- VK -->
+                <li>
+                    <a href="https://vk.com/share.php?url={{ request.url | urlencode }}">
+                        <div class="row text-muted">
+                            <div class="col-2">
+                                <i class="fab fa-vk"></i>
+                            </div>
+                            <div class="pl-2">
+                                <small class="text-muted">{{ _('Share on VK') }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endif %}
                 <!-- FaceBook -->
                 <li>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//www.winusb.net" onclick="javascript:window.open(this.href,
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}" onclick="javascript:window.open(this.href,
 							  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                         <div class="row text-muted">
-                            <div class="col-lg-2">
-                                <i class="fa fa-facebook-official"></i>
+                            <div class="col-2">
+                                <i class="fab fa-facebook-f"></i>
                             </div>
-                            <div class="col-lg-10 pl-2">
-                                <small class="text-muted">Share on Facebook</small>
+                            <div class="pl-0">
+                                <small class="text-muted">{{ _('Share on Facebook') }}</small>
                             </div>
                         </div>
                     </a>
                 </li>
                 <!-- Twitter -->
                 <li>
-                    <a href="https://twitter.com/intent/tweet?URL=http%3A//www.winusb.net&amp;text=WinUSB%20-%20Create%20Windows%20Bootable%20USB%20without%20formatting!%0AHome%3A%20http%3A//www.winusb.net%0A&amp;hashtags=windows,bootable,usb,winusb"
+                    <a href="https://twitter.com/intent/tweet?URL={{ request.url | urlencode }}&amp;text=RailroadNetwork%20-%20Create%20your%20own%20USB%20railroad%20with%20VPN!%0AHome%3A%20{{ request.url | urlencode }}%0A&amp;hashtags=vpn,rroadvpn,rr"
                        onclick="javascript:window.open(this.href,
 							  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
                         <div class="row text-muted">
-                            <div class="col-lg-4">
-                                <i class="fa fa-twitter"></i>
+                            <div class="col-2">
+                                <i class="fab fa-twitter"></i>
                             </div>
-                            <div class="col-lg-8 pl-0">
-                                <small>Tweet</small>
+                            <div class="pl-2">
+                                <small>{{ _('Tweet') }}</small>
                             </div>
                         </div>
                     </a>
                 </li>
             </ul>
+        </div>
+        <div class="pt-3 pb-3 mb-4" style="background-color: #f8f8f8">
+            <div class="form-group pb-1 pl-5 pr-5 pt-2">
+                <div class="row">
+                    <h6>{{ _('Subscribe to Railroad Network blog') }}</h6>
+                    <div class="col-lg-10 mb-4">
+                        <label for="inputPassword2" class="sr-only">{{ _('Email') }}</label>
+                        <input type="email" class="form-control" required name="email"
+                               placeholder="example@mail.com">
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary col-12 mb-2">{{ _('Subscribe') }}</button>
+                    </div>
+                </div>
+            </div>
         </div>
         {% autoescape false %}
         {{ disqus_dev() }}

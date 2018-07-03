@@ -24,6 +24,14 @@ h5.card-title {
     background-color: transparent;
 }
 
+.breadcrumb li a {
+    color: #b9babd;
+}
+
+.breadcrumb li a:hover {
+    color: black;
+}
+
 .card:hover .card-title {
     color: #f8cc46;
 }

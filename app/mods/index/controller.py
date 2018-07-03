@@ -1,11 +1,14 @@
 import logging
 import sys
+from http import HTTPStatus
 
-from flask import Blueprint, render_template, session, request, redirect, abort
+import datetime
+from flask import Blueprint, render_template, session, request, redirect, abort, jsonify
 
 # Define the blueprint: 'index', set its url prefix: app.url/
 from app import rrn_billing_service, app_config
 from app.flask_utils import _pull_lang_code, _add_language_code
+from app.models import AjaxResponse
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
@@ -28,14 +31,30 @@ def pull_lang_code(endpoint, values):
 @mod_index.route('/', methods=['GET'])
 def index_lang_page():
     logger.info('index_lang page')
+    return render_template('index/index.html', code=200)
 
-    if 'locale' in request.args:
-        r_url = str(request.base_url) + str(request.referrer).split("/")[-1]
-        return redirect(r_url)
 
-    try:
-        subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
-    except APIException:
-        subscriptions = None
+@mod_index.route('/', methods=['POST'])
+def subscribe_trial():
+    logger.info('subscribe_trial method')
 
-    return render_template('index/index.html', code=200, subscriptions=subscriptions)
+    r = AjaxResponse(success=True)
+
+    email = request.form.get('email', None)
+
+    if email is None:
+        r.set_failed()
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.OK
+        return resp
+
+    # TODO send email
+
+    with open('%s' % (app_config['FS']['subscribe']), 'a') as file:
+        file.write("%r\n" % email)
+        file.close()
+
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp

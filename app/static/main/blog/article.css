@@ -20,3 +20,15 @@ h1 {
     line-height: 110%;
     margin: 2.1rem 0 1.68rem 0;
 }
+
+.breadcrumb {
+    background-color: transparent;
+}
+
+.breadcrumb li a {
+    color: #b9babd;
+}
+
+.breadcrumb li a:hover {
+    color: black;
+}

@@ -125,7 +125,7 @@ a:focus, a:hover {
 }
 
 #main-navbar .navbar-toggler {
-    font-size: 14px;
+    font-size: 5px;
     padding: 11px;
     color: white;
     border: 1px solid white;
@@ -135,7 +135,7 @@ a:focus, a:hover {
     color: white;
 }
 
-@media (min-width: 768px) and (max-width: 990px) {
+@media (max-width: 575px) {
     #main-navbar a {
         font-size: small
     }
@@ -205,7 +205,7 @@ a:focus, a:hover {
 
 #network-status {
     position: absolute;
-    height: 20px;
+    height: 25px;
     top: 0;
     right: 0;
     left: 0;
@@ -243,6 +243,16 @@ a:focus, a:hover {
     font-family: Gordita, sans-serif;
     font-size: 12px;
     font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .network-status {
+        display: none !important;
+    }
+
+    #main-navbar {
+        padding-top: 0;
+    }
 }
 
 .btn-group img {
@@ -389,11 +399,6 @@ img::selection {
 
 img::-moz-selection {
     background: transparent;
-}
-
-.content-section {
-    padding-top: 200px;
-    padding-bottom: 100px;
 }
 
 .container-nw {
