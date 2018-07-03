@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-02 16:51+0300\n"
+"POT-Creation-Date: 2018-07-03 13:22+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -84,14 +84,67 @@ msgstr "Нет аккаунта?"
 msgid "Sign up"
 msgstr "Создайте!"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:4
 #: app/templates/blog/blog.html:4 app/templates/faq/faq.html:4
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:119
-msgid "Share"
-msgstr "Поделиться"
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:62
+#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:168
+msgid "Blog"
+msgstr "Блог"
+
+#: app/templates/blog/blog.html:52
+msgid "Featured article"
+msgstr "Рекомендуемая статья"
+
+#: app/templates/blog/blog.html:62 app/templates/blog/blog.html:89
+#: app/templates/blog/blog.html:106 app/templates/blog/blog.html:121
+msgid "Posted at "
+msgstr "Создано в "
+
+#: app/templates/blog/blog.html:62 app/templates/blog/blog.html:89
+#: app/templates/blog/blog.html:106 app/templates/blog/blog.html:121
+msgid "June"
+msgstr "Июня"
+
+#: app/templates/blog/blog.html:74
+msgid "Articles"
+msgstr "Статьи"
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:4
+msgid "Test article title"
+msgstr ""
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:63
+msgid "Article"
+msgstr "Статья"
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:125
+msgid "Share on Google Plus"
+msgstr "Поделиться в Google Plus"
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:139
+msgid "Share on Facebook"
+msgstr "Поделиться на Facebook"
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:154
+msgid "Tweet"
+msgstr "Твитнуть"
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:164
+msgid "Subscribe to Railroad Network blog"
+msgstr "Подпишитесь на Railroad Network блог"
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:166
+#: app/templates/contact/contact.html:170
+#: app/templates/contact/contact.html:171 app/templates/index/index.html:72
+#: app/templates/order/order.html:94 app/templates/order/order.html:96
+msgid "Email"
+msgstr "Электронная почта"
+
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:171
+msgid "Subscribe"
+msgstr "Подписаться"
 
 #: app/templates/contact/contact.html:4 app/templates/partials/layout.html:176
 msgid "Contact"
@@ -106,14 +159,7 @@ msgstr "Имя"
 msgid "Enter name please"
 msgstr "Введите Ваше имя пожалуйста"
 
-#: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/index/index.html:149
-#: app/templates/order/order.html:94 app/templates/order/order.html:96
-msgid "Email"
-msgstr "Электронная почта"
-
-#: app/templates/contact/contact.html:175 app/templates/index/index.html:150
-#: app/templates/order/order.html:100
+#: app/templates/contact/contact.html:175 app/templates/order/order.html:100
 msgid "Enter email please"
 msgstr "Введите электронную почту пожалуйста"
 
@@ -167,11 +213,19 @@ msgstr "Узнать больше!"
 msgid "Click Here To Get FREE Trial!"
 msgstr "получить пробную подписку!"
 
-#: app/templates/index/index.html:68
+#: app/templates/index/index.html:66
+msgid "Subscribe and get free trial"
+msgstr "Подпишитесь и получите пробную подписку!"
+
+#: app/templates/index/index.html:77
+msgid "GET FREE TRIAL"
+msgstr "ПОЛУЧИТЬ ПОДПИСКУ"
+
+#: app/templates/index/index.html:92
 msgid "WHY Railroad VPN Services?"
 msgstr "Почему Railroad VPN Service?"
 
-#: app/templates/index/index.html:70
+#: app/templates/index/index.html:94
 msgid ""
 "We developing VPN-service with the best features and service on market. "
 "What we can offer?"
@@ -179,61 +233,53 @@ msgstr ""
 "Мы разрабатываем VPN сервис с лучшим набором опций и предоставляемым "
 "сервисом на рынке. Что мы хотим предложить?"
 
-#: app/templates/index/index.html:77
+#: app/templates/index/index.html:101
 msgid "SECURITY"
 msgstr "БЕЗОПАСНОСТЬ"
 
-#: app/templates/index/index.html:79
+#: app/templates/index/index.html:103
 msgid "Protect your access to Internet"
 msgstr "Защитите доступ в интернет"
 
-#: app/templates/index/index.html:87
+#: app/templates/index/index.html:111
 msgid "PRIVACY"
 msgstr "ПРИВАТНОСТЬ"
 
-#: app/templates/index/index.html:89
+#: app/templates/index/index.html:113
 msgid "Be anonymous when you need this"
 msgstr "Сохраните анонимность, когда вам это нужно"
 
-#: app/templates/index/index.html:97
+#: app/templates/index/index.html:121
 msgid "DISENGAGEMENT"
 msgstr "СВОБОДА"
 
-#: app/templates/index/index.html:99
+#: app/templates/index/index.html:123
 msgid "Create your own network over Internet"
 msgstr "Создай свою собственную сеть в сети Интернет"
 
-#: app/templates/index/index.html:109
+#: app/templates/index/index.html:133
 msgid "VPN Apps"
 msgstr "VPN приложения"
 
-#: app/templates/index/index.html:111
+#: app/templates/index/index.html:135
 msgid "We offer the best VPN app. Simple. Fast. Nice."
 msgstr "Лучшее VPN приложение. Удобное. Быстрое."
 
-#: app/templates/index/index.html:119
+#: app/templates/index/index.html:143
 msgid "SUPPORT"
 msgstr "ПОДДЕРЖКА"
 
-#: app/templates/index/index.html:121
+#: app/templates/index/index.html:145
 msgid "Email, Telegram, Forum - we support you everywhere."
 msgstr "Почта, Телеграм, Форум - мы поможем везде."
 
-#: app/templates/index/index.html:129
+#: app/templates/index/index.html:153
 msgid "EXTRA MONEY"
 msgstr "ДЕНЬГИ"
 
-#: app/templates/index/index.html:131
+#: app/templates/index/index.html:155
 msgid "Change your traffic for money."
 msgstr "Ваш трафик может приносить прибыль!"
-
-#: app/templates/index/index.html:144
-msgid "Subscribe and get free trial"
-msgstr "Подпишитесь и получите пробную подписку!"
-
-#: app/templates/index/index.html:153
-msgid "GET FREE TRIAL"
-msgstr "ПОЛУЧИТЬ ПОДПИСКУ"
 
 #: app/templates/order/order.html:4 app/templates/pricing/pricing.html:4
 msgid "Pricing"
@@ -367,10 +413,6 @@ msgstr "незащищен"
 #: app/templates/partials/layout.html:145
 msgid "Subscribe to get protection!"
 msgstr "Подпишитесь, чтобы получить защиту!"
-
-#: app/templates/partials/layout.html:168
-msgid "Blog"
-msgstr "Блог"
 
 #: app/templates/partials/layout.html:216
 msgid "© Copyright"
@@ -527,4 +569,7 @@ msgstr "построить свою сеть"
 
 #~ msgid "Protect me!"
 #~ msgstr "Защитите меня!"
+
+#~ msgid "Share"
+#~ msgstr "Поделиться"
 

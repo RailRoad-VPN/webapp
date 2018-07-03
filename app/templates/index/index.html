@@ -38,21 +38,24 @@
     <!-- Intro Header -->
     <section id="header">
         <div class="intro-body">
-            <div class="container container-wide">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <h1 class="brand-heading">{{ _('Railroad VPN') }} <sup
-                                class="text-lowercase">{{ _('the best way to get any content with the fastest speed') }}</sup>
-                        </h1>
-                        <p class="intro-text">{{ _('We under construction and will release first version soon. Be in touch and subscribe for news by email.') }}</p>
-                        <a href="{{ url_for('about.about_page') }}" class="btn btn-link">{{ _('Learn More!') }}</a>
-                        <a id="intro-subscribe" href="#subscription" class="btn btn-primary js-scroll-trigger">
-                            {{ _('Click Here To Get FREE Trial!') }}
-                        </a>
-                    </div>
-                    <div class="col-lg-4">
-                        <img class="intro-image pull-right"
-                             src="{{ url_for('static', filename='main/index/images/devices_coming_soon.png') }}">
+            <div class="container">
+                <div class="row text-center text-lg-left text-md-left align-items-center">
+                    <div class="col-lg-7">
+                        <div class="banner-content">
+                            <h1 class="text-white text-uppercase mb-10">
+                                {{ _('Railroad VPN') }}
+                                <br>
+                                {{ _('the best way to get content') }}
+                            </h1>
+                            <p class="text-white mb-30">
+                                {{ _('We under construction and will release first version soon. Be in touch and subscribe for news by email.') }}
+                            </p>
+                            <a href="{{ url_for('about.about_page') }}" class="btn btn-link">{{ _('Learn More!') }}</a>
+                            <a id="intro-subscribe" href="#subscription" class="btn btn-primary js-scroll-trigger">
+                                {{ _('Click Here To Get FREE Trial!') }}
+                                <i class="fa fa-long-arrow-alt-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,21 +63,21 @@
     </section>
 
     <!-- Subscription Section -->
-    <section id="subscription" class="download-section pb-75 pt-75 text-center">
-        <div class="container shadow-text">
+    <section id="subscription" class="download-section pb-75 pt-75 d-flex text-center">
+        <div class="container shadow-text justify-content-center justify-content-center align-self-center">
             <div class="col-lg-12 mx-auto">
                 <h2>{{ _('Subscribe and get free trial') }}</h2>
                 <form id="subscribe-form" class="justify-content-center" method="POST"
                       action="{{ url_for('index.subscribe_trial') }}">
                     <div class="form-group mx-sm-3 mb-2 mx-2">
                         <div class="row">
-                            <div class="col-lg-10">
-                                <label for="inputPassword2" class="sr-only">{{ _('Email') }}</label>
-                                <input type="email" class="form-control" required name="email"
-                                       placeholder="{{ _('Enter email please') }}">
+                            <div class="col-lg-10 mb-4">
+                                <label for="subscribe-email-input" class="sr-only">{{ _('Email') }}</label>
+                                <input id="subscribe-email-input" type="email" class="form-control" required name="email"
+                                       placeholder="example@mail.com">
                             </div>
                             <div class="col-lg-2">
-                                <button type="submit" class="btn btn-primary mb-2">{{ _('GET FREE TRIAL') }}</button>
+                                <button type="submit" class="btn btn-primary col-12 mb-2">{{ _('GET FREE TRIAL') }}</button>
                             </div>
                         </div>
                     </div>

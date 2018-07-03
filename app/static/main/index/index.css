@@ -12,12 +12,15 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    height: 90vh;
+    margin-bottom: -50px;
 
 }
 
 #header .intro-body {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
     vertical-align: middle;
+    height: 90vh;
 }
 
 #header .intro-body .container {
@@ -50,10 +53,35 @@
     font-size: 18px;
 }
 
-@media screen {
+.intro-body:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    height: 90%;
+    background: url(../index/images/devices_coming_soon.png) no-repeat bottom right/contain;
+    z-index: 2;
+}
+
+@media (max-width: 575px) {
     #header {
-        margin-bottom: -50px;
+        height: 100vh;
     }
+
+    #header .intro-body {
+        height: 100vh;
+    }
+
+    .intro-body:after {
+        display: none;
+    }
+}
+
+#intro-subscribe span {
+    color: #fff;
+    position: relative;
+    z-index: 2;
 }
 
 .shadow-text {
@@ -62,6 +90,7 @@
 }
 
 .download-section {
+    height: 55vh;
     color: white;
     background: url("images/downloads-bg.jpg") no-repeat center center scroll;
     background-color: black;

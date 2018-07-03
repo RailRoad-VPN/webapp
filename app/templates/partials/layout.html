@@ -78,14 +78,15 @@
             charset="utf-8"></script>
 
     <!-- CSS -->
+
+    <!-- font awesome -->
+    <link href="{{ url_for('static', filename='assets/font-awesome/css/all.css') }}"
+          rel="stylesheet" type="text/css">
+
     {% if 'debug' in session %}
         <!-- Bootstrap -->
         <link href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.css') }}" type="text/css"
               rel="stylesheet"/>
-
-        <!-- font awesome -->
-        <link href="{{ url_for('static', filename='assets/font-awesome/css/font-awesome.css') }}"
-              rel="stylesheet" type="text/css">
 
         <!-- noty -->
         <link href="{{ url_for('static', filename='assets/noty/noty.css') }}" rel="stylesheet" type="text/css">
@@ -104,10 +105,6 @@
         <!-- Bootstrap -->
         <link href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}" type="text/css"
               rel="stylesheet"/>
-
-        <!-- font awesome -->
-        <link href="{{ url_for('static', filename='assets/font-awesome/css/font-awesome.min.css') }}"
-              rel="stylesheet" type="text/css">
 
         <!-- noty -->
         <link href="{{ url_for('static', filename='assets/noty/noty.min.css') }}" rel="stylesheet" type="text/css">
@@ -131,7 +128,7 @@
 <body>
 
 {% if session['network-status'] is not none %}
-    <div id="network-status" class="d-none d-sm-block">
+    <div id="network-status" class="d-none d-md-block d-sm-none">
         <ul class="network-info list-inline text-white text-center mb-md-0">
             <li>{{ _('Your IP') }}: <span data-id="ip">{{ session['network-status']['ip'] }}</span></li>
             <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>
@@ -144,7 +141,7 @@
                                                   class="status-unprotected">{{ _('unprotected') }}</span></li>
                 <li><a href="#subscription" class="js-scroll-trigger">{{ _('Subscribe to get protection!') }}</a></li>
             {% endif %}
-            <li class="pull-right close-btn pt-0 pb-0">
+            <li class="pull-right close-btn pt-1">
                 <button onclick="$('#network-status').remove();" class="btn btn-link">x</button>
             </li>
         </ul>
@@ -186,7 +183,7 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         {% for lang in config['LANGUAGES'] %}
                             <a class="dropdown-item"
-                               href="/{{ lang }}?locale">
+                               href="{{ request.url | replace("/" + session['lang_code'] + "/", "/" + lang + "/") }}">
                                 <img class="flag-icon" width="25"
                                      src="{{ url_for('static', filename='assets/flags-lip/flags/4x3/' + lang ) }}.svg">
                                 <span class="flag-name">{{ lang }}</span>
@@ -213,8 +210,7 @@
                     <p class="copyright animated fadeInDown"
                        data-animate="fadeInDown" data-delay=".85"
                        style="animation-duration: 0.6s; animation-delay: 0.85s;">
-                        {{ _('© Copyright') }} <span id="copy-year">2018</span>
-                        <a href="https://rroadvpn.net">RRoadVPN.net</a>
+                        <a href="https://rroadvpn.net">© RRoad, <span id="copy-year">2018</span></a>
                         -
                         <a href="mailto:support@rroadvpn.net">support@rroadvpn.net</a>
                     </p>
@@ -251,6 +247,10 @@
 <!-- moment -->
 {{ moment.include_moment() }}
 {{ moment.lang(g.locale) }}
+
+<!-- font awesome -->
+<script src="{{ url_for('static', filename='assets/font-awesome/js/all.js') }}" type="text/javascript"
+        charset="utf-8"></script>
 
 {% if 'debug' in session %}
     <!-- JQuery Resources -->

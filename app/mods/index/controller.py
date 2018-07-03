@@ -31,11 +31,6 @@ def pull_lang_code(endpoint, values):
 @mod_index.route('/', methods=['GET'])
 def index_lang_page():
     logger.info('index_lang page')
-
-    if 'locale' in request.args:
-        r_url = str(request.base_url) + str(request.referrer).split("/")[-1]
-        return redirect(r_url)
-
     return render_template('index/index.html', code=200)
 
 
