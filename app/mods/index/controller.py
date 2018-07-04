@@ -6,9 +6,9 @@ import datetime
 from flask import Blueprint, render_template, session, request, redirect, abort, jsonify
 
 # Define the blueprint: 'index', set its url prefix: app.url/
-from app import rrn_billing_service, app_config
+from app import rrn_billing_service, app_config, email_service, EmailMessageType, EmailMessage
 from app.flask_utils import _pull_lang_code, _add_language_code
-from app.models import AjaxResponse
+from app.models import AjaxResponse, AjaxError
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
@@ -48,11 +48,14 @@ def subscribe_trial():
         resp.code = HTTPStatus.OK
         return resp
 
-    # TODO send email
-
     with open('%s' % (app_config['FS']['subscribe']), 'a') as file:
         file.write("%r\n" % email)
         file.close()
+
+    is_sent = email_service.send_trial_email(to_name=email.split('@')[0], to_email=email)
+    if not is_sent:
+        r.set_failed()
+        err = AjaxError(code='hz', message=_('We can not send you email, please correct and try it again'))
 
     r.set_success()
     resp = jsonify(r.serialize())

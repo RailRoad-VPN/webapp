@@ -1,9 +1,15 @@
+import codecs
 import logging
+import smtplib
 import sys
+from email.mime.text import MIMEText
+from enum import Enum
 from http import HTTPStatus
+from smtplib import SMTPException
 from typing import Optional
 
 import requests
+from flask_babel import _
 
 from app.cache import CacheService
 from app.models.order_status import OrderStatus
@@ -12,6 +18,102 @@ sys.path.insert(0, '../rest_api_library')
 from rest import RESTService, APIException, APINotFoundException
 
 logger = logging.getLogger(__name__)
+
+
+class EmailMessageType(Enum):
+    __version__ = 1
+
+    def __new__(cls, *args, **kwds):
+        obj = object.__new__(cls)
+        return obj
+
+    def __init__(self, sid, subject, html_template_name):
+        self.sid = sid
+        self.subject = subject
+        self.html_template = html_template_name
+
+    TRIAL = (0, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.htm')
+
+
+class EmailService(object):
+    __version__ = 1
+
+    __smtp_server = None
+    __server = None
+    __port = None
+
+    __sender = None
+    __reciever = None
+
+    __marker = "AUNIQUEMARKER"
+
+    __templates_path = None
+
+    def __init__(self, smtp_server: str, smtp_port: int, smtp_username: str, smtp_password: str, from_name: str,
+                 from_email: str):
+        self.__server = smtp_server
+        self.__port = smtp_port
+        self.__username = smtp_username
+        self.__password = smtp_password
+
+        self.__from_name = from_name
+        self.__from_email = from_email
+
+    def send_trial_email(self, to_name: str, to_email: str):
+        email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
+        self.__send_message(to_email=to_email, email_str=email_str)
+
+    def __send_message(self, to_email: str, email_str: str) -> bool:
+        try:
+            is_connected = self.__connect()
+            if not is_connected:
+                return False
+            self.__smtp_server.sendmail(self.__from_email, to_email, email_str)
+            self.__smtp_server.quit()
+            logger.info("Successfully sent email to %s" % to_email)
+            return True
+        except SMTPException as e:
+            logger.error("unable to send email to %s" % to_email, e)
+            return False
+
+    def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
+        f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.TRIAL.html_template), 'r')
+        email_html_text = str(f.read())
+
+        email_html_text.replace("@ticket@", _('You receive Railroad Ticket. Please don\'t late on train.'))
+        email_html_text.replace("@welcome_t@", _('Welcome to'))
+        email_html_text.replace("@RNS@", _('Railroad Network Services'))
+        email_html_text.replace("@hello_user@", _('Hello, %(username)', username=to_name))
+        email_html_text.replace("@trial_ready@", _('Your trial subscription ready.'))
+        email_html_text.replace("@thank_you@", _('Thanks so much for joining Railroad Network Services!'))
+        email_html_text.replace("@one_letter@", _('We promise not to send letters more than once a week.'))
+        email_html_text.replace("@service_ready@", _('We will inform you when our service will be ready to'))
+        email_html_text.replace("@unsubscribe_user_url@", 'https://rroadvpn.net/unsubscribe?username=%s' % to_name)
+        email_html_text.replace("@email@", _('Email'))
+        email_html_text.replace("@click_here@", _('Click here'))
+        email_html_text.replace("@to_unsubscribe@", _('to unsubscribe'))
+
+        email_str = self.__prepare_email(to_name=to_name, to_email=to_email, subject=EmailMessageType.TRIAL.subject,
+                                         html_message=email_html_text)
+        return email_str
+
+    def __prepare_email(self, to_name, to_email, subject, html_message) -> str:
+        html_email = MIMEText(html_message, 'html')
+        html_email['From'] = '%s <%s>' % (self.__from_name, self.__from_email)
+        html_email['To'] = '%s <%s>' % (to_name, to_email)
+        html_email['Subject'] = subject
+
+        email_str = html_email.as_string()
+        return email_str
+
+    def __connect(self) -> bool:
+        try:
+            self.__smtp_server = smtplib.SMTP_SSL(host=self.__server, port=self.__port)
+            self.__smtp_server.login(user=self.__username, password=self.__password)
+            return True
+        except SMTPException as e:
+            logger.error("unable to send email", e)
+            return False
 
 
 class RRNOrdersAPIService(RESTService):
