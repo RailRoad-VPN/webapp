@@ -32,7 +32,7 @@ class EmailMessageType(Enum):
         self.subject = subject
         self.html_template = html_template_name
 
-    TRIAL = (0, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.htm')
+    TRIAL = (0, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.html')
 
 
 class EmailService(object):
@@ -66,7 +66,7 @@ class EmailService(object):
         self.__templates_path = templates_path
 
     def send_trial_email(self, to_name: str, to_email: str):
-        logger.info('send_trial_email method t_name=%s, to_email=%s' % to_name, to_email)
+        logger.info('send_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
         email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
         self.__send_message(to_email=to_email, email_str=email_str)
 
@@ -84,24 +84,24 @@ class EmailService(object):
             return False
 
     def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
-        logger.info('__prepare_trial_email method t_name=%s, to_email=%s' % to_name, to_email)
+        logger.info('__prepare_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
 
         logger.info("get trial html template")
         f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.TRIAL.html_template), 'r')
         email_html_text = str(f.read())
 
-        email_html_text.replace("@ticket@", _('You receive Railroad Ticket. Please don\'t late on train.'))
-        email_html_text.replace("@welcome_t@", _('Welcome to'))
-        email_html_text.replace("@RNS@", _('Railroad Network Services'))
-        email_html_text.replace("@hello_user@", _('Hello, %(username)', username=to_name))
-        email_html_text.replace("@trial_ready@", _('Your trial subscription ready.'))
-        email_html_text.replace("@thank_you@", _('Thanks so much for joining Railroad Network Services!'))
-        email_html_text.replace("@one_letter@", _('We promise not to send letters more than once a week.'))
-        email_html_text.replace("@service_ready@", _('We will inform you when our service will be ready to'))
-        email_html_text.replace("@unsubscribe_user_url@", 'https://rroadvpn.net/unsubscribe?username=%s' % to_name)
-        email_html_text.replace("@email@", _('Email'))
-        email_html_text.replace("@click_here@", _('Click here'))
-        email_html_text.replace("@to_unsubscribe@", _('to unsubscribe'))
+        email_html_text = email_html_text.replace("@ticket@", _('TRIAL_EMAIL_TICKET'))
+        email_html_text = email_html_text.replace("@welcome_to@", _('TRIAL_EMAIL_WELCOME'))
+        email_html_text = email_html_text.replace("@RNS@", _('RNS'))
+        email_html_text = email_html_text.replace("@hello_user@", _('Hello, %(username)s', username=to_name))
+        email_html_text = email_html_text.replace("@trial_ready@", _('TRIAL_EMAIL_SUBSCRIPTION_READY'))
+        email_html_text = email_html_text.replace("@thank_you@", _('TRIAL_EMAIL_THANKS'))
+        email_html_text = email_html_text.replace("@one_letter@", _('TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK'))
+        email_html_text = email_html_text.replace("@service_ready@", _('TRIAL_EMAIL_INFORM'))
+        email_html_text = email_html_text.replace("@unsubscribe_user_url@", 'https://rroadvpn.net/unsubscribe?username=%s' % to_name)
+        email_html_text = email_html_text.replace("@email@", _('Email'))
+        email_html_text = email_html_text.replace("@click_here@", _('Click here'))
+        email_html_text = email_html_text.replace("@to_unsubscribe@", _('to unsubscribe'))
 
         email_str = self.__prepare_email(to_name=to_name, to_email=to_email, subject=EmailMessageType.TRIAL.subject,
                                          html_message=email_html_text)
