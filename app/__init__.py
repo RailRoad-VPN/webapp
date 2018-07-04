@@ -1,16 +1,14 @@
 import os
 from pprint import pprint
 
-import jinja2
-from flask import Flask, url_for, redirect, session, request
+from flask import Flask, url_for, redirect, session
 from flask_babel import Babel
 from flask_disqus import Disqus
 from flask_moment import Moment
-from jinja2 import Environment
 
 from app.cache import CacheService
-from app.service import *
 from app.mods.error import page_not_found, forbidden, internal_server_error
+from app.service import *
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -56,6 +54,14 @@ rrn_billing_service = RRNBillingAPIService(api_url=app_config['API_URL'],
 
 rrn_orders_service = RRNOrdersAPIService(api_url=app_config['API_URL'],
                                          resource_name=app_config['ORDERS_API_RESOURCE_NAME'])
+
+email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
+                             smtp_port=app_config['EMAIL_SMTP']['port'],
+                             smtp_username=app_config['EMAIL_SMTP']['support_account']['email'],
+                             smtp_password=app_config['EMAIL_SMTP']['support_account']['password'],
+                             from_name=app_config['EMAIL_SMTP']['support_account']['from_name'],
+                             from_email=app_config['EMAIL_SMTP']['support_account']['email'],
+                             )
 
 ppg_payments_service = PayProGlobalPaymentService(config=app_config)
 

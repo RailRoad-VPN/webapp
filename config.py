@@ -1,3 +1,5 @@
+from flask_babel import _
+
 class Config(object):
     DEBUG = False
     TESTING = False
@@ -23,6 +25,16 @@ class Config(object):
             'language': '&language=%s',
             'order_code': '&x-ordercode=%s',
         }
+    }
+
+    EMAIL_SMTP = {
+        'server': 'smtp.novicorp.co',
+        'port': 465,
+        'support_account': {
+            'from_name': _('Support Railroad'),
+            'email': 'support@rroadvpn.net',
+            'password': 'X29fRtP0G9bfVW',
+        },
     }
 
 
