@@ -50,7 +50,11 @@ class EmailService(object):
     __templates_path = None
 
     def __init__(self, smtp_server: str, smtp_port: int, smtp_username: str, smtp_password: str, from_name: str,
-                 from_email: str):
+                 from_email: str, templates_path: str):
+
+        logger.info("__init__ method smtp_server=%s, smtp_port=%s, smtp_username=%s, smtp_password=%s, from_name=%s, "
+                    "from_email=%s, templates_path=%s" % (smtp_server, smtp_port, smtp_username, smtp_password,
+                                                          from_name, from_email, templates_path))
         self.__server = smtp_server
         self.__port = smtp_port
         self.__username = smtp_username
@@ -59,7 +63,10 @@ class EmailService(object):
         self.__from_name = from_name
         self.__from_email = from_email
 
+        self.__templates_path = templates_path
+
     def send_trial_email(self, to_name: str, to_email: str):
+        logger.info('send_trial_email method t_name=%s, to_email=%s' % to_name, to_email)
         email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
         self.__send_message(to_email=to_email, email_str=email_str)
 
@@ -77,6 +84,9 @@ class EmailService(object):
             return False
 
     def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
+        logger.info('__prepare_trial_email method t_name=%s, to_email=%s' % to_name, to_email)
+
+        logger.info("get trial html template")
         f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.TRIAL.html_template), 'r')
         email_html_text = str(f.read())
 
