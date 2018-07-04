@@ -52,7 +52,7 @@ class EmailService(object):
     def __init__(self, smtp_server: str, smtp_port: int, smtp_username: str, smtp_password: str, from_name: str,
                  from_email: str, templates_path: str):
 
-        logger.info("__init__ method smtp_server=%s, smtp_port=%s, smtp_username=%s, smtp_password=%s, from_name=%s, "
+        logger.debug("__init__ method smtp_server=%s, smtp_port=%s, smtp_username=%s, smtp_password=%s, from_name=%s, "
                     "from_email=%s, templates_path=%s" % (smtp_server, smtp_port, smtp_username, smtp_password,
                                                           from_name, from_email, templates_path))
         self.__server = smtp_server
@@ -66,30 +66,35 @@ class EmailService(object):
         self.__templates_path = templates_path
 
     def send_trial_email(self, to_name: str, to_email: str):
-        logger.info('send_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
+        logger.debug('send_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
         email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
         self.__send_message(to_email=to_email, email_str=email_str)
 
     def __send_message(self, to_email: str, email_str: str) -> bool:
+        logger.debug("__send_message method to_email=%s, email_str=%s" % (to_email, email_str))
         try:
             is_connected = self.__connect()
             if not is_connected:
+                logger.error("not connected to SMTP. error")
                 return False
+            logger.info("calling sendmail method")
             self.__smtp_server.sendmail(self.__from_email, to_email, email_str)
+            logger.info("quit")
             self.__smtp_server.quit()
-            logger.info("Successfully sent email to %s" % to_email)
+            logger.info("email successfully sent to %s" % to_email)
             return True
         except SMTPException as e:
             logger.error("unable to send email to %s" % to_email, e)
             return False
 
     def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
-        logger.info('__prepare_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
+        logger.debug('__prepare_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
 
-        logger.info("get trial html template")
+        logger.info("reading trial html template")
         f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.TRIAL.html_template), 'r')
         email_html_text = str(f.read())
 
+        logger.info("replacing anchors in HTML")
         email_html_text = email_html_text.replace("@ticket@", _('TRIAL_EMAIL_TICKET'))
         email_html_text = email_html_text.replace("@welcome_to@", _('TRIAL_EMAIL_WELCOME'))
         email_html_text = email_html_text.replace("@RNS@", _('RNS'))
@@ -103,11 +108,16 @@ class EmailService(object):
         email_html_text = email_html_text.replace("@click_here@", _('Click here'))
         email_html_text = email_html_text.replace("@to_unsubscribe@", _('to unsubscribe'))
 
+        logger.info("preparing email object")
         email_str = self.__prepare_email(to_name=to_name, to_email=to_email, subject=EmailMessageType.TRIAL.subject,
                                          html_message=email_html_text)
         return email_str
 
     def __prepare_email(self, to_name, to_email, subject, html_message) -> str:
+        logger.debug('__prepare_email method to_name=%s, to_email=%s, subject=%s, html_message=%s' % (to_name, to_email,
+                                                                                                     subject,
+                                                                                                     html_message))
+
         html_email = MIMEText(html_message, 'html')
         html_email['From'] = '%s <%s>' % (self.__from_name, self.__from_email)
         html_email['To'] = '%s <%s>' % (to_name, to_email)
@@ -117,12 +127,15 @@ class EmailService(object):
         return email_str
 
     def __connect(self) -> bool:
+        logger.debug('__connect method')
         try:
+            logger.info("connecting to SMTP server")
             self.__smtp_server = smtplib.SMTP_SSL(host=self.__server, port=self.__port)
+            logger.info("login to SMTP server")
             self.__smtp_server.login(user=self.__username, password=self.__password)
             return True
         except SMTPException as e:
-            logger.error("unable to send email", e)
+            logger.error("unable to connect or login", e)
             return False
 
 
