@@ -65,10 +65,10 @@ class EmailService(object):
 
         self.__templates_path = templates_path
 
-    def send_trial_email(self, to_name: str, to_email: str):
+    def send_trial_email(self, to_name: str, to_email: str) -> bool:
         logger.debug('send_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
         email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
-        self.__send_message(to_email=to_email, email_str=email_str)
+        return self.__send_message(to_email=to_email, email_str=email_str)
 
     def __send_message(self, to_email: str, email_str: str) -> bool:
         logger.debug("__send_message method to_email=%s, email_str=%s" % (to_email, email_str))
