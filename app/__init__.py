@@ -61,7 +61,7 @@ email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
                              smtp_password=app_config['EMAIL_SMTP']['support_account']['password'],
                              from_name=app_config['EMAIL_SMTP']['support_account']['from_name'],
                              from_email=app_config['EMAIL_SMTP']['support_account']['email'],
-                             )
+                             templates_path="%s%s" % (app.root_path, "/static/assets/email-tmpls/"))
 
 ppg_payments_service = PayProGlobalPaymentService(config=app_config)
 

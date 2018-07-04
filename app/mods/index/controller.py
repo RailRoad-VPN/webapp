@@ -61,6 +61,10 @@ def subscribe_trial():
     if not is_sent:
         r.set_failed()
         err = AjaxError(code='hz', message=_('We can not send you email, please correct and try it again'))
+        r.add_error(error=err)
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.OK
+        return resp
 
     r.set_success()
     resp = jsonify(r.serialize())
