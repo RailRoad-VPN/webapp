@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-03 16:59+0300\n"
+"POT-Creation-Date: 2018-07-04 15:10+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -18,6 +18,54 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+
+#: app/service.py:35 app/service.py:84
+msgid "Welcome to"
+msgstr "Добро пожаловать в"
+
+#: app/service.py:35 app/service.py:85
+msgid "Railroad Network Services"
+msgstr ""
+
+#: app/service.py:83
+msgid "You receive Railroad Ticket. Please don't late on train."
+msgstr "Вы получили RailroadTicket. Пожалуйста, не опоздайте на поезд."
+
+#: app/service.py:86
+msgid "Hello, %(username)"
+msgstr "Привет, %(username)"
+
+#: app/service.py:87
+msgid "Your trial subscription ready."
+msgstr "Ваша триальная подписка готова."
+
+#: app/service.py:88
+msgid "Thanks so much for joining Railroad Network Services!"
+msgstr "Спасибо большое за присоединение к Railroad Network Services!"
+
+#: app/service.py:89
+msgid "We promise not to send letters more than once a week."
+msgstr "Мы обещаем не посылать более 1 письма в неделю."
+
+#: app/service.py:90
+msgid "We will inform you when our service will be ready to"
+msgstr "Мы обязательно проинформируем Вас, когда сервис будет готов"
+
+#: app/service.py:92
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:181
+#: app/templates/contact/contact.html:170
+#: app/templates/contact/contact.html:171 app/templates/order/order.html:94
+#: app/templates/order/order.html:96
+msgid "Email"
+msgstr "Электронная почта"
+
+#: app/service.py:93
+msgid "Click here"
+msgstr "Нажмите сюда"
+
+#: app/service.py:94
+msgid "to unsubscribe"
+msgstr "чтобы отписаться"
 
 #: app/models/exception.py:32 app/templates/error/internal_server_error.html:4
 msgid "Internal Server Error"
@@ -46,6 +94,10 @@ msgstr "Заполните все поля, чтобы создать аккау
 #: app/models/exception.py:39
 msgid "Password does not match"
 msgstr "Пароли не совпадают"
+
+#: app/mods/index/controller.py:63
+msgid "We can not send you email, please correct and try it again"
+msgstr "Мы не можем послать вам письмо на указанную вами почту, исправьте или введите другой адрес и попробуйте еще раз"
 
 #: app/templates/about/about.html:4
 msgid "About Us"
@@ -140,13 +192,6 @@ msgstr "Твитнуть"
 msgid "Subscribe to Railroad Network blog"
 msgstr "Подпишитесь на Railroad Network блог"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:181
-#: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/order/order.html:94
-#: app/templates/order/order.html:96
-msgid "Email"
-msgstr "Электронная почта"
-
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:186
 msgid "Subscribe"
 msgstr "Подписаться"
@@ -204,13 +249,11 @@ msgstr ""
 
 #: app/templates/index/index.html:48
 msgid "the best way to get content"
-msgstr ""
+msgstr "лучший способ получить контент"
 
 #: app/templates/index/index.html:51
-msgid ""
-"We under construction and will release first version soon. Be in touch "
-"and subscribe for news by email."
-msgstr "Сервис в стадии разработки и первый релиз будет очень скоро."
+msgid "Break down borders. Be anonymous. Obtain freedom."
+msgstr "Мы ломаем границы. Будьте анонимны. Обретите свободу!"
 
 #: app/templates/index/index.html:53
 msgid "Learn More!"
@@ -218,7 +261,7 @@ msgstr "Узнать больше!"
 
 #: app/templates/index/index.html:55
 msgid "Get Railroad VPN"
-msgstr ""
+msgstr "Получить Railroad VPN"
 
 #: app/templates/index/index.html:70
 msgid "WHY Railroad VPN Services?"
@@ -287,15 +330,15 @@ msgstr "ВЫБЕРИТЕ СВОЙ ПЛАН"
 
 #: app/templates/index/index.html:156
 msgid "DOWNLOAD"
-msgstr ""
+msgstr "СКАЧАТЬ"
 
 #: app/templates/index/index.html:157
 msgid "You can download for free on the preview page."
-msgstr ""
+msgstr "Вы моежет скачать бесплатно"
 
 #: app/templates/index/index.html:158
 msgid "Visit Download Page"
-msgstr ""
+msgstr "Посетите страницу загрузки"
 
 #: app/templates/order/order.html:4 app/templates/partials/layout.html:173
 #: app/templates/pricing/pricing.html:4
@@ -589,3 +632,10 @@ msgstr "возможность использовать публичный WiFi"
 #: app/templates/partials/order/last_step.html:38
 msgid "build your network"
 msgstr "построить свою сеть"
+
+#~ msgid ""
+#~ "We under construction and will release"
+#~ " first version soon. Be in touch "
+#~ "and subscribe for news by email."
+#~ msgstr "Сервис в стадии разработки и первый релиз будет очень скоро."
+

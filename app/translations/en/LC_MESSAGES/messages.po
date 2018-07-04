@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-03 16:59+0300\n"
+"POT-Creation-Date: 2018-07-04 15:10+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -17,6 +17,54 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
+
+#: app/service.py:35 app/service.py:84
+msgid "Welcome to"
+msgstr ""
+
+#: app/service.py:35 app/service.py:85
+msgid "Railroad Network Services"
+msgstr ""
+
+#: app/service.py:83
+msgid "You receive Railroad Ticket. Please don't late on train."
+msgstr ""
+
+#: app/service.py:86
+msgid "Hello, %(username)"
+msgstr ""
+
+#: app/service.py:87
+msgid "Your trial subscription ready."
+msgstr ""
+
+#: app/service.py:88
+msgid "Thanks so much for joining Railroad Network Services!"
+msgstr ""
+
+#: app/service.py:89
+msgid "We promise not to send letters more than once a week."
+msgstr ""
+
+#: app/service.py:90
+msgid "We will inform you when our service will be ready to"
+msgstr ""
+
+#: app/service.py:92
+#: app/templates/blog/articles/whats-new-in-vpn-world.html:181
+#: app/templates/contact/contact.html:170
+#: app/templates/contact/contact.html:171 app/templates/order/order.html:94
+#: app/templates/order/order.html:96
+msgid "Email"
+msgstr ""
+
+#: app/service.py:93
+msgid "Click here"
+msgstr ""
+
+#: app/service.py:94
+msgid "to unsubscribe"
+msgstr ""
 
 #: app/models/exception.py:32 app/templates/error/internal_server_error.html:4
 msgid "Internal Server Error"
@@ -44,6 +92,10 @@ msgstr ""
 
 #: app/models/exception.py:39
 msgid "Password does not match"
+msgstr ""
+
+#: app/mods/index/controller.py:63
+msgid "We can not send you email, please correct and try it again"
 msgstr ""
 
 #: app/templates/about/about.html:4
@@ -139,13 +191,6 @@ msgstr ""
 msgid "Subscribe to Railroad Network blog"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:181
-#: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/order/order.html:94
-#: app/templates/order/order.html:96
-msgid "Email"
-msgstr ""
-
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:186
 msgid "Subscribe"
 msgstr ""
@@ -206,9 +251,7 @@ msgid "the best way to get content"
 msgstr ""
 
 #: app/templates/index/index.html:51
-msgid ""
-"We under construction and will release first version soon. Be in touch "
-"and subscribe for news by email."
+msgid "Break down borders. Be anonymous. Obtain freedom."
 msgstr ""
 
 #: app/templates/index/index.html:53
@@ -759,5 +802,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "© Copyright"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We under construction and will release"
+#~ " first version soon. Be in touch "
+#~ "and subscribe for news by email."
 #~ msgstr ""
 
