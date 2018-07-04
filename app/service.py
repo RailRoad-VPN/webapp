@@ -53,8 +53,8 @@ class EmailService(object):
                  from_email: str, templates_path: str):
 
         logger.debug("__init__ method smtp_server=%s, smtp_port=%s, smtp_username=%s, smtp_password=%s, from_name=%s, "
-                    "from_email=%s, templates_path=%s" % (smtp_server, smtp_port, smtp_username, smtp_password,
-                                                          from_name, from_email, templates_path))
+                     "from_email=%s, templates_path=%s" % (smtp_server, smtp_port, smtp_username, smtp_password,
+                                                           from_name, from_email, templates_path))
         self.__server = smtp_server
         self.__port = smtp_port
         self.__username = smtp_username
@@ -98,15 +98,14 @@ class EmailService(object):
         email_html_text = email_html_text.replace("@ticket@", _('TRIAL_EMAIL_TICKET'))
         email_html_text = email_html_text.replace("@welcome_to@", _('TRIAL_EMAIL_WELCOME'))
         email_html_text = email_html_text.replace("@RNS@", _('RNS'))
-        email_html_text = email_html_text.replace("@hello_user@", _('Hello, %(username)s', username=to_name))
+        email_html_text = email_html_text.replace("@hello_user@", _('Hello'))
         email_html_text = email_html_text.replace("@trial_ready@", _('TRIAL_EMAIL_SUBSCRIPTION_READY'))
         email_html_text = email_html_text.replace("@thank_you@", _('TRIAL_EMAIL_THANKS'))
         email_html_text = email_html_text.replace("@one_letter@", _('TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK'))
         email_html_text = email_html_text.replace("@service_ready@", _('TRIAL_EMAIL_INFORM'))
-        email_html_text = email_html_text.replace("@unsubscribe_user_url@", 'https://rroadvpn.net/unsubscribe?username=%s' % to_name)
-        email_html_text = email_html_text.replace("@email@", _('Email'))
-        email_html_text = email_html_text.replace("@click_here@", _('Click here'))
-        email_html_text = email_html_text.replace("@to_unsubscribe@", _('to unsubscribe'))
+        email_html_text = email_html_text.replace("@unsubscribe_user_url@",
+                                                  'https://rroadvpn.net/unsubscribe?email=%s' % to_email)
+        email_html_text = email_html_text.replace("@unsubscribe@", _('unsubscribe'))
 
         logger.info("preparing email object")
         email_str = self.__prepare_email(to_name=to_name, to_email=to_email, subject=EmailMessageType.TRIAL.subject,
@@ -115,8 +114,8 @@ class EmailService(object):
 
     def __prepare_email(self, to_name, to_email, subject, html_message) -> str:
         logger.debug('__prepare_email method to_name=%s, to_email=%s, subject=%s, html_message=%s' % (to_name, to_email,
-                                                                                                     subject,
-                                                                                                     html_message))
+                                                                                                      subject,
+                                                                                                      html_message))
 
         html_email = MIMEText(html_message, 'html')
         html_email['From'] = '%s <%s>' % (self.__from_name, self.__from_email)

@@ -59,7 +59,7 @@ def subscribe_trial():
         file.write("%r\n" % email)
         file.close()
 
-    is_sent = email_service.send_trial_email(to_name=email.split('@')[0], to_email=email)
+    is_sent = email_service.send_trial_email(to_name=email, to_email=email)
     if not is_sent:
         r.set_failed()
         err = AjaxError(code='hz', message=_('We can not send you email, please correct and try it again'))
