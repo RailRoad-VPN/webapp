@@ -29,7 +29,7 @@ class Config(object):
     }
 
     EMAIL_SMTP = {
-        'server': 'smtp.novicorp.co',
+        'server': 'smtp.novicorp.com',
         'port': 465,
         'support_account': {
             'from_name': _('Support Railroad'),

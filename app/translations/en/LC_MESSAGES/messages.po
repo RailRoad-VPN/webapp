@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-04 15:10+0300\n"
+"POT-Creation-Date: 2018-07-04 16:02+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,51 +18,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/service.py:35 app/service.py:84
+#: app/service.py:35
 msgid "Welcome to"
 msgstr ""
 
-#: app/service.py:35 app/service.py:85
+#: app/service.py:35
 msgid "Railroad Network Services"
 msgstr ""
 
-#: app/service.py:83
-msgid "You receive Railroad Ticket. Please don't late on train."
+#: app/service.py:93
+msgid "TRIAL_EMAIL_TICKET"
+msgstr "You receive Railroad Ticket. Please don't late on train."
+
+#: app/service.py:94
+msgid "TRIAL_EMAIL_WELCOME"
+msgstr "Welcome to"
+
+#: app/service.py:95
+msgid "RNS"
+msgstr "Railroad Network Services"
+
+#: app/service.py:96
+#, python-format
+msgid "Hello, %(username)s"
 msgstr ""
 
-#: app/service.py:86
-msgid "Hello, %(username)"
-msgstr ""
+#: app/service.py:97
+msgid "TRIAL_EMAIL_SUBSCRIPTION_READY"
+msgstr "Your trial subscription registered"
 
-#: app/service.py:87
-msgid "Your trial subscription ready."
-msgstr ""
+#: app/service.py:98
+msgid "TRIAL_EMAIL_THANKS"
+msgstr "Thanks for joining Railroad Network Services. Stay in touch."
 
-#: app/service.py:88
-msgid "Thanks so much for joining Railroad Network Services!"
-msgstr ""
+#: app/service.py:99
+msgid "TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK"
+msgstr "We promise send you no more than 1 email in a week"
 
-#: app/service.py:89
-msgid "We promise not to send letters more than once a week."
+#: app/service.py:100
+msgid "TRIAL_EMAIL_INFORM"
 msgstr ""
+"We will send you additional information when you can start use your free "
+"subscription."
 
-#: app/service.py:90
-msgid "We will inform you when our service will be ready to"
-msgstr ""
-
-#: app/service.py:92
+#: app/service.py:102
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:181
 #: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/order/order.html:94
-#: app/templates/order/order.html:96
+#: app/templates/contact/contact.html:171 app/templates/index/index.html:75
+#: app/templates/order/order.html:94 app/templates/order/order.html:96
 msgid "Email"
 msgstr ""
 
-#: app/service.py:93
+#: app/service.py:103
 msgid "Click here"
 msgstr ""
 
-#: app/service.py:94
+#: app/service.py:104
 msgid "to unsubscribe"
 msgstr ""
 
@@ -94,11 +105,11 @@ msgstr ""
 msgid "Password does not match"
 msgstr ""
 
-#: app/mods/index/controller.py:63
+#: app/mods/index/controller.py:65
 msgid "We can not send you email, please correct and try it again"
 msgstr ""
 
-#: app/templates/about/about.html:4
+#: app/templates/about/about.html:4 app/templates/partials/layout.html:169
 msgid "About Us"
 msgstr ""
 
@@ -136,7 +147,6 @@ msgid "Sign up"
 msgstr ""
 
 #: app/templates/blog/blog.html:4 app/templates/faq/faq.html:4
-#: app/templates/partials/layout.html:258
 msgid "FAQ"
 msgstr ""
 
@@ -195,7 +205,7 @@ msgstr ""
 msgid "Subscribe"
 msgstr ""
 
-#: app/templates/contact/contact.html:4 app/templates/partials/layout.html:181
+#: app/templates/contact/contact.html:4 app/templates/partials/layout.html:173
 msgid "Contact"
 msgstr ""
 
@@ -221,7 +231,6 @@ msgid "Enter message please"
 msgstr ""
 
 #: app/templates/download/download.html:4
-#: app/templates/partials/layout.html:177
 msgid "Download"
 msgstr ""
 
@@ -234,7 +243,6 @@ msgid "Page not found"
 msgstr ""
 
 #: app/templates/features/features.html:4
-#: app/templates/partials/layout.html:169
 msgid "Features"
 msgstr ""
 
@@ -251,7 +259,9 @@ msgid "the best way to get content"
 msgstr ""
 
 #: app/templates/index/index.html:51
-msgid "Break down borders. Be anonymous. Obtain freedom."
+msgid ""
+"We under construction and will release first version soon. Be in touch "
+"and subscribe for news by email."
 msgstr ""
 
 #: app/templates/index/index.html:53
@@ -259,86 +269,76 @@ msgid "Learn More!"
 msgstr ""
 
 #: app/templates/index/index.html:55
-msgid "Get Railroad VPN"
+msgid "Click Here To Get FREE Trial!"
 msgstr ""
 
-#: app/templates/index/index.html:70
+#: app/templates/index/index.html:69
+msgid "Subscribe and get free trial"
+msgstr ""
+
+#: app/templates/index/index.html:80
+msgid "GET FREE TRIAL"
+msgstr ""
+
+#: app/templates/index/index.html:95
 msgid "WHY Railroad VPN Services?"
 msgstr ""
 
-#: app/templates/index/index.html:72
+#: app/templates/index/index.html:97
 msgid ""
 "We developing VPN-service with the best features and service on market. "
 "What we can offer?"
 msgstr ""
 
-#: app/templates/index/index.html:79
+#: app/templates/index/index.html:104
 msgid "SECURITY"
 msgstr ""
 
-#: app/templates/index/index.html:81
+#: app/templates/index/index.html:106
 msgid "Protect your access to Internet"
 msgstr ""
 
-#: app/templates/index/index.html:89
+#: app/templates/index/index.html:114
 msgid "PRIVACY"
 msgstr ""
 
-#: app/templates/index/index.html:91
+#: app/templates/index/index.html:116
 msgid "Be anonymous when you need this"
 msgstr ""
 
-#: app/templates/index/index.html:99
+#: app/templates/index/index.html:124
 msgid "DISENGAGEMENT"
 msgstr ""
 
-#: app/templates/index/index.html:101
+#: app/templates/index/index.html:126
 msgid "Create your own network over Internet"
 msgstr ""
 
-#: app/templates/index/index.html:111
+#: app/templates/index/index.html:136
 msgid "VPN Apps"
 msgstr ""
 
-#: app/templates/index/index.html:113
+#: app/templates/index/index.html:138
 msgid "We offer the best VPN app. Simple. Fast. Nice."
 msgstr ""
 
-#: app/templates/index/index.html:121
+#: app/templates/index/index.html:146
 msgid "SUPPORT"
 msgstr ""
 
-#: app/templates/index/index.html:123
+#: app/templates/index/index.html:148
 msgid "Email, Telegram, Forum - we support you everywhere."
 msgstr ""
 
-#: app/templates/index/index.html:131
+#: app/templates/index/index.html:156
 msgid "EXTRA MONEY"
 msgstr ""
 
-#: app/templates/index/index.html:133
+#: app/templates/index/index.html:158
 msgid "Change your traffic for money."
 msgstr ""
 
-#: app/templates/index/index.html:145 app/templates/order/order.html:70
-#: app/templates/pricing/pricing.html:32
-msgid "CHOOSE YOUR PACK"
-msgstr ""
-
-#: app/templates/index/index.html:156
-msgid "DOWNLOAD"
-msgstr ""
-
-#: app/templates/index/index.html:157
-msgid "You can download for free on the preview page."
-msgstr ""
-
-#: app/templates/index/index.html:158
-msgid "Visit Download Page"
-msgstr ""
-
-#: app/templates/order/order.html:4 app/templates/partials/layout.html:173
-#: app/templates/pricing/pricing.html:4
+#: app/templates/order/order.html:4 app/templates/pricing/pricing.html:4
 msgid "Pricing"
 msgstr ""
 
@@ -360,6 +360,10 @@ msgstr ""
 
 #: app/templates/order/order.html:64
 msgid "payment"
+msgstr ""
+
+#: app/templates/order/order.html:70 app/templates/pricing/pricing.html:32
+msgid "CHOOSE YOUR PACK"
 msgstr ""
 
 #: app/templates/order/order.html:87
@@ -460,97 +464,29 @@ msgid "unprotected"
 msgstr ""
 
 #: app/templates/partials/layout.html:142
-msgid "Protect me!"
+msgid "Subscribe to get protection!"
 msgstr ""
 
-#: app/templates/partials/layout.html:191
-msgid "My Account"
-msgstr ""
-
-#: app/templates/partials/layout.html:197
-msgid "Logout"
-msgstr ""
-
-#: app/templates/partials/layout.html:237
-msgid "Information"
-msgstr ""
-
-#: app/templates/partials/layout.html:242
-msgid "About us"
-msgstr ""
-
-#: app/templates/partials/layout.html:246
-msgid "Plans and Pricing"
-msgstr ""
-
-#: app/templates/partials/layout.html:250
-msgid "Support"
-msgstr ""
-
-#: app/templates/partials/layout.html:254
-msgid "Partnership"
-msgstr ""
-
-#: app/templates/partials/layout.html:317
-msgid "Tutorials"
-msgstr ""
-
-#: app/templates/partials/layout.html:322
-msgid "How to use VPN?"
-msgstr ""
-
-#: app/templates/partials/layout.html:326
-msgid "Why I need VPN?"
-msgstr ""
-
-#: app/templates/partials/layout.html:330
-msgid "Which VPN to choose?"
-msgstr ""
-
-#: app/templates/partials/layout.html:334
-msgid "VPN for business"
-msgstr ""
-
-#: app/templates/partials/layout.html:343
-msgid "Products"
-msgstr ""
-
-#: app/templates/partials/layout.html:348
-msgid "VPN for Windows"
-msgstr ""
-
-#: app/templates/partials/layout.html:352
-msgid "VPN for iOS"
-msgstr ""
-
-#: app/templates/partials/layout.html:356
-msgid "VPN for Android"
-msgstr ""
-
-#: app/templates/partials/layout.html:360
-msgid "VPN for macOS"
-msgstr ""
-
-#: app/templates/partials/layout.html:381
+#: app/templates/partials/layout.html:222
 msgid "Privacy Policy"
 msgstr ""
 
-#: app/templates/partials/layout.html:383
+#: app/templates/partials/layout.html:224
 msgid "Terms &amp; Conditions"
 msgstr ""
 
-#: app/templates/partials/layout.html:394
+#: app/templates/partials/layout.html:235
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
 "including a fast account login. If you disagree..."
 msgstr ""
 
-#: app/templates/partials/layout.html:395
+#: app/templates/partials/layout.html:236
 msgid "Read more..."
 msgstr ""
 
-#: app/templates/partials/layout.html:398
+#: app/templates/partials/layout.html:239
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
@@ -808,5 +744,32 @@ msgstr ""
 #~ "We under construction and will release"
 #~ " first version soon. Be in touch "
 #~ "and subscribe for news by email."
+#~ msgstr ""
+
+#~ msgid "You receive Railroad Ticket. Please don't late on train."
+#~ msgstr ""
+
+#~ msgid "Hello, %(username)"
+#~ msgstr ""
+
+#~ msgid "Your trial subscription ready."
+#~ msgstr ""
+
+#~ msgid "Thanks so much for joining Railroad Network Services!"
+#~ msgstr ""
+
+#~ msgid "We promise not to send letters more than once a week."
+#~ msgstr ""
+
+#~ msgid "We will inform you when our service will be ready to"
+#~ msgstr ""
+
+#~ msgid "Break down borders. Be anonymous. Obtain freedom."
+#~ msgstr ""
+
+#~ msgid "Get Railroad VPN"
+#~ msgstr ""
+
+#~ msgid "DOWNLOAD"
 #~ msgstr ""
 

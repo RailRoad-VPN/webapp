@@ -4,6 +4,8 @@ from http import HTTPStatus
 
 from flask import Blueprint, render_template, session, request, jsonify
 
+from flask_babel import _
+
 # Define the blueprint: 'index', set its url prefix: app.url/
 from app import rrn_billing_service, app_config, email_service
 from app.flask_utils import _pull_lang_code, _add_language_code
