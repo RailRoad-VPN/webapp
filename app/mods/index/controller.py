@@ -2,11 +2,10 @@ import logging
 import sys
 from http import HTTPStatus
 
-import datetime
-from flask import Blueprint, render_template, session, request, redirect, abort, jsonify
+from flask import Blueprint, render_template, session, request, jsonify
 
 # Define the blueprint: 'index', set its url prefix: app.url/
-from app import rrn_billing_service, app_config, email_service, EmailMessageType, EmailMessage
+from app import rrn_billing_service, app_config, email_service
 from app.flask_utils import _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
 
@@ -31,7 +30,13 @@ def pull_lang_code(endpoint, values):
 @mod_index.route('/', methods=['GET'])
 def index_lang_page():
     logger.info('index_lang page')
-    return render_template('index/index.html', code=200)
+
+    try:
+        subscriptions = rrn_billing_service.get_subscriptions(lang_code=session['lang_code'])
+    except APIException:
+        subscriptions = None
+
+    return render_template('index/index.html', code=200, subscriptions=subscriptions)
 
 
 @mod_index.route('/', methods=['POST'])
