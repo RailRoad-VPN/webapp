@@ -83,7 +83,7 @@ def order():
                 "Order from PPG does not equal. Why? PPG: %s, Session: %s" % (order_code_ppg, order_code_session))
 
         subscription_id = session['order']['subscription_id']
-        order_uuid = session['order']['order_uuid']
+        order_uuid = session['order']['uuid']
 
         error = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
         return redirect(url_for('profile.profile_page', error=error))
