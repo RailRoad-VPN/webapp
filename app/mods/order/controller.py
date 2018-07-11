@@ -54,8 +54,12 @@ def create_user_subscription(order_uuid: str, subscription_id: str) -> Optional[
                           developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
         return error
 
+    logger.debug('get subscription name')
+    subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
+    sub = subscriptions_dict.get(subscription_id)
+
     logger.debug('send user email')
-    email_service.send_new_sub_email(to_name=user_email, to_email=user_email)
+    email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=sub['name'])
 
     logger.debug('authorise user in system')
     authorize_user(user_json=session['user'])
