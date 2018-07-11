@@ -379,10 +379,12 @@ class PayProGlobalPaymentService(object):
         logger.info('Buy or Recurring? Depends on payment method.')
         if payment_method_id in ['1', '14']:
             logger.info('Payment method is CC or PayPal. Use RECURRING payments')
-            product_id = self._recurring_products[int(subscription_id) - 1]
+            # -2 because we have 4 subscriptions count from 1 it is 1,2,3,4, so if 4-2=2 = 47199
+            product_id = self._recurring_products[int(subscription_id) - 2]
         else:
             logger.info('Payment method is NOT CC or PayPal. Use BUY payments')
-            product_id = self._buy_products[int(subscription_id) - 1]
+            # -2 because we have 4 subscriptions count from 1 it is 1,2,3,4, so if 4-2=2 = 47304
+            product_id = self._buy_products[int(subscription_id) - 2]
 
         logger.info('Production ID: %s' % product_id)
 
