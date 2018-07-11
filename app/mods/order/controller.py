@@ -75,7 +75,7 @@ def order():
         logger.debug('x-ordercode: %s' % order_code_ppg)
 
         logger.debug('get order code from order in session')
-        order_code_session = session['order']['order_code']
+        order_code_session = session['order']['code']
         logger.debug('order_code_session: %s' % order_code_session)
 
         if order_code_ppg == order_code_session:
