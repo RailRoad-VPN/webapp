@@ -56,7 +56,7 @@ def create_user_subscription(order_uuid: str, subscription_id: str) -> Optional[
 
     logger.debug('get subscription name')
     subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
-    sub = subscriptions_dict.get(subscription_id)
+    sub = subscriptions_dict.get(int(subscription_id))
 
     logger.debug('send user email')
     email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=sub['name'])
