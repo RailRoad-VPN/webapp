@@ -256,6 +256,7 @@ $(document).ready(function () {
         var successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
                 if (response.hasOwnProperty('data')) {
+                    // TODO clear local storage
                     window.location = response['data']['redirect_url'];
                 } else {
                     callback ? callback() : ''

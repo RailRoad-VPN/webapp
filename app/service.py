@@ -33,6 +33,7 @@ class EmailMessageType(Enum):
         self.html_template = html_template_name
 
     TRIAL = (0, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.html')
+    NEW_SUB = (1, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.html')
 
 
 class EmailService(object):
@@ -70,6 +71,11 @@ class EmailService(object):
         email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
         return self.__send_message(to_email=to_email, email_str=email_str)
 
+    def send_new_sub_email(self, to_name: str, to_email: str, sub_name: str) -> bool:
+        logger.debug('send_new_sub_email method t_name=%s, to_email=%s, sub_name=%s' % (to_name, to_email, sub_name))
+        email_str = self.__prepare_new_subscription_email(to_name=to_name, to_email=to_email, sub_name=sub_name)
+        return self.__send_message(to_email=to_email, email_str=email_str)
+
     def __send_message(self, to_email: str, email_str: str) -> bool:
         logger.debug("__send_message method to_email=%s, email_str=%s" % (to_email, email_str))
         try:
@@ -86,6 +92,30 @@ class EmailService(object):
         except SMTPException as e:
             logger.error("unable to send email to %s" % to_email, e)
             return False
+
+    def __prepare_new_subscription_email(self, to_name: str, to_email: str, sub_name: str) -> str:
+        logger.debug('__prepare_new_subscription_email method t_name=%s, to_email=%s' % (to_name, to_email))
+
+        logger.info("reading trial html template")
+        f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.NEW_SUB.html_template), 'r')
+        email_html_text = str(f.read())
+
+        logger.info("replacing anchors in HTML")
+        email_html_text = email_html_text.replace("@ticket@", _('TRIAL_EMAIL_TICKET'))
+        email_html_text = email_html_text.replace("@welcome_to@", _('TRIAL_EMAIL_WELCOME'))
+        email_html_text = email_html_text.replace("@RNS@", _('RNS'))
+        email_html_text = email_html_text.replace("@hello_user@", _('Hello'))
+        email_html_text = email_html_text.replace("@trial_ready@", _('NEW_SUB_BUY_FACT') + sub_name)
+        email_html_text = email_html_text.replace("@thank_you@", _('NEW_SUB_EMAIL_THANKS'))
+        email_html_text = email_html_text.replace("@one_letter@", _('NEW_SUB_PAYMENT_INFORM'))
+        email_html_text = email_html_text.replace("@service_ready@", '')
+        email_html_text = email_html_text.replace("@unsubscribe_user_url@", '')
+        email_html_text = email_html_text.replace("@unsubscribe@", '')
+
+        logger.info("preparing email object")
+        email_str = self.__prepare_email(to_name=to_name, to_email=to_email, subject=EmailMessageType.NEW_SUB.subject,
+                                         html_message=email_html_text)
+        return email_str
 
     def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
         logger.debug('__prepare_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
@@ -197,6 +227,7 @@ class RRNUsersAPIService(RESTService):
             'email': email,
             'password': password,
         }
+        logger.debug('create user with parameters user_json: %s' % user_json)
         api_response = self._post(data=user_json, headers=self._headers)
         if api_response.is_ok and 'Location' in api_response.headers:
             api_response = self._get(url=api_response.headers.get('Location'))
@@ -208,6 +239,7 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_user(self, user_json: dict) -> bool:
+        logger.debug('update user with parameters user_json: %s' % user_json)
         url = '%s/%s' % (self._url, user_json['uuid'])
         api_response = self._put(url=url, data=user_json, headers=self._headers)
         if api_response.is_ok:
@@ -216,6 +248,7 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def get_user(self, uuid: str = None, email: str = None) -> dict:
+        logger.debug('get user with parameters uuid: %s, email: %s' % (uuid, email))
         if uuid:
             url = '%s/uuid/%s' % (self._url, uuid)
         elif email:
@@ -234,6 +267,8 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def get_user_subscription(self, user_uuid: str, subscription_uuid: str) -> dict:
+        logger.debug('get user subscription with parameters user_uuid: %s, subscription_uuid: %s' % (
+        user_uuid, subscription_uuid))
         url = self._url + '/%s/subscriptions/%s' % (user_uuid, subscription_uuid)
         api_response = self._get(url=url)
         if api_response.is_ok:
@@ -245,6 +280,7 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def get_user_subscriptions(self, user_uuid: str) -> dict:
+        logger.debug('get user subscriptions with parameter user_uuid: %s' % user_uuid)
         url = self._url + '/%s/subscriptions' % (user_uuid)
         api_response = self._get(url=url)
         if api_response.is_ok:
@@ -261,6 +297,7 @@ class RRNUsersAPIService(RESTService):
             'subscription_id': subscription_id,
             'order_uuid': order_uuid,
         }
+        logger.debug('create user subscription with parameters' % data)
         url = self._url + '/%s/subscriptions' % user_uuid
         api_response = self._post(data=data, url=url)
         if api_response.is_ok and 'Location' in api_response.headers:
@@ -276,6 +313,7 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_user_subscription(self, subscription_json: dict) -> bool:
+        logger.debug('update user subscription with parameters' % subscription_json)
         url = self._url + '/%s/subscriptions/%s' % (subscription_json['user_uuid'], subscription_json['uuid'])
         api_response = self._put(data=subscription_json, url=url)
         if api_response.is_ok:

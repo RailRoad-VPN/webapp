@@ -50,6 +50,10 @@ a {
     color: #f8cc46;
 }
 
+:focus {
+    outline: none !important;
+}
+
 a:focus, a:hover {
     text-decoration: none;
     color: rgba(248, 204, 70, 0.85);

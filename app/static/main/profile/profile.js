@@ -17,11 +17,7 @@ $(document).ready(function () {
     /* Cache it */
     var $magicLine = $("#magic-line");
 
-    $magicLine
-        .width($(".active").width())
-        .css("left", $(".active a").position().left)
-        .data("origLeft", $magicLine.position().left)
-        .data("origWidth", $magicLine.width());
+    placeMagicLine($menuItems.first());
 
     $menuItemsLinks.hover(function () {
         $el = $(this);
@@ -38,4 +34,16 @@ $(document).ready(function () {
             width: $magicLine.data("origWidth")
         });
     });
+
+    $menuItemsLinks.on('click', function (e) {
+        placeMagicLine($(this).parent());
+    });
+
+    function placeMagicLine($li) {
+        $magicLine
+            .width($li.width())
+            .css("left", $li.find('a').position().left)
+            .data("origLeft", $magicLine.position().left)
+            .data("origWidth", $magicLine.width());
+    }
 });

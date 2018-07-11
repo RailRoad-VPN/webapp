@@ -31,53 +31,78 @@
 
 {% block body %}
     <section class="pt-6 pb-6" style="background-color: #f8f8f8;">
-        <div class="menu-header text-center" style="background-color: #fff; padding-top: 50px;">
-            <ul id="profile-menu" class="list-inline">
-                <li class="menu-entry active">
-                    <a href="#">
-                        <i class="fa fa-meetup"></i> Dashboard
+        <div class="menu-header nav justify-content-centers" style="background-color: #fff; padding-top: 50px;">
+            <ul id="profile-menu" class="nav nav-tabs">
+                <li class="nav-item menu-entry">
+                    <a id="dashboard-tab" class="nav-link active" href="#dashboard"
+                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="fas fa-tachometer-alt"></i> {{ _('Dashboard') }}
                     </a>
                 </li>
-                <li class="menu-entry">
-                    <a href="#">
-                        <i class="fa fa-user"></i> Account
+                <li class="nav-item menu-entry">
+                    <a id="account-tab" class="nav-link" href="#account"
+                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="fas fa-user-alt"></i> {{ _('Account') }}
                     </a>
                 </li>
-                <li class="menu-entry">
-                    <a href="#">
-                        <i class="fa fa-download"></i> Downloads
+                <li class="nav-item menu-entry">
+                    <a id="downloads-tab" class="nav-link" href="#downloads"
+                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="fas fa-download"></i> {{ _('Downloads') }}
                     </a>
                 </li>
-                <li class="menu-entry">
-                    <a href="#">
-                        <i class="fa fa-server"></i> VPN Servers
+                <li class="nav-item menu-entry">
+                    <a id="servers-tab" class="nav-link" href="#servers"
+                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                        <i class="fas fa-server"></i> {{ _('VPN Servers') }}
                     </a>
                 </li>
             </ul>
         </div>
-        <div>
-            <div class="container">
-                <h4 style="padding-top: 70px; text-transform: none;">Your Services</h4>
-                <div class="container" style="padding-top: 50px; background-color: #fff; border: 1px solid #cfcfcf; box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);">
-                    {% for us in user_subscriptions %}
-                        {% set sub = us['subscription'] %}
-                        <h4 class="d-inline">
-                            {{ sub['name'] }}
-                        </h4>
-                        <sup>
-                            <span class="badge badge-success">Active</span>
-                            <span class="badge badge-danger">Expired</span>
-                        </sup>
-                        {% if sub['price_per_month'] != 0 %}
-                            <span class="d-inline pull-right">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container">
+                    <h4 style="padding-top: 70px; text-transform: none;">Your Services</h4>
+                    <div class="container"
+                         style="padding-top: 50px; background-color: #fff; border: 1px solid #cfcfcf; box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);">
+                        {% for us in user_subscriptions %}
+                            {% set sub = us['subscription'] %}
+                            <h4 class="d-inline">
+                                {{ sub['name'] }}
+                            </h4>
+                            <sup>
+                                {% if us['is_expired'] == true %}
+                                    <span class="badge badge-danger">Expired</span>
+                                {% else %}
+                                    <span class="badge badge-success">Active</span>
+                                {% endif %}
+                            </sup>
+                            {% if sub['price_per_month'] != 0 %}
+                                <span class="d-inline pull-right">
                                     <small class="text-muted">Next payment at:</small>
                                     <small>May 9th, 2018</small>
                             </span>
-                        {% endif %}
-                        <small>{{ sub['bill_freq'] }}</small>
-                        <div class="clearfix"></div>
-                        <hr>
-                    {% endfor %}
+                            {% endif %}
+                            <small>{{ sub['bill_freq'] }}</small>
+                            <div class="clearfix"></div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="container">
+                    account
+                </div>
+            </div>
+            <div class="tab-pane fade" id="downloads" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="container">
+                    downloads
+                </div>
+            </div>
+            <div class="tab-pane fade" id="servers" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="container">
+                    servers
                 </div>
             </div>
         </div>

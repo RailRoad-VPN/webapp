@@ -34,4 +34,5 @@ def profile_page():
     for us in user_subscriptions:
         sub = subscriptions_dict.get(us['subscription_id'])
         us['subscription'] = sub
+
     return render_template('profile/profile.html', code=HTTPStatus.OK, user_subscriptions=user_subscriptions)
