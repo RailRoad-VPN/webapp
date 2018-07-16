@@ -3,26 +3,22 @@ from http import HTTPStatus
 
 from flask import Blueprint, render_template, session
 
-from app import rrn_billing_service, rrn_user_service, cache_service, subscription_service
-from app.flask_utils import login_required
+from app import rrn_user_service, subscription_service, app_config
+from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/<lang_code>/profile')
-
 
 logger = logging.getLogger(__name__)
 
 
 @mod_profile.url_defaults
 def add_language_code(endpoint, values):
-    values.setdefault('lang_code', session['lang_code'])
+    _add_language_code(endpoint=endpoint, values=values)
 
 
 @mod_profile.url_value_preprocessor
 def pull_lang_code(endpoint, values):
-    try:
-        values.pop('lang_code')
-    except:
-        pass
+    _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
 
 
 @mod_profile.route('/', methods=['GET', 'POST'])

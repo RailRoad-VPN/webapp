@@ -388,8 +388,9 @@
 <!-- Javascript -->
 
 <!-- moment -->
+{{ moment.include_jquery() }}
 {{ moment.include_moment() }}
-{{ moment.lang(g.locale) }}
+{{ moment.lang(session['lang_code']) }}
 
 <!-- font awesome -->
 <script src="{{ url_for('static', filename='assets/font-awesome/js/all.js') }}" type="text/javascript"
@@ -408,10 +409,6 @@
 
     <!-- underscore -->
     <script src="{{ url_for('static', filename='assets/underscore/underscore.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-
-    <!-- moment -->
-    <script src="{{ url_for('static', filename='assets/moment/moment.js') }}" type="text/javascript"
             charset="utf-8"></script>
 
     <!-- noty -->
@@ -446,9 +443,6 @@
     <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
 
-    <!-- moment -->
-    <script src="{{ url_for('static', filename='assets/moment/moment.min.js') }}" type="text/javascript"
-            charset="utf-8"></script>
 
     <!-- noty -->
     <script src="{{ url_for('static', filename='assets/noty/noty.min.js') }}" type="text/javascript"

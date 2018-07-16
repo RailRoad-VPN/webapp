@@ -270,7 +270,8 @@ $(document).ready(function () {
             notyError("System Error");
         };
 
-        doAjax($getPaymentUrlURLObj.data('url'), $getPaymentUrlURLObj.data('method'), data, isAsync, successCallback, errorCallback)
+        doAjax($getPaymentUrlURLObj.data('url'), $getPaymentUrlURLObj.data('method'), data, isAsync, successCallback,
+            errorCallback)
     }
 
     $paymentMethodsModal.on('hide.bs.modal', function (e) {

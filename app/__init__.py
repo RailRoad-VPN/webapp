@@ -28,7 +28,6 @@ babel = Babel(app)
 
 disq = Disqus(app)
 
-# TODO i10n dates
 moment = Moment(app)
 
 from app import cli

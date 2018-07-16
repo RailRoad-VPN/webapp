@@ -62,7 +62,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container">
-                    <h4 style="padding-top: 70px; text-transform: none;">Your Services</h4>
+                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Services') }}</h4>
                     <div class="container"
                          style="padding-top: 50px; background-color: #fff; border: 1px solid #cfcfcf; box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);">
                         {% for us in user_subscriptions %}
@@ -72,16 +72,20 @@
                             </h4>
                             <sup>
                                 {% if us['is_expired'] == true %}
-                                    <span class="badge badge-danger">Expired</span>
+                                    <span class="badge badge-danger">{{ _('Expired') }}</span>
                                 {% else %}
-                                    <span class="badge badge-success">Active</span>
+                                    <span class="badge badge-success">{{ _('Active') }}</span>
                                 {% endif %}
                             </sup>
                             {% if sub['price_per_month'] != 0 %}
-                                <span class="d-inline pull-right">
-                                    <small class="text-muted">Next payment at:</small>
-                                    <small>May 9th, 2018</small>
-                            </span>
+                                <span class="d-inline float-right">
+                                    {% if us['is_expired'] == true %}
+                                        <small class="text-muted">{{ _('Payment is past due') }}:</small>
+                                    {% else %}
+                                        <small class="text-muted">{{ _('Next payment at') }}:</small>
+                                    {% endif %}
+                                    <small>{{ moment(us['created_date'] | strftime).fromNow() }}</small>
+                                </span>
                             {% endif %}
                             <small>{{ sub['bill_freq'] }}</small>
                             <div class="clearfix"></div>
@@ -92,17 +96,17 @@
             </div>
             <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container">
-                    account
+                    {{ _('account') }}
                 </div>
             </div>
             <div class="tab-pane fade" id="downloads" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="container">
-                    downloads
+                    {{ _('downloads') }}
                 </div>
             </div>
             <div class="tab-pane fade" id="servers" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="container">
-                    servers
+                    {{ _('servers') }}
                 </div>
             </div>
         </div>

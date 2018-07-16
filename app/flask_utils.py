@@ -3,6 +3,8 @@ import logging
 import uuid
 from functools import wraps
 
+import decimal
+from dateutil import parser
 from flask import session, g, request, redirect, url_for, abort
 
 from app import app, babel, user_discovery_service
@@ -153,3 +155,14 @@ def decOfNum(number, titles):
 @app.context_processor
 def inject_now():
     return {'now': datetime.datetime.now().replace(microsecond=0).isoformat()}
+
+
+@app.template_filter('strftime')
+def _jinja2_filter_datetime(date):
+    date = parser.parse(date)
+    return date
+
+
+@app.template_filter('to_decimal')
+def to_decimal_filter(f):
+    return decimal.Decimal(f)

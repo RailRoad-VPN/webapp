@@ -78,9 +78,11 @@
                             {% endif %}
                         </a>
                         {% if subscription['bill_freq'] is not none %}
-                            <p class="small"><span
-                                    class="old-price">${{ (subscription['old_price_per_month'] * subscription['billed_period_in_months'])|round(2) }}</span>
-                                ${{ (subscription['price_per_month'] * subscription['billed_period_in_months'])|round(2) }} {{ subscription['bill_freq'] }}
+                            <p class="small">
+                                <span class="old-price">
+                                    ${{ (subscription['old_price_per_month']|to_decimal * subscription['billed_period_in_months']|to_decimal)|to_decimal|round(2) }}
+                                </span>
+                                ${{ (subscription['price_per_month']|to_decimal * subscription['billed_period_in_months']|to_decimal)|round(2) }} {{ subscription['bill_freq'] }}
                             </p>
                         {% endif %}
                     </div>
