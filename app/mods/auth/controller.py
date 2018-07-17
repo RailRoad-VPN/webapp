@@ -141,6 +141,7 @@ def signin():
             else:
                 authorize_user(user_json=user_json)
                 r.set_success()
+                r.add_data('next', url_for('profile.profile_page'))
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
         return resp

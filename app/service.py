@@ -1,4 +1,5 @@
 import codecs
+import datetime
 import logging
 import smtplib
 import sys
@@ -238,9 +239,26 @@ class RRNUsersAPIService(RESTService):
         else:
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
-    def update_user(self, user_json: dict) -> bool:
-        logger.debug('update user with parameters user_json: %s' % user_json)
-        url = '%s/%s' % (self._url, user_json['uuid'])
+    def update_user(self, suuid: str, email: str, password: str, is_expired: bool, is_locked: bool,
+                    is_password_expired: bool, enabled: bool, pin_code: str = None,
+                    pin_code_expire_date: datetime = None) -> bool:
+        logger.debug('update user with parameters suuid=%s, email=%s, password=%s, is_expired=%s, is_locked=%s, '
+                     'is_password_expired=%s, enabled=%s, '
+                     'pin_code=%s, pin_code_expire_date=%s' % (
+                         suuid, email, password, is_expired, is_locked, is_password_expired, enabled, pin_code,
+                         pin_code_expire_date))
+        user_json = {
+            'uuid': suuid,
+            'email': email,
+            'password': password,
+            'is_expired': is_expired,
+            'is_locked': is_locked,
+            'is_password_expired': is_password_expired,
+            'enabled': enabled,
+            'pin_code': pin_code,
+            'pin_code_expire_date': pin_code_expire_date,
+        }
+        url = '%s/%s' % (self._url, suuid)
         api_response = self._put(url=url, data=user_json, headers=self._headers)
         if api_response.is_ok:
             return True
@@ -268,7 +286,7 @@ class RRNUsersAPIService(RESTService):
 
     def get_user_subscription(self, user_uuid: str, subscription_uuid: str) -> dict:
         logger.debug('get user subscription with parameters user_uuid: %s, subscription_uuid: %s' % (
-        user_uuid, subscription_uuid))
+            user_uuid, subscription_uuid))
         url = self._url + '/%s/subscriptions/%s' % (user_uuid, subscription_uuid)
         api_response = self._get(url=url)
         if api_response.is_ok:

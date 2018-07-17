@@ -42,9 +42,12 @@
     {% block meta %}{% endblock %}
 
     <link type="image/png" rel="icon" href="{{ url_for('static', filename='main/favicon/favicon.ico') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='main/favicon/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='main/favicon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='main/favicon/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{{ url_for('static', filename='main/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ url_for('static', filename='main/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ url_for('static', filename='main/favicon/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='main/favicon/site.webmanifest') }}">
     <link rel="mask-icon" href="{{ url_for('static', filename='main/favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
     <link rel="shortcut icon" href="{{ url_for('static', filename='main/favicon/favicon.ico') }}">
@@ -402,6 +405,10 @@
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.js') }}" type="text/javascript"
             charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.stopwatch.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.blockui.js') }}" type="text/javascript"
+            charset="utf-8"></script>
 
     <!-- Bootstrap -->
     <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.bundle.js') }}" type="text/javascript"
@@ -437,6 +444,10 @@
     <script src="{{ url_for('static', filename='assets/jquery/jquery.form.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='assets/jquery/jquery.easing.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.stopwatch.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='assets/jquery/jquery.blockui.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
 
     <!-- Bootstrap -->

@@ -1,6 +1,8 @@
 'use strict';
 
 $(document).ready(function () {
+    var $getPinCodeUrlObj = $("meta#get_pincode_url");
+
     var $el, leftPos, newWidth;
 
     var $menu = $("#profile-menu");
@@ -46,4 +48,30 @@ $(document).ready(function () {
             .data("origLeft", $magicLine.position().left)
             .data("origWidth", $magicLine.width());
     }
+
+    $("#generate-pin-btn").click(function () {
+        var isAsync = true;
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && response['success']) {
+                if (response.hasOwnProperty('data')) {
+                    $('#pincode-t').text(response['data']['pin_code']);
+                    $("#cd_seconds").val(response['data']['seconds']);
+
+                    $.APP.startTimer('cd');
+                }
+            } else {
+                showErrors(response);
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($getPinCodeUrlObj.data('url'), $getPinCodeUrlObj.data('method'), {}, isAsync, successCallback,
+            errorCallback);
+
+        $("#pincode-modal").modal('show');
+    });
 });

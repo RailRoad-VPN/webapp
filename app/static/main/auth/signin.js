@@ -10,10 +10,12 @@ $(document).ready(function () {
             success: function (response) {
                 // hideLoader();
                 if (response['success']) {
-                    if (response['next']) {
-                        window.location = response['next'];
-                    } else {
-                        window.location = "/";
+                    if (response.hasOwnProperty('data')) {
+                        if (response['data'].hasOwnProperty('next')) {
+                            window.location = response['data']['next'];
+                        } else {
+                            window.location = "/";
+                        }
                     }
                 } else {
                     if (response.hasOwnProperty('errors')) {
