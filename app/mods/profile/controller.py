@@ -56,17 +56,20 @@ def generate_pincode():
     logger.debug("Updater user in session")
     session['user'] = updated_user_json
 
-    pin_code = updated_user_json['pin_code']
-    pin_code_expire_date = updated_user_json['pin_code_expire_date']
-    import dateutil.parser
-    pin_code_expire_date = dateutil.parser.parse(pin_code_expire_date)
-    if now > pin_code_expire_date:
-        need_gen = True
-    else:
-        delta = pin_code_expire_date - now
-        delta_minutes = delta.seconds / 60
-        if delta_minutes > 5:
-            need_gen = False
+    pin_code = updated_user_json.get('pin_code', None)
+    pin_code_expire_date = updated_user_json.get('pin_code_expire_date', None)
+    is_pin_code_activated = updated_user_json.get('is_pin_code_activated', None)
+
+    if pin_code is not None and pin_code_expire_date is not None and not is_pin_code_activated:
+        import dateutil.parser
+        pin_code_expire_date = dateutil.parser.parse(pin_code_expire_date)
+        if now > pin_code_expire_date:
+            need_gen = True
+        else:
+            delta = pin_code_expire_date - now
+            delta_minutes = delta.seconds / 60
+            if delta_minutes > 5:
+                need_gen = False
 
     if not need_gen:
         delta = pin_code_expire_date - now
@@ -96,7 +99,8 @@ def generate_pincode():
 
     rrn_user_service.update_user(suuid=suuid, email=email, password=password, is_expired=is_expired,
                                  is_locked=is_locked, is_password_expired=is_password_expired, enabled=enabled,
-                                 pin_code=pincode, pin_code_expire_date=pin_code_expire_date)
+                                 pin_code=pincode, pin_code_expire_date=pin_code_expire_date,
+                                 modify_reason='generate pin code')
 
     updated_user_json['pin_code'] = pincode
     updated_user_json['pin_code_expire_date'] = pin_code_expire_date.isoformat()
