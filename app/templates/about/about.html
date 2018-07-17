@@ -35,49 +35,32 @@
                     style="animation-duration: 0.6s; animation-delay: 0.1s;">{{ _('Welcome to Railroad Network') }}</h2>
                 <p data-animate="fadeInUp" data-delay=".1" class="animated fadeInUp"
                    style="animation-duration: 0.6s; animation-delay: 0.2s;">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam
-                    rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                    explicabo.
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                    magni
-                    dolores eos qui ratione voluptatem sequi nesciunt.
+                    {{ _('about_us_start_text') }}
                 </p>
             </div>
             <hr>
             <div class="row">
                 <div class="about-target col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                     <h5 class="text-capitalize text-dark animated fadeInUp"
-                        style="animation-duration: 0.6s; animation-delay: 0.3s;">Who we are?</h5>
+                        style="animation-duration: 0.6s; animation-delay: 0.3s;">{{ _('Who We Are') }}</h5>
                     <p class="animated fadeInUp" style="animation-duration: 0.6s; animation-delay: 0.4s;">
-                        At vero eos et accusamus et iusto odio dignissimos ducimus ui blanditiis praesentium voluptatum
-                        deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati piditate non
-                        provident, similique sunt in culpa qui officia deserunt illitia imi, id est laborum et dolorum
-                        fuga.
-                        Et harum quidem rerum facilis est et expedita distinctio.
+                        {{ _('who_we_are_text') }}
                     </p>
                 </div>
                 <div class="about-target col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                     <h5 class="text-capitalize text-dark animated fadeInUp"
-                        style="animation-duration: 0.6s; animation-delay: 0.3s;">Our mission</h5>
+                        style="animation-duration: 0.6s; animation-delay: 0.3s;">{{ _('Our Mission') }}</h5>
                     <p class="animated fadeInUp" style="animation-duration: 0.6s; animation-delay: 0.4s;">
-                        At vero eos et accusamus et iusto odio dignissimos ducimus ui blanditiis praesentium voluptatum
-                        deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati piditate non
-                        provident, similique sunt in culpa qui officia deserunt illitia imi, id est laborum et dolorum
-                        fuga.
-                        Et harum quidem rerum facilis est et expedita distinctio.
+                        {{ _('our_mission_text') }}
                     </p>
                 </div>
                 <div class="about-target col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                     <h5 class="text-capitalize text-dark animated fadeInUp"
-                        style="animation-duration: 0.6s; animation-delay: 0.3s;">Our vision</h5>
+                        style="animation-duration: 0.6s; animation-delay: 0.3s;">
+                        {{ _('Our Vision') }}
+                    </h5>
                     <p class="animated fadeInUp" style="animation-duration: 0.6s; animation-delay: 0.4s;">
-                        At vero eos et accusamus et iusto odio dignissimos ducimus ui blanditiis praesentium voluptatum
-                        deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati piditate non
-                        provident, similique sunt in culpa qui officia deserunt illitia imi, id est laborum et dolorum
-                        fuga.
-                        Et harum quidem rerum facilis est et expedita distinctio.
+                        {{ _('our_vision_text') }}
                     </p>
                 </div>
             </div>
@@ -85,14 +68,16 @@
                 <div class="write-about-us text-center col-12">
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
-                            <h2 class="animated fadeInUp" style="animation-duration: 0.6s; animation-delay: 0.1s;">Want
-                                To Write About Railroad Network?</h2>
+                            <h2 class="animated fadeInUp" style="animation-duration: 0.6s; animation-delay: 0.1s;">
+                                {{ _('Want To Write About Railroad Network?') }}
+                            </h2>
                             <p class="animated fadeInUp" style="animation-duration: 0.6s; animation-delay: 0.2s;">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
+                                {{ _('You can write us about your idea or trouble with our service. Business solution or you know funny joke? Feel free fill contact form.') }}
                             </p>
                             <a href="{{ url_for('contact.contact') }}" class="btn btn-warning animated fadeIn"
-                               style="animation-duration: 0.6s; animation-delay: 0.3s;">Contact With Us</a>
+                               style="animation-duration: 0.6s; animation-delay: 0.3s;">
+                                {{ _('Contact With Us') }}
+                            </a>
                         </div>
                     </div>
                 </div>

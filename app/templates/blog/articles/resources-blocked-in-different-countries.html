@@ -1,0 +1,252 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    {{ _('Test article title') }}
+{% endblock %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/article.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/article.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/blog/article.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/blog/article.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+
+{% block meta %}
+    <meta name="description" content="">
+
+    <!-- OpenGraph -->
+    <meta property="og:url" content="{{ request.url }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Ресуры заблокированные в разных странах"/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image"
+          content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
+    <meta property="og:image:width" content="360"/>
+    <meta property="og:image:height" content="240"/>
+    <meta property="og:locale" content="ru_RU"/>
+    <meta property="og:site_name" content="RailroadNetworkVPN"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content="Ресуры заблокированные в разных странах"/>
+    <meta name="twitter:description" content=""/>
+    <meta name="twitter:image:src" content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
+    <meta name="twitter:image" content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@rroadvpn"/>
+    <meta name="twitter:domain" content="rroadvpn.net">
+{% endblock %}
+
+{% block body %}
+<section class="container pt-7 pb-7 pt-sm-5 pb-sm-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('blog.blog_page') }}">
+                                {{ _('Blog') }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Ресурсы заблокированные в разных странах
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="text-center">
+                Ресурсы заблокированные в разных странах
+            </h1>
+            <p class="article-paragraph">
+                Любой человек имеет право на защиту используемых и передаваемых им данных. Однако, как мы увидим, в
+                интернете это не всегда так. Для защиты пользовательских данных и передаваемой информации была
+                разработана специальная технология — VPN (Virtual Private Network).
+            </p>
+            <p class="article-paragraph">
+                Как видно из названия, VPN — это виртуальная частная сеть, которая создается над интернетом. Каждый
+                пользователь, как правило, имеет свои логин и пароль, позволяющие ему получить доступ к сети. Благодаря
+                VPN-соединению создается своего рода защищенный тоннель для передачи информации. Среди прочего, это
+                может помочь тем пользователям, которые хотели бы иметь доступ к заблокированным ресурсам. Виртуальные
+                частные сети позволяют скрыть текущее местоположения компьютера или смартфона, с которого производится
+                выход в интернет, что позволяет получить доступ к географически заблокированным сайтам. Технология
+                работает независимо от страны фактического местонахождения пользователя или используемой операционной
+                системы.
+            </p>
+            <h2>Сервисы</h2>
+            <p class="article-paragraph">
+                Одни сайты и сервисы подвергаются цензуре чаще, другие — реже. В основном это зависит от политической
+                ситуации в стране и интересов правительства. Ниже приведен список распространенных интернет-ресурсов (в
+                основном это социальные сети и их сервисы), которые часто блокируют в разных странах. Доступ к любому из
+                интернет-ресурсов можно получить, используя VPN или Proxy-сервис.
+            </p>
+            <h3>
+                Telegram
+            </h3>
+            <p class="article-paragraph">
+                Telegram заблокирован (или был заблокирован) более чем в 10 странах. Доступ к этому сервису на таких
+                территориях возможен с использованием технологии виртуальной частной сети. Благодаря VPN-серверу
+                местоположение пользователя будет искусственно изменено, и доступ к Telegram будет открыт. При желании
+                можно скачать VPN для Windows, а также VPN Android для смартфона или планшета. Для решения проблемы
+                также можно просто установить расширение VPN для браузера (подойдет только в том случае если ваш браузер
+                поддерживает расширения).
+            </p>
+            <h3>Facebook</h3>
+            <p class="article-paragraph">
+                Facebook – известная во всем мире социальная сеть. На данный момент этот сервис частично или полностью
+                заблокирован на территории многих стран, включая Египет, Туркменистан, Саудовскую Аравию, Иран,
+                Пакистан, Китай, Северную Корею и Вьетнам. Если вы планируете использовать официальный Messenger от
+                Facebook, лучшим решением будет установить приложение VPN для Android, которое будет фильтровать весь
+                трафик, проходящий через устройство.
+            </p>
+            <h3>Вконтакте</h3>
+            <p class="article-paragraph">
+                Вконтакте — популярная российская социальная сеть, которая используется во всем мире. На данный момент
+                Вконтакте заблокирован на территории многих стран, в том числе в Украине. Немало сайтов размещают
+                видеоматериалы в облачном сервисе Вконтакте, после чего интегрируют видеоплеер социальной сети к себе на
+                сайт. Поэтому посмотреть любимый сериал или фильм, найденный в интернете, без ВПН для ПК может быть не
+                просто. В данном случае идеально подойдет расширение VPN для браузера, установка которого займет
+                несколько минут. VPN скачать бесплатно можно в магазине расширений браузера, который вы используете.
+            </p>
+            <h3>WhatsApp</h3>
+            <p class="article-paragraph">
+                WhatsApp – популярный мессенджер с возможностью осуществлять голосовые и видео звонки. Сервис
+                заблокирован в Пакистане и Туркменистане и без VPN-клиента к нему не подключишься. После установки VPN
+                на Android пользователь получит доступ к своим перепискам и видеозвонкам.
+            </p>
+            <h3>Twitter</h3>
+            <p class="article-paragraph">
+                Twitter – публичная социальная сеть для обмена сообщениями. Заблокирован данный сервис во многих
+                странах, включая Китай, Иран и Египет. Время от времени Twitter блокируют в Турции. Как и во всех
+                предыдущих случаях нужен ВПН для ПК или Android. Расширение VPN для барузера решит эту проблему и доступ
+                к Twitter будет восстановлен.
+            </p>
+            <h3>Яндекс</h3>
+            <p class="article-paragraph">
+                Еще один российский сервис, попавший под цензуру. Вернее будет сказать это ряд сервисов: поисковая
+                система, браузер, карты, расписание и пр. Кроме Украины Яндексом нельзя воспользоваться еще в нескольких
+                странах. Однако проблема решаема: устанавливаем бесплатный VPN для Яндекс браузера и наслаждаемся
+                свободным интернетом. Это может быть VPN-расширение для браузера или бесплатный VPN-клиент.
+            </p>
+            <h3>Skype</h3>
+            <p class="article-paragraph">
+                Skype – популярное приложение, используемое многими пользователями во всем мире для голосовых и
+                видеозвонков, а также для обмена сообщениями. Сервис принадлежит американской компании Microsoft. Среди
+                стран, в которых полностью или частично блокируется Skype, можно отметить Узбекистан и Пакистан. У вас
+                есть родственники в этих странах? VPN-соединение без труда решит проблему. Для этого на компьютеры
+                пользователей, живущих в странах, где существует цензура, необходимо установить VPN-клиент.
+            </p>
+            <h3>YouTube</h3>
+            <p class="article-paragraph">
+                YouTube – популярный видеохостинг, на котором хранятся миллиарды видеороликов со всего мира. Не смотря
+                на то, что сайт содержит много полезной информации, большая часть видеоконтента не проверяется.
+                Неудивительно, что ресурс заблокирован в Китае, Туркменистане, Иране, Пакистане, Саудовской Аравии и др.
+                Для доступа к YouTube с вашего браузера установите VPN-расширение.
+            </p>
+            <h3>Viber</h3>
+            <p class="article-paragraph">
+                Viber – по большей части мобильное приложение для смартфонов и планшетов, которое используется для
+                обмена сообщениями, а также для голосовых и видеозвонков. Сервис также нередко блокируется
+                правительствами разных стран. На данный момент доступ к Viber ограничен на территории Узбекистана,
+                Паксистана и некоторых других стран. Чтобы вновь поддерживать связь с друзьями через приложение,
+                установите на свой смартфон подходящий VPN-клиент.
+            </p>
+        </div>
+        <div id="social-share_buttons-container" class="pt-3 pb-3">
+            <ul class="list-unstyled list-inline">
+                <!-- Google+ -->
+                <li>
+                    <a href="https://plus.google.com/share?url={{ request.url | urlencode }}" onclick="javascript:window.open(this.href,
+							  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                        <div class="row text-muted">
+                            <div class="col-2">
+                                <i class="fab fa-google-plus-g"></i>
+                            </div>
+                            <div class="pl-2">
+                                <small class="text-muted">{{ _('Share on Google Plus') }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% if session['lang_code'] == 'ru' %}
+                    <!-- VK -->
+                    <li>
+                        <a href="https://vk.com/share.php?url={{ request.url | urlencode }}">
+                            <div class="row text-muted">
+                                <div class="col-2">
+                                    <i class="fab fa-vk"></i>
+                                </div>
+                                <div class="pl-2">
+                                    <small class="text-muted">{{ _('Share on VK') }}</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                {% endif %}
+                <!-- FaceBook -->
+                <li>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}" onclick="javascript:window.open(this.href,
+							  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                        <div class="row text-muted">
+                            <div class="col-2">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="pl-0">
+                                <small class="text-muted">{{ _('Share on Facebook') }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <!-- Twitter -->
+                <li>
+                    <a href="https://twitter.com/intent/tweet?URL={{ request.url | urlencode }}&amp;text=RailroadNetwork%20-%20Create%20your%20own%20USB%20railroad%20with%20VPN!%0AHome%3A%20{{ request.url | urlencode }}%0A&amp;hashtags=vpn,rroadvpn,rr"
+                       onclick="javascript:window.open(this.href,
+							  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+                        <div class="row text-muted">
+                            <div class="col-2">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div class="pl-2">
+                                <small>{{ _('Tweet') }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="pt-3 pb-3 mb-4" style="background-color: #f8f8f8">
+            <div class="form-group pb-1 pl-5 pr-5 pt-2">
+                <div class="row">
+                    <h6>{{ _('Subscribe to Railroad Network blog') }}</h6>
+                    <div class="col-lg-10 mb-4">
+                        <label for="inputPassword2" class="sr-only">{{ _('Email') }}</label>
+                        <input type="email" class="form-control" required name="email"
+                               placeholder="example@mail.com">
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary col-12 mb-2">{{ _('Subscribe') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% autoescape false %}
+        {{ disqus_dev() }}
+        {{ disqus_show_comments('rroadvpn') }}
+        {% endautoescape %}
+    </div>
+</section>
+{% endblock %}

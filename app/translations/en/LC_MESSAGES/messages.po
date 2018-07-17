@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-04 16:02+0300\n"
+"POT-Creation-Date: 2018-07-17 14:01+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -26,55 +26,42 @@ msgstr ""
 msgid "Railroad Network Services"
 msgstr ""
 
-#: app/service.py:93
+#: app/service.py:98
 msgid "TRIAL_EMAIL_TICKET"
 msgstr "You receive Railroad Ticket. Please don't late on train."
 
-#: app/service.py:94
+#: app/service.py:99
 msgid "TRIAL_EMAIL_WELCOME"
 msgstr "Welcome to"
 
-#: app/service.py:95
+#: app/service.py:100
 msgid "RNS"
 msgstr "Railroad Network Services"
 
-#: app/service.py:96
-#, python-format
-msgid "Hello, %(username)s"
+#: app/service.py:101
+msgid "Hello"
 msgstr ""
 
-#: app/service.py:97
+#: app/service.py:102
 msgid "TRIAL_EMAIL_SUBSCRIPTION_READY"
 msgstr "Your trial subscription registered"
 
-#: app/service.py:98
+#: app/service.py:103
 msgid "TRIAL_EMAIL_THANKS"
 msgstr "Thanks for joining Railroad Network Services. Stay in touch."
 
-#: app/service.py:99
+#: app/service.py:104
 msgid "TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK"
 msgstr "We promise send you no more than 1 email in a week"
 
-#: app/service.py:100
+#: app/service.py:105
 msgid "TRIAL_EMAIL_INFORM"
 msgstr ""
 "We will send you additional information when you can start use your free "
 "subscription."
 
-#: app/service.py:102
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:181
-#: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/index/index.html:75
-#: app/templates/order/order.html:94 app/templates/order/order.html:96
-msgid "Email"
-msgstr ""
-
-#: app/service.py:103
-msgid "Click here"
-msgstr ""
-
-#: app/service.py:104
-msgid "to unsubscribe"
+#: app/service.py:108
+msgid "unsubscribe"
 msgstr ""
 
 #: app/models/exception.py:32 app/templates/error/internal_server_error.html:4
@@ -109,12 +96,80 @@ msgstr ""
 msgid "We can not send you email, please correct and try it again"
 msgstr ""
 
-#: app/templates/about/about.html:4 app/templates/partials/layout.html:169
+#: app/templates/about/about.html:4 app/templates/partials/layout.html:153
 msgid "About Us"
 msgstr ""
 
 #: app/templates/about/about.html:35
 msgid "Welcome to Railroad Network"
+msgstr ""
+
+#: app/templates/about/about.html:38
+msgid "about_us_start_text"
+msgstr ""
+"VPN service RAILROAD NETWORK allows you to keep your privacy, gaining "
+"access to the Internet from anywhere. Using our service, you get freedom "
+"from censorship and geo-restrictions, no trace on the global network. "
+"Service RAILROAD NETWORK is guaranteed to provide safe access to the "
+"desired content, no matter where you are. Now, connecting to the access "
+"point WiFi in a public place, you will not worry about the anonymity and "
+"safety of the data. High-speed servers RAILROAD NETWORK will provide "
+"uninterrupted access to the Internet and instant download of pages, and "
+"in case of malfunctions - customer support service of our service - they "
+"will immediately eliminate them."
+
+#: app/templates/about/about.html:45
+msgid "Who We Are"
+msgstr ""
+
+#: app/templates/about/about.html:47
+msgid "who_we_are_text"
+msgstr ""
+"We are responsible, and we always fulfill our obligations. Our activity "
+"brings real benefits to customers and society. Achievements and results "
+"are an indicator of the professionalism and reliability of our team. We "
+"are for honesty, and all our projects are built on the principle of "
+"honor. We are inspired by the idea of ​​restoring justice and protecting "
+"human rights and freedoms."
+
+#: app/templates/about/about.html:52
+msgid "Our Mission"
+msgstr ""
+
+#: app/templates/about/about.html:54
+msgid "our_mission_text"
+msgstr ""
+"Our team has made the Internet free and safe for everyone. We believe "
+"that the network is not a place for censorship. Therefore, each our user "
+"gets access to information without restrictions and confidence in the "
+"safety and security of their data. We are for loyalty, and against "
+"condemnation. The basis of our business is tolerance."
+
+#: app/templates/about/about.html:60
+msgid "Our Vision"
+msgstr ""
+
+#: app/templates/about/about.html:63
+msgid "our_vision_text"
+msgstr ""
+"Our team has made the Internet free and safe for everyone. We believe "
+"that the network is not a place for censorship. Therefore, each our user "
+"gets access to information without restrictions and confidence in the "
+"safety and security of their data. We are for loyalty, and against "
+"condemnation. The basis of our business is tolerance."
+
+#: app/templates/about/about.html:72
+msgid "Want To Write About Railroad Network?"
+msgstr ""
+
+#: app/templates/about/about.html:75
+msgid ""
+"You can write us about your idea or trouble with our service. Business "
+"solution or you know funny joke? Feel free fill contact form."
+msgstr ""
+
+#: app/templates/about/about.html:79
+msgid "Contact With Us"
 msgstr ""
 
 #: app/templates/auth/signin.html:35
@@ -150,84 +205,133 @@ msgstr ""
 msgid "FAQ"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:62
-#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:165
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:61
+#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:149
 msgid "Blog"
 msgstr ""
 
-#: app/templates/blog/blog.html:52
+#: app/templates/blog/blog.html:53
 msgid "Featured article"
 msgstr ""
 
-#: app/templates/blog/blog.html:62 app/templates/blog/blog.html:89
-#: app/templates/blog/blog.html:106 app/templates/blog/blog.html:121
+#: app/templates/blog/blog.html:70 app/templates/blog/blog.html:97
+#: app/templates/blog/blog.html:114 app/templates/blog/blog.html:129
 msgid "Posted at "
 msgstr ""
 
-#: app/templates/blog/blog.html:62 app/templates/blog/blog.html:89
-#: app/templates/blog/blog.html:106 app/templates/blog/blog.html:121
-msgid "June"
+#: app/templates/blog/blog.html:70
+msgid "July"
 msgstr ""
 
-#: app/templates/blog/blog.html:74
+#: app/templates/blog/blog.html:82
 msgid "Articles"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:4
+#: app/templates/blog/blog.html:97 app/templates/blog/blog.html:114
+#: app/templates/blog/blog.html:129
+msgid "June"
+msgstr ""
+
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:4
 msgid "Test article title"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:63
-msgid "Article"
-msgstr ""
-
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:125
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:180
 msgid "Share on Google Plus"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:139
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:194
 msgid "Share on VK"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:154
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:209
 msgid "Share on Facebook"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:169
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:224
 msgid "Tweet"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:179
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:234
 msgid "Subscribe to Railroad Network blog"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:186
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:236
+#: app/templates/contact/contact.html:171
+#: app/templates/contact/contact.html:172 app/templates/index/index.html:75
+#: app/templates/order/order.html:94 app/templates/order/order.html:96
+msgid "Email"
+msgstr ""
+
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:241
 msgid "Subscribe"
 msgstr ""
 
-#: app/templates/contact/contact.html:4 app/templates/partials/layout.html:173
+#: app/templates/contact/contact.html:4 app/templates/partials/layout.html:157
 msgid "Contact"
 msgstr ""
 
-#: app/templates/contact/contact.html:161
+#: app/templates/contact/contact.html:36
+msgid "Select your queries &amp; write to our experts"
+msgstr ""
+
+#: app/templates/contact/contact.html:58
+msgid "Basic or General Queries"
+msgstr ""
+
+#: app/templates/contact/contact.html:75
+msgid "Technical Support Queries"
+msgstr ""
+
+#: app/templates/contact/contact.html:92
+msgid "Advertisement Queries"
+msgstr ""
+
+#: app/templates/contact/contact.html:109
+msgid "Business Development Queries"
+msgstr ""
+
+#: app/templates/contact/contact.html:126
+msgid "Affiliate Program Queries"
+msgstr ""
+
+#: app/templates/contact/contact.html:143
+msgid "Press Area Queries"
+msgstr ""
+
+#: app/templates/contact/contact.html:154
+msgid "Contact Form"
+msgstr ""
+
+#: app/templates/contact/contact.html:156
+msgid ""
+"Fill up the form. Your e-mail will not be published. Required fields are "
+"marked by"
+msgstr ""
+
 #: app/templates/contact/contact.html:162
+#: app/templates/contact/contact.html:163
 msgid "Name"
 msgstr ""
 
-#: app/templates/contact/contact.html:166
+#: app/templates/contact/contact.html:167
 msgid "Enter name please"
 msgstr ""
 
-#: app/templates/contact/contact.html:175 app/templates/order/order.html:100
+#: app/templates/contact/contact.html:176 app/templates/order/order.html:100
 msgid "Enter email please"
 msgstr ""
 
-#: app/templates/contact/contact.html:179
+#: app/templates/contact/contact.html:180
 msgid "Message"
 msgstr ""
 
-#: app/templates/contact/contact.html:182
+#: app/templates/contact/contact.html:183
 msgid "Enter message please"
+msgstr ""
+
+#: app/templates/contact/contact.html:186
+msgid "Send message"
 msgstr ""
 
 #: app/templates/download/download.html:4
@@ -434,59 +538,59 @@ msgid ""
 " can change payment method any time on payment page."
 msgstr ""
 
-#: app/templates/partials/layout.html:73
+#: app/templates/partials/layout.html:57
 msgid "Services"
 msgstr ""
 
-#: app/templates/partials/layout.html:133
+#: app/templates/partials/layout.html:117
 msgid "Your IP"
 msgstr ""
 
-#: app/templates/partials/layout.html:134
+#: app/templates/partials/layout.html:118
 msgid "Your Location"
 msgstr ""
 
-#: app/templates/partials/layout.html:135
+#: app/templates/partials/layout.html:119
 msgid "Your ISP"
 msgstr ""
 
-#: app/templates/partials/layout.html:137
-#: app/templates/partials/layout.html:140
+#: app/templates/partials/layout.html:121
+#: app/templates/partials/layout.html:124
 msgid "Your Status"
 msgstr ""
 
-#: app/templates/partials/layout.html:137
+#: app/templates/partials/layout.html:121
 msgid "protected"
 msgstr ""
 
-#: app/templates/partials/layout.html:141
+#: app/templates/partials/layout.html:125
 msgid "unprotected"
 msgstr ""
 
-#: app/templates/partials/layout.html:142
+#: app/templates/partials/layout.html:126
 msgid "Subscribe to get protection!"
 msgstr ""
 
-#: app/templates/partials/layout.html:222
+#: app/templates/partials/layout.html:206
 msgid "Privacy Policy"
 msgstr ""
 
-#: app/templates/partials/layout.html:224
+#: app/templates/partials/layout.html:208
 msgid "Terms &amp; Conditions"
 msgstr ""
 
-#: app/templates/partials/layout.html:235
+#: app/templates/partials/layout.html:219
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
 "including a fast account login. If you disagree..."
 msgstr ""
 
-#: app/templates/partials/layout.html:236
+#: app/templates/partials/layout.html:220
 msgid "Read more..."
 msgstr ""
 
-#: app/templates/partials/layout.html:239
+#: app/templates/partials/layout.html:223
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
@@ -771,5 +875,20 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "DOWNLOAD"
+#~ msgstr ""
+
+#~ msgid "Hello, %(username)s"
+#~ msgstr ""
+
+#~ msgid "Click here"
+#~ msgstr ""
+
+#~ msgid "to unsubscribe"
+#~ msgstr ""
+
+#~ msgid "Article"
+#~ msgstr ""
+
+#~ msgid "Ресурсы заблокированные в разных странах"
 #~ msgstr ""
 

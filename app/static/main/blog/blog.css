@@ -35,3 +35,7 @@ h5.card-title {
 .card:hover .card-title {
     color: #f8cc46;
 }
+
+.card a {
+    color: black;
+}

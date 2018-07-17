@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-04 16:02+0300\n"
+"POT-Creation-Date: 2018-07-17 14:01+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -27,56 +27,45 @@ msgstr "Добро пожаловать в"
 msgid "Railroad Network Services"
 msgstr ""
 
-#: app/service.py:93
+#: app/service.py:98
 msgid "TRIAL_EMAIL_TICKET"
 msgstr ""
 "Поздаравляем! Вы получили RailroadTicket. Пожалуйста, не опоздайте на "
 "поезд."
 
-#: app/service.py:94
+#: app/service.py:99
 msgid "TRIAL_EMAIL_WELCOME"
 msgstr "Добро пожаловать в"
 
-#: app/service.py:95
+#: app/service.py:100
 msgid "RNS"
 msgstr "Railroad Network Services"
 
-#: app/service.py:96
-#, python-format
-msgid "Hello, %(username)s"
-msgstr "Приветствую, %(username)s"
+#: app/service.py:101
+msgid "Hello"
+msgstr "Привет"
 
-#: app/service.py:97
+#: app/service.py:102
 msgid "TRIAL_EMAIL_SUBSCRIPTION_READY"
 msgstr "Ваша триальная подписка зарегистрирована."
 
-#: app/service.py:98
+#: app/service.py:103
 msgid "TRIAL_EMAIL_THANKS"
 msgstr "Благодарим Вас за использование услуг Railroad Network Services"
 
-#: app/service.py:99
+#: app/service.py:104
 msgid "TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK"
 msgstr "Мы обещаем не посылать более 1 письма в неделю."
 
-#: app/service.py:100
+#: app/service.py:105
 msgid "TRIAL_EMAIL_INFORM"
-msgstr "Мы отправим Вам всю необходимую информацию, когда Вы сможете начать использовать свою бесплатную триальную подписку."
+msgstr ""
+"Мы отправим Вам всю необходимую информацию, когда Вы сможете начать "
+"использовать свою бесплатную триальную подписку."
 
-#: app/service.py:102
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:181
-#: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/index/index.html:75
-#: app/templates/order/order.html:94 app/templates/order/order.html:96
-msgid "Email"
-msgstr "Электронная почта"
-
-#: app/service.py:103
-msgid "Click here"
-msgstr "Нажмите сюда"
-
-#: app/service.py:104
-msgid "to unsubscribe"
-msgstr "чтобы отписаться"
+#: app/service.py:108
+msgid "unsubscribe"
+msgstr "отписаться"
 
 #: app/models/exception.py:32 app/templates/error/internal_server_error.html:4
 msgid "Internal Server Error"
@@ -112,13 +101,84 @@ msgstr ""
 "Мы не можем послать вам письмо на указанную вами почту, исправьте или "
 "введите другой адрес и попробуйте еще раз"
 
-#: app/templates/about/about.html:4 app/templates/partials/layout.html:169
+#: app/templates/about/about.html:4 app/templates/partials/layout.html:153
 msgid "About Us"
 msgstr "О Нас"
 
 #: app/templates/about/about.html:35
 msgid "Welcome to Railroad Network"
 msgstr "Добро пожаловать в Railroad Network"
+
+#: app/templates/about/about.html:38
+msgid "about_us_start_text"
+msgstr ""
+"VPN-сервис «RAILROAD NETWORK» позволяет сохранить конфиденциальность, "
+"получая доступ в Интернет из любой точки мира. Используя наш сервис, вы "
+"получаете свободу от онлайн-цензуры и региональных ограничений, не "
+"оставляя никаких следов работы в глобальной сети. Сервис «RAILROAD "
+"NETWORK» гарантированно предоставит безопасный доступ к желаемому "
+"контенту, независимо от того, где вы находитесь. Теперь, подключившись к "
+"точке доступа WI-FI в общественном месте, вы не будете беспокоиться за "
+"анонимность и сохранность данных. Высокоскоростные сервера «RAILROAD "
+"NETWORK» обеспечат бесперебойный доступ в Интернет и мгновенную загрузку "
+"страниц, а в случае возникновения неисправностей – служба поддержки "
+"клиентов нашего сервиса – незамедлительно их устранит."
+
+#: app/templates/about/about.html:45
+msgid "Who We Are"
+msgstr "Кто Мы"
+
+#: app/templates/about/about.html:47
+msgid "who_we_are_text"
+msgstr ""
+"Мы за ответственность, и всегда выполняем свои обязательства. Наша "
+"деятельность приносит реальную пользу клиентам и обществу. Достижения и "
+"результаты – показатель профессионализма и надежности нашей команды. Мы "
+"за честность, и все наши проекты построены по принципу чести. Нас "
+"вдохновляет идея восстановления справедливости и защиты прав и свобод "
+"человека."
+
+#: app/templates/about/about.html:52
+msgid "Our Mission"
+msgstr "Наша Миссия"
+
+#: app/templates/about/about.html:54
+msgid "our_mission_text"
+msgstr ""
+"Наша команда сделала Интернет свободным и безопасным для каждого. Мы "
+"верим в то, что сеть - не место для цензуры. Поэтому, каждый наш "
+"пользователь получает доступ к информации без ограничений и уверенность в"
+" безопасности и сохранности своих данных. Мы за лояльность, и против "
+"осуждения. Основой нашего бизнеса является толерантность."
+
+#: app/templates/about/about.html:60
+msgid "Our Vision"
+msgstr "Наше Видение"
+
+#: app/templates/about/about.html:63
+msgid "our_vision_text"
+msgstr ""
+"Мы создали «RAILROAD NETWORK» и освободили вас от ограничений в сети "
+"Интернет. Наш сервис обеспечивает безопасность пользователей и их данных "
+"в глобальной сети по всему миру. При этом использование «RAILROAD "
+"NETWORK» не требует специальных знаний и навыков – вы легко и свободно "
+"используете все возможности Всемирной паутины."
+
+#: app/templates/about/about.html:72
+msgid "Want To Write About Railroad Network?"
+msgstr "Хотите написать нам?"
+
+#: app/templates/about/about.html:75
+msgid ""
+"You can write us about your idea or trouble with our service. Business "
+"solution or you know funny joke? Feel free fill contact form."
+msgstr ""
+"У вас есть идея или проблема с нашим сервисом? Деловое предложение или "
+"смешная шутка? Напишите через контактную форму и мы ответим вам!"
+
+#: app/templates/about/about.html:79
+msgid "Contact With Us"
+msgstr "Связаться с нами"
 
 #: app/templates/auth/signin.html:35
 msgid "Log in"
@@ -153,85 +213,135 @@ msgstr "Создайте!"
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:62
-#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:165
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:61
+#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:149
 msgid "Blog"
 msgstr "Блог"
 
-#: app/templates/blog/blog.html:52
+#: app/templates/blog/blog.html:53
 msgid "Featured article"
 msgstr "Рекомендуемая статья"
 
-#: app/templates/blog/blog.html:62 app/templates/blog/blog.html:89
-#: app/templates/blog/blog.html:106 app/templates/blog/blog.html:121
+#: app/templates/blog/blog.html:70 app/templates/blog/blog.html:97
+#: app/templates/blog/blog.html:114 app/templates/blog/blog.html:129
 msgid "Posted at "
-msgstr "Создано в "
+msgstr "Создано "
 
-#: app/templates/blog/blog.html:62 app/templates/blog/blog.html:89
-#: app/templates/blog/blog.html:106 app/templates/blog/blog.html:121
-msgid "June"
-msgstr "Июня"
+#: app/templates/blog/blog.html:70
+msgid "July"
+msgstr "Июля"
 
-#: app/templates/blog/blog.html:74
+#: app/templates/blog/blog.html:82
 msgid "Articles"
 msgstr "Статьи"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:4
+#: app/templates/blog/blog.html:97 app/templates/blog/blog.html:114
+#: app/templates/blog/blog.html:129
+msgid "June"
+msgstr "Июня"
+
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:4
 msgid "Test article title"
 msgstr ""
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:63
-msgid "Article"
-msgstr "Статья"
-
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:125
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:180
 msgid "Share on Google Plus"
 msgstr "Поделиться в Google Plus"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:139
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:194
 msgid "Share on VK"
-msgstr ""
+msgstr "Поделиться в ВК"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:154
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:209
 msgid "Share on Facebook"
 msgstr "Поделиться на Facebook"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:169
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:224
 msgid "Tweet"
 msgstr "Твитнуть"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:179
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:234
 msgid "Subscribe to Railroad Network blog"
 msgstr "Подпишитесь на Railroad Network блог"
 
-#: app/templates/blog/articles/whats-new-in-vpn-world.html:186
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:236
+#: app/templates/contact/contact.html:171
+#: app/templates/contact/contact.html:172 app/templates/index/index.html:75
+#: app/templates/order/order.html:94 app/templates/order/order.html:96
+msgid "Email"
+msgstr "Электронная почта"
+
+#: app/templates/blog/articles/resources-blocked-in-different-countries.html:241
 msgid "Subscribe"
 msgstr "Подписаться"
 
-#: app/templates/contact/contact.html:4 app/templates/partials/layout.html:173
+#: app/templates/contact/contact.html:4 app/templates/partials/layout.html:157
 msgid "Contact"
 msgstr "Контакты"
 
-#: app/templates/contact/contact.html:161
+#: app/templates/contact/contact.html:36
+msgid "Select your queries &amp; write to our experts"
+msgstr "Выберите тему запроса и напишите нашим экспертам"
+
+#: app/templates/contact/contact.html:58
+msgid "Basic or General Queries"
+msgstr "Простые и общие вопросы"
+
+#: app/templates/contact/contact.html:75
+msgid "Technical Support Queries"
+msgstr "Техническая поддержка"
+
+#: app/templates/contact/contact.html:92
+msgid "Advertisement Queries"
+msgstr "По вопросам рекламы"
+
+#: app/templates/contact/contact.html:109
+msgid "Business Development Queries"
+msgstr "Хотите поработать вместе?"
+
+#: app/templates/contact/contact.html:126
+msgid "Affiliate Program Queries"
+msgstr "Вопросы партнерства"
+
+#: app/templates/contact/contact.html:143
+msgid "Press Area Queries"
+msgstr "СМИ"
+
+#: app/templates/contact/contact.html:154
+msgid "Contact Form"
+msgstr "Контактная форма"
+
+#: app/templates/contact/contact.html:156
+msgid ""
+"Fill up the form. Your e-mail will not be published. Required fields are "
+"marked by"
+msgstr ""
+"Заполните форму. Ваш адрес электронный почты не будет нигде опубликован. Обязательные поля для заполнения отмечены "
+
 #: app/templates/contact/contact.html:162
+#: app/templates/contact/contact.html:163
 msgid "Name"
 msgstr "Имя"
 
-#: app/templates/contact/contact.html:166
+#: app/templates/contact/contact.html:167
 msgid "Enter name please"
 msgstr "Введите Ваше имя пожалуйста"
 
-#: app/templates/contact/contact.html:175 app/templates/order/order.html:100
+#: app/templates/contact/contact.html:176 app/templates/order/order.html:100
 msgid "Enter email please"
 msgstr "Введите электронную почту пожалуйста"
 
-#: app/templates/contact/contact.html:179
+#: app/templates/contact/contact.html:180
 msgid "Message"
 msgstr "Сообщение"
 
-#: app/templates/contact/contact.html:182
+#: app/templates/contact/contact.html:183
 msgid "Enter message please"
 msgstr "Введите Ваше сообщение пожалуйста"
+
+#: app/templates/contact/contact.html:186
+msgid "Send message"
+msgstr "Отправить сообщение"
 
 #: app/templates/download/download.html:4
 msgid "Download"
@@ -266,6 +376,8 @@ msgid ""
 "We under construction and will release first version soon. Be in touch "
 "and subscribe for news by email."
 msgstr ""
+"Сервис в процессе разработки и первый релиз очень скоро! Оставайтесь на "
+"связи и подпишитесь на новости!"
 
 #: app/templates/index/index.html:53
 msgid "Learn More!"
@@ -273,15 +385,15 @@ msgstr "Узнать больше!"
 
 #: app/templates/index/index.html:55
 msgid "Click Here To Get FREE Trial!"
-msgstr ""
+msgstr "Нажмите чтобы получить подписку"
 
 #: app/templates/index/index.html:69
 msgid "Subscribe and get free trial"
-msgstr ""
+msgstr "Подпишитесь и получите подписку"
 
 #: app/templates/index/index.html:80
 msgid "GET FREE TRIAL"
-msgstr ""
+msgstr "Получить подписку"
 
 #: app/templates/index/index.html:95
 msgid "WHY Railroad VPN Services?"
@@ -443,48 +555,48 @@ msgstr ""
 "Некоторые способы оплаты могут быть недоступны на странице оплаты. Вы "
 "всегда можете выбрать другой способ оплаты на странице оплаты."
 
-#: app/templates/partials/layout.html:73
+#: app/templates/partials/layout.html:57
 msgid "Services"
 msgstr "Сервисы"
 
-#: app/templates/partials/layout.html:133
+#: app/templates/partials/layout.html:117
 msgid "Your IP"
 msgstr "Ваш IP"
 
-#: app/templates/partials/layout.html:134
+#: app/templates/partials/layout.html:118
 msgid "Your Location"
 msgstr "Ваше местоположение"
 
-#: app/templates/partials/layout.html:135
+#: app/templates/partials/layout.html:119
 msgid "Your ISP"
 msgstr "Ваш ISP"
 
-#: app/templates/partials/layout.html:137
-#: app/templates/partials/layout.html:140
+#: app/templates/partials/layout.html:121
+#: app/templates/partials/layout.html:124
 msgid "Your Status"
 msgstr "Ваш статус"
 
-#: app/templates/partials/layout.html:137
+#: app/templates/partials/layout.html:121
 msgid "protected"
 msgstr "защищен"
 
-#: app/templates/partials/layout.html:141
+#: app/templates/partials/layout.html:125
 msgid "unprotected"
 msgstr "незащищен"
 
-#: app/templates/partials/layout.html:142
+#: app/templates/partials/layout.html:126
 msgid "Subscribe to get protection!"
-msgstr ""
+msgstr "Подпишись чтобы получить защиту!"
 
-#: app/templates/partials/layout.html:222
+#: app/templates/partials/layout.html:206
 msgid "Privacy Policy"
 msgstr "Политика Конфиденциальности"
 
-#: app/templates/partials/layout.html:224
+#: app/templates/partials/layout.html:208
 msgid "Terms &amp; Conditions"
 msgstr "Условия и положения"
 
-#: app/templates/partials/layout.html:235
+#: app/templates/partials/layout.html:219
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
@@ -494,11 +606,11 @@ msgstr ""
 "опыт использования Сайта. Используя cookies Вы можете использовать все "
 "возможности сайта. Если вы не согласны..."
 
-#: app/templates/partials/layout.html:236
+#: app/templates/partials/layout.html:220
 msgid "Read more..."
 msgstr "Прочитать больше..."
 
-#: app/templates/partials/layout.html:239
+#: app/templates/partials/layout.html:223
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
@@ -662,5 +774,20 @@ msgstr "построить свою сеть"
 #~ msgstr ""
 
 #~ msgid "VPN for macOS"
+#~ msgstr ""
+
+#~ msgid "Hello, %(username)s"
+#~ msgstr "Приветствую, %(username)s"
+
+#~ msgid "Click here"
+#~ msgstr "Нажмите сюда"
+
+#~ msgid "to unsubscribe"
+#~ msgstr "чтобы отписаться"
+
+#~ msgid "Article"
+#~ msgstr "Статья"
+
+#~ msgid "Ресурсы заблокированные в разных странах"
 #~ msgstr ""
 
