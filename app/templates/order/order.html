@@ -15,11 +15,15 @@
 {% block import_js %}
 
     {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/common/payproglobal.js') }}" type="text/javascript"
+                charset="utf-8"></script>
         <script src="{{ url_for('static', filename='assets/jquery/jquery.Backstretch.js') }}" type="text/javascript"
                 charset="utf-8"></script>
         <script src="{{ url_for('static', filename='main/order/order.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% else %}
+        <script src="{{ url_for('static', filename='main/common/payproglobal.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
         <script src="{{ url_for('static', filename='assets/jquery/jquery.Backstretch.min.js') }}" type="text/javascript"
                 charset="utf-8"></script>
         <script src="{{ url_for('static', filename='main/order/order.min.js') }}" type="text/javascript"

@@ -125,8 +125,8 @@ def signin():
             except APIException as e:
                 logging.debug(e.serialize())
                 r.set_failed()
-                # TODO fix it
-                error = AjaxError(message='api not available', code='0', developer_message='something goes wrong')
+                error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message, code=DFNError.UNKNOWN_ERROR_CODE.code,
+                                  developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
                 r.add_error(error)
                 resp = jsonify(r.serialize())
                 resp.code = e.http_code

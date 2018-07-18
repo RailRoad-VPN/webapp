@@ -1,5 +1,6 @@
 import codecs
 import datetime
+import hashlib
 import logging
 import smtplib
 import sys
@@ -224,9 +225,14 @@ class RRNUsersAPIService(RESTService):
         super().__init__(api_url=api_url, resource_name=resource_name)
 
     def create_user(self, email, password) -> dict:
+        m = hashlib.md5()
+        st = password.encode('utf-8')
+        m.update(st)
+        pwd = m.hexdigest()
+
         user_json = {
             'email': email,
-            'password': password,
+            'password': pwd,
         }
         logger.debug('create user with parameters user_json: %s' % user_json)
         api_response = self._post(data=user_json, headers=self._headers)

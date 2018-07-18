@@ -227,7 +227,9 @@ $(document).ready(function () {
             success: function (response) {
                 if (response['success']) {
                     console.log(JSON.stringify(response));
-                    getPaymentPageURL();
+                    getPaymentPageURL(function () {
+                        setToLocalStorage(LS_ORDER_KEY, '');
+                    });
                 } else {
                     if (response.hasOwnProperty('errors')) {
                         showErrors(response);
@@ -246,32 +248,11 @@ $(document).ready(function () {
         var subscriptionIdVal = $.trim($("#subscription-id").val());
         var paymentMethodVal = $.trim($("#payment_method").val());
 
-        var data = {
-            'order_code': orderCodeVal,
-            'subscription_id': subscriptionIdVal,
-            'payment_method_id': paymentMethodVal,
-        };
-        var isAsync = true;
+        var getPaymentURL = $getPaymentUrlURLObj.data('url');
+        var getPaymentURLMethod = $getPaymentUrlURLObj.data('method');
 
-        var successCallback = function (response) {
-            if (response.hasOwnProperty('success') && response['success']) {
-                if (response.hasOwnProperty('data')) {
-                    setToLocalStorage(LS_ORDER_KEY, '');
-                    window.location = response['data']['redirect_url'];
-                } else {
-                    callback ? callback() : ''
-                }
-            } else {
-                showErrors(response);
-            }
-        };
-
-        var errorCallback = function (response) {
-            notyError("System Error");
-        };
-
-        doAjax($getPaymentUrlURLObj.data('url'), $getPaymentUrlURLObj.data('method'), data, isAsync, successCallback,
-            errorCallback)
+        redirectToPaymentPage(orderCodeVal, subscriptionIdVal, paymentMethodVal, 'order', getPaymentURL,
+            getPaymentURLMethod, callback);
     }
 
     $paymentMethodsModal.on('hide.bs.modal', function (e) {

@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
     var $getPinCodeUrlObj = $("meta#get_pincode_url");
+    var $renewSubUrlObj = $("meta#renew_sub_url");
 
     var $el, leftPos, newWidth;
 
@@ -73,5 +74,31 @@ $(document).ready(function () {
             errorCallback);
 
         $("#pincode-modal").modal('show');
+    });
+
+    $("#renew-sub-btn").click(function () {
+        var isAsync = true;
+
+        var _data = {
+            'sub_id': $(this).data('sub_id'),
+            'order_code': $(this).data('order_code')
+        };
+
+        var successCallback = function (response) {
+            if (response['success']) {
+                window.location = response['data']['redirect_url'];
+            } else {
+                if (response.hasOwnProperty('errors')) {
+                    showErrors(response);
+                }
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($renewSubUrlObj.data('url'), $renewSubUrlObj.data('method'), JSON.stringify(_data), isAsync, successCallback,
+            errorCallback);
     });
 });
