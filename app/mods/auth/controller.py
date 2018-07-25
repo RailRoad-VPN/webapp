@@ -13,6 +13,7 @@ from app.models.exception import DFNError
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException, APINotFoundException
+from utils import check_uuid
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +40,20 @@ def signup():
     email = request.form.get('email', None)
     password = request.form.get('password', None)
     password_repeat = request.form.get('password_repeat', None)
+    existed_user_uuid = request.form.get('existed_user_uuid', None)
+
+    is_uuid = check_uuid(suuid=existed_user_uuid)
+    if is_uuid:
+        try:
+            rrn_user_service.get_user(uuid=existed_user_uuid)
+            r.set_success()
+            resp = jsonify(r.serialize())
+            resp.code = HTTPStatus.OK
+            return resp
+        except (APINotFoundException, APIException):
+            email = None
+            password = None
+            password_repeat = None
 
     if email is None or password is None or password_repeat is None or password != password_repeat:
         r.set_failed()
