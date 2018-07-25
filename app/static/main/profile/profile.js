@@ -10,6 +10,9 @@ $(document).ready(function () {
     var $menuItems = $menu.find("li");
     var $menuItemsLinks = $menuItems.find('a');
 
+    var is_user_has_active_subscribe = $(".is_user_has_active_subscribe").length > 0;
+    alert(is_user_has_active_subscribe);
+
     /*
      MENU
      */
