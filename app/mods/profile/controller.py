@@ -7,7 +7,7 @@ from flask import Blueprint, render_template, session, jsonify, request, redirec
 from app import rrn_user_service, subscription_service, app_config, rrn_orders_service
 from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
-from exception import DFNError
+from app.models.exception import DFNError
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/<lang_code>/profile')
 
