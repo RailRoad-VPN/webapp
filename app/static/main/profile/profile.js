@@ -121,7 +121,9 @@ $(document).ready(function () {
     $(".payment-wait").each(function () {
         var order_code = $(this).data('order_code');
 
-        var o_interval = setInterval(getOrderByCode(order_code), 5000);
+        var o_interval = setInterval(function() {
+            getOrderByCode(order_code);
+        }, 5000);
         order_intervals[order_code] = o_interval;
     });
 
