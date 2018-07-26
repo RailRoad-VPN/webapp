@@ -36,6 +36,7 @@
 {% block meta %}
     <meta id="get_pincode_url" data-method="GET" data-url="{{ url_for('profile.generate_pincode') }}">
     <meta id="renew_sub_url" data-method="POST" data-url="{{ url_for('profile.renew_sub') }}">
+        <meta id="get_order_url" data-method="GET" data-url="{{ url_for('order.renew_sub') }}">
 {% endblock %}
 
 {% block body %}
@@ -86,7 +87,7 @@
                             <h4 class="d-inline">
                                 {{ sub['name'] }}
                             </h4>
-                            <span style="margin-top: -10px; padding-left: 10px; position: absolute;">
+                            <span id="" style="margin-top: -10px; padding-left: 10px; position: absolute;">
                                 {% if us['is_expired'] == false and us['order']['payment_uuid'] %}
                                     <input class="is_user_has_active_subscribe" type="hidden" value="true">
                                 {% endif %}
@@ -102,6 +103,7 @@
                                 <span class="badge badge-dark">{{ _('Order') }} #{{ order['code'] }}</span>
                                 <span class="badge badge-info">{{ sub['bill_freq'] }}</span>
                             </span>
+                            <!-- 0 price for free sub -->
                             {% if sub['price_per_month'] != 0 %}
                                 <span class="d-inline float-right">
                                     {% if us['is_expired'] == true %}
@@ -110,7 +112,9 @@
                                         <small class="text-muted">{{ _('Next payment at') }}:</small>
                                     {% endif %}
                                     {% if not us['order']['payment_uuid'] %}
-                                        <small>{{ _('Waiting for payment') }}</small>
+                                        <small class="payment-wait" data-order_code="{{ us['order']['code'] }}">
+                                            {{ _('Waiting for payment') }}
+                                        </small>
                                     {% else %}
                                         <small>{{ moment(us['created_date'] | strftime).fromNow() }}</small>
                                     {% endif %}

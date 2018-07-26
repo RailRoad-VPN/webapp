@@ -90,10 +90,13 @@ def order():
         order_uuid = session['order']['uuid']
 
         error = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
+        session.pop('order')
         return redirect(url_for('profile.profile_page', error=error))
     elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
         if 'error' in request.args:
-            logger.error(f"PayProGlobal error {request.args.get('error', None)}")
+            error = request.args.get('error', None)
+            logger.error(f"PayProGlobal error: {error}")
+            return redirect(url_for('profile.profile_page', error=error))
 
     pack_id = request.args.get('pack', None)
 
@@ -131,7 +134,7 @@ def order():
 
 @mod_order.route('payment_url', methods=['GET'])
 def payment_url():
-    logger.info('generate_payment_redirect_url method')
+    logger.info('payment_url method')
 
     r = AjaxResponse(success=True)
 
@@ -148,6 +151,38 @@ def payment_url():
     session['order']['redirect_url'] = redirect_url
 
     r.add_data('redirect_url', redirect_url)
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp
+
+
+@mod_order.route('/<int:order_code>/payment')
+def get_order_payment(order_code: int):
+    logger.info('get_order method')
+
+    r = AjaxResponse(success=True)
+
+    try:
+        order_json = rrn_orders_service.get_order(code=order_code)
+    except APIException as e:
+        logging.debug(e.serialize())
+        r.set_failed()
+        error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
+                          code=DFNError.UNKNOWN_ERROR_CODE.code,
+                          developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
+        r.add_error(error)
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.OK
+        return resp
+
+    order_r = {
+        'is_success': order_json['status_id'] == OrderStatus.SUCCESS,
+        'code': order_code,
+        'payment_arrived': order_json.get('payment_uuid', None) is not None
+    }
+
+    r.add_data('order', order_r)
     r.set_success()
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK

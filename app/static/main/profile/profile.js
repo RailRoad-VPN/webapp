@@ -3,6 +3,7 @@
 $(document).ready(function () {
     var $getPinCodeUrlObj = $("meta#get_pincode_url");
     var $renewSubUrlObj = $("meta#renew_sub_url");
+    var $getOrderUrlObj = $("meta#get_order_url");
 
     var $el, leftPos, newWidth;
 
@@ -114,4 +115,50 @@ $(document).ready(function () {
         doAjax($renewSubUrlObj.data('url'), $renewSubUrlObj.data('method'), JSON.stringify(_data), isAsync, successCallback,
             errorCallback);
     });
+
+    var order_intervals = {};
+
+    $(".payment-wait").each(function () {
+        var order_code = $(this).data('order_code');
+
+        order_intervals[order_code] = setInterval(getOrderByCode(order_code), 5000);
+    });
+
+    function getOrderByCode(order_code) {
+        var isAsync = true;
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && response['success']) {
+                if (response.hasOwnProperty('data')) {
+                    var data = response['data'];
+                    if (response.hasOwnProperty('order')) {
+                        var order = data['order'];
+
+                        var is_success = order['is_success'];
+                        var code = order['code'];
+                        var payment_arrived = order['payment_arrived'];
+
+                        if (payment_arrived === true) {
+                            $('.payment-wait[data-order_code="' + code + '"]').remove();
+
+                            if (!is_user_has_active_subscribe) {
+                                $generatePinBtn.removeClass("disabled");
+                                $generatePinBtn.attr("disabled", false);
+                            }
+                            clearInterval(order_intervals[code]);
+                        }
+                    }
+                }
+            } else {
+                showErrors(response);
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($getPinCodeUrlObj.data('url'), $getPinCodeUrlObj.data('method'), {}, isAsync, successCallback,
+            errorCallback);
+    }
 });
