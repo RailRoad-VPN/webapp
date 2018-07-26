@@ -59,7 +59,11 @@ $(document).ready(function () {
             .data("origWidth", $magicLine.width());
     }
 
-    $generatePinBtn .click(function () {
+    $generatePinBtn.click(function () {
+        if (!is_user_has_active_subscribe) {
+            // TODO notification to user
+            return false;
+        }
         var isAsync = true;
 
         var successCallback = function (response) {

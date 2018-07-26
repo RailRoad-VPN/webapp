@@ -87,10 +87,13 @@
                                 {{ sub['name'] }}
                             </h4>
                             <span style="margin-top: -10px; padding-left: 10px; position: absolute;">
+                                {% if us['is_expired'] == false and us['order']['payment_uuid'] %}
+                                    <input class="is_user_has_active_subscribe" type="hidden" value="true">
+                                {% endif %}
+
                                 {% if us['is_expired'] == true %}
                                     <span class="badge badge-danger">{{ _('Expired') }}</span>
                                 {% else %}
-                                    <input class="is_user_has_active_subscribe" type="hidden" value="true">
                                     <span class="badge badge-success">{{ _('Active') }}</span>
                                 {% endif %}
                                 {% if not us['order']['payment_uuid'] %}
