@@ -3,7 +3,7 @@
 $(document).ready(function () {
     var $getPinCodeUrlObj = $("meta#get_pincode_url");
     var $renewSubUrlObj = $("meta#renew_sub_url");
-    var $getOrderUrlObj = $("meta#get_order_url");
+    var $getOrderPaymentUrlObj = $("meta#get_order_payment_url");
 
     var $el, leftPos, newWidth;
 
@@ -158,7 +158,7 @@ $(document).ready(function () {
             notyError("System Error");
         };
 
-        doAjax($getPinCodeUrlObj.data('url'), $getPinCodeUrlObj.data('method'), {}, isAsync, successCallback,
+        doAjax($getOrderPaymentUrlObj.data('url').replace(-1, order_code), $getOrderPaymentUrlObj.data('method'), {}, isAsync, successCallback,
             errorCallback);
     }
 });

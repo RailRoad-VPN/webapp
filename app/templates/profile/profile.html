@@ -36,7 +36,7 @@
 {% block meta %}
     <meta id="get_pincode_url" data-method="GET" data-url="{{ url_for('profile.generate_pincode') }}">
     <meta id="renew_sub_url" data-method="POST" data-url="{{ url_for('profile.renew_sub') }}">
-        <meta id="get_order_url" data-method="GET" data-url="{{ url_for('order.renew_sub') }}">
+    <meta id="get_order_payment_url" data-method="GET" data-url="{{ url_for('order.get_order_payment', order_code=-1) }}">
 {% endblock %}
 
 {% block body %}
