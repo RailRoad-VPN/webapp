@@ -193,6 +193,10 @@ $(document).ready(function () {
         if (USER_REGISTERED) {
             return true;
         }
+        if ($emailInput.hasClass('is-invalid')) {
+            return false;
+        }
+
         var is_pwd_ok = checkPassword();
         if (!is_pwd_ok) {
             return false;
