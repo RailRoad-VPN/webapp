@@ -55,8 +55,11 @@ $(document).ready(function () {
             $packInput.val(ORDER_LS[LS_ORDER_PACK_ID_KEY]);
             if (ACCOUNT_LS) {
                 $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
+                checkEmail();
                 $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
+                checkPassword();
                 $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
+                checkRepeatPassword();
             }
         }
     }

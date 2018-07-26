@@ -1,6 +1,13 @@
 'use strict';
 
 $(document).ready(function () {
+    $('input, button').click(function (event) {
+        if ($(this).hasClass('disabled')) {
+            event.preventDefault();
+            return true;
+        }
+    });
+    
     var year = moment().format('YYYY');
     $("#copy-year").text(year);
 

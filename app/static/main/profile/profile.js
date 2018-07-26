@@ -10,8 +10,14 @@ $(document).ready(function () {
     var $menuItems = $menu.find("li");
     var $menuItemsLinks = $menuItems.find('a');
 
+    var $generatePinBtn = $("#generate-pin-btn");
+
     var is_user_has_active_subscribe = $(".is_user_has_active_subscribe").length > 0;
-    alert(is_user_has_active_subscribe);
+
+    if (!is_user_has_active_subscribe) {
+        $generatePinBtn.addClass("disabled");
+        $generatePinBtn.attr("disabled", true);
+    }
 
     /*
      MENU
@@ -53,7 +59,7 @@ $(document).ready(function () {
             .data("origWidth", $magicLine.width());
     }
 
-    $("#generate-pin-btn").click(function () {
+    $generatePinBtn .click(function () {
         var isAsync = true;
 
         var successCallback = function (response) {
@@ -79,7 +85,7 @@ $(document).ready(function () {
         $("#pincode-modal").modal('show');
     });
 
-    $("#renew-sub-btn").click(function () {
+    $(".renew-sub-btn").click(function () {
         var isAsync = true;
 
         var _data = {

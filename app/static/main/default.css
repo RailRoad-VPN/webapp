@@ -608,3 +608,8 @@ img::-moz-selection {
 .menu-disabled a {
     color: #3e3e3e !important;
 }
+
+.btn.disabled {
+    color: gray;
+    cursor: not-allowed;
+}

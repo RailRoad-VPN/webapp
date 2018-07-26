@@ -91,6 +91,9 @@ def order():
 
         error = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
         return redirect(url_for('profile.profile_page', error=error))
+    elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
+        if 'error' in request.args:
+            logger.error(f"PayProGlobal error {request.args.get('error', None)}")
 
     pack_id = request.args.get('pack', None)
 
@@ -141,6 +144,8 @@ def payment_url():
 
     redirect_url = ppg_payments_service.build_redirect_url(order_code=order_code, subscription_id=subscription_id,
                                                            payment_method_id=payment_method_id, user_locale=user_locale)
+
+    session['order']['redirect_url'] = redirect_url
 
     r.add_data('redirect_url', redirect_url)
     r.set_success()
