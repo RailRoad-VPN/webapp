@@ -121,7 +121,8 @@ $(document).ready(function () {
     $(".payment-wait").each(function () {
         var order_code = $(this).data('order_code');
 
-        order_intervals[order_code] = setInterval(getOrderByCode(order_code), 5000);
+        var o_interval = setInterval(getOrderByCode(order_code), 5000);
+        order_intervals[order_code] = o_interval;
     });
 
     function getOrderByCode(order_code) {
@@ -131,7 +132,7 @@ $(document).ready(function () {
             if (response.hasOwnProperty('success') && response['success']) {
                 if (response.hasOwnProperty('data')) {
                     var data = response['data'];
-                    if (response.hasOwnProperty('order')) {
+                    if (data.hasOwnProperty('order')) {
                         var order = data['order'];
 
                         var is_success = order['is_success'];
