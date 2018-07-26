@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-25 18:55+0300\n"
+"POT-Creation-Date: 2018-07-26 16:17+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -44,15 +44,17 @@ msgstr ""
 
 #: app/service.py:110
 msgid "NEW_SUB_BUY_FACT"
-msgstr ""
+msgstr "Railroad VPN subscription: "
 
 #: app/service.py:111
 msgid "NEW_SUB_EMAIL_THANKS"
-msgstr ""
+msgstr "Thank you for buying RailroadVPN subscription!"
 
 #: app/service.py:112
 msgid "NEW_SUB_PAYMENT_INFORM"
 msgstr ""
+"You can use RailroadVPN, when your payment will processed. We will inform"
+" you by new email."
 
 #: app/service.py:134
 msgid "TRIAL_EMAIL_SUBSCRIPTION_READY"
@@ -204,7 +206,6 @@ msgstr ""
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:181
 #: app/templates/contact/contact.html:170
 #: app/templates/contact/contact.html:171 app/templates/order/order.html:98
-#: app/templates/order/order.html:100
 msgid "Email"
 msgstr ""
 
@@ -418,7 +419,7 @@ msgid "Back"
 msgstr ""
 
 #: app/templates/order/order.html:142
-msgid "Next"
+msgid "Choose payment method"
 msgstr ""
 
 #: app/templates/order/order.html:165
@@ -709,233 +710,3 @@ msgstr ""
 #: app/templates/profile/profile.html:171
 msgid "This PIN code will regenerate in:"
 msgstr ""
-
-#~ msgid "Email is busy."
-#~ msgstr ""
-
-#~ msgid "Unable to log in. Please check the login details."
-#~ msgstr ""
-
-#~ msgid "Fill all fields to complete creating account"
-#~ msgstr ""
-
-#~ msgid "Previous"
-#~ msgstr ""
-
-#~ msgid "Go to payment page"
-#~ msgstr ""
-
-#~ msgid "Checkout"
-#~ msgstr ""
-
-#~ msgid "Buy Now"
-#~ msgstr ""
-
-#~ msgid "Sign Up"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Some payment methods can be unavaiable"
-#~ " on payment page. Don't worry, you"
-#~ " can change payment method any time"
-#~ " on payment page."
-#~ msgstr ""
-
-#~ msgid "My Account"
-#~ msgstr ""
-
-#~ msgid "Logout"
-#~ msgstr ""
-
-#~ msgid "PRODUCTS"
-#~ msgstr ""
-
-#~ msgid "TUTORIALS"
-#~ msgstr ""
-
-#~ msgid "Why VPN is dangerous?"
-#~ msgstr ""
-
-#~ msgid "INFORMATION"
-#~ msgstr ""
-
-#~ msgid "SOCIAL"
-#~ msgstr ""
-
-#~ msgid "Facebook"
-#~ msgstr ""
-
-#~ msgid "Vkontakte"
-#~ msgstr ""
-
-#~ msgid "Twitter"
-#~ msgstr ""
-
-#~ msgid "YouTube"
-#~ msgstr ""
-
-#~ msgid "Terms Of Service"
-#~ msgstr ""
-
-#~ msgid "VPN Service"
-#~ msgstr ""
-
-#~ msgid "Get access to internet anonymously and without any restricts!"
-#~ msgstr ""
-
-#~ msgid "BUILD YOUR OWN RAILROAD!"
-#~ msgstr ""
-
-#~ msgid "WHY USE VPN?"
-#~ msgstr ""
-
-#~ msgid "Learn more"
-#~ msgstr ""
-
-#~ msgid "You can download for free on the preview page."
-#~ msgstr ""
-
-#~ msgid "Visit Download Page"
-#~ msgstr ""
-
-#~ msgid "Click Here To Subscribe"
-#~ msgstr ""
-
-#~ msgid "VPN Clients"
-#~ msgstr ""
-
-#~ msgid "We offer the best VPN client. Easy. Fast. Free."
-#~ msgstr ""
-
-#~ msgid "EARN MONEY"
-#~ msgstr ""
-
-#~ msgid "New way to earn money. Change your traffic for money."
-#~ msgstr ""
-
-#~ msgid "Information"
-#~ msgstr ""
-
-#~ msgid "About us"
-#~ msgstr ""
-
-#~ msgid "Plans and Pricing"
-#~ msgstr ""
-
-#~ msgid "Support"
-#~ msgstr ""
-
-#~ msgid "Partnership"
-#~ msgstr ""
-
-#~ msgid "Tutorials"
-#~ msgstr ""
-
-#~ msgid "How to use VPN?"
-#~ msgstr ""
-
-#~ msgid "Why I need VPN?"
-#~ msgstr ""
-
-#~ msgid "Which VPN to choose?"
-#~ msgstr ""
-
-#~ msgid "VPN for business"
-#~ msgstr ""
-
-#~ msgid "Products"
-#~ msgstr ""
-
-#~ msgid "VPN for Windows"
-#~ msgstr ""
-
-#~ msgid "VPN for iOS"
-#~ msgstr ""
-
-#~ msgid "VPN for Android"
-#~ msgstr ""
-
-#~ msgid "VPN for macOS"
-#~ msgstr ""
-
-#~ msgid "Welcome to Railroad Network Services"
-#~ msgstr ""
-
-#~ msgid "Thank your! We send you email with all information!"
-#~ msgstr ""
-
-#~ msgid "New way to get extra money. Change your traffic for money."
-#~ msgstr ""
-
-#~ msgid "GET FREE TRIAL AND SUBSCRIBE FOR NEWS!"
-#~ msgstr ""
-
-#~ msgid "Subscribe for news and get free trial when it is done!"
-#~ msgstr ""
-
-#~ msgid "Protect me!"
-#~ msgstr ""
-
-#~ msgid "Share"
-#~ msgstr ""
-
-#~ msgid "the best way to get any content with the fastest speed"
-#~ msgstr ""
-
-#~ msgid "Click Here To Get FREE Trial!"
-#~ msgstr ""
-
-#~ msgid "Subscribe and get free trial"
-#~ msgstr ""
-
-#~ msgid "GET FREE TRIAL"
-#~ msgstr ""
-
-#~ msgid "Subscribe to get protection!"
-#~ msgstr ""
-
-#~ msgid "© Copyright"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We under construction and will release"
-#~ " first version soon. Be in touch "
-#~ "and subscribe for news by email."
-#~ msgstr ""
-
-#~ msgid "You receive Railroad Ticket. Please don't late on train."
-#~ msgstr ""
-
-#~ msgid "Hello, %(username)"
-#~ msgstr ""
-
-#~ msgid "Your trial subscription ready."
-#~ msgstr ""
-
-#~ msgid "Thanks so much for joining Railroad Network Services!"
-#~ msgstr ""
-
-#~ msgid "We promise not to send letters more than once a week."
-#~ msgstr ""
-
-#~ msgid "We will inform you when our service will be ready to"
-#~ msgstr ""
-
-#~ msgid "Break down borders. Be anonymous. Obtain freedom."
-#~ msgstr ""
-
-#~ msgid "Get Railroad VPN"
-#~ msgstr ""
-
-#~ msgid "DOWNLOAD"
-#~ msgstr ""
-
-#~ msgid "Hello, %(username)s"
-#~ msgstr ""
-
-#~ msgid "Click here"
-#~ msgstr ""
-
-#~ msgid "to unsubscribe"
-#~ msgstr ""
-

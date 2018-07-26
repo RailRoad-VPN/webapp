@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-07-25 18:55+0300\n"
+"POT-Creation-Date: 2018-07-26 16:17+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -47,15 +47,17 @@ msgstr "Привет!"
 
 #: app/service.py:110
 msgid "NEW_SUB_BUY_FACT"
-msgstr ""
+msgstr "Railroad VPN подписка: "
 
 #: app/service.py:111
 msgid "NEW_SUB_EMAIL_THANKS"
-msgstr ""
+msgstr "Спасибо за приобретение RailroadVPN подписку!"
 
 #: app/service.py:112
 msgid "NEW_SUB_PAYMENT_INFORM"
 msgstr ""
+"Вы сможете воспользоваться RailroadVPN, когда придет ваш платеж, мы "
+"уведомим вас новым письмом по факту платежа"
 
 #: app/service.py:134
 msgid "TRIAL_EMAIL_SUBSCRIPTION_READY"
@@ -209,7 +211,6 @@ msgstr "Подпишитесь на Railroad Network блог"
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:181
 #: app/templates/contact/contact.html:170
 #: app/templates/contact/contact.html:171 app/templates/order/order.html:98
-#: app/templates/order/order.html:100
 msgid "Email"
 msgstr "Электронная почта"
 
@@ -427,8 +428,8 @@ msgid "Back"
 msgstr "Назад"
 
 #: app/templates/order/order.html:142
-msgid "Next"
-msgstr "Дальше"
+msgid "Choose payment method"
+msgstr ""
 
 #: app/templates/order/order.html:165
 msgid "Choose payment method before proceed to payment page"
@@ -695,8 +696,8 @@ msgid "Payment is past due"
 msgstr ""
 
 #: app/templates/profile/profile.html:107
-msgid "Next payment"
-msgstr "Следующий платеж"
+msgid "Next payment at"
+msgstr ""
 
 #: app/templates/profile/profile.html:119
 msgid "This subscription has been expired you can"
