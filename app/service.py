@@ -278,7 +278,7 @@ class RRNUsersAPIService(RESTService):
             url = f"{self._url}/uuid/{uuid}"
         elif email:
             url = f"{self._url}/email/{email}"
-        elif email:
+        elif pin_code:
             url = f"{self._url}/pincode/{pin_code}"
         else:
             raise KeyError

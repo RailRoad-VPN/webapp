@@ -90,7 +90,12 @@ def order():
         if not is_ok:
             logger.error("User subscription was not created.")
         else:
-            logger.debug("Found.")
+            logger.debug("OK.")
+            logger.debug("Update order.")
+
+            # TODO 
+            order_json = session['order']
+            rrn_orders_service.update_order(order_json=order_json)
         return redirect(url_for('profile.profile_page'))
     elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
         if 'error' in request.args:
