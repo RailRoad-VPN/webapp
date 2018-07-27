@@ -188,9 +188,9 @@ class RRNOrdersAPIService(RESTService):
             logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
-    def create_order(self, status: OrderStatus) -> dict:
+    def create_order(self, status: int) -> dict:
         data = {
-            'status_id': status.sid
+            'status_id': status
         }
         api_response = self._post(data=data)
         if api_response.is_ok and 'Location' in api_response.headers:
@@ -204,16 +204,10 @@ class RRNOrdersAPIService(RESTService):
             logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
-    def update_order(self, order_json: dict) -> bool:
-        api_response = self._put(data=order_json)
-        if api_response.is_ok and 'Location' in api_response.headers:
-            api_response = self._get(url=api_response.headers.get('Location'))
-            if api_response.is_ok:
-                return api_response.data
-            else:
-                logging.debug(api_response.serialize())
-                raise APIException(http_code=api_response.code, errors=api_response.errors)
-        else:
+    def update_order(self, order_json: dict):
+        url = '%s/%s' % (self._url, order_json['uuid'])
+        api_response = self._put(url=url, data=order_json)
+        if not api_response.is_ok:
             logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 

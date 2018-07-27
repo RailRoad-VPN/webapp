@@ -4,7 +4,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, request, render_template, \
     g, session, redirect, url_for, jsonify
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import rrn_user_service, app_config
 from app.flask_utils import login_required, authorize_user, _add_language_code, _pull_lang_code
@@ -91,6 +91,7 @@ def signup():
 
     # try to register user
     try:
+        password = generate_password_hash(password)
         user_json = rrn_user_service.create_user(email=email, password=password)
         user_json.pop('password')
         logging.info("Created user: %s" % user_json)

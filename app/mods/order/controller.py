@@ -92,14 +92,15 @@ def order():
 
             logger.debug(f"Set order {order_code_ppg} status failed")
             order_json = session['order']
-            order_json['status_id'] = OrderStatus.FAILED
+            order_json['status_id'] = OrderStatus.FAILED.sid
         else:
             logger.error(f"User subscription was created")
 
             logger.debug(f"Set order {order_code_ppg} status success")
             order_json = session['order']
-            order_json['status_id'] = OrderStatus.SUCCESS
+            order_json['status_id'] = OrderStatus.SUCCESS.sid
 
+        order_json['modify_reason'] = 'update order status'
         rrn_orders_service.update_order(order_json=order_json)
         return redirect(url_for('profile.profile_page'))
     elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
@@ -114,7 +115,7 @@ def order():
         # create new order
         try:
             logging.info("Creating order...")
-            order_json = rrn_orders_service.create_order(status=OrderStatus.NEW)
+            order_json = rrn_orders_service.create_order(status=OrderStatus.NEW.sid)
             session['order'] = order_json
             logging.info("Order created: %s" % order_json)
         except APIException as e:
@@ -142,7 +143,7 @@ def order():
                            subscriptions=subscriptions, code=200)
 
 
-@mod_order.route('payment_url', methods=['GET'])
+@mod_order.route('/payment_url', methods=['GET'])
 def payment_url():
     logger.info('payment_url method')
 
@@ -162,7 +163,8 @@ def payment_url():
 
     logger.debug(f"Set order {session['order']['code']} status processing")
     order_json = session['order']
-    order_json['status_id'] = OrderStatus.PROCESSING
+    order_json['modify_reason'] = 'update order status'
+    order_json['status_id'] = OrderStatus.PROCESSING.sid
     rrn_orders_service.update_order(order_json=order_json)
 
     r.add_data('redirect_url', redirect_url)
@@ -192,7 +194,7 @@ def get_order_payment(order_code: int):
         return resp
 
     order_r = {
-        'is_success': order_json['status_id'] == OrderStatus.SUCCESS,
+        'is_success': order_json['status_id'] == OrderStatus.SUCCESS.sid,
         'code': order_code,
         'payment_arrived': order_json.get('payment_uuid', None) is not None
     }
