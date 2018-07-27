@@ -272,12 +272,14 @@ class RRNUsersAPIService(RESTService):
         else:
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
-    def get_user(self, uuid: str = None, email: str = None) -> dict:
+    def get_user(self, uuid: str = None, email: str = None, pin_code: int = None) -> dict:
         logger.debug('get user with parameters uuid: %s, email: %s' % (uuid, email))
         if uuid:
-            url = '%s/uuid/%s' % (self._url, uuid)
+            url = f"{self._url}/uuid/{uuid}"
         elif email:
-            url = '%s/email/%s' % (self._url, email)
+            url = f"{self._url}/email/{email}"
+        elif email:
+            url = f"{self._url}/pincode/{pin_code}"
         else:
             raise KeyError
         api_response = self._get(url=url)

@@ -32,7 +32,7 @@ def pull_lang_code(endpoint, values):
     _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
 
 
-def create_user_subscription(order_uuid: str, subscription_id: str) -> Optional[AjaxError]:
+def create_user_subscription(order_uuid: str, subscription_id: str) -> bool:
     logger.info('create_user_subscription method with parameters subscription_id: %s, order_uuid: %s' % (
         subscription_id, order_uuid))
 
@@ -49,10 +49,7 @@ def create_user_subscription(order_uuid: str, subscription_id: str) -> Optional[
         logging.info("User Subscription create: %s" % user_subscription)
     except APIException as e:
         logging.debug(e.serialize())
-        error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
-                          code=DFNError.UNKNOWN_ERROR_CODE.code,
-                          developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
-        return error
+        return False
 
     logger.debug('get subscription name')
     subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
@@ -64,7 +61,7 @@ def create_user_subscription(order_uuid: str, subscription_id: str) -> Optional[
     logger.debug('authorise user in system')
     authorize_user(user_json=session['user'])
 
-    return None
+    return True
 
 
 @mod_order.route('', methods=['GET', 'POST'])
@@ -89,14 +86,17 @@ def order():
         subscription_id = session['order']['subscription_id']
         order_uuid = session['order']['uuid']
 
-        error = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
-        session.pop('order')
-        return redirect(url_for('profile.profile_page', error=error))
+        is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
+        if not is_ok:
+            logger.error("User subscription was not created.")
+        else:
+            logger.debug("Found.")
+        return redirect(url_for('profile.profile_page'))
     elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
         if 'error' in request.args:
             error = request.args.get('error', None)
             logger.error(f"PayProGlobal error: {error}")
-            return redirect(url_for('profile.profile_page', error=error))
+            return redirect(session['order']['redirect_url'])
 
     pack_id = request.args.get('pack', None)
 
@@ -159,7 +159,7 @@ def payment_url():
 
 @mod_order.route('/<int:order_code>/payment')
 def get_order_payment(order_code: int):
-    logger.info('get_order method')
+    logger.info('get_order_payment method')
 
     r = AjaxResponse(success=True)
 

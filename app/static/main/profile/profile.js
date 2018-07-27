@@ -121,10 +121,9 @@ $(document).ready(function () {
     $(".payment-wait").each(function () {
         var order_code = $(this).data('order_code');
 
-        var o_interval = setInterval(function() {
+        order_intervals[order_code] = setInterval(function () {
             getOrderByCode(order_code);
         }, 5000);
-        order_intervals[order_code] = o_interval;
     });
 
     function getOrderByCode(order_code) {
@@ -142,13 +141,8 @@ $(document).ready(function () {
                         var payment_arrived = order['payment_arrived'];
 
                         if (payment_arrived === true) {
-                            $('.payment-wait[data-order_code="' + code + '"]').remove();
-
-                            if (!is_user_has_active_subscribe) {
-                                $generatePinBtn.removeClass("disabled");
-                                $generatePinBtn.attr("disabled", false);
-                            }
                             clearInterval(order_intervals[code]);
+                            window.location.reload();
                         }
                     }
                 }

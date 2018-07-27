@@ -36,7 +36,8 @@
 {% block meta %}
     <meta id="get_pincode_url" data-method="GET" data-url="{{ url_for('profile.generate_pincode') }}">
     <meta id="renew_sub_url" data-method="POST" data-url="{{ url_for('profile.renew_sub') }}">
-    <meta id="get_order_payment_url" data-method="GET" data-url="{{ url_for('order.get_order_payment', order_code=-1) }}">
+    <meta id="get_order_payment_url" data-method="GET"
+          data-url="{{ url_for('order.get_order_payment', order_code=-1) }}">
 {% endblock %}
 
 {% block body %}
@@ -91,16 +92,26 @@
                                 {% if us['is_expired'] == false and us['order']['payment_uuid'] %}
                                     <input class="is_user_has_active_subscribe" type="hidden" value="true">
                                 {% endif %}
-
+                                {% if order['status_id'] == 1 %}
+                                    <span class="badge badge-light">{{ _('New') }}</span>
+                                {% elif order['status_id'] == 2 %}
+                                    <span class="badge badge-warning">{{ _('Processing') }}</span>
+                                {% elif order['status_id'] == 3 %}
+                                    <span class="badge badge-success">{{ _('Active') }}</span>
+                                {% elif order['status_id'] == 4 %}
+                                    <span class="badge badge-danger">{{ _('Failed') }}</span>
+                                {% endif %}
                                 {% if us['is_expired'] == true %}
                                     <span class="badge badge-danger">{{ _('Expired') }}</span>
-                                {% else %}
-                                    <span class="badge badge-success">{{ _('Active') }}</span>
                                 {% endif %}
                                 {% if not us['order']['payment_uuid'] %}
-                                    <span class="badge badge-warning">{{ _('Waiting for payment') }}</span>
+                                    <span class="badge badge-warning">
+                                        {{ _('Waiting for payment') }}
+                                    </span>
                                 {% endif %}
-                                <span class="badge badge-dark">{{ _('Order') }} #{{ order['code'] }}</span>
+                                <span class="badge badge-dark">
+                                    {{ _('Order') }} #{{ order['code'] }}
+                                </span>
                                 <span class="badge badge-info">{{ sub['bill_freq'] }}</span>
                             </span>
                             <!-- 0 price for free sub -->
@@ -129,8 +140,8 @@
                                         </a>
                                         {{ _('or') }}
                                         <a class="renew-sub-btn" href="#"
-                                                data-sub_id="{{ sub['id'] }}"
-                                                data-order_code="{{ order['code'] }}">
+                                           data-sub_id="{{ sub['id'] }}"
+                                           data-order_code="{{ order['code'] }}">
                                             {{ _('renew subscription') }}
                                         </a>
                                     {% endif %}

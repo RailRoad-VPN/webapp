@@ -8,6 +8,7 @@ from app import rrn_user_service, subscription_service, app_config, rrn_orders_s
 from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
+from rest import APINotFoundException
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/<lang_code>/profile')
 
@@ -90,6 +91,20 @@ def generate_pincode():
     pin_code = random_with_n_digits(4)
     logger.debug('PIN code: %s' % pin_code)
 
+    # we try to get user by pin code. if we found - we have to generate new pin code
+    ok = False
+    while not ok:
+        try:
+            logger.debug('Generate PIN code')
+            pin_code = random_with_n_digits(4)
+            logger.debug('PIN code: %s' % pin_code)
+            logger.debug("Searching user by new generated pin code")
+            rrn_user_service.get_user(pin_code=pin_code)
+            logger.debug("Found.")
+        except APINotFoundException:
+            logger.debug("User not found")
+            ok = True
+
     suuid = updated_user_json['uuid']
     email = updated_user_json['email']
     password = updated_user_json['password']
@@ -99,7 +114,8 @@ def generate_pincode():
     is_password_expired = updated_user_json['is_password_expired']
 
     logger.debug('Generate PIN code expire date now + 30 min')
-    pin_code_expire_date = datetime.datetime.now() + datetime.timedelta(minutes=30)
+    # TODO change pin code expire date
+    pin_code_expire_date = datetime.datetime.now() + datetime.timedelta(minutes=5)
     logger.debug('PIN code expire date: %s' % pin_code_expire_date)
 
     rrn_user_service.update_user(suuid=suuid, email=email, password=password, is_expired=is_expired,
