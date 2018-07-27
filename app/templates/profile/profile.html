@@ -80,15 +80,14 @@
             <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container">
                     <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Services') }}</h4>
-                    <div class="container"
-                         style="padding-top: 50px; background-color: #fff; border: 1px solid #cfcfcf; box-shadow: 0 2px 4px 0 rgba(0,0,0,.15);">
+                    <div class="user-services well container">
                         {% for us in user_subscriptions %}
                             {% set sub = us['subscription'] %}
                             {% set order = us['order'] %}
                             <h4 class="d-inline">
                                 {{ sub['name'] }}
                             </h4>
-                            <span id="" style="margin-top: -10px; padding-left: 10px; position: absolute;">
+                            <span class="sub-badges">
                                 {% if us['is_expired'] == false and us['order']['payment_uuid'] %}
                                     <input class="is_user_has_active_subscribe" type="hidden" value="true">
                                 {% endif %}
@@ -112,7 +111,9 @@
                                 <span class="badge badge-dark">
                                     {{ _('Order') }} #{{ order['code'] }}
                                 </span>
-                                <span class="badge badge-info">{{ sub['bill_freq'] }}</span>
+                                <span class="badge badge-info">
+                                    {{ sub['bill_freq'] }}
+                                </span>
                             </span>
                             <!-- 0 price for free sub -->
                             {% if sub['price_per_month'] != 0 %}
@@ -150,6 +151,110 @@
                             <div class="clearfix"></div>
                             <hr>
                         {% endfor %}
+                    </div>
+                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Devices') }}</h4>
+                    <div class="user-devices well container" style="padding-bottom: 50px;">
+                        <span class="loading-data" style="display: none;">
+                            {{ _('Loading...') }}
+                        </span>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card text-center user-device" data-uuid="">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-inline">
+                                            Your Device
+                                        </h5>
+                                        <span class="badge badge-success">
+                                        {{ _('Active') }}
+                                    </span>
+                                        <ul class="list-unstyled">
+                                            <li class="text-muted">
+                                                Operation System: iOS
+                                            </li>
+                                            <li class="text-muted">
+                                                Location: Moscow
+                                            </li>
+                                            <li class="text-muted">
+                                                Download: 100MB
+                                            </li>
+                                            <li class="text-muted">
+                                                Upload: 13GB
+                                            </li>
+                                        </ul>
+                                        <a href="#" class="card-link">
+                                            Deactivate
+                                        </a>
+                                        <a href="#" class="card-link">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card text-center user-device" data-uuid="">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-inline">
+                                            Your Device
+                                        </h5>
+                                        <span class="badge badge-danger">
+                                    {{ _('Inactive') }}
+                                </span>
+                                        <ul class="list-unstyled">
+                                            <li class="text-muted">
+                                                Operation System: Windows 10
+                                            </li>
+                                            <li class="text-muted">
+                                                Location: Los-Angeles
+                                            </li>
+                                            <li class="text-muted">
+                                                Download: 830MB
+                                            </li>
+                                            <li class="text-muted">
+                                                Upload: 390GB
+                                            </li>
+                                        </ul>
+                                        <a href="#" class="card-link">
+                                            Activate
+                                        </a>
+                                        <a href="#" class="card-link">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card text-center user-device" data-uuid="">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-inline">
+                                            Your Device
+                                        </h5>
+                                        <span class="badge badge-danger">
+                                    {{ _('Inactive') }}
+                                </span>
+                                        <ul class="list-unstyled">
+                                            <li class="text-muted">
+                                                Operation System: Windows 10
+                                            </li>
+                                            <li class="text-muted">
+                                                Location: Los-Angeles
+                                            </li>
+                                            <li class="text-muted">
+                                                Download: 830MB
+                                            </li>
+                                            <li class="text-muted">
+                                                Upload: 390GB
+                                            </li>
+                                        </ul>
+                                        <a href="#" class="card-link">
+                                            Activate
+                                        </a>
+                                        <a href="#" class="card-link">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

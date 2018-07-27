@@ -73,3 +73,14 @@
 .ie6 #magic-line {
     bottom: -3px;
 }
+
+.well {
+    padding-top: 50px;
+    background-color: #fff;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
+}
+
+span.sub-badges {
+    margin-top: -10px; padding-left: 10px; position: absolute;
+}
