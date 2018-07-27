@@ -88,14 +88,19 @@ def order():
 
         is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
         if not is_ok:
-            logger.error("User subscription was not created.")
-        else:
-            logger.debug("OK.")
-            logger.debug("Update order.")
+            logger.error(f"User subscription was not created")
 
-            # TODO 
+            logger.debug(f"Set order {order_code_ppg} status failed")
             order_json = session['order']
-            rrn_orders_service.update_order(order_json=order_json)
+            order_json['status_id'] = OrderStatus.FAILED
+        else:
+            logger.error(f"User subscription was created")
+
+            logger.debug(f"Set order {order_code_ppg} status success")
+            order_json = session['order']
+            order_json['status_id'] = OrderStatus.SUCCESS
+
+        rrn_orders_service.update_order(order_json=order_json)
         return redirect(url_for('profile.profile_page'))
     elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
         if 'error' in request.args:
@@ -154,6 +159,11 @@ def payment_url():
                                                            payment_method_id=payment_method_id, user_locale=user_locale)
 
     session['order']['redirect_url'] = redirect_url
+
+    logger.debug(f"Set order {session['order']['code']} status processing")
+    order_json = session['order']
+    order_json['status_id'] = OrderStatus.PROCESSING
+    rrn_orders_service.update_order(order_json=order_json)
 
     r.add_data('redirect_url', redirect_url)
     r.set_success()
