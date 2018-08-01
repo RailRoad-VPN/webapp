@@ -97,34 +97,23 @@ def generate_pincode():
         try:
             logger.debug('Generate PIN code')
             pin_code = random_with_n_digits(4)
-            logger.debug('PIN code: %s' % pin_code)
+            logger.debug(f"PIN code: {pin_code}")
             logger.debug("Searching user by new generated pin code")
             rrn_user_service.get_user(pin_code=pin_code)
-            logger.debug("Found.")
+            logger.debug("Found")
         except APINotFoundException:
             logger.debug("User not found")
             ok = True
 
-    suuid = updated_user_json['uuid']
-    email = updated_user_json['email']
-    password = updated_user_json['password']
-    enabled = updated_user_json['enabled']
-    is_expired = updated_user_json['is_expired']
-    is_locked = updated_user_json['is_locked']
-    is_password_expired = updated_user_json['is_password_expired']
-
     logger.debug('Generate PIN code expire date now + 30 min')
-    # TODO change pin code expire date
-    pin_code_expire_date = datetime.datetime.now() + datetime.timedelta(minutes=5)
+    pin_code_expire_date = datetime.datetime.now() + datetime.timedelta(minutes=30)
     logger.debug('PIN code expire date: %s' % pin_code_expire_date)
-
-    rrn_user_service.update_user(suuid=suuid, email=email, password=password, is_expired=is_expired,
-                                 is_locked=is_locked, is_password_expired=is_password_expired, enabled=enabled,
-                                 pin_code=pin_code, pin_code_expire_date=pin_code_expire_date,
-                                 modify_reason='generate pin code')
 
     updated_user_json['pin_code'] = pin_code
     updated_user_json['pin_code_expire_date'] = pin_code_expire_date.isoformat()
+    updated_user_json['modify_reason'] = 'generate pin code'
+
+    rrn_user_service.update_user(user_json=updated_user_json)
 
     delta = pin_code_expire_date - now
 

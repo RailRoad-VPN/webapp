@@ -6,7 +6,6 @@ import smtplib
 import sys
 from email.mime.text import MIMEText
 from enum import Enum
-from http import HTTPStatus
 from smtplib import SMTPException
 from typing import Optional
 
@@ -14,10 +13,9 @@ import requests
 from flask_babel import _
 
 from app.cache import CacheService
-from app.models.order_status import OrderStatus
 
 sys.path.insert(0, '../rest_api_library')
-from rest import RESTService, APIException, APINotFoundException
+from rest import RESTService, APIException
 
 logger = logging.getLogger(__name__)
 
@@ -175,41 +173,29 @@ class RRNOrdersAPIService(RESTService):
 
     def get_order(self, code: int = None, suuid: str = None) -> dict:
         if suuid:
-            url = '%s/uuid/%s' % (self._url, suuid)
+            url = f"{self._url}/uuid/{suuid}"
         elif code:
-            url = '%s/code/%s' % (self._url, code)
+            url = f"{self._url}/code/{code}"
         else:
             raise KeyError
         api_response = self._get(url=url)
-
-        if api_response.is_ok:
-            return api_response.data
-        else:
-            logging.debug(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+        return api_response.data
 
     def create_order(self, status: int) -> dict:
         data = {
             'status_id': status
         }
         api_response = self._post(data=data)
-        if api_response.is_ok and 'Location' in api_response.headers:
+        if 'Location' in api_response.headers:
             api_response = self._get(url=api_response.headers.get('Location'))
-            if api_response.is_ok:
-                return api_response.data
-            else:
-                logging.debug(api_response.serialize())
-                raise APIException(http_code=api_response.code, errors=api_response.errors)
+            return api_response.data
         else:
             logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_order(self, order_json: dict):
-        url = '%s/%s' % (self._url, order_json['uuid'])
-        api_response = self._put(url=url, data=order_json)
-        if not api_response.is_ok:
-            logging.debug(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+        url = f"{self._url}/{order_json['uuid']}"
+        self._put(url=url, data=order_json)
 
 
 class RRNUsersAPIService(RESTService):
@@ -230,41 +216,17 @@ class RRNUsersAPIService(RESTService):
         }
         logger.debug('create user with parameters user_json: %s' % user_json)
         api_response = self._post(data=user_json, headers=self._headers)
-        if api_response.is_ok and 'Location' in api_response.headers:
+        if 'Location' in api_response.headers:
             api_response = self._get(url=api_response.headers.get('Location'))
-            if api_response.is_ok:
-                return api_response.data
-            else:
-                raise APIException(http_code=api_response.code, errors=api_response.errors)
+            return api_response.data
         else:
+            logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
-    def update_user(self, suuid: str, email: str, password: str, is_expired: bool, is_locked: bool,
-                    is_password_expired: bool, enabled: bool, modify_reason: str, pin_code: str = None,
-                    pin_code_expire_date: datetime = None) -> bool:
-        logger.debug('update user with parameters suuid=%s, email=%s, password=%s, is_expired=%s, is_locked=%s, '
-                     'is_password_expired=%s, enabled=%s, modify_reason=%s,'
-                     'pin_code=%s, pin_code_expire_date=%s' % (
-                         suuid, email, password, is_expired, is_locked, is_password_expired, enabled, modify_reason,
-                         pin_code, pin_code_expire_date))
-        user_json = {
-            'uuid': suuid,
-            'email': email,
-            'password': password,
-            'modify_reason': modify_reason,
-            'is_expired': is_expired,
-            'is_locked': is_locked,
-            'is_password_expired': is_password_expired,
-            'enabled': enabled,
-            'pin_code': pin_code,
-            'pin_code_expire_date': pin_code_expire_date,
-        }
-        url = '%s/%s' % (self._url, suuid)
-        api_response = self._put(url=url, data=user_json, headers=self._headers)
-        if api_response.is_ok:
-            return True
-        else:
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+    def update_user(self, user_json: dict):
+        logger.debug(f"update user with user_json: {user_json}")
+        url = f"{self._url}/{suuid}"
+        self._put(url=url, data=user_json, headers=self._headers)
 
     def get_user(self, uuid: str = None, email: str = None, pin_code: int = None) -> dict:
         logger.debug('get user with parameters uuid: %s, email: %s' % (uuid, email))
@@ -277,40 +239,20 @@ class RRNUsersAPIService(RESTService):
         else:
             raise KeyError
         api_response = self._get(url=url)
-
-        if api_response.is_ok:
-            return api_response.data
-        elif api_response.code == HTTPStatus.NOT_FOUND:
-            logger.error(api_response.serialize())
-            raise APINotFoundException(http_code=api_response.code, errors=api_response.errors)
-        else:
-            logger.error(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+        return api_response.data
 
     def get_user_subscription(self, user_uuid: str, subscription_uuid: str) -> dict:
         logger.debug('get user subscription with parameters user_uuid: %s, subscription_uuid: %s' % (
             user_uuid, subscription_uuid))
         url = self._url + '/%s/subscriptions/%s' % (user_uuid, subscription_uuid)
         api_response = self._get(url=url)
-        if api_response.is_ok:
-            return api_response.data
-        elif api_response.code == HTTPStatus.NOT_FOUND:
-            raise APINotFoundException(http_code=api_response.code, errors=api_response.errors)
-        else:
-            logging.debug(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+        return api_response.data
 
     def get_user_subscriptions(self, user_uuid: str) -> dict:
         logger.debug('get user subscriptions with parameter user_uuid: %s' % user_uuid)
-        url = self._url + '/%s/subscriptions' % (user_uuid)
+        url = f"{self._url}/{user_uuid}/subscriptions"
         api_response = self._get(url=url)
-        if api_response.is_ok:
-            return api_response.data
-        elif api_response.code == HTTPStatus.NOT_FOUND:
-            raise APINotFoundException(http_code=api_response.code, errors=api_response.errors)
-        else:
-            logging.debug(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+        return api_response.data
 
     def create_user_subscription(self, user_uuid: str, subscription_id: int, order_uuid: str) -> dict:
         data = {
@@ -319,29 +261,19 @@ class RRNUsersAPIService(RESTService):
             'order_uuid': order_uuid,
         }
         logger.debug('create user subscription with parameters' % data)
-        url = self._url + '/%s/subscriptions' % user_uuid
+        url = f"{self._url}/{user_uuid}/subscriptions"
         api_response = self._post(data=data, url=url)
-        if api_response.is_ok and 'Location' in api_response.headers:
-            us_loc = api_response.headers.get('Location')
-            api_response = self._get(url=us_loc)
-            if api_response.is_ok:
-                return api_response.data
-            else:
-                logging.debug(api_response.serialize())
-                raise APIException(http_code=api_response.code, errors=api_response.errors)
+        if 'Location' in api_response.headers:
+            api_response = self._get(url=api_response.headers.get('Location'))
+            return api_response.data
         else:
             logging.debug(api_response.serialize())
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
-    def update_user_subscription(self, subscription_json: dict) -> bool:
+    def update_user_subscription(self, subscription_json: dict):
         logger.debug('update user subscription with parameters' % subscription_json)
-        url = self._url + '/%s/subscriptions/%s' % (subscription_json['user_uuid'], subscription_json['uuid'])
-        api_response = self._put(data=subscription_json, url=url)
-        if api_response.is_ok:
-            return True
-        else:
-            logging.debug(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+        url = f"{self._url}/{subscription_json['user_uuid']}/subscriptions/{subscription_json['uuid']}"
+        self._put(data=subscription_json, url=url)
 
 
 class RRNBillingAPIService(RESTService):
@@ -353,26 +285,16 @@ class RRNBillingAPIService(RESTService):
         }
 
         api_response = self._get(headers=headers)
+        return api_response.data
 
-        if api_response.is_ok:
-            return api_response.data
-        else:
-            logging.debug(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
-
-    def get_subscription_by_id(self, id: int, lang_code: str) -> dict:
+    def get_subscription_by_id(self, sid: int, lang_code: str) -> dict:
         headers = {
             'Accept-Language': lang_code
         }
 
-        url = "%s/%s" % (self._url, id)
+        url = f"{self._url}/{sid}"
         api_response = self._get(url=url, headers=headers)
-
-        if api_response.is_ok:
-            return api_response.data
-        else:
-            logging.debug(api_response.serialize())
-            raise APIException(http_code=api_response.code, errors=api_response.errors)
+        return api_response.data
 
 
 class PayProGlobalPaymentService(object):
