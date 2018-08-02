@@ -1,5 +1,7 @@
 'use strict';
 
+var BLOCK_PAGE_TEXT = $("meta#block_page_text").data('text');
+
 $(document).ready(function () {
     $('input, button').click(function (event) {
         if ($(this).hasClass('disabled')) {

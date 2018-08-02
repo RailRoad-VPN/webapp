@@ -2,13 +2,13 @@ import datetime
 import logging
 from http import HTTPStatus
 
-from flask import Blueprint, render_template, session, jsonify, request, redirect, url_for, json
+from flask import Blueprint, render_template, session, jsonify, request, url_for, json
 
 from app import rrn_user_service, subscription_service, app_config, rrn_orders_service
 from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
-from rest import APINotFoundException
+from rest import APINotFoundException, APIException
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/<lang_code>/profile')
 
@@ -39,7 +39,15 @@ def profile_page():
         us_order = rrn_orders_service.get_order(suuid=us_order_uuid)
         us['order'] = us_order
 
-    return render_template('profile/profile.html', code=HTTPStatus.OK, user_subscriptions=user_subscriptions)
+    user_devices = rrn_user_service.get_user_devices(user_uuid=session['user']['uuid'])
+
+    return render_template('profile/profile.html', code=HTTPStatus.OK, user_subscriptions=user_subscriptions,
+                           user_devices=user_devices)
+
+
+@mod_profile.url_value_preprocessor
+def pull_lang_code(endpoint, values):
+    _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
 
 
 @mod_profile.route('/generate_pincode', methods=['GET'])
@@ -101,7 +109,7 @@ def generate_pincode():
             logger.debug("Searching user by new generated pin code")
             rrn_user_service.get_user(pin_code=pin_code)
             logger.debug("Found")
-        except APINotFoundException:
+        except APIException:
             logger.debug("User not found")
             ok = True
 
@@ -164,3 +172,55 @@ def renew_sub():
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK
     return resp
+
+
+@mod_profile.route('/user_devices/delete', methods=['POST'])
+@login_required
+def delete_user_device():
+    logger.info("delete_user_device method")
+
+    r = AjaxResponse(success=True)
+
+    device_uuid = request.args.get('device_uuid')
+
+    rrn_user_service.delete_user_device(user_uuid=session['user_uuid'], device_uuid=device_uuid)
+
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp
+
+
+@mod_profile.route('/user_devices/status', methods=['POST'])
+@login_required
+def change_status_user_device():
+    logger.info("change_status_user_device method")
+
+    r = AjaxResponse(success=True)
+
+    data = json.loads(request.data)
+
+    device_uuid = data.get('device_uuid')
+    status = data.get('status')
+
+    rrn_user_service.change_status_user_device(user_uuid=session['user']['uuid'], device_uuid=device_uuid, status=status)
+
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp
+
+# @mod_profile.route('/get_user_devices', methods=['GET'])
+# @login_required
+# def get_user_devices():
+#     logger.info("get_user_devices method")
+#
+#     r = AjaxResponse(success=True)
+#
+#     user_devices = rrn_user_service.get_user_devices(user_uuid=session['user_uuid'])
+#
+#     r.add_data('user_devices', user_devices)
+#     r.set_success()
+#     resp = jsonify(r.serialize())
+#     resp.code = HTTPStatus.OK
+#     return resp

@@ -167,3 +167,55 @@ function getFromLocalStorage(key) {
 
     return JSON.parse(localStorage.getItem(key));
 }
+
+function blockPage(cb) {
+    $.blockUI({
+        css: {
+            border: 'none',
+            padding: '15px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            color: '#fff',
+            onBlock: function () {
+                if (cb) cb();
+            }
+        }
+    });
+}
+
+function unblockPage(cb) {
+    $.unblock({
+        onUnblock: function () {
+            if (cb) cb();
+        }
+    });
+}
+
+function blockElement(text, $el, cb) {
+    $el.block({
+        message: '<span>' + text + '</span>',
+        css: {
+            border: 'none',
+            padding: '10px',
+            backgroundColor: '#000',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+            opacity: .5,
+            width: 'inherit',
+            color: '#fff'
+        },
+        onBlock: function () {
+            if (cb) cb();
+        }
+    });
+}
+
+function unblockElement($el, cb) {
+    $el.unblock({
+        onUnblock: function () {
+            if (cb) cb();
+        }
+    });
+}

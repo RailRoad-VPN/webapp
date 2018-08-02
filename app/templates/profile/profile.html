@@ -38,6 +38,11 @@
     <meta id="renew_sub_url" data-method="POST" data-url="{{ url_for('profile.renew_sub') }}">
     <meta id="get_order_payment_url" data-method="GET"
           data-url="{{ url_for('order.get_order_payment', order_code=-1) }}">
+    <meta id="delete_user_device_url" data-method="POST" data-url="{{ url_for('profile.delete_user_device') }}">
+    <meta id="change_status_user_device" data-method="POST"
+          data-url="{{ url_for('profile.change_status_user_device') }}">
+
+    <meta id="change_status_user_device_block_text" data-text="{{ _('Working...') }}">
 {% endblock %}
 
 {% block body %}
@@ -121,14 +126,14 @@
                                     {% if us['is_expired'] == true %}
                                         <small class="text-muted">{{ _('Payment is past due') }}:</small>
                                     {% else %}
-                                        <small class="text-muted">{{ _('Next payment at') }}:</small>
+                                        <small class="text-muted">{{ _('Next payment') }}:</small>
                                     {% endif %}
                                     {% if not us['order']['payment_uuid'] %}
                                         <small class="payment-wait" data-order_code="{{ us['order']['code'] }}">
                                             {{ _('Waiting for payment') }}
                                         </small>
                                     {% else %}
-                                        <small>{{ moment(us['created_date'] | strftime).fromNow() }}</small>
+                                        <small>{{ moment(us['expire_date'] | strftime).fromNow() }}</small>
                                     {% endif %}
                                 </span>
                             {% endif %}
@@ -157,104 +162,65 @@
                         <span class="loading-data" style="display: none;">
                             {{ _('Loading...') }}
                         </span>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="card text-center user-device" data-uuid="">
-                                    <div class="card-body">
-                                        <h5 class="card-title d-inline">
-                                            Your Device
-                                        </h5>
-                                        <span class="badge badge-success">
-                                        {{ _('Active') }}
-                                    </span>
-                                        <ul class="list-unstyled">
-                                            <li class="text-muted">
-                                                Operation System: iOS
-                                            </li>
-                                            <li class="text-muted">
-                                                Location: Moscow
-                                            </li>
-                                            <li class="text-muted">
-                                                Download: 100MB
-                                            </li>
-                                            <li class="text-muted">
-                                                Upload: 13GB
-                                            </li>
-                                        </ul>
-                                        <a href="#" class="card-link">
-                                            Deactivate
-                                        </a>
-                                        <a href="#" class="card-link">
-                                            Delete
-                                        </a>
+                        {% if user_devices %}
+                            <div class="row">
+                                {% for user_device in user_devices %}
+                                    <div class="col-lg-4">
+                                        <div class="card text-center user-device" data-uuid="{{ user_device['uuid'] }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title d-inline">
+                                                    {{ _('Your Device') }}
+                                                </h5>
+                                                {% if user_device['is_active'] %}
+                                                    <span class="badge badge-success"
+                                                          data-active_text="{{ _('Active') }}"
+                                                          data-inactive_text="{{ _('Inactive') }}">
+                                                        {{ _('Active') }}
+                                                    </span>
+                                                {% else %}
+                                                    <span class="badge badge-warning"
+                                                          data-active_text="{{ _('Active') }}"
+                                                          data-inactive_text="{{ _('Inactive') }}">
+                                                        {{ _('Inactive') }}
+                                                    </span>
+                                                {% endif %}
+                                                <ul class="list-unstyled">
+                                                    <li class="text-muted">
+                                                        {{ _('Operation System') }}:
+                                                        {{ user_device['device_os'] if user_device['device_os'] else 'N/A' }}
+                                                    </li>
+                                                    <li class="text-muted">
+                                                        {{ _('Location') }}:
+                                                        {{ user_device['location'] if user_device['location'] else 'N/A' }}
+                                                    </li>
+                                                    <li class="text-muted">
+                                                        {{ _('Download') }}: <span class="download-traffic">N/A</span>
+                                                    </li>
+                                                    <li class="text-muted">
+                                                        {{ _('Upload') }}: <span class="upload-traffic">N/A</span>
+                                                    </li>
+                                                </ul>
+                                                <button class="btn btn-link card-link change-status-device-btn"
+                                                        data-is_active="{{ user_device['is_active'] }}"
+                                                        data-uuid="{{ user_device['uuid'] }}"
+                                                        data-activate_text="{{ _('Activate') }}"
+                                                        data-deactivate_text="{{ _('Deactivate') }}">
+                                                    {% if user_device['is_active'] == true %}
+                                                        {{ _('Deactivate') }}
+                                                    {% else %}
+                                                        {{ _('Activate') }}
+                                                    {% endif %}
+                                                </button>
+                                                <button class="btn btn-link card-link delete-device-btn"
+                                                        style="color: red;">
+                                                    {{ _('Delete') }}
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="col-lg-4">
-                                <div class="card text-center user-device" data-uuid="">
-                                    <div class="card-body">
-                                        <h5 class="card-title d-inline">
-                                            Your Device
-                                        </h5>
-                                        <span class="badge badge-danger">
-                                    {{ _('Inactive') }}
-                                </span>
-                                        <ul class="list-unstyled">
-                                            <li class="text-muted">
-                                                Operation System: Windows 10
-                                            </li>
-                                            <li class="text-muted">
-                                                Location: Los-Angeles
-                                            </li>
-                                            <li class="text-muted">
-                                                Download: 830MB
-                                            </li>
-                                            <li class="text-muted">
-                                                Upload: 390GB
-                                            </li>
-                                        </ul>
-                                        <a href="#" class="card-link">
-                                            Activate
-                                        </a>
-                                        <a href="#" class="card-link">
-                                            Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="card text-center user-device" data-uuid="">
-                                    <div class="card-body">
-                                        <h5 class="card-title d-inline">
-                                            Your Device
-                                        </h5>
-                                        <span class="badge badge-danger">
-                                    {{ _('Inactive') }}
-                                </span>
-                                        <ul class="list-unstyled">
-                                            <li class="text-muted">
-                                                Operation System: Windows 10
-                                            </li>
-                                            <li class="text-muted">
-                                                Location: Los-Angeles
-                                            </li>
-                                            <li class="text-muted">
-                                                Download: 830MB
-                                            </li>
-                                            <li class="text-muted">
-                                                Upload: 390GB
-                                            </li>
-                                        </ul>
-                                        <a href="#" class="card-link">
-                                            Activate
-                                        </a>
-                                        <a href="#" class="card-link">
-                                            Delete
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

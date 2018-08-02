@@ -1,5 +1,4 @@
 import codecs
-import datetime
 import hashlib
 import logging
 import smtplib
@@ -53,9 +52,9 @@ class EmailService(object):
     def __init__(self, smtp_server: str, smtp_port: int, smtp_username: str, smtp_password: str, from_name: str,
                  from_email: str, templates_path: str):
 
-        logger.debug("__init__ method smtp_server=%s, smtp_port=%s, smtp_username=%s, smtp_password=%s, from_name=%s, "
-                     "from_email=%s, templates_path=%s" % (smtp_server, smtp_port, smtp_username, smtp_password,
-                                                           from_name, from_email, templates_path))
+        logger.debug(f"__init__ method smtp_server: {smtp_server}, smtp_port: {smtp_port}, "
+                     f"smtp_username: {smtp_username}, smtp_password: {smtp_password}, from_name: {from_name}, "
+                     f"from_email: {from_email}, templates_path: {templates_path}")
         self.__server = smtp_server
         self.__port = smtp_port
         self.__username = smtp_username
@@ -67,23 +66,24 @@ class EmailService(object):
         self.__templates_path = templates_path
 
     def send_trial_email(self, to_name: str, to_email: str) -> bool:
-        logger.debug('send_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
+        logger.debug(f"send_trial_email method with parameters to_name: {to_name}, to_email: {to_email}")
         email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
         return self.__send_message(to_email=to_email, email_str=email_str)
 
     def send_new_sub_email(self, to_name: str, to_email: str, sub_name: str) -> bool:
-        logger.debug('send_new_sub_email method t_name=%s, to_email=%s, sub_name=%s' % (to_name, to_email, sub_name))
+        logger.debug(f"send_new_sub_email method with parameters to_name: {to_name}, to_email: {to_email}, "
+                     f"sub_name: {sub_name}")
         email_str = self.__prepare_new_subscription_email(to_name=to_name, to_email=to_email, sub_name=sub_name)
         return self.__send_message(to_email=to_email, email_str=email_str)
 
     def __send_message(self, to_email: str, email_str: str) -> bool:
-        logger.debug("__send_message method to_email=%s, email_str=%s" % (to_email, email_str))
+        logger.debug(f"__send_message method with parameters to_name: {to_email}, to_email: {email_str}")
         try:
             is_connected = self.__connect()
             if not is_connected:
                 logger.error("not connected to SMTP. error")
                 return False
-            logger.info("calling sendmail method")
+            logger.info("call sendmail method")
             self.__smtp_server.sendmail(self.__from_email, to_email, email_str)
             logger.info("quit")
             self.__smtp_server.quit()
@@ -94,7 +94,8 @@ class EmailService(object):
             return False
 
     def __prepare_new_subscription_email(self, to_name: str, to_email: str, sub_name: str) -> str:
-        logger.debug('__prepare_new_subscription_email method t_name=%s, to_email=%s' % (to_name, to_email))
+        logger.debug(f"__prepare_new_subscription_email method with parameters to_name: {to_name}, "
+                     f"to_email: {to_email}, sub_name: {sub_name}")
 
         logger.info("reading trial html template")
         f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.NEW_SUB.html_template), 'r')
@@ -118,7 +119,7 @@ class EmailService(object):
         return email_str
 
     def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
-        logger.debug('__prepare_trial_email method t_name=%s, to_email=%s' % (to_name, to_email))
+        logger.debug(f"__prepare_trial_email method with parameters to_name: {to_email}, to_email: {to_email}")
 
         logger.info("reading trial html template")
         f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.TRIAL.html_template), 'r')
@@ -133,6 +134,7 @@ class EmailService(object):
         email_html_text = email_html_text.replace("@thank_you@", _('TRIAL_EMAIL_THANKS'))
         email_html_text = email_html_text.replace("@one_letter@", _('TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK'))
         email_html_text = email_html_text.replace("@service_ready@", _('TRIAL_EMAIL_INFORM'))
+        # TODO URL
         email_html_text = email_html_text.replace("@unsubscribe_user_url@",
                                                   'https://rroadvpn.net/unsubscribe?email=%s' % to_email)
         email_html_text = email_html_text.replace("@unsubscribe@", _('unsubscribe'))
@@ -143,9 +145,8 @@ class EmailService(object):
         return email_str
 
     def __prepare_email(self, to_name, to_email, subject, html_message) -> str:
-        logger.debug('__prepare_email method to_name=%s, to_email=%s, subject=%s, html_message=%s' % (to_name, to_email,
-                                                                                                      subject,
-                                                                                                      html_message))
+        logger.debug(f"__prepare_email method with parameters to_name: {to_name}, "
+                     f"to_email: {to_email}, subject: {subject}, html_message: {html_message}")
 
         html_email = MIMEText(html_message, 'html')
         html_email['From'] = '%s <%s>' % (self.__from_name, self.__from_email)
@@ -172,6 +173,7 @@ class RRNOrdersAPIService(RESTService):
     __version__ = 1
 
     def get_order(self, code: int = None, suuid: str = None) -> dict:
+        logger.debug(f"get_order method with parameters code: {code}, suuid: {suuid}")
         if suuid:
             url = f"{self._url}/uuid/{suuid}"
         elif code:
@@ -182,6 +184,7 @@ class RRNOrdersAPIService(RESTService):
         return api_response.data
 
     def create_order(self, status: int) -> dict:
+        logger.debug(f"create_order method with parameters status: {status}")
         data = {
             'status_id': status
         }
@@ -194,6 +197,7 @@ class RRNOrdersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_order(self, order_json: dict):
+        logger.debug(f"update_order method with parameters order_json: {order_json}")
         url = f"{self._url}/{order_json['uuid']}"
         self._put(url=url, data=order_json)
 
@@ -205,6 +209,7 @@ class RRNUsersAPIService(RESTService):
         super().__init__(api_url=api_url, resource_name=resource_name)
 
     def create_user(self, email, password) -> dict:
+        logger.debug(f"create_user method with parameters email: {email}, password: {password}")
         m = hashlib.md5()
         st = password.encode('utf-8')
         m.update(st)
@@ -214,7 +219,6 @@ class RRNUsersAPIService(RESTService):
             'email': email,
             'password': pwd,
         }
-        logger.debug('create user with parameters user_json: %s' % user_json)
         api_response = self._post(data=user_json, headers=self._headers)
         if 'Location' in api_response.headers:
             api_response = self._get(url=api_response.headers.get('Location'))
@@ -224,12 +228,12 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_user(self, user_json: dict):
-        logger.debug(f"update user with user_json: {user_json}")
-        url = f"{self._url}/{suuid}"
+        logger.debug(f"update_user method with parameters user_json: {user_json}")
+        url = f"{self._url}/{user_json.get('uuid')}"
         self._put(url=url, data=user_json, headers=self._headers)
 
     def get_user(self, uuid: str = None, email: str = None, pin_code: int = None) -> dict:
-        logger.debug('get user with parameters uuid: %s, email: %s' % (uuid, email))
+        logger.debug(f"get_user method with parameters uuid: {uuid}, email: {email}, pin_code: {pin_code}")
         if uuid:
             url = f"{self._url}/uuid/{uuid}"
         elif email:
@@ -242,25 +246,26 @@ class RRNUsersAPIService(RESTService):
         return api_response.data
 
     def get_user_subscription(self, user_uuid: str, subscription_uuid: str) -> dict:
-        logger.debug('get user subscription with parameters user_uuid: %s, subscription_uuid: %s' % (
-            user_uuid, subscription_uuid))
-        url = self._url + '/%s/subscriptions/%s' % (user_uuid, subscription_uuid)
+        logger.debug(f"get_user_subscription with parameters user_uuid: {user_uuid}, "
+                     f"subscription_uuid: {subscription_uuid}")
+        url = f"{self._url}/{user_uuid}/subscriptions/{subscription_uuid}"
         api_response = self._get(url=url)
         return api_response.data
 
     def get_user_subscriptions(self, user_uuid: str) -> dict:
-        logger.debug('get user subscriptions with parameter user_uuid: %s' % user_uuid)
+        logger.debug(f"get_user_subscriptions method with parameters user_uuid: {user_uuid}")
         url = f"{self._url}/{user_uuid}/subscriptions"
         api_response = self._get(url=url)
         return api_response.data
 
     def create_user_subscription(self, user_uuid: str, subscription_id: int, order_uuid: str) -> dict:
+        logger.debug(f"create_user_subscription method with parameters user_uuid: {user_uuid}. user_uuid: {user_uuid}, "
+                     f"subscription_id: {subscription_id}, order_uuid: {order_uuid}")
         data = {
             'user_uuid': user_uuid,
             'subscription_id': subscription_id,
             'order_uuid': order_uuid,
         }
-        logger.debug('create user subscription with parameters' % data)
         url = f"{self._url}/{user_uuid}/subscriptions"
         api_response = self._post(data=data, url=url)
         if 'Location' in api_response.headers:
@@ -271,15 +276,42 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_user_subscription(self, subscription_json: dict):
-        logger.debug('update user subscription with parameters' % subscription_json)
+        logger.debug(f"update_user_subscription method with parameters subscription_json: {subscription_json}")
         url = f"{self._url}/{subscription_json['user_uuid']}/subscriptions/{subscription_json['uuid']}"
         self._put(data=subscription_json, url=url)
+
+    def get_user_devices(self, user_uuid: str):
+        logger.debug(f"get_user_devices method with parameters user_uuid: {user_uuid}")
+        url = f"{self._url}/{user_uuid}/devices"
+        api_response = self._get(url=url)
+        return api_response.data
+
+    def get_user_device(self, user_uuid: str, device_uuid: str):
+        logger.debug(f"get_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
+        url = f"{self._url}/{user_uuid}/devices/{device_uuid}"
+        api_response = self._get(url=url)
+        return api_response
+
+    def delete_user_device(self, user_uuid: str, device_uuid: str):
+        logger.debug(f"delete_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
+        url = f"{self._url}/{user_uuid}/devices/{device_uuid}"
+        self._delete(url=url)
+
+    def change_status_user_device(self, user_uuid: str, device_uuid: str, status: bool):
+        logger.debug(
+            f"deactivate_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
+        url = f"{self._url}/{user_uuid}/devices/{device_uuid}"
+        api_response = self.get_user_device(user_uuid=user_uuid, device_uuid=device_uuid)
+        user_device = api_response.data
+        user_device['is_active'] = status
+        self._put(url=url, data=api_response.data)
 
 
 class RRNBillingAPIService(RESTService):
     __version__ = 1
 
     def get_subscriptions(self, lang_code: str) -> dict:
+        logger.debug(f"get_subscriptions method with parameters lang_code: {lang_code}")
         headers = {
             'Accept-Language': lang_code
         }
@@ -288,6 +320,7 @@ class RRNBillingAPIService(RESTService):
         return api_response.data
 
     def get_subscription_by_id(self, sid: int, lang_code: str) -> dict:
+        logger.debug(f"get_subscription_by_id method with parameters sid: {sid}, lang_code: {lang_code}")
         headers = {
             'Accept-Language': lang_code
         }
@@ -316,9 +349,10 @@ class PayProGlobalPaymentService(object):
 
     def build_redirect_url(self, order_code: str, subscription_id: int, payment_method_id: str,
                            user_locale: str = None):
+        logger.debug(f"build_redirect_url method with parameters order_code: {order_code}, "
+                     f"subscription_id: {subscription_id}, payment_method_id: {payment_method_id}, "
+                     f"user_locale: {user_locale}")
         payment_method_id = str(payment_method_id)
-        logger.info("build_redirect_url method with params [subscription_id=%s, user_locale=%s, payment_method_id=%s]"
-                    % (str(subscription_id), str(user_locale), str(payment_method_id)))
         logger.info('Buy or Recurring? Depends on payment method.')
         if payment_method_id in ['1', '14']:
             logger.info('Payment method is CC or PayPal. Use RECURRING payments')
@@ -364,6 +398,7 @@ class SubscriptionService(object):
         self._cache_service = cache_service
 
     def get_subscriptions(self, lang_code) -> list:
+        logger.debug(f"get_subscriptions method with parameters lang_code: {lang_code}")
         logger.info("Check subscriptions in cache")
         subscriptions = self._cache_service.get(key='subscriptions', prefix=lang_code)
         logger.info("Is subscriptions exists in cache: %s" % subscriptions is not None)
@@ -384,16 +419,19 @@ class SubscriptionService(object):
         return subscriptions_dict
 
     def __update_cache_subscriptions(self, lang_code):
-        logger.info("Call billing service")
+        logger.debug(f"__update_cache_subscriptions method with parameters lang_code: {lang_code}")
         try:
+            logger.info("Call billing service")
             subscriptions = self._billing_service.get_subscriptions(lang_code=lang_code)
-            logger.info("Called. Place in cache.")
+            logger.info(f"Save subscriptions in cache. Size: {len(subscriptions)}")
             self._cache_service.set('subscriptions', subscriptions, prefix=lang_code)
-            logger.info("Create dict. Place in cache.")
+            logger.info("Create dict")
             subscriptions_dict = {subscriptions[i]['id']: subscriptions[i] for i in range(0, len(subscriptions))}
+            logger.info("Save dict in cache")
             self._cache_service.set('subscriptions_dict', subscriptions_dict, prefix=lang_code)
-        except APIException:
-            pass
+        except APIException as e:
+            logger.error("Error when call billing service")
+            logger.error(e)
 
 
 class UserDiscoveryResponse(object):
