@@ -13,8 +13,9 @@ from flask_babel import _
 
 from app.cache import CacheService
 
+
 sys.path.insert(0, '../rest_api_library')
-from rest import RESTService, APIException
+from rest import RESTService, APIException, APIResponse
 
 logger = logging.getLogger(__name__)
 

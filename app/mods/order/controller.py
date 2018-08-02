@@ -165,6 +165,7 @@ def payment_url():
     order_json = session['order']
     order_json['modify_reason'] = 'update order status'
     order_json['status_id'] = OrderStatus.PROCESSING.sid
+
     rrn_orders_service.update_order(order_json=order_json)
 
     r.add_data('redirect_url', redirect_url)
