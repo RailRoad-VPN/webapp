@@ -42,6 +42,7 @@ class AjaxResponse(object):
             'success': self.success,
             'data': self.data,
             'errors': errors_dict,
+            'next': self.next,
         }
 
 

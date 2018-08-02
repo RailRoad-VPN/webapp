@@ -31,9 +31,17 @@ class DFNError(APIErrorEnum):
 
     UNKNOWN_ERROR_CODE = (name + str(count()), _l('Internal Server Error'), _('d'))
 
-    USER_LOGIN_NOT_EXIST = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
     USER_SIGNUP_EMAIL_BUSY = (name + str(count()), _l('Entered email is busy'), _('d'))
     USER_SIGNUP_FIELDS_INCOMPLETE = (name + str(count()), _l('Fill all fields to create account'), _('d'))
+
+    USER_LOGIN_NOT_EXIST = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
     USER_LOGIN_BAD_PASSWORD = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
+    USER_LOGIN_NOT_ENABLED = (name + str(count()), _l('Unable to log in. You account was deleted. If you want to restore account please contact support'), _('d'))
+    USER_LOGIN_LOCKED = (name + str(count()), _l('Unable to log in. You account was locked. If you want to unlock account please contact support'), _('d'))
+    USER_LOGIN_EXPIRED = (name + str(count()), _l('Unable to log in. You account was expired. If you want to restore account please contact support'), _('d'))
+
     USER_UNKNOWN_ERROR = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
     USER_PASSWORDS_NOT_MATCH = (name + str(count()), _l('Password does not match'), _('d'))
+
+    USER_PROFILE_EMAIL_BUSY = (name + str(count()), _l('Entered email is busy'), _('d'))
+    USER_PROFILE_BAD_EMAIL_DELETE_ACCOUNT = (name + str(count()), _l('You have entered wrong email. Enter correct email to delete your account'), _('d'))

@@ -1,13 +1,20 @@
 'use strict';
 
 $(document).ready(function () {
-    var $changeStatusUserDeviceBlockTextObj = $("meta#change_status_user_device_block_text");
+    var changeStatusUserDeviceBlockText = $("meta#change_status_user_device_block_text").data('text');
+    var emailSavedText = $("meta#email_saved_text").data('text');
+    var passwordSavedText = $("meta#password_saved_text").data('text');
 
     var $getPinCodeUrlObj = $("meta#get_pincode_url");
     var $renewSubUrlObj = $("meta#renew_sub_url");
     var $getOrderPaymentUrlObj = $("meta#get_order_payment_url");
     var $deleteUserDeviceUrlObj = $("meta#delete_user_device_url");
-    var $changeStatusUserDevice = $("meta#change_status_user_device");
+    var $changeStatusUserDeviceUrlObj = $("meta#change_status_user_device_url");
+    var $deleteAccountUrlObj = $("meta#delete_account_url");
+
+    var $updateEmailUrlObj = $("meta#update_email_url");
+    var $updatePasswordUrlObj = $("meta#update_password_url");
+    var $emailCheckURLObj = $("meta#email_check_url");
 
     var $el, leftPos, newWidth;
 
@@ -23,6 +30,10 @@ $(document).ready(function () {
         $generatePinBtn.addClass("disabled");
         $generatePinBtn.attr("disabled", true);
     }
+
+    var $emailInput = $("#account-email-input");
+    var $passwordInput = $("#account-password-input");
+    var $deleteAccountEmailInput = $("#delete-account-email-input");
 
     /*
      MENU
@@ -143,6 +154,70 @@ $(document).ready(function () {
         deleteUserDevice(device_uuid);
     });
 
+    $emailInput.on('focusout', function () {
+        checkEmail();
+    });
+
+    $("#save-email-btn").click(function () {
+        if ($emailInput.hasClass('is-invalid')) {
+            markInput($emailInput, false);
+            return false;
+        }
+        blockElement(null, $("#save-email-btn"), function () {
+            updateEmail($emailInput.val());
+        });
+    });
+
+    $("#save-password-btn").click(function () {
+        if ($emailInput.hasClass('is-invalid')) {
+            markInput($emailInput, false);
+            return false;
+        }
+        var password = $passwordInput.val();
+
+        if (!checkPassword()) {
+            return false;
+        }
+
+        updatePassword(password);
+    });
+
+    $("#account-delete-btn").click(function () {
+        var emailVal = $.trim($deleteAccountEmailInput.val());
+
+        if ($deleteAccountEmailInput.data("current_email") !== emailVal) {
+            markInput($deleteAccountEmailInput, false);
+            $deleteAccountEmailInput.parent().find('.correct_error').show();
+            return false;
+        }
+
+        $deleteAccountEmailInput.parent().find('.error').hide();
+        markInput($deleteAccountEmailInput, true);
+
+        var data = {
+            'email': emailVal
+        };
+        var isAsync = true;
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && !response['success']) {
+                $deleteAccountEmailInput.parent().find('.correct_error').show();
+                markInput($deleteAccountEmailInput, false);
+            } else {
+                if (response.hasOwnProperty('next')) {
+                    window.location = response['next'];
+                }
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($deleteAccountUrlObj.data('url'), $deleteAccountUrlObj.data('method'), JSON.stringify(data), isAsync, successCallback,
+            errorCallback)
+    });
+
     function getOrderByCode(order_code) {
         var isAsync = true;
 
@@ -221,9 +296,9 @@ $(document).ready(function () {
             notyError("System Error");
         };
 
-        blockElement($changeStatusUserDeviceBlockTextObj.data('text'), $device, function () {
-            doAjax($changeStatusUserDevice.data('url'), $changeStatusUserDevice.data('method'), JSON.stringify(data), isAsync,
-                successCallback, errorCallback);
+        blockElement(changeStatusUserDeviceBlockText, $device, function () {
+            doAjax($changeStatusUserDeviceUrlObj.data('url'), $changeStatusUserDeviceUrlObj.data('method'),
+                JSON.stringify(data), isAsync, successCallback, errorCallback);
         });
     }
 
@@ -246,7 +321,132 @@ $(document).ready(function () {
             notyError("System Error");
         };
 
-        doAjax($deleteUserDeviceUrlObj.data('url'), $deleteUserDeviceUrlObj.data('method'), JSON.stringify(data), isAsync, successCallback,
-            errorCallback);
+        doAjax($deleteUserDeviceUrlObj.data('url'), $deleteUserDeviceUrlObj.data('method'), JSON.stringify(data),
+            isAsync, successCallback, errorCallback);
+    }
+
+    function updatePassword(password) {
+        if (password === '') {
+            markInput($passwordInput, false);
+            $passwordInput.parent().find('.empty_error').show();
+            return false;
+        }
+
+        var isAsync = true;
+
+        var data = {
+            'password': password
+        };
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && response['success']) {
+                notySuccess(passwordSavedText);
+                unblockElement($("#save-password-btn"));
+            } else {
+                showErrors(response);
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        blockElement(null, $("#save-password-btn"), function () {
+            doAjax($updatePasswordUrlObj.data('url'), $updatePasswordUrlObj.data('method'), JSON.stringify(data), isAsync,
+                successCallback, errorCallback);
+        });
+    }
+
+    function updateEmail(email) {
+        if (email === '') {
+            markInput($emailInput, false);
+            $emailInput.parent().find('.empty_error').show();
+            unblockElement($("#save-email-btn"));
+            return false;
+        }
+
+        if ($emailInput.data("current_email") === email) {
+            unblockElement($("#save-email-btn"));
+            $emailInput.parent().find('.same_warning').show();
+            return false;
+        }
+
+        var isAsync = true;
+
+        var data = {
+            'email': email
+        };
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && response['success']) {
+                notySuccess(emailSavedText);
+                $emailInput.data("current_email", email);
+                $deleteAccountEmailInput.data("current_email", email);
+            } else {
+                showErrors(response);
+            }
+            unblockElement($("#save-email-btn"));
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($updateEmailUrlObj.data('url'), $updateEmailUrlObj.data('method'), JSON.stringify(data), isAsync,
+            successCallback, errorCallback);
+    }
+
+    function checkEmail() {
+        var emailVal = $.trim($emailInput.val());
+        if (emailVal === '') {
+            markInput($emailInput, false);
+            $emailInput.parent().find('.empty_error').show();
+            return false;
+        }
+
+        if ($emailInput.data("current_email") === emailVal) {
+            return false;
+        }
+
+        var data = {
+            'email': emailVal
+        };
+        var isAsync = true;
+
+        var successCallback = function (response) {
+            if (response.hasOwnProperty('success') && !response['success']) {
+                $emailInput.parent().find('.busy_error').show();
+                markInput($emailInput, false);
+            } else {
+                $emailInput.parent().find('.error').hide();
+                markInput($emailInput, true);
+            }
+        };
+
+        var errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($emailCheckURLObj.data('url'), $emailCheckURLObj.data('method'), data, isAsync, successCallback, errorCallback)
+    }
+
+    function checkPassword() {
+        var pwdVal = $.trim($passwordInput.val());
+        var $pwdFormGroup = $passwordInput.parent();
+
+        if (pwdVal === '') {
+            $pwdFormGroup.find('.empty_error').show();
+            markInput($passwordInput, false);
+            return false;
+        } else if (pwdVal.length < 6) {
+            $pwdFormGroup.find('.short_error').show();
+            markInput($passwordInput, false);
+            return false;
+        } else {
+            $pwdFormGroup.find('.short_error').hide();
+            markInput($passwordInput, true);
+
+            return true;
+        }
     }
 });

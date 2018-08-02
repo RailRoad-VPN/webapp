@@ -38,8 +38,8 @@ def create_user_subscription(order_uuid: str, subscription_id: str) -> bool:
 
     # create user subscription with created order
     logger.debug('get user_uuid and user_email')
-    user_uuid = session['user']['uuid']
-    user_email = session['user']['email']
+    user_uuid = session.get('user').get('uuid')
+    user_email = session.get('user').get('email')
 
     try:
         logging.info("Creating user subscription...")
@@ -52,11 +52,11 @@ def create_user_subscription(order_uuid: str, subscription_id: str) -> bool:
         return False
 
     logger.debug('get subscription name')
-    subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
+    subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session.get('lang_code'))
     sub = subscriptions_dict.get(int(subscription_id))
 
     logger.debug('send user email')
-    email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=sub['name'])
+    email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=sub.get('name'))
 
     logger.debug('authorise user in system')
     authorize_user(user_json=session['user'])

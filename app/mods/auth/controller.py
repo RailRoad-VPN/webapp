@@ -1,3 +1,4 @@
+import json
 import logging
 import sys
 from http import HTTPStatus
@@ -147,12 +148,30 @@ def signin():
                 resp = jsonify(r.serialize())
                 resp.code = e.http_code
                 return resp
-            is_password_valid = check_password_hash(user_json['password'], password)
+            is_password_valid = check_password_hash(user_json.get('password'), password)
             if not is_password_valid:
                 r.set_failed()
                 error = AjaxError(message=DFNError.USER_LOGIN_BAD_PASSWORD.message,
                                   code=DFNError.USER_LOGIN_BAD_PASSWORD.code,
                                   developer_message=DFNError.USER_LOGIN_BAD_PASSWORD.developer_message)
+                r.add_error(error)
+            elif not user_json.get('enabled'):
+                r.set_failed()
+                error = AjaxError(message=DFNError.USER_LOGIN_NOT_ENABLED.message,
+                                  code=DFNError.USER_LOGIN_NOT_ENABLED.code,
+                                  developer_message=DFNError.USER_LOGIN_NOT_ENABLED.developer_message)
+                r.add_error(error)
+            elif user_json.get('is_locked'):
+                r.set_failed()
+                error = AjaxError(message=DFNError.USER_LOGIN_LOCKED.message,
+                                  code=DFNError.USER_LOGIN_LOCKED.code,
+                                  developer_message=DFNError.USER_LOGIN_LOCKED.developer_message)
+                r.add_error(error)
+            elif user_json.get('is_expired'):
+                r.set_failed()
+                error = AjaxError(message=DFNError.USER_LOGIN_EXPIRED.message,
+                                  code=DFNError.USER_LOGIN_EXPIRED.code,
+                                  developer_message=DFNError.USER_LOGIN_EXPIRED.developer_message)
                 r.add_error(error)
             else:
                 authorize_user(user_json=user_json)
@@ -169,7 +188,7 @@ def signin():
 @login_required
 def logout():
     logger.info('logout method')
-    lang_code = session['lang_code']
+    lang_code = session.get('lang_code')
     session.clear()
     # setup base data
     session['logged_in'] = False
@@ -216,3 +235,103 @@ def is_email_busy():
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
         return resp
+
+
+@mod_auth.route('/update/email', methods=['POST'])
+@login_required
+def update_email():
+    logger.info("update_email method")
+
+    r = AjaxResponse(success=True)
+
+    data = json.loads(request.data)
+
+    email = data.get('email')
+
+    try:
+        # try to find user by email
+        rrn_user_service.get_user(email=email)
+        r.set_failed()
+        error = AjaxError(message=DFNError.USER_PROFILE_EMAIL_BUSY.message,
+                          code=DFNError.USER_PROFILE_EMAIL_BUSY.code,
+                          developer_message=DFNError.USER_PROFILE_EMAIL_BUSY.developer_message)
+        r.add_error(error)
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.OK
+        return resp
+    except APIException as e:
+        user_json = session.get('user')
+        user_json['email'] = email
+        user_json['modify_reason'] = 'change email'
+
+        rrn_user_service.update_user(user_json=user_json)
+
+        session['user'] = user_json
+
+        r.set_success()
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.OK
+        return resp
+
+
+@mod_auth.route('/update/password', methods=['POST'])
+@login_required
+def update_password():
+    logger.info("update_password method")
+
+    r = AjaxResponse(success=True)
+
+    data = json.loads(request.data)
+
+    password = data.get('password')
+    password = generate_password_hash(password)
+
+    user_json = session['user']
+    user_json['password'] = password
+    user_json['modify_reason'] = 'change password'
+
+    rrn_user_service.update_user(user_json=user_json)
+
+    session['user'] = user_json
+
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp
+
+
+@mod_auth.route('/delete', methods=['POST'])
+@login_required
+def delete_account():
+    logger.info("delete_account method")
+
+    r = AjaxResponse(success=True)
+
+    data = json.loads(request.data)
+
+    email = data.get('email')
+
+    user_json = session['user']
+
+    if email != user_json['email']:
+        r.set_failed()
+        error = AjaxError(message=DFNError.USER_PROFILE_BAD_EMAIL_DELETE_ACCOUNT.message,
+                          code=DFNError.USER_PROFILE_BAD_EMAIL_DELETE_ACCOUNT.code,
+                          developer_message=DFNError.USER_PROFILE_BAD_EMAIL_DELETE_ACCOUNT.developer_message)
+        r.add_error(error)
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.OK
+        return resp
+
+    user_json['enabled'] = False
+    user_json['modify_reason'] = 'delete account'
+
+    rrn_user_service.update_user(user_json=user_json)
+
+    session['user'] = user_json
+
+    r.set_success()
+    r.set_next(url_for('auth.logout', lang_code=session['lang_code']))
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp

@@ -39,10 +39,17 @@
     <meta id="get_order_payment_url" data-method="GET"
           data-url="{{ url_for('order.get_order_payment', order_code=-1) }}">
     <meta id="delete_user_device_url" data-method="POST" data-url="{{ url_for('profile.delete_user_device') }}">
-    <meta id="change_status_user_device" data-method="POST"
+    <meta id="change_status_user_device_url" data-method="POST"
           data-url="{{ url_for('profile.change_status_user_device') }}">
 
+    <meta id="email_check_url" data-method="GET" data-url="{{ url_for('auth.is_email_busy') }}">
+    <meta id="update_email_url" data-method="POST" data-url="{{ url_for('auth.update_email') }}">
+    <meta id="update_password_url" data-method="POST" data-url="{{ url_for('auth.update_password') }}">
+    <meta id="delete_account_url" data-method="POST" data-url="{{ url_for('auth.delete_account') }}">
+
     <meta id="change_status_user_device_block_text" data-text="{{ _('Working...') }}">
+    <meta id="email_saved_text" data-text="{{ _('Email was successfully changed!') }}">
+    <meta id="password_saved_text" data-text="{{ _('Password was successfully changed!') }}">
 {% endblock %}
 
 {% block body %}
@@ -159,9 +166,6 @@
                     </div>
                     <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Devices') }}</h4>
                     <div class="user-devices well container" style="padding-bottom: 50px;">
-                        <span class="loading-data" style="display: none;">
-                            {{ _('Loading...') }}
-                        </span>
                         {% if user_devices %}
                             <div class="row">
                                 {% for user_device in user_devices %}
@@ -226,7 +230,61 @@
             </div>
             <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container">
-                    {{ _('account') }}
+                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Account') }}</h4>
+                    <div class="user-devices well container " style="padding-bottom: 50px;">
+                        <label for="account-email-input">{{ _('Email') }}</label>
+                        <div class="input-group mb-3 col-4">
+                            <input id="account-email-input" type="email" class="form-control"
+                                   data-current_email="{{ session['user']['email'] }}"
+                                   value="{{ session['user']['email'] }}"
+                                   placeholder="example@domain.com"
+                                   aria-label="Your email"
+                                   aria-describedby="save-email-btn" required>
+                            <div class="input-group-append">
+                                <button id="save-email-btn" type="button" class="btn btn-outline-secondary">
+                                    {{ _('Save') }}
+                                </button>
+                            </div>
+                            <div class="col-12 error warning small same_warning">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ _('Entered email is your email') }}
+                            </div>
+                            <div class="col-12 error small empty_error">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ _('Enter email please') }}
+                            </div>
+                            <div class="col-12 error small busy_error">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ _('Entered email is busy') }}
+                            </div>
+                        </div>
+                        <label for="account-password-input">{{ _('Password') }}</label>
+                        <div class="input-group mb-3 col-4">
+                            <input id="account-password-input" type="password" class="form-control"
+                                   placeholder="{{ _('Enter your new password here') }}"
+                                   aria-label="Your password"
+                                   aria-describedby="change-password-btn">
+                            <div class="input-group-append">
+                                <button id="save-password-btn" type="button" class="btn btn-outline-secondary">
+                                    {{ _('Save') }}
+                                </button>
+                            </div>
+                            <div class="col-12 error small empty_error">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ _('Enter password please') }}
+                            </div>
+                            <div class="col-12 error small short_error">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ _('Entered password too short. Minimum length 6 chars') }}
+                            </div>
+                        </div>
+                        <hr>
+                        <button type="button"
+                                data-toggle="modal" data-target="#delete-account-modal"
+                                class="btn btn-secondary float-right">
+                            {{ _('DELETE ACCOUNT') }}
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="downloads" role="tabpanel" aria-labelledby="contact-tab">
@@ -261,6 +319,36 @@
                     <span id="cd_h">00</span>:<span id="cd_m">00</span>:<span id="cd_s">00</span>:<span
                         id="cd_ms">00</span>
                     <input type="hidden" value="1800" id="cd_seconds"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-account-modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false"
+         data-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ _('You are about to delete your account') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row justify-content-center text-center">
+                        <div class="input-group col-6">
+                            <input id="delete-account-email-input" type="text" class="form-control"
+                                   data-current_email="{{ session['user']['email'] }}"
+                                   placeholder="{{ _('Enter email assigned to account') }}">
+                            <div class="error small col-12 correct_error">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                {{ _('Enter correct email please') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="account-delete-btn" class="btn btn-danger">{{ _('Delete account') }}</button>
                 </div>
             </div>
         </div>

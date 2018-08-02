@@ -194,25 +194,42 @@ function unblockPage(cb) {
 }
 
 function blockElement(text, $el, cb) {
+    var message;
+    if (text === null) {
+        message = ' <img src="/static/main/images/loading.gif" class="h-100"> '
+    } else {
+        message = '<span>' + text + '</span>'
+    }
+
+    if ($el.is('input')) {
+        $el.attr('readonly', true);
+    }
+
     $el.block({
-        message: '<span>' + text + '</span>',
+        message: message,
         css: {
             border: 'none',
-            padding: '10px',
-            backgroundColor: '#000',
+            left: "0px",
+            padding: 'none' ? text === null : '10px',
+            backgroundColor: '#fff' ? text === null : '#000',
             '-webkit-border-radius': '10px',
             '-moz-border-radius': '10px',
             opacity: .5,
             width: 'inherit',
-            color: '#fff'
+            color: '#fff',
+            height: '100%'
         },
         onBlock: function () {
+            $(".blockUI.blockMsg.blockElement").css({"left": "0px !important"});
             if (cb) cb();
         }
     });
 }
 
 function unblockElement($el, cb) {
+    if ($el.is('input')) {
+        $el.attr('readonly', false);
+    }
     $el.unblock({
         onUnblock: function () {
             if (cb) cb();
