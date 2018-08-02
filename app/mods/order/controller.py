@@ -121,11 +121,10 @@ def order():
         except APIException as e:
             logging.debug(e.serialize())
 
-    subscriptions = subscription_service.get_subscriptions(lang_code=session['lang_code'])
+    subscriptions = subscription_service.get_subscriptions(lang_code=session.get('lang_code'))
 
     if subscriptions is None:
-        return render_template('order/order.html', pack_id=pack_id, chosen_subscription=None,
-                               subscriptions=None, code=200)
+        return redirect(url_for('order/order', lang_code=session.get('lang_code')))
 
     logger.info("Got subscriptions. Size: %s" % len(subscriptions))
     if app_config['DEBUG'] is True:

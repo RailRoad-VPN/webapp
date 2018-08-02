@@ -139,6 +139,15 @@ def signin():
         else:
             try:
                 user_json = rrn_user_service.get_user(email=email)
+            except APINotFoundException as e:
+                logging.debug(e.serialize())
+                r.set_failed()
+                error = AjaxError(message=DFNError.USER_LOGIN_NOT_EXIST.message, code=DFNError.USER_LOGIN_NOT_EXIST.code,
+                                  developer_message=DFNError.USER_LOGIN_NOT_EXIST.developer_message)
+                r.add_error(error)
+                resp = jsonify(r.serialize())
+                resp.code = e.http_code
+                return resp
             except APIException as e:
                 logging.debug(e.serialize())
                 r.set_failed()
@@ -148,6 +157,7 @@ def signin():
                 resp = jsonify(r.serialize())
                 resp.code = e.http_code
                 return resp
+
             is_password_valid = check_password_hash(user_json.get('password'), password)
             if not is_password_valid:
                 r.set_failed()
@@ -176,7 +186,7 @@ def signin():
             else:
                 authorize_user(user_json=user_json)
                 r.set_success()
-                r.add_data('next', url_for('profile.profile_page'))
+                r.set_next(url_for('profile.profile_page'))
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
         return resp
@@ -230,7 +240,7 @@ def is_email_busy():
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
         return resp
-    except APIException as e:
+    except (APIException, APINotFoundException) as e:
         r.set_success()
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK

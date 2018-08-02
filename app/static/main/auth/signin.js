@@ -11,8 +11,8 @@ $(document).ready(function () {
                 // hideLoader();
                 if (response['success']) {
                     if (response.hasOwnProperty('data')) {
-                        if (response['data'].hasOwnProperty('next')) {
-                            window.location = response['data']['next'];
+                        if (response.hasOwnProperty('next')) {
+                            window.location = response['next'];
                         } else {
                             window.location = "/";
                         }
