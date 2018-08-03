@@ -132,8 +132,6 @@ $(document).ready(function () {
         }
 
         if (progress_direction === 'right') {
-            is_allow_next_step = stepFieldSetValidation(currentStepId);
-
             // business logic
             if (currentStepId === 'pack') {
                 is_allow_next_step = packToAccount();
