@@ -100,7 +100,7 @@
                                 {{ sub['name'] }}
                             </h4>
                             <span class="sub-badges">
-                                {% if us['is_expired'] == false and us['order']['payment_uuid'] %}
+                                {% if us['is_expired'] == false and order['status_id'] == 1 %}
                                     <input class="is_user_has_active_subscribe" type="hidden" value="true">
                                 {% endif %}
                                 {% if order['status_id'] == 1 %}
@@ -115,7 +115,7 @@
                                 {% if us['is_expired'] == true %}
                                     <span class="badge badge-danger">{{ _('Expired') }}</span>
                                 {% endif %}
-                                {% if not us['order']['payment_uuid'] %}
+                                {% if order['status_id'] == 2 %}
                                     <span class="badge badge-warning">
                                         {{ _('Waiting for payment') }}
                                     </span>
@@ -135,7 +135,7 @@
                                     {% else %}
                                         <small class="text-muted">{{ _('Next payment') }}:</small>
                                     {% endif %}
-                                    {% if not us['order']['payment_uuid'] %}
+                                    {% if order['status_id'] == 2 %}
                                         <small class="payment-wait" data-order_code="{{ us['order']['code'] }}">
                                             {{ _('Waiting for payment') }}
                                         </small>

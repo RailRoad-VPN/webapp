@@ -95,9 +95,9 @@ def order():
         else:
             logger.error(f"user subscription was created")
 
-            logger.debug(f"Set order {order_code_ppg} status success")
+            logger.debug(f"Set order {order_code_ppg} status processing")
             order_json = session.get('order')
-            order_json['status_id'] = OrderStatus.SUCCESS.sid
+            order_json['status_id'] = OrderStatus.PROCESSING.sid
 
         logger.debug("remove order from session")
         session.pop('order')
@@ -116,10 +116,10 @@ def order():
     if 'order' not in session or session['order'] is None:
         # create new order
         try:
-            logging.info("Creating order...")
+            logging.info("creating order...")
             order_json = rrn_orders_service.create_order(status=OrderStatus.NEW.sid)
             session['order'] = order_json
-            logging.info("Order created: %s" % order_json)
+            logging.info("order created: %s" % order_json)
         except APIException as e:
             logging.debug(e.serialize())
 
@@ -128,7 +128,7 @@ def order():
     if subscriptions is None:
         return redirect(url_for('order/order', lang_code=session.get('lang_code')))
 
-    logger.info("Got subscriptions. Size: %s" % len(subscriptions))
+    logger.info("got subscriptions. Size: %s" % len(subscriptions))
     if app_config['DEBUG'] is True:
         for sub in subscriptions:
             logger.debug(sub)
@@ -162,7 +162,7 @@ def payment_url():
 
     session['order']['redirect_url'] = redirect_url
 
-    logger.debug(f"Set order {session['order']['code']} status processing")
+    logger.debug(f"set order {session['order']['code']} status processing")
     order_json = session['order']
     order_json['modify_reason'] = 'update order status'
     order_json['status_id'] = OrderStatus.PROCESSING.sid
