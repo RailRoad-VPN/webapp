@@ -47,6 +47,8 @@
     <meta id="update_password_url" data-method="POST" data-url="{{ url_for('auth.update_password') }}">
     <meta id="delete_account_url" data-method="POST" data-url="{{ url_for('auth.delete_account') }}">
 
+    <meta id="is_pin_code_activated_url" data-method="GET" data-url="{{ url_for('profile.is_pin_code_activated') }}">
+
     <meta id="change_status_user_device_block_text" data-text="{{ _('Working...') }}">
     <meta id="email_saved_text" data-text="{{ _('Email was successfully changed!') }}">
     <meta id="password_saved_text" data-text="{{ _('Password was successfully changed!') }}">

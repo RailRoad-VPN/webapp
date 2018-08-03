@@ -11,6 +11,7 @@ $(document).ready(function () {
     var $deleteUserDeviceUrlObj = $("meta#delete_user_device_url");
     var $changeStatusUserDeviceUrlObj = $("meta#change_status_user_device_url");
     var $deleteAccountUrlObj = $("meta#delete_account_url");
+    var $isPincodeActivatedUrlObj = $("meta#is_pin_code_activated_url");
 
     var $updateEmailUrlObj = $("meta#update_email_url");
     var $updatePasswordUrlObj = $("meta#update_password_url");
@@ -89,20 +90,55 @@ $(document).ready(function () {
                     $("#cd_seconds").val(response['data']['seconds']);
 
                     $.APP.startTimer('cd');
+
+                    unblockPage(function () {
+                        $("#pincode-modal").modal('show');
+                    });
                 }
             } else {
                 showErrors(response);
+
+                unblockPage();
             }
         };
 
         var errorCallback = function (response) {
             notyError("System Error");
+            unblockPage();
         };
 
-        doAjax($getPinCodeUrlObj.data('url'), $getPinCodeUrlObj.data('method'), {}, isAsync, successCallback,
-            errorCallback);
+        blockPage(function () {
+            doAjax($getPinCodeUrlObj.data('url'), $getPinCodeUrlObj.data('method'), {}, isAsync, successCallback,
+                errorCallback);
+        });
+    });
 
-        $("#pincode-modal").modal('show');
+    var checkPincodeInterval;
+    $("#pincode-modal").on('shown.bs.modal', function () {
+        checkPincodeInterval = setInterval(function () {
+            var isAsync = true;
+
+            var successCallback = function (response) {
+                if (response['success']) {
+                    if (response.hasOwnProperty('data') && response['data'].hasOwnProperty('is_pin_code_activated')) {
+                        if (response['data']['is_pin_code_activated']) {
+                            alert('pin code activated');
+                        }
+                    }
+                }
+            };
+
+            var errorCallback = function (response) {
+                notyError("System Error");
+            };
+
+            doAjax($renewSubUrlObj.data('url'), $renewSubUrlObj.data('method'), {}, isAsync, successCallback,
+                errorCallback);
+        }, 2000);
+    });
+
+    $("#pincode-modal").on('hide.bs.modal', function () {
+        clearInterval(checkPincodeInterval);
     });
 
     $(".renew-sub-btn").click(function () {

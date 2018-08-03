@@ -177,6 +177,25 @@ def renew_sub():
     return resp
 
 
+@mod_profile.route('/is_pin_code_activated', methods=['GET'])
+@login_required
+def is_pin_code_activated():
+    logger.info('is_pin_code_activated method')
+
+    r = AjaxResponse(success=True)
+
+    updated_user_json = rrn_user_service.get_user(uuid=session['user']['uuid'])
+    session['user'] = updated_user_json
+
+    is_pin_code_activated = updated_user_json['is_pin_code_activated']
+
+    r.add_data('is_pin_code_activated', is_pin_code_activated)
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp
+
+
 @mod_profile.route('/user_devices/delete', methods=['POST'])
 @login_required
 def delete_user_device():
