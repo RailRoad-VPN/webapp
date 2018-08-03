@@ -84,21 +84,23 @@ def order():
                 "Order from PPG does not equal. Why? PPG: %s, Session: %s" % (order_code_ppg, order_code_session))
 
         subscription_id = session['order']['subscription_id']
-        order_uuid = session['order']['uuid']
+        order_uuid = session.get('order').get('uuid')
 
         is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
         if not is_ok:
-            logger.error(f"User subscription was not created")
-
-            logger.debug(f"Set order {order_code_ppg} status failed")
-            order_json = session['order']
+            logger.error(f"user subscription was not created")
+            logger.debug(f"set order {order_code_ppg} status failed")
+            order_json = session.get('order')
             order_json['status_id'] = OrderStatus.FAILED.sid
         else:
-            logger.error(f"User subscription was created")
+            logger.error(f"user subscription was created")
 
             logger.debug(f"Set order {order_code_ppg} status success")
-            order_json = session['order']
+            order_json = session.get('order')
             order_json['status_id'] = OrderStatus.SUCCESS.sid
+
+        logger.debug("remove order from session")
+        session.pop('order')
 
         order_json['modify_reason'] = 'update order status'
         rrn_orders_service.update_order(order_json=order_json)
