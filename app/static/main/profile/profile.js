@@ -230,9 +230,8 @@ $(document).ready(function () {
 
                         var is_success = order['is_success'];
                         var code = order['code'];
-                        var payment_arrived = order['payment_arrived'];
 
-                        if (payment_arrived === true) {
+                        if (is_success === true) {
                             clearInterval(order_intervals[code]);
                             window.location.reload();
                         }

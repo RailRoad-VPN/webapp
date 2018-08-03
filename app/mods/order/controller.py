@@ -197,8 +197,7 @@ def get_order_payment(order_code: int):
 
     order_r = {
         'is_success': order_json['status_id'] == OrderStatus.SUCCESS.sid,
-        'code': order_code,
-        'payment_arrived': order_json.get('payment_uuid', None) is not None
+        'code': order_code
     }
 
     r.add_data('order', order_r)
