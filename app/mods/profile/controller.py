@@ -203,7 +203,9 @@ def delete_user_device():
 
     r = AjaxResponse(success=True)
 
-    device_uuid = request.args.get('device_uuid')
+    data = json.loads(request.data)
+
+    device_uuid = data.get('device_uuid')
 
     rrn_user_service.delete_user_device(user_uuid=session.get('user').get('uuid'), device_uuid=device_uuid)
 
