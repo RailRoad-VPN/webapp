@@ -281,7 +281,7 @@ class RRNUsersAPIService(RESTService):
         url = f"{self._url}/{subscription_json['user_uuid']}/subscriptions/{subscription_json['uuid']}"
         self._put(data=subscription_json, url=url)
 
-    def get_user_devices(self, user_uuid: str):
+    def get_user_devices(self, user_uuid: str) -> dict:
         logger.debug(f"get_user_devices method with parameters user_uuid: {user_uuid}")
         url = f"{self._url}/{user_uuid}/devices"
         api_response = self._get(url=url)

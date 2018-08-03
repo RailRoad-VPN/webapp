@@ -39,7 +39,10 @@ def profile_page():
         us_order = rrn_orders_service.get_order(suuid=us_order_uuid)
         us['order'] = us_order
 
-    user_devices = rrn_user_service.get_user_devices(user_uuid=session['user']['uuid'])
+    try:
+        user_devices = rrn_user_service.get_user_devices(user_uuid=session['user']['uuid'])
+    except (APIException, APINotFoundException) as e:
+        user_devices = None
 
     return render_template('profile/profile.html', code=HTTPStatus.OK, user_subscriptions=user_subscriptions,
                            user_devices=user_devices)
