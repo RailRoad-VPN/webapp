@@ -143,9 +143,15 @@ $(document).ready(function () {
 
     $(".change-status-device-btn").click(function () {
         var device_uuid = $(this).data('uuid');
-        var is_active = $(this).data('is_active') === true;
+        var is_active = $(this).data('is_active');
 
-        changeStatusUserDevice(device_uuid, !is_active);
+        var n_status;
+        if (is_active === 1) {
+            n_status = 0
+        } else {
+            n_status = 1
+        }
+        changeStatusUserDevice(device_uuid, n_status);
     });
 
     $(".delete-device-btn").click(function () {
@@ -250,7 +256,7 @@ $(document).ready(function () {
             errorCallback);
     }
 
-    function changeStatusUserDevice(user_device_uuid, status) {
+    function changeStatusUserDevice(user_device_uuid, n_status) {
         var $device = $('.user-device[data-uuid="' + user_device_uuid + '"]');
         var $deviceChangeStatusButton = $device.find(".change-status-device-btn");
 
@@ -258,7 +264,7 @@ $(document).ready(function () {
 
         var data = {
             'device_uuid': user_device_uuid,
-            'status': status
+            'status': n_status === 1
         };
 
         var successCallback = function (response) {
@@ -266,7 +272,7 @@ $(document).ready(function () {
                 var $deviceBadge = $device.find('.badge');
                 var button_text;
                 var badge_text;
-                if (status === true) {
+                if (n_status === 1) {
                     // change badge
                     $deviceBadge.removeClass('badge-warning').addClass('badge-success');
                     // get badge text
@@ -283,7 +289,7 @@ $(document).ready(function () {
                 // change badge text
                 $deviceBadge.text(badge_text);
                 // change button is_active data-attribute
-                $deviceChangeStatusButton.data('is_active', status);
+                $deviceChangeStatusButton.data('is_active', n_status);
 
                 unblockElement($device);
             } else {

@@ -183,7 +183,7 @@ def delete_user_device():
 
     device_uuid = request.args.get('device_uuid')
 
-    rrn_user_service.delete_user_device(user_uuid=session['user_uuid'], device_uuid=device_uuid)
+    rrn_user_service.delete_user_device(user_uuid=session.get('user').get('uuid'), device_uuid=device_uuid)
 
     r.set_success()
     resp = jsonify(r.serialize())

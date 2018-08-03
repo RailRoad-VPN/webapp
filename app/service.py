@@ -300,7 +300,8 @@ class RRNUsersAPIService(RESTService):
 
     def change_status_user_device(self, user_uuid: str, device_uuid: str, status: bool):
         logger.debug(
-            f"deactivate_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
+            f"change_status_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}, "
+            f"status: {status}")
         url = f"{self._url}/{user_uuid}/devices/{device_uuid}"
         api_response = self.get_user_device(user_uuid=user_uuid, device_uuid=device_uuid)
         user_device = api_response.data

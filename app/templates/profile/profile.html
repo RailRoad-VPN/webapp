@@ -205,7 +205,11 @@
                                                     </li>
                                                 </ul>
                                                 <button class="btn btn-link card-link change-status-device-btn"
-                                                        data-is_active="{{ user_device['is_active'] }}"
+                                                        {% if user_device['is_active'] %}
+                                                            data-is_active="1"
+                                                        {% else %}
+                                                            data-is_active="0"
+                                                        {% endif %}
                                                         data-uuid="{{ user_device['uuid'] }}"
                                                         data-activate_text="{{ _('Activate') }}"
                                                         data-deactivate_text="{{ _('Deactivate') }}">
