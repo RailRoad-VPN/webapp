@@ -186,7 +186,7 @@ function blockPage(cb) {
 }
 
 function unblockPage(cb) {
-    $.unblock({
+    $.unblockUI({
         onUnblock: function () {
             if (cb) cb();
         }
