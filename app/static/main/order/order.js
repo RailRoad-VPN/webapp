@@ -131,13 +131,11 @@ $(document).ready(function () {
             }
         }
 
-        if (progress_direction === 'right') {
-            // business logic
-            if (currentStepId === 'pack') {
-                is_allow_next_step = packToAccount();
-            } else if (currentStepId === 'account') {
-                is_allow_next_step = accountToPayment();
-            }
+        // business logic
+        if (currentStepId === 'pack') {
+            is_allow_next_step = packToAccount();
+        } else if (currentStepId === 'account') {
+            is_allow_next_step = accountToPayment();
         }
 
         if (!is_allow_next_step) {
