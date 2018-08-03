@@ -132,9 +132,9 @@ $(document).ready(function () {
                 notyError("System Error");
             };
 
-            doAjax($renewSubUrlObj.data('url'), $renewSubUrlObj.data('method'), {}, isAsync, successCallback,
-                errorCallback);
-        }, 2000);
+            doAjax($isPincodeActivatedUrlObj.data('url'), $isPincodeActivatedUrlObj.data('method'), {}, isAsync,
+                successCallback, errorCallback);
+        }, 5000);
     });
 
     $("#pincode-modal").on('hide.bs.modal', function () {
