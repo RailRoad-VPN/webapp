@@ -205,20 +205,20 @@ $(document).ready(function () {
         return is_pwd_ok;
     }
 
-    function stepFieldSetValidation(currentStepId) {
-        var is_alllow = true;
-        $('fieldset[data-id="' + currentStepId + '"]').find('input[type="text"], input[type="password"]').each(function () {
-            if ($.trim($(this).val()) === "") {
-                markInput($(this), false);
-                $(this).parent().find('.empty_error').show();
-                is_alllow = false;
-            } else {
-                markInput($(this), true);
-                $(this).parent().find('.empty_error').hide();
-            }
-        });
-        return is_alllow
-    }
+    // function stepFieldSetValidation(currentStepId) {
+    //     var is_alllow = true;
+    //     $('fieldset[data-id="' + currentStepId + '"]').find('input[type="text"], input[type="password"]').each(function () {
+    //         if ($.trim($(this).val()) === "") {
+    //             markInput($(this), false);
+    //             $(this).parent().find('.empty_error').show();
+    //             is_alllow = false;
+    //         } else {
+    //             markInput($(this), true);
+    //             $(this).parent().find('.empty_error').hide();
+    //         }
+    //     });
+    //     return is_alllow
+    // }
 
     // prevent form submit by pressing enter button
     $(window).keydown(function (event) {
