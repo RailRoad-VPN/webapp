@@ -12,7 +12,7 @@ from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 from app.models.order_status import OrderStatus
-from user_subscription_status import UserSubscriptionStatus
+from app.models.user_subscription_status import UserSubscriptionStatus
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
