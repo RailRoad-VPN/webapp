@@ -98,32 +98,33 @@
                         {% for us in user_subscriptions %}
                             {% set sub = us['subscription'] %}
                             {% set order = us['order'] %}
+                            {% set payments = order['payments'] %}
                             <h4 class="d-inline">
                                 {{ sub['name'] }}
                             </h4>
                             <span class="sub-badges">
-                                {% if us['is_expired'] == false and order['status_id'] == 3 %}
+                                {% if us['status_id'] == 1 %}
                                     <input class="is_user_has_active_subscribe" type="hidden" value="true">
-                                {% endif %}
-                                {% if order['status_id'] == 1 %}
-                                    <span class="badge badge-light">{{ _('New') }}</span>
-                                {% elif order['status_id'] == 2 %}
-                                    <span class="badge badge-warning">{{ _('Processing') }}</span>
-                                {% elif order['status_id'] == 3 %}
                                     <span class="badge badge-success">{{ _('Active') }}</span>
-                                {% elif order['status_id'] == 4 %}
-                                    <span class="badge badge-danger">{{ _('Failed') }}</span>
-                                {% endif %}
-                                {% if us['is_expired'] == true %}
-                                    <span class="badge badge-danger">{{ _('Expired') }}</span>
-                                {% endif %}
-                                {% if order['status_id'] == 2 %}
-                                    <span class="badge badge-warning">
-                                        {{ _('Waiting for payment') }}
-                                    </span>
+                                {% elif us['status_id'] == 2 %}
+                                    <span class="badge badge-danger">{{ _('Inactive') }}</span>
+                                {% elif us['status_id'] == 3 %}
+                                    <span class="badge badge-warning">{{ _('Expired') }}</span>
+                                {% elif us['status_id'] == 4 %}
+                                    <span class="badge badge-primary">{{ _('Waiting for payment') }}</span>
                                 {% endif %}
                                 <span class="badge badge-dark">
                                     {{ _('Order') }} #{{ order['code'] }}
+                                    {% if order['status_id'] == 1 %}
+                                        {{ _('New') }}
+                                    {% elif order['status_id'] == 2 %}
+                                        {{ _('Processing') }}
+                                    {% elif order['status_id'] == 3 %}
+                                        {{ _('Success') }}
+                                    {% elif order['status_id'] == 4 %}
+                                        {{ _('Failed') }}
+                                    {% endif %}
+
                                 </span>
                                 <span class="badge badge-info">
                                     {{ sub['bill_freq'] }}
@@ -137,7 +138,7 @@
                                     {% else %}
                                         <small class="text-muted">{{ _('Next payment') }}:</small>
                                     {% endif %}
-                                    {% if order['status_id'] == 2 %}
+                                    {% if us['status_id'] == 4 %}
                                         <small class="payment-wait" data-order_code="{{ us['order']['code'] }}">
                                             {{ _('Waiting for payment') }}
                                         </small>

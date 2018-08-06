@@ -31,12 +31,17 @@ def profile_page():
     logger.info('profile_page method')
     user_subscriptions = rrn_user_service.get_user_subscriptions(user_uuid=session['user']['uuid'])
     subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
+    if subscriptions_dict is None:
+        pass
     for us in user_subscriptions:
         sub = subscriptions_dict.get(us['subscription_id'])
         us['subscription'] = sub
 
         us_order_uuid = us['order_uuid']
         us_order = rrn_orders_service.get_order(suuid=us_order_uuid)
+        payments = rrn_orders_service.get_order_payments(order_uuid=us_order['uuid'])
+        us_order['payments'] = payments
+
         us['order'] = us_order
 
     try:

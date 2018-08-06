@@ -201,6 +201,11 @@ class RRNOrdersAPIService(RESTService):
         url = f"{self._url}/{order_json['uuid']}"
         self._put(url=url, data=order_json)
 
+    def get_order_payments(self, order_uuid: str):
+        logger.debug(f"get_order_payments method with parameters order_uuid: {order_uuid}")
+        url = f"{self._url}/{order_uuid}/payments"
+        return self._get(url=url)
+
 
 class RRNUsersAPIService(RESTService):
     __version__ = 1

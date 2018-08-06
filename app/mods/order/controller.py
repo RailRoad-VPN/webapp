@@ -89,7 +89,7 @@ def order():
         order_uuid = session.get('order').get('uuid')
 
         is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
-                                         status_id=UserSubscriptionStatus.INACTIVE.sid)
+                                         status_id=UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid)
         if not is_ok:
             logger.error(f"user subscription was not created")
             logger.debug(f"set order {order_code_ppg} status failed")
@@ -166,12 +166,12 @@ def payment_url():
 
     session['order']['redirect_url'] = redirect_url
 
-    logger.debug(f"set order {session['order']['code']} status processing")
-    order_json = session['order']
-    order_json['modify_reason'] = 'update status'
-    order_json['status_id'] = OrderStatus.PROCESSING.sid
-
-    rrn_orders_service.update_order(order_json=order_json)
+    # logger.debug(f"set order {session['order']['code']} status processing")
+    # order_json = session['order']
+    # order_json['modify_reason'] = 'update status'
+    # order_json['status_id'] = OrderStatus.NEW.sid
+    #
+    # rrn_orders_service.update_order(order_json=order_json)
 
     r.add_data('redirect_url', redirect_url)
     r.set_success()
@@ -199,10 +199,16 @@ def get_order_payment(order_code: int):
         resp.code = HTTPStatus.OK
         return resp
 
+    is_order_success = order_json['status_id'] == OrderStatus.SUCCESS.sid
+
     order_r = {
         'is_success': order_json['status_id'] == OrderStatus.SUCCESS.sid,
         'code': order_code
     }
+
+    if is_order_success:
+        api_response = rrn_orders_service.get_order_payments(order_uuid=order_json['uuid'])
+        order_r['payments'] = api_response.data
 
     r.add_data('order', order_r)
     r.set_success()
