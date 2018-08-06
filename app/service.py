@@ -13,9 +13,8 @@ from flask_babel import _
 
 from app.cache import CacheService
 
-
 sys.path.insert(0, '../rest_api_library')
-from rest import RESTService, APIException, APIResponse
+from rest import RESTService, APIException
 
 logger = logging.getLogger(__name__)
 
@@ -259,11 +258,12 @@ class RRNUsersAPIService(RESTService):
         api_response = self._get(url=url)
         return api_response.data
 
-    def create_user_subscription(self, user_uuid: str, subscription_id: int, order_uuid: str) -> dict:
+    def create_user_subscription(self, user_uuid: str, status_id: int, subscription_id: int, order_uuid: str) -> dict:
         logger.debug(f"create_user_subscription method with parameters user_uuid: {user_uuid}. user_uuid: {user_uuid}, "
                      f"subscription_id: {subscription_id}, order_uuid: {order_uuid}")
         data = {
             'user_uuid': user_uuid,
+            'status_id': status_id,
             'subscription_id': subscription_id,
             'order_uuid': order_uuid,
         }
@@ -349,7 +349,7 @@ class PayProGlobalPaymentService(object):
         self._test_mode = 'true' if config['DEBUG'] else 'false'
         self._params_dict = cfg['params_name']
 
-    def build_redirect_url(self, order_code: str, subscription_id: int, payment_method_id: str,
+    def build_redirect_url(self, user_uuid: str, order_code: str, subscription_id: int, payment_method_id: str,
                            user_locale: str = None):
         logger.debug(f"build_redirect_url method with parameters order_code: {order_code}, "
                      f"subscription_id: {subscription_id}, payment_method_id: {payment_method_id}, "
@@ -374,6 +374,7 @@ class PayProGlobalPaymentService(object):
         logger.info('Add payment and order fields to URL.')
         redirect_url += self._params_dict['payment_method'] % str(payment_method_id)
         redirect_url += self._params_dict['order_code'] % str(order_code)
+        redirect_url += self._params_dict['user_uuid'] % str(user_uuid)
         logger.info('Phrase #1. Redirect URL: %s' % str(redirect_url))
 
         logger.info('Check user locale')

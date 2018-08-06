@@ -12,6 +12,7 @@ from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 from app.models.order_status import OrderStatus
+from user_subscription_status import UserSubscriptionStatus
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
@@ -32,7 +33,7 @@ def pull_lang_code(endpoint, values):
     _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
 
 
-def create_user_subscription(order_uuid: str, subscription_id: str) -> bool:
+def create_user_subscription(order_uuid: str, status_id: int, subscription_id: str) -> bool:
     logger.info('create_user_subscription method with parameters subscription_id: %s, order_uuid: %s' % (
         subscription_id, order_uuid))
 
@@ -44,6 +45,7 @@ def create_user_subscription(order_uuid: str, subscription_id: str) -> bool:
     try:
         logging.info("Creating user subscription...")
         user_subscription = rrn_user_service.create_user_subscription(user_uuid=user_uuid,
+                                                                      status_id=status_id,
                                                                       subscription_id=subscription_id,
                                                                       order_uuid=order_uuid)
         logging.info("User Subscription create: %s" % user_subscription)
@@ -86,7 +88,8 @@ def order():
         subscription_id = session['order']['subscription_id']
         order_uuid = session.get('order').get('uuid')
 
-        is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id)
+        is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
+                                         status_id=UserSubscriptionStatus.INACTIVE.sid)
         if not is_ok:
             logger.error(f"user subscription was not created")
             logger.debug(f"set order {order_code_ppg} status failed")
@@ -157,14 +160,15 @@ def payment_url():
 
     session['order']['subscription_id'] = subscription_id
 
-    redirect_url = ppg_payments_service.build_redirect_url(order_code=order_code, subscription_id=subscription_id,
+    redirect_url = ppg_payments_service.build_redirect_url(user_uuid=session.get('user').get('uuid'),
+                                                           order_code=order_code, subscription_id=subscription_id,
                                                            payment_method_id=payment_method_id, user_locale=user_locale)
 
     session['order']['redirect_url'] = redirect_url
 
     logger.debug(f"set order {session['order']['code']} status processing")
     order_json = session['order']
-    order_json['modify_reason'] = 'update order status'
+    order_json['modify_reason'] = 'update status'
     order_json['status_id'] = OrderStatus.PROCESSING.sid
 
     rrn_orders_service.update_order(order_json=order_json)

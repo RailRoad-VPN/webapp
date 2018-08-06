@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class PaymentType(Enum):
+class UserSubscriptionStatus(Enum):
     __version__ = 1
 
     def __new__(cls, *args, **kwds):
@@ -14,4 +14,7 @@ class PaymentType(Enum):
         self.sid = sid
         self.text = text
 
-    PPG = (1, 'payproglobal')
+    ACTIVE = (1, 'active')
+    INACTIVE = (2, 'inactive')
+    EXPIRED = (3, 'expired')
+    WAIT_FOR_PAYMENT = (4, 'waiting for payment')

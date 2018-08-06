@@ -25,6 +25,7 @@ class Config(object):
             'payment_method': '&payment-method=%s',
             'language': '&language=%s',
             'order_code': '&x-ordercode=%s',
+            'user_uuid': '&x-useruuid=%s',
         }
     }
 
