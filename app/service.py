@@ -15,6 +15,7 @@ from app.cache import CacheService
 
 sys.path.insert(0, '../rest_api_library')
 from rest import RESTService, APIException
+from response import APIResponse
 
 logger = logging.getLogger(__name__)
 
@@ -201,7 +202,7 @@ class RRNOrdersAPIService(RESTService):
         url = f"{self._url}/{order_json['uuid']}"
         self._put(url=url, data=order_json)
 
-    def get_order_payments(self, order_uuid: str):
+    def get_order_payments(self, order_uuid: str) -> APIResponse:
         logger.debug(f"get_order_payments method with parameters order_uuid: {order_uuid}")
         url = f"{self._url}/{order_uuid}/payments"
         return self._get(url=url)

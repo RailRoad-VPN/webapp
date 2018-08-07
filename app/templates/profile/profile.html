@@ -124,7 +124,6 @@
                                     {% elif order['status_id'] == 4 %}
                                         {{ _('Failed') }}
                                     {% endif %}
-
                                 </span>
                                 <span class="badge badge-info">
                                     {{ sub['bill_freq'] }}
@@ -149,7 +148,7 @@
                             {% endif %}
                             <div class="row">
                                 <div class="col-12">
-                                    {% if us['is_expired'] == true %}
+                                    {% if us['status_id'] == 4 %}
                                         {{ _('This subscription has been expired you can') }}
                                         <a href="{{ url_for('order.order') }}">
                                             {{ _('buy new one') }}
@@ -160,6 +159,48 @@
                                            data-order_code="{{ order['code'] }}">
                                             {{ _('renew subscription') }}
                                         </a>
+                                    {% endif %}
+                                    {% if payments | length > 0 %}
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">{{ _('Email') }}</th>
+                                                <th scope="col">{{ _('Type') }}</th>
+                                                <th scope="col">{{ _('Sum') }}</th>
+                                                <th scope="col">{{ _('Method') }}</th>
+                                                <th scope="col">{{ _('Date') }}</th>
+                                                <th scope="col">{{ _('Status') }}</th>
+                                                <th scope="col">{{ _('Invoice Link') }}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for payment in payments %}
+                                                {% if payment['type_id'] == 1 %}
+                                                    {% set email = payment['json_data']['CUSTOMER_EMAIL'] %}
+                                                    {% set type = 'PayProGlobal' %}
+                                                    {% set sum = payment['json_data']['ORDER_ITEM_TOTAL_AMOUNT'] %}
+                                                    {% set method = payment['json_data']['PAYMENT_METHOD_NAME'] %}
+                                                    {% set invoice_link = payment['json_data']['INVOICE_LINK'] %}
+                                                {% endif %}
+                                                {% if payment['status_id'] == 1 %}
+                                                    {% set status = _('success') %}
+                                                {% elif payment['status_id'] == 2 %}
+                                                    {% set status = _('failed') %}
+                                                {% elif payment['status_id'] == 3 %}
+                                                    {% set status = _('processing') %}
+                                                {% endif %}
+                                                <tr>
+                                                    <td>{{ email }}</td>
+                                                    <td>{{ type }}</td>
+                                                    <td>{{ sum }}</td>
+                                                    <td>{{ method }}</td>
+                                                    <td>{{ moment(payment['created_date'] | strftime).fromNow() }}</td>
+                                                    <td>{{ status }}</td>
+                                                    <td>{{ invoice_link if invoice_link else 'N/A' }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
                                     {% endif %}
                                 </div>
                             </div>
@@ -209,9 +250,9 @@
                                                 </ul>
                                                 <button class="btn btn-link card-link change-status-device-btn"
                                                         {% if user_device['is_active'] %}
-                                                            data-is_active="1"
+                                                        data-is_active="1"
                                                         {% else %}
-                                                            data-is_active="0"
+                                                        data-is_active="0"
                                                         {% endif %}
                                                         data-uuid="{{ user_device['uuid'] }}"
                                                         data-activate_text="{{ _('Activate') }}"

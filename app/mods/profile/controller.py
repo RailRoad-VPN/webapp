@@ -39,8 +39,8 @@ def profile_page():
 
         us_order_uuid = us['order_uuid']
         us_order = rrn_orders_service.get_order(suuid=us_order_uuid)
-        payments = rrn_orders_service.get_order_payments(order_uuid=us_order['uuid'])
-        us_order['payments'] = payments
+        api_response = rrn_orders_service.get_order_payments(order_uuid=us_order['uuid'])
+        us_order['payments'] = api_response.data
 
         us['order'] = us_order
 
