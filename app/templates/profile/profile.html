@@ -134,12 +134,12 @@
                             <!-- 0 price for free sub -->
                             {% if sub['price_per_month'] != 0 %}
                                 <span class="d-inline float-right">
-                                    {% if us['is_expired'] == true %}
+                                    {% if us['status_id'] == 3 %} <!-- expired -->
                                         <small class="text-muted">{{ _('Payment is past due') }}:</small>
                                     {% else %}
                                         <small class="text-muted">{{ _('Next payment') }}:</small>
                                     {% endif %}
-                                    {% if us['status_id'] == 4 %}
+                                    {% if us['status_id'] == 4 %} <!-- wait_for_payment -->
                                         <small class="payment-wait" data-order_code="{{ us['order']['code'] }}">
                                             {{ _('Waiting for payment') }}
                                         </small>
@@ -150,7 +150,7 @@
                             {% endif %}
                             <div class="row pt-2">
                                 <div class="col-12">
-                                    {% if us['status_id'] == 3 %}
+                                    {% if us['status_id'] == 3 %} <!-- expired -->
                                         {{ _('This subscription has been expired you can') }}
                                         <a href="{{ url_for('order.order') }}">
                                             {{ _('buy new one') }}
@@ -177,7 +177,7 @@
                                             </thead>
                                             <tbody>
                                             {% for payment in payments %}
-                                                {% if payment['type_id'] == 1 %}
+                                                {% if payment['type_id'] == 1 %} <!-- PPG -->
                                                     {% set email = payment['json_data']['CUSTOMER_EMAIL'] %}
                                                     {% set type = 'PayProGlobal' %}
                                                     {% set sum = payment['json_data']['ORDER_ITEM_TOTAL_AMOUNT'] %}
