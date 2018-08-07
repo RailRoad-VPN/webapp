@@ -192,11 +192,17 @@
                                                 <tr>
                                                     <td>{{ email }}</td>
                                                     <td>{{ type }}</td>
-                                                    <td>{{ sum }}</td>
+                                                    <td>{{ sum }}$</td>
                                                     <td>{{ method }}</td>
                                                     <td>{{ moment(payment['created_date'] | strftime).fromNow() }}</td>
-                                                    <td>{{ status }}</td>
-                                                    <td>{{ invoice_link if invoice_link else 'N/A' }}</td>
+                                                    <td><span class="badge badge-success">{{ status }}</span></td>
+                                                    <td>
+                                                        {% if invoice_link %}
+                                                            <a href="{{ invoice_link }}">{{ _('Invoice Link') }}</a>
+                                                        {% else %}
+                                                            N/A
+                                                        {% endif %}
+                                                    </td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>

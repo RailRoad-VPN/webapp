@@ -92,10 +92,9 @@ def signup():
 
     # try to register user
     try:
-        password = generate_password_hash(password)
         user_json = rrn_user_service.create_user(email=email, password=password)
         user_json.pop('password')
-        logging.info("Created user: %s" % user_json)
+        logging.info("created user: %s" % user_json)
     except APIException as e:
         logger.debug(e.serialize())
         r.set_failed()

@@ -10,6 +10,7 @@ from typing import Optional
 
 import requests
 from flask_babel import _
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.cache import CacheService
 
@@ -216,10 +217,10 @@ class RRNUsersAPIService(RESTService):
 
     def create_user(self, email, password) -> dict:
         logger.debug(f"create_user method with parameters email: {email}, password: {password}")
-        m = hashlib.md5()
-        st = password.encode('utf-8')
-        m.update(st)
-        pwd = m.hexdigest()
+
+        logger.debug(f"generate password hash")
+        pwd = check_password_hash(password)
+        logger.debug(f"generated hash: {pwd}")
 
         user_json = {
             'email': email,
