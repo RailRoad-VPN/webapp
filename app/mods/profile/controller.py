@@ -170,6 +170,15 @@ def renew_sub():
     session['order'] = order
     session['order']['renew'] = True
 
+    uss = rrn_user_service.get_user_subscriptions(user_uuid=session.get('user').get('uuid'))
+    chosen_us_uuid = None
+    for us in uss:
+        if us['order_uuid'] == order['uuid']:
+            chosen_us_uuid = us['uuid']
+            break
+
+    session['order']['subscription_uuid'] = chosen_us_uuid
+
     redirect_url = url_for('order.order', pack=sub_id)
 
     r.add_data('redirect_url', redirect_url)
