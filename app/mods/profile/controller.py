@@ -103,10 +103,6 @@ def generate_pincode():
         resp.code = HTTPStatus.OK
         return resp
 
-    logger.debug('Generate PIN code')
-    pin_code = random_with_n_digits(4)
-    logger.debug('PIN code: %s' % pin_code)
-
     # we try to get user by pin code. if we found - we have to generate new pin code
     ok = False
     while not ok:
