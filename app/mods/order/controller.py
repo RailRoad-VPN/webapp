@@ -1,7 +1,6 @@
 import logging
 import sys
 from http import HTTPStatus
-from typing import Optional
 
 from flask import Blueprint, request, render_template, \
     session, jsonify, redirect, url_for
@@ -125,6 +124,17 @@ def order():
             logging.info("order created: %s" % order_json)
         except APIException as e:
             logging.debug(e.serialize())
+    # elif 'renew' in session.get('order') and session.get('order').get('renew'):
+    #     sess_order = session.get('order')
+    #     order_code = sess_order.get('code')
+    #     subscription_id = pack_id
+    #     TODO если делать так то надо откуда-то вытащить payment method, например из предыдущего платежа
+    #     payment_method_id = sess_order.get('payment_method_id', None)
+    #     user_locale = session['user_locale']
+    #
+    #     redirect_url = build_payment_url(subscription_id=subscription_id, order_code=order_code,
+    #                                      payment_method_id=payment_method_id, user_locale=user_locale)
+    #     return redirect()
 
     subscriptions = subscription_service.get_subscriptions(lang_code=session.get('lang_code'))
 
@@ -158,6 +168,17 @@ def payment_url():
     payment_method_id = request.args.get('payment_method_id', None)
     user_locale = session['user_locale']
 
+    redirect_url = build_payment_url(subscription_id=subscription_id, order_code=order_code,
+                                     payment_method_id=payment_method_id, user_locale=user_locale)
+
+    r.add_data('redirect_url', redirect_url)
+    r.set_success()
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp
+
+
+def build_payment_url(subscription_id, order_code, payment_method_id, user_locale):
     session['order']['subscription_id'] = subscription_id
 
     redirect_url = ppg_payments_service.build_redirect_url(user_uuid=session.get('user').get('uuid'),
@@ -165,19 +186,7 @@ def payment_url():
                                                            payment_method_id=payment_method_id, user_locale=user_locale)
 
     session['order']['redirect_url'] = redirect_url
-
-    # logger.debug(f"set order {session['order']['code']} status processing")
-    # order_json = session['order']
-    # order_json['modify_reason'] = 'update status'
-    # order_json['status_id'] = OrderStatus.NEW.sid
-    #
-    # rrn_orders_service.update_order(order_json=order_json)
-
-    r.add_data('redirect_url', redirect_url)
-    r.set_success()
-    resp = jsonify(r.serialize())
-    resp.code = HTTPStatus.OK
-    return resp
+    return redirect_url
 
 
 @mod_order.route('/<int:order_code>/payment')
