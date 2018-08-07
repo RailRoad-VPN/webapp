@@ -96,17 +96,19 @@ def order():
             is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
                                              status_id=UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid)
         else:
-            logger.error(f"we renew user subscription")
+            logger.debug(f"we renew user subscription")
             is_ok = True
-            subscription_uuid = order_dict_from_session.get('subscription_uuid')
-            user_subscription = rrn_user_service.get_user_subscription(user_uuid=session.get('user').get('uuid'),
-                                                                       subscription_uuid=subscription_uuid)
-            user_subscription['status_id'] = UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid
-            user_subscription['modify_reason'] = f"update status for {UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid}"
-            try:
-                rrn_user_service.update_user_subscription(subscription_json=user_subscription)
-            except APIException as e:
-                logger.error(e)
+            # logger.debug("get subscription uuid from session")
+            # subscription_uuid = order_dict_from_session.get('subscription_uuid')
+            # logger.debug(f"subscription uuid: {subscription_uuid}")
+            # user_subscription = rrn_user_service.get_user_subscription(user_uuid=session.get('user').get('uuid'),
+            #                                                            subscription_uuid=subscription_uuid)
+            # user_subscription['status_id'] = UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid
+            # user_subscription['modify_reason'] = f"update status for {UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid}"
+            # try:
+            #     rrn_user_service.update_user_subscription(subscription_json=user_subscription)
+            # except APIException as e:
+            #     logger.error(e)
 
         if is_ok:
             logger.debug(f"Set order {order_code_ppg} status processing")
