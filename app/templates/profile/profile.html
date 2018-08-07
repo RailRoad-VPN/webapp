@@ -148,7 +148,7 @@
                                     {% endif %}
                                 </span>
                             {% endif %}
-                            <div class="row pt-2">
+                            <div class="row">
                                 <div class="col-12">
                                     {% if us['status_id'] == 3 %} <!-- expired -->
                                         {{ _('This subscription has been expired you can') }}
@@ -163,7 +163,7 @@
                                         </a>
                                     {% endif %}
                                     {% if payments | length > 0 %}
-                                        <table class="table">
+                                        <table class="table pt-2">
                                             <thead>
                                             <tr>
                                                 <th scope="col">{{ _('Email') }}</th>
@@ -179,7 +179,7 @@
                                             {% for payment in payments %}
                                                 {% if payment['type_id'] == 1 %} <!-- PPG -->
                                                     {% set email = payment['json_data']['CUSTOMER_EMAIL'] %}
-                                                    {% set type = 'PayProGlobal' %}
+                                                    {% set type = 'PayPro Global, Inc' %}
                                                     {% set sum = payment['json_data']['ORDER_ITEM_TOTAL_AMOUNT'] %}
                                                     {% set method = payment['json_data']['PAYMENT_METHOD_NAME'] %}
                                                     {% set invoice_link = payment['json_data']['INVOICE_LINK'] %}

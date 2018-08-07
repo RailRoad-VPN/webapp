@@ -47,7 +47,7 @@ def create_user_subscription(order_uuid: str, status_id: int, subscription_id: s
                                                                       status_id=status_id,
                                                                       subscription_id=subscription_id,
                                                                       order_uuid=order_uuid)
-        logging.info("User Subscription create: %s" % user_subscription)
+        logger.error(f"user subscription was created: {user_subscription}")
     except APIException as e:
         logging.debug(e.serialize())
         return False
@@ -92,13 +92,21 @@ def order():
         order_uuid = order_dict_from_session.get('uuid')
 
         if not order_dict_from_session.get('renew'):
-            logger.error(f"we did not renew subscription, so create new one")
+            logger.error(f"we did NOT renew subscription, so create new one")
             is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
                                              status_id=UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid)
-            logger.error(f"user subscription was created")
         else:
-            logger.error(f"we did renew user subscription")
+            logger.error(f"we renew user subscription")
             is_ok = True
+            subscription_uuid = order_dict_from_session.get('subscription_uuid')
+            user_subscription = rrn_user_service.get_user_subscription(user_uuid=session.get('user').get('uuid'),
+                                                                       subscription_uuid=subscription_uuid)
+            user_subscription['status_id'] = UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid
+            user_subscription['modify_reason'] = f"update status for {UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid}"
+            try:
+                rrn_user_service.update_user_subscription(subscription_json=user_subscription)
+            except APIException as e:
+                logger.error(e)
 
         if is_ok:
             logger.debug(f"Set order {order_code_ppg} status processing")

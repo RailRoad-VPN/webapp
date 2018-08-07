@@ -193,7 +193,7 @@ def is_pin_code_activated():
     updated_user_json = rrn_user_service.get_user(uuid=session['user']['uuid'])
     session['user'] = updated_user_json
 
-    is_pin_code_activated = updated_user_json['is_pin_code_activated']
+    is_pin_code_activated = updated_user_json.get('is_pin_code_activated')
 
     r.add_data('is_pin_code_activated', is_pin_code_activated)
     r.set_success()
