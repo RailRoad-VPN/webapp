@@ -196,7 +196,7 @@
                                                     <td>{{ type }}</td>
                                                     <td>{{ sum }}$</td>
                                                     <td>{{ method }}</td>
-                                                    <td>{{ moment(payment['created_date'] | strftime).fromNow() }}</td>
+                                                    <td>{{ moment(payment['created_date'] | strftime).format('Do MMMM YYYY, HH:mm:ss') }}</td>
                                                     <td><span class="badge badge-success">{{ status }}</span></td>
                                                     <td>
                                                         {% if invoice_link %}
