@@ -219,7 +219,7 @@ class RRNUsersAPIService(RESTService):
         logger.debug(f"create_user method with parameters email: {email}, password: {password}")
 
         logger.debug(f"generate password hash")
-        pwd = check_password_hash(password)
+        pwd = generate_password_hash(password)
         logger.debug(f"generated hash: {pwd}")
 
         user_json = {
