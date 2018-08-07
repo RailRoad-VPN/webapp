@@ -83,7 +83,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <button id="generate-pin-btn" class="btn btn-link text-danger text-uppercase"
+                    <button class="btn btn-link text-danger text-uppercase generate-pin-btn"
+                            data-placement="top"
+                            title="{{ _("You cant generate PINCODE until you don't have any ACTIVE subscription") }}"
                             style="font-weight: bold;">
                         <i class="fas fa-barcode"></i> {{ _('Generate PIN-code') }}
                     </button>
@@ -146,9 +148,9 @@
                                     {% endif %}
                                 </span>
                             {% endif %}
-                            <div class="row">
+                            <div class="row pt-2">
                                 <div class="col-12">
-                                    {% if us['status_id'] == 4 %}
+                                    {% if us['status_id'] == 3 %}
                                         {{ _('This subscription has been expired you can') }}
                                         <a href="{{ url_for('order.order') }}">
                                             {{ _('buy new one') }}
@@ -198,7 +200,7 @@
                                                     <td><span class="badge badge-success">{{ status }}</span></td>
                                                     <td>
                                                         {% if invoice_link %}
-                                                            <a href="{{ invoice_link }}">{{ _('Invoice Link') }}</a>
+                                                            <a href="{{ invoice_link }}">{{ _('Link') }}</a>
                                                         {% else %}
                                                             N/A
                                                         {% endif %}
@@ -278,6 +280,16 @@
                                         </div>
                                     </div>
                                 {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center">
+                                {{ _('You have no devices. Press ') }}
+                                <button class="btn btn-link text-danger text-uppercase generate-pin-btn"
+                                        data-placement="top"
+                                        title="{{ _("You cant generate PINCODE until you don't have any ACTIVE subscription") }}">
+                                    <i class="fas fa-barcode"></i> {{ _('Generate PIN-code') }}
+                                </button>
+                                {{ _('button to generate and activate your first device with RRoadVPN.') }}
                             </div>
                         {% endif %}
                     </div>

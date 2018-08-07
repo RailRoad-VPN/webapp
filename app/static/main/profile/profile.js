@@ -23,13 +23,14 @@ $(document).ready(function () {
     var $menuItems = $menu.find("li");
     var $menuItemsLinks = $menuItems.find('a');
 
-    var $generatePinBtn = $("#generate-pin-btn");
+    var $generatePinBtn = $(".generate-pin-btn");
 
     var is_user_has_active_subscribe = $(".is_user_has_active_subscribe").length > 0;
 
     if (!is_user_has_active_subscribe) {
         $generatePinBtn.addClass("disabled");
-        $generatePinBtn.attr("disabled", true);
+        $generatePinBtn.attr('data-toggle', "tooltip");
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     var $emailInput = $("#account-email-input");
