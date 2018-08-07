@@ -76,36 +76,43 @@ def order():
         order_code_ppg = request.args.get('x-ordercode', None)
         logger.debug('x-ordercode: %s' % order_code_ppg)
 
+        logger.debug(f"get order from session")
+        order_dict_from_session = session.get('order')
+        logger.debug(f"order from session: {order_dict_from_session}")
+
         logger.debug('get order code from order in session')
-        order_code_session = session['order']['code']
+        order_code_session = order_dict_from_session.get('code')
         logger.debug('order_code_session: %s' % order_code_session)
 
         if order_code_ppg == order_code_session:
             logger.error(
                 "Order from PPG does not equal. Why? PPG: %s, Session: %s" % (order_code_ppg, order_code_session))
 
-        subscription_id = session['order']['subscription_id']
-        order_uuid = session.get('order').get('uuid')
+        subscription_id = order_dict_from_session.get('subscription_id')
+        order_uuid = order_dict_from_session.get('uuid')
 
-        is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
-                                         status_id=UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid)
-        if not is_ok:
+        if not order_dict_from_session.get('renew'):
+            logger.error(f"we did not renew subscription, so create new one")
+            is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
+                                             status_id=UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid)
+            logger.error(f"user subscription was created")
+        else:
+            logger.error(f"we did renew user subscription")
+            is_ok = True
+
+        if is_ok:
+            logger.debug(f"Set order {order_code_ppg} status processing")
+            order_dict_from_session['status_id'] = OrderStatus.PROCESSING.sid
+        else:
             logger.error(f"user subscription was not created")
             logger.debug(f"set order {order_code_ppg} status failed")
-            order_json = session.get('order')
-            order_json['status_id'] = OrderStatus.FAILED.sid
-        else:
-            logger.error(f"user subscription was created")
-
-            logger.debug(f"Set order {order_code_ppg} status processing")
-            order_json = session.get('order')
-            order_json['status_id'] = OrderStatus.PROCESSING.sid
+            order_dict_from_session['status_id'] = OrderStatus.FAILED.sid
 
         logger.debug("remove order from session")
         session.pop('order')
 
-        order_json['modify_reason'] = 'update order status'
-        rrn_orders_service.update_order(order_json=order_json)
+        order_dict_from_session['modify_reason'] = 'update order status'
+        rrn_orders_service.update_order(order_json=order_dict_from_session)
         return redirect(url_for('profile.profile_page'))
     elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
         if 'error' in request.args:

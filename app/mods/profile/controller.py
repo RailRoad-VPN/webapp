@@ -172,7 +172,7 @@ def renew_sub():
 
     order = rrn_orders_service.get_order(code=order_code)
     session['order'] = order
-    # session['order']['renew'] = True
+    session['order']['renew'] = True
 
     redirect_url = url_for('order.order', pack=sub_id)
 
