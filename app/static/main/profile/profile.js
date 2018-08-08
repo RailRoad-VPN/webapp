@@ -147,7 +147,8 @@ $(document).ready(function () {
 
         var _data = {
             'sub_id': $(this).data('sub_id'),
-            'order_code': $(this).data('order_code')
+            'order_code': $(this).data('order_code'),
+            'subscription_uuid': $(this).data('subscription_uuid')
         };
 
         var successCallback = function (response) {

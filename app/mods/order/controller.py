@@ -1,13 +1,14 @@
 import logging
 import sys
 from http import HTTPStatus
+from uuid import UUID
 
 from flask import Blueprint, request, render_template, \
     session, jsonify, redirect, url_for
 
 from app import rrn_user_service, rrn_orders_service, app_config, \
     ppg_payments_service, subscription_service, email_service
-from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user
+from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user, login_required
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 from app.models.order_status import OrderStatus
@@ -43,8 +44,7 @@ def create_user_subscription(order_uuid: str, status_id: int, subscription_id: s
 
     try:
         logging.info("Creating user subscription...")
-        user_subscription = rrn_user_service.create_user_subscription(user_uuid=user_uuid,
-                                                                      status_id=status_id,
+        user_subscription = rrn_user_service.create_user_subscription(user_uuid=user_uuid, status_id=status_id,
                                                                       subscription_id=subscription_id,
                                                                       order_uuid=order_uuid)
         logger.error(f"user subscription was created: {user_subscription}")
@@ -91,21 +91,31 @@ def order():
         subscription_id = order_dict_from_session.get('subscription_id')
         order_uuid = order_dict_from_session.get('uuid')
 
-        if not order_dict_from_session.get('renew'):
+        if not order_dict_from_session.get('renew') and 'x-subscriptionuuid' not in request.args:
             logger.error(f"we did NOT renew subscription, so create new one")
             is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
                                              status_id=UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid)
         else:
             logger.debug(f"we renew user subscription")
             is_ok = True
-            logger.debug("get subscription uuid from session")
+
+            logger.debug("get subscription uuid from order in session")
             subscription_uuid = order_dict_from_session.get('subscription_uuid')
-            logger.debug(f"subscription uuid: {subscription_uuid}")
+            logger.debug(f"subscription_uuid: {subscription_uuid}")
+
+            logger.debug("get user subscription")
             user_subscription = rrn_user_service.get_user_subscription(user_uuid=session.get('user').get('uuid'),
                                                                        subscription_uuid=subscription_uuid)
+
+            logger.debug(f"user subscription: {user_subscription}")
+
+            logger.debug("prepare user subscription to update")
             user_subscription['status_id'] = UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid
-            user_subscription['modify_reason'] = f"update status for {UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid}"
+            user_subscription['modify_reason'] = f"update status to {UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid}"
+            logger.debug(f"updated user subscription: {user_subscription}")
+
             try:
+                logger.debug("update user subscription")
                 rrn_user_service.update_user_subscription(subscription_json=user_subscription)
             except APIException as e:
                 logger.error(e)
@@ -141,17 +151,6 @@ def order():
             logging.info("order created: %s" % order_json)
         except APIException as e:
             logging.debug(e.serialize())
-    # elif 'renew' in session.get('order') and session.get('order').get('renew'):
-    #     sess_order = session.get('order')
-    #     order_code = sess_order.get('code')
-    #     subscription_id = pack_id
-    #     TODO если делать так то надо откуда-то вытащить payment method, например из предыдущего платежа
-    #     payment_method_id = sess_order.get('payment_method_id', None)
-    #     user_locale = session['user_locale']
-    #
-    #     redirect_url = build_payment_url(subscription_id=subscription_id, order_code=order_code,
-    #                                      payment_method_id=payment_method_id, user_locale=user_locale)
-    #     return redirect()
 
     subscriptions = subscription_service.get_subscriptions(lang_code=session.get('lang_code'))
 
@@ -185,9 +184,9 @@ def payment_url():
     payment_method_id = request.args.get('payment_method_id', None)
     user_locale = session['user_locale']
 
-    redirect_url = build_payment_url(subscription_id=subscription_id, order_code=order_code,
-                                     payment_method_id=payment_method_id, user_locale=user_locale)
-
+    redirect_url = build_payment_url(user_uuid=session.get('user').get('uuid'), subscription_id=subscription_id,
+                                     order_code=order_code, payment_method_id=payment_method_id,
+                                     user_locale=user_locale)
     r.add_data('redirect_url', redirect_url)
     r.set_success()
     resp = jsonify(r.serialize())
@@ -195,18 +194,21 @@ def payment_url():
     return resp
 
 
-def build_payment_url(subscription_id, order_code, payment_method_id, user_locale):
+def build_payment_url(user_uuid: UUID, subscription_id: str, order_code: int, payment_method_id: int,
+                      subscription_uuid: UUID = None, user_locale: str = None):
     session['order']['subscription_id'] = subscription_id
 
-    redirect_url = ppg_payments_service.build_redirect_url(user_uuid=session.get('user').get('uuid'),
-                                                           order_code=order_code, subscription_id=subscription_id,
-                                                           payment_method_id=payment_method_id, user_locale=user_locale)
+    redirect_url = ppg_payments_service.build_redirect_url(user_uuid=user_uuid, order_code=order_code,
+                                                           subscription_id=subscription_id,
+                                                           payment_method_id=payment_method_id,
+                                                           subscription_uuid=subscription_uuid, user_locale=user_locale)
 
     session['order']['redirect_url'] = redirect_url
     return redirect_url
 
 
 @mod_order.route('/<int:order_code>/payment')
+@login_required
 def get_order_payment(order_code: int):
     logger.info('get_order_payment method')
 

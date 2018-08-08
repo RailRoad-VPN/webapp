@@ -80,9 +80,9 @@ def generate_pincode():
 
     pin_code = updated_user_json.get('pin_code', None)
     pin_code_expire_date = updated_user_json.get('pin_code_expire_date', None)
-    is_pin_code_activated = updated_user_json.get('is_pin_code_activated', None)
+    is_pin_code_activated_var = updated_user_json.get('is_pin_code_activated', None)
 
-    if pin_code is not None and pin_code_expire_date is not None and not is_pin_code_activated:
+    if pin_code is not None and pin_code_expire_date is not None and not is_pin_code_activated_var:
         import dateutil.parser
         pin_code_expire_date = dateutil.parser.parse(pin_code_expire_date)
         if now > pin_code_expire_date:
@@ -155,8 +155,9 @@ def renew_sub():
 
     sub_id = data.get('sub_id', None)
     order_code = data.get('order_code', None)
+    subscription_uuid = data.get('subscription_uuid', None)
 
-    if sub_id is None or order_code is None:
+    if sub_id is None or order_code is None or subscription_uuid is None:
         r.set_failed()
         error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
                           code=DFNError.UNKNOWN_ERROR_CODE.code,
@@ -169,15 +170,7 @@ def renew_sub():
     order = rrn_orders_service.get_order(code=order_code)
     session['order'] = order
     session['order']['renew'] = True
-
-    uss = rrn_user_service.get_user_subscriptions(user_uuid=session.get('user').get('uuid'))
-    chosen_us_uuid = None
-    for us in uss:
-        if us['order_uuid'] == order['uuid']:
-            chosen_us_uuid = us['uuid']
-            break
-
-    session['order']['subscription_uuid'] = chosen_us_uuid
+    session['order']['subscription_uuid'] = subscription_uuid
 
     redirect_url = url_for('order.order', pack=sub_id)
 
@@ -198,9 +191,9 @@ def is_pin_code_activated():
     updated_user_json = rrn_user_service.get_user(uuid=session['user']['uuid'])
     session['user'] = updated_user_json
 
-    is_pin_code_activated = updated_user_json.get('is_pin_code_activated')
+    is_pin_code_activated_var = updated_user_json.get('is_pin_code_activated')
 
-    r.add_data('is_pin_code_activated', is_pin_code_activated)
+    r.add_data('is_pin_code_activated', is_pin_code_activated_var)
     r.set_success()
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK
@@ -238,7 +231,8 @@ def change_status_user_device():
     device_uuid = data.get('device_uuid')
     status = data.get('status')
 
-    rrn_user_service.change_status_user_device(user_uuid=session['user']['uuid'], device_uuid=device_uuid, status=status)
+    rrn_user_service.change_status_user_device(user_uuid=session['user']['uuid'], device_uuid=device_uuid,
+                                               status=status)
 
     r.set_success()
     resp = jsonify(r.serialize())

@@ -26,6 +26,7 @@ class Config(object):
             'language': '&language=%s',
             'order_code': '&x-ordercode=%s',
             'user_uuid': '&x-useruuid=%s',
+            'subscription_uuid': '&x-subscriptionuuid=%s',
         }
     }
 

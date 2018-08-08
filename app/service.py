@@ -3,10 +3,12 @@ import hashlib
 import logging
 import smtplib
 import sys
+import uuid
 from email.mime.text import MIMEText
 from enum import Enum
 from smtplib import SMTPException
 from typing import Optional
+from uuid import UUID
 
 import requests
 from flask_babel import _
@@ -356,11 +358,16 @@ class PayProGlobalPaymentService(object):
         self._test_mode = 'true' if config['DEBUG'] else 'false'
         self._params_dict = cfg['params_name']
 
-    def build_redirect_url(self, user_uuid: str, order_code: str, subscription_id: int, payment_method_id: str,
-                           user_locale: str = None):
+    def build_redirect_url(self, user_uuid: UUID, order_code: str, subscription_id: int, payment_method_id: str,
+                           subscription_uuid: UUID, user_locale: str = None):
         logger.debug(f"build_redirect_url method with parameters order_code: {order_code}, "
                      f"subscription_id: {subscription_id}, payment_method_id: {payment_method_id}, "
                      f"user_locale: {user_locale}")
+        if isinstance(user_uuid, str):
+            user_uuid = uuid.UUID(user_uuid)
+        if subscription_uuid is not None and isinstance(subscription_uuid, str):
+            subscription_uuid = uuid.UUID(subscription_uuid)
+
         payment_method_id = str(payment_method_id)
         logger.info('Buy or Recurring? Depends on payment method.')
         if payment_method_id in ['1', '14']:
@@ -381,7 +388,10 @@ class PayProGlobalPaymentService(object):
         logger.info('Add payment and order fields to URL.')
         redirect_url += self._params_dict['payment_method'] % str(payment_method_id)
         redirect_url += self._params_dict['order_code'] % str(order_code)
-        redirect_url += self._params_dict['user_uuid'] % str(user_uuid)
+        redirect_url += self._params_dict['user_uuid'] % user_uuid.hex
+        if subscription_uuid is not None:
+            redirect_url += self._params_dict['subscription_uuid'] % subscription_uuid.hex
+
         logger.info('Phrase #1. Redirect URL: %s' % str(redirect_url))
 
         logger.info('Check user locale')
