@@ -195,7 +195,7 @@
                                                 <tr>
                                                     <td>{{ email }}</td>
                                                     <td>{{ type }}</td>
-                                                    <td>{{ sum }}$</td>
+                                                    <td>{{ sum }} {{ payment['json_data']['ORDER_CURRENCY_CODE'] }}</td>
                                                     <td>{{ method }}</td>
                                                     <td>{{ moment(payment['created_date'] | strftime).format('Do MMMM YYYY, HH:mm:ss') }}</td>
                                                     <td><span class="badge badge-success">{{ status }}</span></td>
