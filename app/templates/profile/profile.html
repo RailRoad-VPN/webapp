@@ -278,10 +278,10 @@
                                                         {% for conn in user_device['_connections'] %}
                                                             {% if conn['is_connected'] %}
                                                                 <li class="text-muted">
-                                                                    {{ _('Download') }}: <span class="download-traffic">{{ conn['bytes_i'] }}</span>
+                                                                    {{ _('Download') }}: <span class="download-traffic">{{ conn['bytes_i']|filesizeformat(true) }}</span>
                                                                 </li>
                                                                 <li class="text-muted">
-                                                                    {{ _('Upload') }}: <span class="upload-traffic">{{ conn['bytes_o'] }}</span>
+                                                                    {{ _('Upload') }}: <span class="upload-traffic">{{ conn['bytes_o']|filesizeformat(true) }}</span>
                                                                 </li>
                                                             {% endif %}
                                                         {% endfor %}
