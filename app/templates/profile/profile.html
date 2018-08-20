@@ -244,7 +244,31 @@
                                                 <ul class="list-unstyled">
                                                     <li class="text-muted">
                                                         {{ _('Operation System') }}:
-                                                        {{ user_device['device_os'] if user_device['device_os'] else 'N/A' }}
+                                                        {% if user_device['platform_id'] == 1 %}
+                                                            iOS
+                                                        {% elif user_device['platform_id'] == 2 %}
+                                                            Android
+                                                        {% elif user_device['platform_id'] == 3 %}
+                                                            Windows
+                                                        {% elif user_device['platform_id'] == 4 %}
+                                                            macOS
+                                                        {% endif %}
+                                                    </li>
+                                                    <li class="text-muted">
+                                                        {{ _('Location') }}:
+                                                        {{ user_device['location'] if user_device['location'] else 'N/A' }}
+                                                    </li>
+                                                    <li class="text-muted">
+                                                        {{ _('Device IP Address') }}:
+                                                        {{ user_device['device_ip'] if user_device['device_ip'] else 'N/A' }}
+                                                    </li>
+                                                    <li class="text-muted">
+                                                        {{ _('Virtual IP Address') }}:
+                                                        {{ user_device['virtual_ip'] if user_device['virtual_ip'] else 'N/A' }}
+                                                    </li>
+                                                    <li class="text-muted">
+                                                        {{ _('Connected Since') }}:
+                                                        {{ user_device['connected_since'] if user_device['virtual_ip'] else 'N/A' }}
                                                     </li>
                                                     <li class="text-muted">
                                                         {{ _('Location') }}:
