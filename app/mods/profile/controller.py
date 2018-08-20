@@ -29,7 +29,10 @@ def pull_lang_code(endpoint, values):
 @login_required
 def profile_page():
     logger.info('profile_page method')
-    user_subscriptions = rrn_user_service.get_user_subscriptions(user_uuid=session['user']['uuid'])
+    try:
+        user_subscriptions = rrn_user_service.get_user_subscriptions(user_uuid=session['user']['uuid'])
+    except APIException:
+        user_subscriptions = []
     subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
     if subscriptions_dict is None:
         pass
@@ -45,12 +48,12 @@ def profile_page():
         us['order'] = us_order
 
     try:
-        user_devices = rrn_user_service.get_user_devices(user_uuid=session['user']['uuid'])
+        user_device_list = rrn_user_service.get_user_devices(user_uuid=session['user']['uuid'])
     except (APIException, APINotFoundException) as e:
-        user_devices = None
+        user_device_list = []
 
     return render_template('profile/profile.html', code=HTTPStatus.OK, user_subscriptions=user_subscriptions,
-                           user_devices=user_devices)
+                           user_devices=user_device_list)
 
 
 @mod_profile.url_value_preprocessor
