@@ -241,6 +241,19 @@
                                                         {{ _('Inactive') }}
                                                     </span>
                                                 {% endif %}
+                                                {% if "_connections" in user_device %}
+                                                    <span class="badge badge-success"
+                                                          data-active_text="{{ _('Connected') }}"
+                                                          data-inactive_text="{{ _('Disconnected') }}">
+                                                        {{ _('Connected') }}
+                                                    </span>
+                                                {% else %}
+                                                    <span class="badge badge-warning"
+                                                          data-active_text="{{ _('Connected') }}"
+                                                          data-inactive_text="{{ _('Disconnected') }}">
+                                                        {{ _('Disconnected') }}
+                                                    </span>
+                                                {% endif %}
                                                 <ul class="list-unstyled">
                                                     <li class="text-muted">
                                                         {{ _('Operation System') }}:
@@ -289,9 +302,9 @@
                                                 </ul>
                                                 <button class="btn btn-link card-link change-status-device-btn"
                                                         {% if user_device['is_active'] %}
-                                                        data-is_active="1"
+                                                            data-is_active="1"
                                                         {% else %}
-                                                        data-is_active="0"
+                                                            data-is_active="0"
                                                         {% endif %}
                                                         data-uuid="{{ user_device['uuid'] }}"
                                                         data-activate_text="{{ _('Activate') }}"

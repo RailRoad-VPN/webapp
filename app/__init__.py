@@ -15,12 +15,6 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 
 logger = logging.getLogger(__name__)
 
-logger.debug('debug message')
-logger.info('info message')
-logger.warning('warning message')
-logger.error('error message')
-logger.critical('critical message')
-
 app = Flask(__name__)
 
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
@@ -122,7 +116,7 @@ app.register_error_handler(HTTPStatus.INTERNAL_SERVER_ERROR, internal_server_err
 
 @app.route('/', methods=['GET'])
 def index_page():
-    logger.info('index page')
+    self.logger.info('index page')
     redirect_url = url_for('index.index_lang_page', lang_code=session['lang_code'])
     return redirect(redirect_url)
 
