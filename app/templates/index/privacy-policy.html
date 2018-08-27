@@ -1,0 +1,94 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    {{ _('RRoadVPN - Privacy Policy') }}
+{% endblock %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/blog.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/blog.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+
+{% endblock %}
+
+{% block meta %}
+
+{% endblock %}
+
+{% block body %}
+    <section class="article pt-7 pb-7 pt-sm-5 pb-sm-5" style="background-color: #f8f8f8;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10 col-xl-8 pt-7 pt-sm-5">
+                    <h1 class="blog-header text-center">{{ _('Privacy Policy') }}</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10 col-xl-8 pt-4 pt-sm-4 pb-4 pb-sm-4">
+                    <hr class="my-0">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-10 offset-sm-1 col-xl-8 offset-xl-2">
+                    <p class="article-paragraph">{{ _('privacy-policy-p1') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p1-1') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p1-2') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p1-3') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p1-4') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p1-5') }}</p>
+                    <h2 class="blog-header">{{ _('privacy-policy-h2') }}</h2>
+                    <p class="article-paragraph">{{ _('privacy-policy-p2-1') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p2-2') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p2-3') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p2-4') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p2-5') }}</p>
+                    <ul>
+                        <li>{{ _('privacy-policy-p2-l1-1') }}</li>
+                        <li>{{ _('privacy-policy-p2-l1-2') }}</li>
+                    </ul>
+                    <p class="article-paragraph">{{ _('privacy-policy-p2-6') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p2-7') }}</p>
+                    <ul>
+                        <li>{{ _('privacy-policy-p2-l2-1') }}</li>
+                        <li>{{ _('privacy-policy-p2-l2-2') }}</li>
+                        <li>
+                            {{ _('privacy-policy-p2-l2-3') }}
+                            <ul>
+                                <li>{{ _('privacy-policy-p2-l2-l-1') }}</li>
+                                <li>{{ _('privacy-policy-p2-l2-l-2') }}</li>
+                                <li>{{ _('privacy-policy-p2-l2-l-3') }}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="article-paragraph">{{ _('privacy-policy-p3') }}</p>
+                    <h2 class="blog-header">{{ _('privacy-policy-h3') }}</h2>
+                    <p class="article-paragraph">{{ _('privacy-policy-p4') }}</p>
+                    <h2 class="blog-header">{{ _('privacy-policy-h4') }}</h2>
+                    <p class="article-paragraph">{{ _('privacy-policy-p5') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p5-1') }}</p>
+                    <h2 class="blog-header">{{ _('privacy-policy-h5') }}</h2>
+                    <p class="article-paragraph">{{ _('privacy-policy-p6') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p6-1') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p6-2') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p6-3') }}</p>
+                    <h2 class="blog-header">{{ _('privacy-policy-h6') }}</h2>
+                    <p class="article-paragraph">{{ _('privacy-policy-p7') }}</p>
+                    <h2 class="blog-header">{{ _('privacy-policy-h7') }}</h2>
+                    <p class="article-paragraph">{{ _('privacy-policy-p8') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p8-1') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p8-2') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p8-3') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p8-4') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p8-5') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p8-6') }}</p>
+                    <p class="article-paragraph">{{ _('privacy-policy-p9') }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,4 +1,9 @@
-h4.card-title {
+.article h1.blog-header {
+    text-transform: capitalize;
+    font-size: 65px;
+}
+
+.article h4.card-title {
     letter-spacing: inherit;
     font-size: 20px;
     line-height: 32px;
@@ -7,17 +12,27 @@ h4.card-title {
     color: black;
 }
 
-h4.blog-header {
+.article h4.blog-header {
     text-transform: inherit;
     font-size: 16px;
 }
 
-h5.card-title {
+.article h5.card-title {
     letter-spacing: inherit;
     font-size: 18px;
     line-height: 32px;
     text-transform: inherit;
     font-weight: 500;
+}
+
+.article h2.blog-header {
+    text-transform: inherit;
+    font-size: 25px;
+}
+
+.my-0 {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .breadcrumb {
@@ -32,6 +47,18 @@ h5.card-title {
     color: black;
 }
 
-.card:hover .card-title {
+.article .card:hover .card-title {
     color: #f8cc46;
+}
+
+.article .article-paragraph {
+    color: #73757a;
+    font-size: 16px;
+    line-height: 28px;
+    font-weight: 400;
+}
+
+.article ul li {
+    margin: 16px 0;
+    line-height: 28px;
 }

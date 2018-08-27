@@ -3,7 +3,6 @@ import sys
 from http import HTTPStatus
 
 from flask import Blueprint, render_template, session, request, jsonify
-
 from flask_babel import _
 
 # Define the blueprint: 'index', set its url prefix: app.url/
@@ -72,3 +71,10 @@ def subscribe_trial():
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK
     return resp
+
+
+@mod_index.route('/privacy-policy', methods=['GET'])
+def privacy_policy_page():
+    logger.info('privacy_policy_page page')
+
+    return render_template('index/privacy-policy.html', code=200)
