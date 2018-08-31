@@ -11,7 +11,7 @@ from app.cache import CacheService
 from app.mods.error import page_not_found, forbidden, internal_server_error
 from app.service import *
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='WEBAPP: %(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 logger = logging.getLogger(__name__)
 
