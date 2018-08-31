@@ -55,7 +55,7 @@ class EmailService(object):
     def __init__(self, smtp_server: str, smtp_port: int, smtp_username: str, smtp_password: str, from_name: str,
                  from_email: str, templates_path: str):
 
-        self.logger.debug(f"__init__ method smtp_server: {smtp_server}, smtp_port: {smtp_port}, "
+        self.logger.debug(f"{self.__class__}: __init__ method smtp_server: {smtp_server}, smtp_port: {smtp_port}, "
                           f"smtp_username: {smtp_username}, smtp_password: {smtp_password}, from_name: {from_name}, "
                           f"from_email: {from_email}, templates_path: {templates_path}")
         self.__server = smtp_server
@@ -69,18 +69,18 @@ class EmailService(object):
         self.__templates_path = templates_path
 
     def send_trial_email(self, to_name: str, to_email: str) -> bool:
-        self.logger.debug(f"send_trial_email method with parameters to_name: {to_name}, to_email: {to_email}")
+        self.logger.debug(f"{self.__class__}: send_trial_email method with parameters to_name: {to_name}, to_email: {to_email}")
         email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
         return self.__send_message(to_email=to_email, email_str=email_str)
 
     def send_new_sub_email(self, to_name: str, to_email: str, sub_name: str) -> bool:
-        self.logger.debug(f"send_new_sub_email method with parameters to_name: {to_name}, to_email: {to_email}, "
+        self.logger.debug(f"{self.__class__}: send_new_sub_email method with parameters to_name: {to_name}, to_email: {to_email}, "
                           f"sub_name: {sub_name}")
         email_str = self.__prepare_new_subscription_email(to_name=to_name, to_email=to_email, sub_name=sub_name)
         return self.__send_message(to_email=to_email, email_str=email_str)
 
     def __send_message(self, to_email: str, email_str: str) -> bool:
-        self.logger.debug(f"__send_message method with parameters to_name: {to_email}, to_email: {email_str}")
+        self.logger.debug(f"{self.__class__}: __send_message method with parameters to_name: {to_email}, to_email: {email_str}")
         try:
             is_connected = self.__connect()
             if not is_connected:
@@ -97,7 +97,7 @@ class EmailService(object):
             return False
 
     def __prepare_new_subscription_email(self, to_name: str, to_email: str, sub_name: str) -> str:
-        self.logger.debug(f"__prepare_new_subscription_email method with parameters to_name: {to_name}, "
+        self.logger.debug(f"{self.__class__}: __prepare_new_subscription_email method with parameters to_name: {to_name}, "
                           f"to_email: {to_email}, sub_name: {sub_name}")
 
         self.logger.info("reading trial html template")
@@ -122,7 +122,7 @@ class EmailService(object):
         return email_str
 
     def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
-        self.logger.debug(f"__prepare_trial_email method with parameters to_name: {to_email}, to_email: {to_email}")
+        self.logger.debug(f"{self.__class__}: __prepare_trial_email method with parameters to_name: {to_email}, to_email: {to_email}")
 
         self.logger.info("reading trial html template")
         f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.TRIAL.html_template), 'r')
@@ -148,7 +148,7 @@ class EmailService(object):
         return email_str
 
     def __prepare_email(self, to_name, to_email, subject, html_message) -> str:
-        self.logger.debug(f"__prepare_email method with parameters to_name: {to_name}, "
+        self.logger.debug(f"{self.__class__}: __prepare_email method with parameters to_name: {to_name}, "
                           f"to_email: {to_email}, subject: {subject}, html_message: {html_message}")
 
         html_email = MIMEText(html_message, 'html')
@@ -178,7 +178,7 @@ class RRNOrdersAPIService(RESTService):
     logger = logging.getLogger(__name__)
 
     def get_order(self, code: int = None, suuid: str = None) -> dict:
-        self.logger.debug(f"get_order method with parameters code: {code}, suuid: {suuid}")
+        self.logger.debug(f"{self.__class__}: get_order method with parameters code: {code}, suuid: {suuid}")
         if suuid:
             url = f"{self._url}/uuid/{suuid}"
         elif code:
@@ -189,7 +189,7 @@ class RRNOrdersAPIService(RESTService):
         return api_response.data
 
     def create_order(self, status: int) -> dict:
-        self.logger.debug(f"create_order method with parameters status: {status}")
+        self.logger.debug(f"{self.__class__}: create_order method with parameters status: {status}")
         data = {
             'status_id': status
         }
@@ -202,12 +202,12 @@ class RRNOrdersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_order(self, order_json: dict):
-        self.logger.debug(f"update_order method with parameters order_json: {order_json}")
+        self.logger.debug(f"{self.__class__}: update_order method with parameters order_json: {order_json}")
         url = f"{self._url}/{order_json['uuid']}"
         self._put(url=url, data=order_json)
 
     def get_order_payments(self, order_uuid: str) -> APIResponse:
-        self.logger.debug(f"get_order_payments method with parameters order_uuid: {order_uuid}")
+        self.logger.debug(f"{self.__class__}: get_order_payments method with parameters order_uuid: {order_uuid}")
         url = f"{self._url}/{order_uuid}/payments"
         return self._get(url=url)
 
@@ -221,11 +221,11 @@ class RRNUsersAPIService(RESTService):
         super().__init__(api_url=api_url, resource_name=resource_name)
 
     def create_user(self, email, password) -> dict:
-        self.logger.debug(f"create_user method with parameters email: {email}, password: {password}")
+        self.logger.debug(f"{self.__class__}: create_user method with parameters email: {email}, password: {password}")
 
-        self.logger.debug(f"generate password hash")
+        self.logger.debug(f"{self.__class__}: generate password hash")
         pwd = generate_password_hash(password)
-        self.logger.debug(f"generated hash: {pwd}")
+        self.logger.debug(f"{self.__class__}: generated hash: {pwd}")
 
         user_json = {
             'email': email,
@@ -240,12 +240,12 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_user(self, user_json: dict):
-        self.logger.debug(f"update_user method with parameters user_json: {user_json}")
+        self.logger.debug(f"{self.__class__}: update_user method with parameters user_json: {user_json}")
         url = f"{self._url}/{user_json.get('uuid')}"
         self._put(url=url, data=user_json, headers=self._headers)
 
     def get_user(self, uuid: str = None, email: str = None, pin_code: int = None) -> dict:
-        self.logger.debug(f"get_user method with parameters uuid: {uuid}, email: {email}, pin_code: {pin_code}")
+        self.logger.debug(f"{self.__class__}: get_user method with parameters uuid: {uuid}, email: {email}, pin_code: {pin_code}")
         if uuid:
             url = f"{self._url}/uuid/{uuid}"
         elif email:
@@ -258,14 +258,14 @@ class RRNUsersAPIService(RESTService):
         return api_response.data
 
     def get_user_subscription(self, user_uuid: str, subscription_uuid: str) -> dict:
-        self.logger.debug(f"get_user_subscription with parameters user_uuid: {user_uuid}, "
+        self.logger.debug(f"{self.__class__}: get_user_subscription with parameters user_uuid: {user_uuid}, "
                           f"subscription_uuid: {subscription_uuid}")
         url = f"{self._url}/{user_uuid}/subscriptions/{subscription_uuid}"
         api_response = self._get(url=url)
         return api_response.data
 
     def get_user_subscriptions(self, user_uuid: str) -> dict:
-        self.logger.debug(f"get_user_subscriptions method with parameters user_uuid: {user_uuid}")
+        self.logger.debug(f"{self.__class__}: get_user_subscriptions method with parameters user_uuid: {user_uuid}")
         url = f"{self._url}/{user_uuid}/subscriptions"
         api_response = self._get(url=url)
         return api_response.data
@@ -290,18 +290,18 @@ class RRNUsersAPIService(RESTService):
             raise APIException(http_code=api_response.code, errors=api_response.errors)
 
     def update_user_subscription(self, subscription_json: dict):
-        self.logger.debug(f"update_user_subscription method with parameters subscription_json: {subscription_json}")
+        self.logger.debug(f"{self.__class__}: update_user_subscription method with parameters subscription_json: {subscription_json}")
         url = f"{self._url}/{subscription_json['user_uuid']}/subscriptions/{subscription_json['uuid']}"
         self._put(data=subscription_json, url=url)
 
     def get_user_devices(self, user_uuid: str) -> dict:
-        self.logger.debug(f"get_user_devices method with parameters user_uuid: {user_uuid}")
+        self.logger.debug(f"{self.__class__}: get_user_devices method with parameters user_uuid: {user_uuid}")
         url = f"{self._url}/{user_uuid}/devices"
         api_response = self._get(url=url)
         return api_response.data
 
     def get_user_device(self, user_uuid: str, device_uuid: str):
-        self.logger.debug(f"get_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
+        self.logger.debug(f"{self.__class__}: get_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
         url = f"{self._url}/{user_uuid}/devices/{device_uuid}"
         api_response = self._get(url=url)
         return api_response
@@ -329,7 +329,7 @@ class RRNBillingAPIService(RESTService):
     logger = logging.getLogger(__name__)
 
     def get_subscriptions(self, lang_code: str) -> dict:
-        self.logger.debug(f"get_subscriptions method with parameters lang_code: {lang_code}")
+        self.logger.debug(f"{self.__class__}: get_subscriptions method with parameters lang_code: {lang_code}")
         headers = {
             'Accept-Language': lang_code
         }
@@ -338,7 +338,7 @@ class RRNBillingAPIService(RESTService):
         return api_response.data
 
     def get_subscription_by_id(self, sid: int, lang_code: str) -> dict:
-        self.logger.debug(f"get_subscription_by_id method with parameters sid: {sid}, lang_code: {lang_code}")
+        self.logger.debug(f"{self.__class__}: get_subscription_by_id method with parameters sid: {sid}, lang_code: {lang_code}")
         headers = {
             'Accept-Language': lang_code
         }
@@ -369,7 +369,7 @@ class PayProGlobalPaymentService(object):
 
     def build_redirect_url(self, user_uuid: UUID, order_code: str, subscription_id: int, payment_method_id: str,
                            subscription_uuid: UUID, user_locale: str = None):
-        self.logger.debug(f"build_redirect_url method with parameters order_code: {order_code}, "
+        self.logger.debug(f"{self.__class__}: build_redirect_url method with parameters order_code: {order_code}, "
                           f"subscription_id: {subscription_id}, payment_method_id: {payment_method_id}, "
                           f"user_locale: {user_locale}")
         if isinstance(user_uuid, str):
@@ -429,7 +429,7 @@ class SubscriptionService(object):
         self._cache_service = cache_service
 
     def get_subscriptions(self, lang_code) -> list:
-        self.logger.debug(f"get_subscriptions method with parameters lang_code: {lang_code}")
+        self.logger.debug(f"{self.__class__}: get_subscriptions method with parameters lang_code: {lang_code}")
         self.logger.info("Check subscriptions in cache")
         subscriptions = self._cache_service.get(key='subscriptions', prefix=lang_code)
         self.logger.info("Is subscriptions exists in cache: %s" % subscriptions is not None)
@@ -450,7 +450,7 @@ class SubscriptionService(object):
         return subscriptions_dict
 
     def __update_cache_subscriptions(self, lang_code):
-        self.logger.debug(f"__update_cache_subscriptions method with parameters lang_code: {lang_code}")
+        self.logger.debug(f"{self.__class__}: __update_cache_subscriptions method with parameters lang_code: {lang_code}")
         try:
             self.logger.info("Call billing service")
             subscriptions = self._billing_service.get_subscriptions(lang_code=lang_code)
