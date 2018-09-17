@@ -14,6 +14,7 @@ from flask_babel import _
 from werkzeug.security import generate_password_hash
 
 from app.cache import CacheService
+from utils import gen_sec_token
 
 sys.path.insert(0, '../rest_api_library')
 from rest import RESTService, APIException
@@ -185,7 +186,11 @@ class RRNOrdersAPIService(RESTService):
             url = f"{self._url}/code/{code}"
         else:
             raise KeyError
-        api_response = self._get(url=url)
+
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
         return api_response.data
 
     def create_order(self, status: int) -> dict:
@@ -193,9 +198,13 @@ class RRNOrdersAPIService(RESTService):
         data = {
             'status_id': status
         }
-        api_response = self._post(data=data)
+
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._post(data=data, headers=headers)
         if 'Location' in api_response.headers:
-            api_response = self._get(url=api_response.headers.get('Location'))
+            api_response = self._get(url=api_response.headers.get('Location'), headers=headers)
             return api_response.data
         else:
             self.logger.debug(api_response.serialize())
@@ -204,12 +213,18 @@ class RRNOrdersAPIService(RESTService):
     def update_order(self, order_json: dict):
         self.logger.debug(f"{self.__class__}: update_order method with parameters order_json: {order_json}")
         url = f"{self._url}/{order_json['uuid']}"
-        self._put(url=url, data=order_json)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        self._put(url=url, data=order_json, headers=headers)
 
     def get_order_payments(self, order_uuid: str) -> APIResponse:
         self.logger.debug(f"{self.__class__}: get_order_payments method with parameters order_uuid: {order_uuid}")
         url = f"{self._url}/{order_uuid}/payments"
-        return self._get(url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        return self._get(url=url, headers=headers)
 
 
 class RRNUsersAPIService(RESTService):
@@ -231,9 +246,15 @@ class RRNUsersAPIService(RESTService):
             'email': email,
             'password': pwd,
         }
-        api_response = self._post(data=user_json, headers=self._headers)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._post(data=user_json, headers=headers)
         if 'Location' in api_response.headers:
-            api_response = self._get(url=api_response.headers.get('Location'))
+            headers = {
+                'X-Auth-Token': gen_sec_token()
+            }
+            api_response = self._get(url=api_response.headers.get('Location'), headers=headers)
             return api_response.data
         else:
             self.logger.debug(api_response.serialize())
@@ -242,7 +263,10 @@ class RRNUsersAPIService(RESTService):
     def update_user(self, user_json: dict):
         self.logger.debug(f"{self.__class__}: update_user method with parameters user_json: {user_json}")
         url = f"{self._url}/{user_json.get('uuid')}"
-        self._put(url=url, data=user_json, headers=self._headers)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        self._put(url=url, data=user_json, headers=headers)
 
     def get_user(self, uuid: str = None, email: str = None, pin_code: int = None) -> dict:
         self.logger.debug(f"{self.__class__}: get_user method with parameters uuid: {uuid}, email: {email}, pin_code: {pin_code}")
@@ -254,20 +278,29 @@ class RRNUsersAPIService(RESTService):
             url = f"{self._url}/pincode/{pin_code}"
         else:
             raise KeyError
-        api_response = self._get(url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
         return api_response.data
 
     def get_user_subscription(self, user_uuid: str, subscription_uuid: str) -> dict:
         self.logger.debug(f"{self.__class__}: get_user_subscription with parameters user_uuid: {user_uuid}, "
                           f"subscription_uuid: {subscription_uuid}")
         url = f"{self._url}/{user_uuid}/subscriptions/{subscription_uuid}"
-        api_response = self._get(url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
         return api_response.data
 
     def get_user_subscriptions(self, user_uuid: str) -> dict:
         self.logger.debug(f"{self.__class__}: get_user_subscriptions method with parameters user_uuid: {user_uuid}")
         url = f"{self._url}/{user_uuid}/subscriptions"
-        api_response = self._get(url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
         return api_response.data
 
     def create_user_subscription(self, user_uuid: str, status_id: int, subscription_id: int, order_uuid: str) -> dict:
@@ -281,7 +314,10 @@ class RRNUsersAPIService(RESTService):
             'order_uuid': order_uuid,
         }
         url = f"{self._url}/{user_uuid}/subscriptions"
-        api_response = self._post(data=data, url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._post(data=data, url=url, headers=headers)
         if 'Location' in api_response.headers:
             api_response = self._get(url=api_response.headers.get('Location'))
             return api_response.data
@@ -292,25 +328,37 @@ class RRNUsersAPIService(RESTService):
     def update_user_subscription(self, subscription_json: dict):
         self.logger.debug(f"{self.__class__}: update_user_subscription method with parameters subscription_json: {subscription_json}")
         url = f"{self._url}/{subscription_json['user_uuid']}/subscriptions/{subscription_json['uuid']}"
-        self._put(data=subscription_json, url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        self._put(data=subscription_json, url=url, headers=headers)
 
     def get_user_devices(self, user_uuid: str) -> dict:
         self.logger.debug(f"{self.__class__}: get_user_devices method with parameters user_uuid: {user_uuid}")
         url = f"{self._url}/{user_uuid}/devices"
-        api_response = self._get(url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
         return api_response.data
 
     def get_user_device(self, user_uuid: str, device_uuid: str):
         self.logger.debug(f"{self.__class__}: get_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
         url = f"{self._url}/{user_uuid}/devices/{device_uuid}"
-        api_response = self._get(url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
         return api_response
 
     def delete_user_device(self, user_uuid: str, device_uuid: str):
         self.logger.debug(
             f"delete_user_device method with parameters user_uuid: {user_uuid}, device_uuid: {device_uuid}")
         url = f"{self._url}/{user_uuid}/devices/{device_uuid}"
-        self._delete(url=url)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        self._delete(url=url, headers=headers)
 
     def change_status_user_device(self, user_uuid: str, device_uuid: str, status: bool):
         self.logger.debug(
@@ -320,7 +368,10 @@ class RRNUsersAPIService(RESTService):
         api_response = self.get_user_device(user_uuid=user_uuid, device_uuid=device_uuid)
         user_device = api_response.data
         user_device['is_active'] = status
-        self._put(url=url, data=api_response.data)
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        self._put(url=url, data=api_response.data, headers=headers)
 
 
 class RRNBillingAPIService(RESTService):
@@ -331,7 +382,8 @@ class RRNBillingAPIService(RESTService):
     def get_subscriptions(self, lang_code: str) -> dict:
         self.logger.debug(f"{self.__class__}: get_subscriptions method with parameters lang_code: {lang_code}")
         headers = {
-            'Accept-Language': lang_code
+            'Accept-Language': lang_code,
+            'X-Auth-Token': gen_sec_token()
         }
 
         api_response = self._get(headers=headers)
@@ -340,7 +392,8 @@ class RRNBillingAPIService(RESTService):
     def get_subscription_by_id(self, sid: int, lang_code: str) -> dict:
         self.logger.debug(f"{self.__class__}: get_subscription_by_id method with parameters sid: {sid}, lang_code: {lang_code}")
         headers = {
-            'Accept-Language': lang_code
+            'Accept-Language': lang_code,
+            'X-Auth-Token': gen_sec_token()
         }
 
         url = f"{self._url}/{sid}"
