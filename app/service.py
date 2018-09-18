@@ -14,11 +14,11 @@ from flask_babel import _
 from werkzeug.security import generate_password_hash
 
 from app.cache import CacheService
-from utils import gen_sec_token
 
 sys.path.insert(0, '../rest_api_library')
 from rest import RESTService, APIException
 from response import APIResponse
+from utils import gen_sec_token
 
 
 class EmailMessageType(Enum):
