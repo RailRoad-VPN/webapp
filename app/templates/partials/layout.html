@@ -126,7 +126,7 @@
             {% else %}
                 <li>{{ _('Your Status') }}: <span data-id="status"
                                                   class="status-unprotected">{{ _('unprotected') }}</span></li>
-                <li><a href="#subscription" class="js-scroll-trigger">{{ _('Protect me!') }}</a></li>
+                <li><a href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger">{{ _('Protect me!') }}</a></li>
             {% endif %}
             <li class="pull-right close-btn pt-1">
                 <button onclick="$('#network-status').remove();" class="btn btn-link">x</button>
