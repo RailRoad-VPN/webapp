@@ -297,18 +297,20 @@ $(document).ready(function () {
     });
 
     function checkEmail() {
+        var isEmailEmpty;
         var emailVal = $.trim($emailInput.val());
         if (emailVal === '') {
             markInput($emailInput, false);
             $emailInput.parent().find('.empty_error').show();
+            isEmailEmpty = true;
             return false;
         } else if (emailVal.indexOf("@") === -1) {
             markInput($emailInput, false);
             $emailInput.parent().find('.empty_error').show();
+            isEmailEmpty = true;
             return false;
         } else {
-            markInput($emailInput, true);
-            $emailInput.parent().find('.empty_error').hide();
+            isEmailEmpty = false;
         }
 
         var data = {
@@ -322,11 +324,14 @@ $(document).ready(function () {
                 markInput($emailInput, false);
             } else {
                 $emailInput.parent().find('.busy_error').hide();
-                markInput($emailInput, true);
                 // update local storage
                 ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY] = emailVal;
                 ORDER_LS[LS_ORDER_ACCOUNT_KEY] = ACCOUNT_LS;
                 setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+
+                if (isEmailEmpty === false) {
+                    markInput($emailInput, true);
+                }
             }
         };
 
