@@ -198,7 +198,7 @@ $(document).ready(function () {
         deleteUserDevice(device_uuid);
     });
 
-    $emailInput.on('focusout', function () {
+    $emailInput.on('focusout keyup keypress blur change', function () {
         checkEmail();
     });
 
@@ -307,7 +307,7 @@ $(document).ready(function () {
 
         var successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
-                var $deviceBadge = $device.find('.badge');
+                var $deviceBadge = $device.find('.badge-status');
                 var button_text;
                 var badge_text;
                 if (n_status === 1) {
@@ -440,11 +440,20 @@ $(document).ready(function () {
     }
 
     function checkEmail() {
+        var isEmailEmpty;
         var emailVal = $.trim($emailInput.val());
         if (emailVal === '') {
             markInput($emailInput, false);
             $emailInput.parent().find('.empty_error').show();
+            isEmailEmpty = true;
             return false;
+        } else if (emailVal.indexOf("@") === -1) {
+            markInput($emailInput, false);
+            $emailInput.parent().find('.empty_error').show();
+            isEmailEmpty = true;
+            return false;
+        } else {
+            isEmailEmpty = false;
         }
 
         if ($emailInput.data("current_email") === emailVal) {
@@ -462,7 +471,10 @@ $(document).ready(function () {
                 markInput($emailInput, false);
             } else {
                 $emailInput.parent().find('.error').hide();
-                markInput($emailInput, true);
+
+                if (isEmailEmpty === false) {
+                    markInput($emailInput, true);
+                }
             }
         };
 

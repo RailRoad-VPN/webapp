@@ -229,13 +229,13 @@
                                                     {{ _('Your Device') }}
                                                 </h5>
                                                 {% if user_device['is_active'] %}
-                                                    <span class="badge badge-success"
+                                                    <span class="badge badge-status badge-success"
                                                           data-active_text="{{ _('Active') }}"
                                                           data-inactive_text="{{ _('Inactive') }}">
                                                         {{ _('Active') }}
                                                     </span>
                                                 {% else %}
-                                                    <span class="badge badge-warning"
+                                                    <span class="badge badge-status badge-warning"
                                                           data-active_text="{{ _('Active') }}"
                                                           data-inactive_text="{{ _('Inactive') }}">
                                                         {{ _('Inactive') }}
@@ -243,14 +243,14 @@
                                                 {% endif %}
                                                 {% if "_connections" in user_device %}
                                                     <span class="badge badge-success"
-                                                          data-active_text="{{ _('Connected') }}"
-                                                          data-inactive_text="{{ _('Disconnected') }}">
+                                                          data-connected_text="{{ _('Connected') }}"
+                                                          data-disconnected_text="{{ _('Disconnected') }}">
                                                         {{ _('Connected') }}
                                                     </span>
                                                 {% else %}
                                                     <span class="badge badge-warning"
-                                                          data-active_text="{{ _('Connected') }}"
-                                                          data-inactive_text="{{ _('Disconnected') }}">
+                                                          data-connected_text="{{ _('Connected') }}"
+                                                          data-disconnected_text="{{ _('Disconnected') }}">
                                                         {{ _('Disconnected') }}
                                                     </span>
                                                 {% endif %}
