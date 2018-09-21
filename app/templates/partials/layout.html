@@ -10,9 +10,11 @@
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89956285-3"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
+
             function gtag() {
                 dataLayer.push(arguments);
             }
+
             gtag('js', new Date());
 
             gtag('config', 'UA-89956285-3');
@@ -126,11 +128,11 @@
             {% else %}
                 <li>{{ _('Your Status') }}: <span data-id="status"
                                                   class="status-unprotected">{{ _('unprotected') }}</span></li>
-                <li><a href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger">{{ _('Protect me!') }}</a></li>
+                <li>
+                    <a href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger">{{ _('Protect me!') }}</a>
+                    <button style="margin-top: -10px;" onclick="$('#network-status').remove();" class="btn btn-link">x</button>
+                </li>
             {% endif %}
-            <li class="pull-right close-btn pt-1">
-                <button onclick="$('#network-status').remove();" class="btn btn-link">x</button>
-            </li>
         </ul>
     </div>
 {% endif %}

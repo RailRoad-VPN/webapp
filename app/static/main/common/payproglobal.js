@@ -9,10 +9,9 @@ function redirectToPaymentPage(orderCode, subscriptionId, paymentMethod, fromPag
 
     var successCallback = function (response) {
         if (response.hasOwnProperty('success') && response['success']) {
+            callback ? callback() : '';
             if (response.hasOwnProperty('data')) {
                 window.location = response['data']['redirect_url'];
-            } else {
-                callback ? callback() : ''
             }
         } else {
             showErrors(response);

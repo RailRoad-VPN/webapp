@@ -6,9 +6,9 @@ function bar_progress(direction) {
     var now_value = $progressBar.data('now-value');
     var new_value = 0;
     if (direction === 'right') {
-        new_value = now_value + ( 100 / number_of_steps );
+        new_value = now_value + (100 / number_of_steps);
     } else if (direction === 'left') {
-        new_value = now_value - ( 100 / number_of_steps );
+        new_value = now_value - (100 / number_of_steps);
     }
     $progressBar.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
 }
@@ -131,15 +131,17 @@ $(document).ready(function () {
             }
         }
 
-        // business logic
-        if (currentStepId === 'pack') {
-            is_allow_next_step = packToAccount();
-        } else if (currentStepId === 'account') {
-            is_allow_next_step = accountToPayment();
-        }
+        // business logic for right direction
+        if (progress_direction === 'right') {
+            if (currentStepId === 'pack') {
+                is_allow_next_step = packToAccount();
+            } else if (currentStepId === 'account') {
+                is_allow_next_step = accountToPayment();
+            }
 
-        if (!is_allow_next_step) {
-            return;
+            if (!is_allow_next_step) {
+                return;
+            }
         }
 
         var $newStep = $('.order-progress-step[data-id="' + newStepId + '"]');
@@ -191,15 +193,17 @@ $(document).ready(function () {
         if (USER_REGISTERED) {
             return true;
         }
-        if ($emailInput.hasClass('is-invalid')) {
-            return false;
-        }
 
         var is_pwd_ok = checkPassword();
         if (!is_pwd_ok) {
             return false;
         }
         is_pwd_ok = checkRepeatPassword();
+
+        if ($emailInput.hasClass('is-invalid')) {
+            return false;
+        }
+
         return is_pwd_ok;
     }
 
@@ -224,7 +228,7 @@ $(document).ready(function () {
                 if (response['success']) {
                     console.log(JSON.stringify(response));
                     getPaymentPageURL(function () {
-                        setToLocalStorage(LS_ORDER_KEY, '');
+                        setToLocalStorage(LS_ORDER_KEY, {});
                     });
                 } else {
                     if (response.hasOwnProperty('errors')) {
@@ -279,16 +283,16 @@ $(document).ready(function () {
         $("#payment_method").val($(this).data('id'));
     });
 
-    $emailInput.on('focusout', function () {
+    $emailInput.on('focusout keyup keypress blur change', function () {
         checkEmail();
     });
 
-    $passwordInput.on('focusout', function () {
+    $passwordInput.on('focusout keyup keypress blur change', function () {
         checkPassword();
         checkRepeatPassword();
     });
 
-    $passwordConfirmInput.on('focusout', function () {
+    $passwordConfirmInput.on('focusout keyup keypress blur change', function () {
         checkRepeatPassword();
     });
 
@@ -298,6 +302,13 @@ $(document).ready(function () {
             markInput($emailInput, false);
             $emailInput.parent().find('.empty_error').show();
             return false;
+        } else if (emailVal.indexOf("@") === -1) {
+            markInput($emailInput, false);
+            $emailInput.parent().find('.empty_error').show();
+            return false;
+        } else {
+            markInput($emailInput, true);
+            $emailInput.parent().find('.empty_error').hide();
         }
 
         var data = {
