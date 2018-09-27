@@ -29,8 +29,11 @@ def pull_lang_code(endpoint, values):
 @login_required
 def profile_page():
     logger.info('profile_page method')
+
+    user_uuid = session['user']['uuid']
+
     try:
-        user_subscriptions = rrn_user_service.get_user_subscriptions(user_uuid=session['user']['uuid'])
+        user_subscriptions = rrn_user_service.get_user_subscriptions(user_uuid=user_uuid)
     except APIException:
         user_subscriptions = []
     subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
@@ -48,12 +51,17 @@ def profile_page():
         us['order'] = us_order
 
     try:
-        user_device_list = rrn_user_service.get_user_devices(user_uuid=session['user']['uuid'])
+        user_device_list = rrn_user_service.get_user_devices(user_uuid=user_uuid)
     except (APIException, APINotFoundException) as e:
         user_device_list = []
 
+    try:
+        user_vpn_servers = rrn_user_service.get_user_vpn_servers(user_uuid=user_uuid)
+    except (APIException, APINotFoundException) as e:
+        user_vpn_servers = []
+
     return render_template('profile/profile.html', code=HTTPStatus.OK, user_subscriptions=user_subscriptions,
-                           user_devices=user_device_list)
+                           user_devices=user_device_list, user_vpn_servers=user_vpn_servers)
 
 
 @mod_profile.url_value_preprocessor
@@ -241,18 +249,3 @@ def change_status_user_device():
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK
     return resp
-
-# @mod_profile.route('/get_user_devices', methods=['GET'])
-# @login_required
-# def get_user_devices():
-#     logger.info("get_user_devices method")
-#
-#     r = AjaxResponse(success=True)
-#
-#     user_devices = rrn_user_service.get_user_devices(user_uuid=session['user_uuid'])
-#
-#     r.add_data('user_devices', user_devices)
-#     r.set_success()
-#     resp = jsonify(r.serialize())
-#     resp.code = HTTPStatus.OK
-#     return resp

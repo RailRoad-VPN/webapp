@@ -626,3 +626,14 @@ hr {
     height: 1px;
     border: none;
 }
+
+/* hide the blue outline */
+.form-control:focus {
+    outline: 0 !important;
+    border-color: initial;
+    box-shadow: none;
+}
+
+#vpn_servers-table > tbody > tr:hover {
+    background-color: rgb(248, 204, 70, 0.6);
+}

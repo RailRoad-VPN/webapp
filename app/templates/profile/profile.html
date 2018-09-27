@@ -8,8 +8,21 @@
 
 {% block import_css %}
     {% if 'debug' in session %}
+        <!-- Data Tables -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/datatables/datatables.css') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.css') }}">
+
+        <!-- custom -->
         <link rel="stylesheet" href="{{ url_for('static', filename='main/profile/profile.css') }}">
+
     {% else %}
+        <!-- Data Tables -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/datatables/datatables.min.css') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css') }}">
+
+        <!-- custom -->
         <link rel="stylesheet" href="{{ url_for('static', filename='main/profile/profile.min.css') }}">
     {% endif %}
 {% endblock %}
@@ -17,6 +30,16 @@
 {% block import_js %}
 
     {% if 'debug' in session %}
+
+        <!-- data table -->
+        <script src="{{ url_for('static', filename='assets/datatables/datatables.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='assets/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.js') }}"
+                type="text/javascript" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='assets/datatables/DataTables-1.10.18/js/jquery.dataTables.js') }}"
+                type="text/javascript" charset="utf-8"></script>
+
+        <!-- custom -->
         <script src="{{ url_for('static', filename='main/common/payproglobal.js') }}" type="text/javascript"
                 charset="utf-8"></script>
         <script src="{{ url_for('static', filename='main/common/stopwatch_countdown.js') }}" type="text/javascript"
@@ -24,6 +47,16 @@
         <script src="{{ url_for('static', filename='main/profile/profile.js') }}" type="text/javascript"
                 charset="utf-8"></script>
     {% else %}
+
+        <!-- data table -->
+        <script src="{{ url_for('static', filename='assets/datatables/datatables.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='assets/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js') }}"
+                type="text/javascript" charset="utf-8"></script>
+        <script src="{{ url_for('static', filename='assets/datatables/DataTables-1.10.18/js/jquery.dataTables.min.js') }}"
+                type="text/javascript" charset="utf-8"></script>
+
+        <!-- custom -->
         <script src="{{ url_for('static', filename='main/common/payproglobal.min.js') }}" type="text/javascript"
                 charset="utf-8"></script>
         <script src="{{ url_for('static', filename='main/common/stopwatch_countdown.min.js') }}" type="text/javascript"
@@ -49,9 +82,13 @@
 
     <meta id="is_pin_code_activated_url" data-method="GET" data-url="{{ url_for('profile.is_pin_code_activated') }}">
 
+    <meta id="data_table_lang_url" data-method="GET"
+          data-url="{{ url_for('static', filename='assets/datatables/i18n/' + session['lang_code'] + '.json') }}">
+
     <meta id="change_status_user_device_block_text" data-text="{{ _('Working...') }}">
     <meta id="email_saved_text" data-text="{{ _('Email was successfully changed!') }}">
     <meta id="password_saved_text" data-text="{{ _('Password was successfully changed!') }}">
+
 {% endblock %}
 
 {% block body %}
@@ -59,26 +96,22 @@
         <div class="menu-header nav justify-content-centers" style="background-color: #fff; padding-top: 50px;">
             <ul id="profile-menu" class="nav nav-tabs">
                 <li class="nav-item menu-entry">
-                    <a id="dashboard-tab" class="nav-link active" href="#dashboard"
-                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                    <a id="dashboard-tab" class="nav-link active" href="#tab_dashboard" data-toggle="tab">
                         <i class="fas fa-tachometer-alt"></i> {{ _('Dashboard') }}
                     </a>
                 </li>
                 <li class="nav-item menu-entry">
-                    <a id="account-tab" class="nav-link" href="#account"
-                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                    <a id="account-tab" class="nav-link" href="#tab_account" data-toggle="tab">
                         <i class="fas fa-user-alt"></i> {{ _('Account') }}
                     </a>
                 </li>
                 <li class="nav-item menu-entry">
-                    <a id="downloads-tab" class="nav-link" href="#downloads"
-                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                    <a id="downloads-tab" class="nav-link" href="#tab_downloads" data-toggle="tab">
                         <i class="fas fa-download"></i> {{ _('Downloads') }}
                     </a>
                 </li>
                 <li class="nav-item menu-entry">
-                    <a id="servers-tab" class="nav-link" href="#servers"
-                       data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">
+                    <a id="servers-tab" class="nav-link" href="#tab_servers" data-toggle="tab">
                         <i class="fas fa-server"></i> {{ _('VPN Servers') }}
                     </a>
                 </li>
@@ -93,7 +126,7 @@
             </ul>
         </div>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active" id="tab_dashboard" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container">
                     <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Services') }}</h4>
                     <div class="user-services well container">
@@ -291,10 +324,12 @@
                                                         {% for conn in user_device['_connections'] %}
                                                             {% if conn['is_connected'] %}
                                                                 <li class="text-muted">
-                                                                    {{ _('Download') }}: <span class="download-traffic">{{ conn['bytes_i']|filesizeformat(true) }}</span>
+                                                                    {{ _('Download') }}: <span
+                                                                        class="download-traffic">{{ conn['bytes_i']|filesizeformat(true) }}</span>
                                                                 </li>
                                                                 <li class="text-muted">
-                                                                    {{ _('Upload') }}: <span class="upload-traffic">{{ conn['bytes_o']|filesizeformat(true) }}</span>
+                                                                    {{ _('Upload') }}: <span
+                                                                        class="upload-traffic">{{ conn['bytes_o']|filesizeformat(true) }}</span>
                                                                 </li>
                                                             {% endif %}
                                                         {% endfor %}
@@ -302,9 +337,9 @@
                                                 </ul>
                                                 <button class="btn btn-link card-link change-status-device-btn"
                                                         {% if user_device['is_active'] %}
-                                                            data-is_active="1"
+                                                        data-is_active="1"
                                                         {% else %}
-                                                            data-is_active="0"
+                                                        data-is_active="0"
                                                         {% endif %}
                                                         data-uuid="{{ user_device['uuid'] }}"
                                                         data-activate_text="{{ _('Activate') }}"
@@ -339,7 +374,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane fade" id="tab_account" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="container">
                     <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Account') }}</h4>
                     <div class="user-devices well container " style="padding-bottom: 50px;">
@@ -398,14 +433,86 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="downloads" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade" id="tab_downloads" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="container">
                     {{ _('downloads') }}
                 </div>
             </div>
-            <div class="tab-pane fade" id="servers" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade" id="tab_servers" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="container">
-                    {{ _('servers') }}
+                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('VPN Servers') }}</h4>
+                    <div class="user-services well container">
+                        <div class="col-lg-10 offset-1">
+                            <div class="input-group">
+                                <input id="vpn_servers-search-input"
+                                       class="form-control py-2 border-right-0 border"
+                                       type="search" placeholder="{{ _('Search...') }}">
+                                <span class="input-group-append">
+                                      <div class="input-group-text bg-transparent">
+                                          <i class="fa fa-search"></i>
+                                      </div>
+                                </span>
+                            </div>
+                        </div>
+                        <table id="vpn_servers-table" class="table" style="margin-top: 50px !important;">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">{{ _('Country') }}</th>
+                                <th scope="col">{{ _('City') }}</th>
+                                <th scope="col">{{ _('State') }}</th>
+                                <th scope="col">{{ _('Bandwith') }}</th>
+                                <th scope="col">{{ _('Load') }}</th>
+                                <th scope="col">{{ _('Type') }}</th>
+                                <th scope="col">{{ _('Status') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for uvs in user_vpn_servers %}
+                                <tr>
+                                    <td scope="row">{{ uvs['num'] }}</td>
+                                    {% if 'geo' in uvs and 'country' in uvs['geo'] %}
+                                        <td>{{ uvs['geo']['country']['name'] }}</td>
+                                    {% else %}
+                                        <td> -</td>
+                                    {% endif %}
+                                    {% if 'geo' in uvs and 'city' in uvs['geo'] %}
+                                        <td>{{ uvs['geo']['city']['name'] }}</td>
+                                    {% else %}
+                                        <td> -</td>
+                                    {% endif %}
+                                    {% if 'geo' in uvs and 'state' in uvs['geo'] %}
+                                        <td>{{ uvs['geo']['state']['name'] }}</td>
+                                    {% else %}
+                                        <td> -</td>
+                                    {% endif %}
+                                    <td>{{ uvs['bandwidth'] }}</td>
+                                    <td>{{ uvs['load'] }}%</td>
+                                    {% if uvs['type_id'] == 1 %}
+                                        <th>OpenVPN</th>
+                                    {% elif uvs['type_id'] == 2 %}
+                                        <td>IPSec over IKEv2</td>
+                                    {% endif %}
+                                    {% if uvs['status_id'] == 1 %}
+                                        <td>
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </td>
+                                    {% elif uvs['status_id'] == 3 %}
+                                        <td>
+                                            {{ _('maintenance') }}
+                                            <i class="fas fa-heartbeat"></i>
+                                        </td>
+                                    {% elif uvs['status_id'] == 4 %}
+                                        <td>
+                                            {{ _('op_nnc') }}
+                                            <i class="fas fa-life-ring"></i>
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

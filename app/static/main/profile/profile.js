@@ -33,9 +33,21 @@ $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     }
 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        console.log("tab shown...");
+    });
+
     var $emailInput = $("#account-email-input");
     var $passwordInput = $("#account-password-input");
     var $deleteAccountEmailInput = $("#delete-account-email-input");
+
+    var table = $('#vpn_servers-table').DataTable({
+        paging: false,
+        searching: true,
+        language: {
+            url: $("#data_table_lang_url").data('url')
+        }
+    });
 
     /*
      MENU
@@ -504,4 +516,25 @@ $(document).ready(function () {
             return true;
         }
     }
+
+    setTimeout(function () {
+        $("#vpn_servers-table_filter").hide();
+    }, 500);
+
+    $('#vpn_servers-search-input').keyup(function () {
+        table.search($(this).val()).draw();
+    });
+
+    var hash = document.location.hash;
+    var prefix = "tab_";
+    if (hash.indexOf(prefix) > -1) {
+        $('.nav-tabs a[href="' + hash + '"]').click();
+    }
+
+    $('.nav-tabs a').click(function (e) {
+        $(this).tab('show');
+        var scrollmem = $('body').scrollTop();
+        window.location.hash = this.hash;
+        $('html,body').scrollTop(scrollmem);
+    });
 });

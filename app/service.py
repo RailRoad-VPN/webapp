@@ -373,6 +373,16 @@ class RRNUsersAPIService(RESTService):
         }
         self._put(url=url, data=api_response.data, headers=headers)
 
+    def get_user_vpn_servers(self, user_uuid: str):
+        self.logger.debug(f"get_user_vpn_servers method with parameters user_uuid: {user_uuid}")
+        url = f"{self._url}/{user_uuid}/servers"
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
+        return api_response.data
+
+
 
 class RRNBillingAPIService(RESTService):
     __version__ = 1
