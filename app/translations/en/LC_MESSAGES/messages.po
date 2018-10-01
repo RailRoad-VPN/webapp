@@ -297,7 +297,7 @@ msgstr ""
 
 #: app/templates/index/index.html:46
 msgid "Railroad VPN"
-msgstr ""
+msgstr "Railroad VPN ¶"
 
 #: app/templates/index/index.html:48
 msgid "the best way to get content"
@@ -316,7 +316,7 @@ msgid "Get Railroad VPN"
 msgstr ""
 
 #: app/templates/index/index.html:70
-msgid "WHY Railroad VPN Services?"
+msgid "Why Railroad VPN Services?"
 msgstr ""
 
 #: app/templates/index/index.html:72
@@ -324,6 +324,7 @@ msgid ""
 "We developing VPN-service with the best features and service on market. "
 "What we can offer?"
 msgstr ""
+"We are currently developing VPN service with the best features on the market:"
 
 #: app/templates/index/index.html:79
 msgid "SECURITY"
@@ -339,11 +340,11 @@ msgstr ""
 
 #: app/templates/index/index.html:91
 msgid "Be anonymous when you need this"
-msgstr ""
+msgstr "Become anonymous any time you like"
 
 #: app/templates/index/index.html:99
 msgid "DISENGAGEMENT"
-msgstr ""
+msgstr "VIRTUAL NETWORK"
 
 #: app/templates/index/index.html:101
 msgid "Create your own network over Internet"
@@ -351,11 +352,11 @@ msgstr ""
 
 #: app/templates/index/index.html:111
 msgid "VPN Apps"
-msgstr ""
+msgstr "APPs"
 
 #: app/templates/index/index.html:113
 msgid "We offer the best VPN app. Simple. Fast. Nice."
-msgstr ""
+msgstr "Best VPN apps for all platforms. Simple. Fast. Nice."
 
 #: app/templates/index/index.html:121
 msgid "SUPPORT"
@@ -363,15 +364,15 @@ msgstr ""
 
 #: app/templates/index/index.html:123
 msgid "Email, Telegram, Forum - we support you everywhere."
-msgstr ""
+msgstr "E-mail, Telegram and Forum - support is everywhere"
 
 #: app/templates/index/index.html:131
 msgid "EXTRA MONEY"
-msgstr ""
+msgstr "EARN MONEY"
 
 #: app/templates/index/index.html:133
 msgid "Change your traffic for money."
-msgstr ""
+msgstr "Exchange your traffic for money"
 
 #: app/templates/index/index.html:145 app/templates/order/order.html:74
 #: app/templates/pricing/pricing.html:32
