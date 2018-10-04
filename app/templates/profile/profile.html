@@ -314,7 +314,7 @@
                                                     </li>
                                                     <li class="text-muted">
                                                         {{ _('Connected Since') }}:
-                                                        {{ user_device['connected_since'] if user_device['virtual_ip'] else 'N/A' }}
+                                                        {{ user_device['connected_since'] if user_device['connected_since'] else 'N/A' }}
                                                     </li>
                                                     <li class="text-muted">
                                                         {{ _('Location') }}:
@@ -325,11 +325,15 @@
                                                             {% if conn['is_connected'] %}
                                                                 <li class="text-muted">
                                                                     {{ _('Download') }}: <span
-                                                                        class="download-traffic">{{ conn['bytes_i']|filesizeformat(true) }}</span>
+                                                                        class="download-traffic">
+                                                                    {{ conn['bytes_i']|filesizeformat(true) if conn['bytes_i'] else 'N/A' }}
+                                                                </span>
                                                                 </li>
                                                                 <li class="text-muted">
                                                                     {{ _('Upload') }}: <span
-                                                                        class="upload-traffic">{{ conn['bytes_o']|filesizeformat(true) }}</span>
+                                                                        class="upload-traffic">
+                                                                    {{ conn['bytes_o']|filesizeformat(true) if conn['bytes_o'] else 'N/A' }}
+                                                                </span>
                                                                 </li>
                                                             {% endif %}
                                                         {% endfor %}
