@@ -330,6 +330,7 @@ $(document).ready(function () {
                 setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
 
                 if (isEmailEmpty === false) {
+                    $emailInput.parent().find('.empty_error').hide();
                     markInput($emailInput, true);
                 }
             }
@@ -351,10 +352,12 @@ $(document).ready(function () {
             markInput($passwordInput, false);
             return false;
         } else if (pwdVal.length < 6) {
+            $pwdFormGroup.find('.empty_error').hide();
             $pwdFormGroup.find('.short_error').show();
             markInput($passwordInput, false);
             return false;
         } else {
+            $pwdFormGroup.find('.empty_error').hide();
             $pwdFormGroup.find('.short_error').hide();
             markInput($passwordInput, true);
 
@@ -376,11 +379,13 @@ $(document).ready(function () {
         }
 
         if (pwdVal !== pwdConfirmVal) {
+            $passwordConfirmInput.parent().find('.empty_error').hide();
             markInput($passwordConfirmInput, false);
             $passwordConfirmInput.parent().find('.match_error').show();
             return false;
         } else {
             markInput($passwordConfirmInput, true);
+            $passwordConfirmInput.parent().find('.empty_error').hide();
             $passwordConfirmInput.parent().find('.match_error').hide();
 
             ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY] = pwdConfirmVal;
