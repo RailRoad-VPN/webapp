@@ -57,8 +57,6 @@ email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
                              from_email=app_config['EMAIL_SMTP']['support_account']['email'],
                              templates_path="%s%s" % (app.root_path, "/static/assets/email-tmpls"))
 
-ppg_payments_service = PayProGlobalPaymentService(config=app_config)
-
 subscription_service = SubscriptionService(billing_service=rrn_billing_service, cache_service=cache_service)
 
 from app.flask_utils import before_request, get_locale

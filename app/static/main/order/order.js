@@ -1,10 +1,10 @@
 'use strict';
 
 function bar_progress(direction) {
-    var $progressBar = $("#progress-bar");
-    var number_of_steps = $progressBar.data('number-of-steps');
-    var now_value = $progressBar.data('now-value');
-    var new_value = 0;
+    let $progressBar = $("#progress-bar");
+    let number_of_steps = $progressBar.data('number-of-steps');
+    let now_value = $progressBar.data('now-value');
+    let new_value = 0;
     if (direction === 'right') {
         new_value = now_value + (100 / number_of_steps);
     } else if (direction === 'left') {
@@ -15,96 +15,52 @@ function bar_progress(direction) {
 
 
 // account details save in local storage
-var LS_ORDER_KEY = 'order';
-var LS_ORDER_PACK_ID_KEY = 'pack_id';
-var LS_ORDER_ACCOUNT_KEY = 'account';
-var LS_ORDER_ACCOUNT_EMAIL_KEY = 'email';
-var LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password';
-var LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY = 'password_confirm';
+const LS_ORDER_KEY = 'order';
+const LS_ORDER_PACK_ID_KEY = 'pack_id';
+const LS_ORDER_ACCOUNT_KEY = 'account';
+const LS_ORDER_ACCOUNT_EMAIL_KEY = 'email';
+const LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password';
+const LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY = 'password_confirm';
 
 $(document).ready(function () {
-    var $emailCheckURLObj = $("meta#email_check_url");
-    var $orderPageURLObj = $("meta#order_page_url");
-    var $getPaymentUrlURLObj = $("meta#get_payment_url_url");
+    const $emailCheckURLObj = $("meta#email_check_url");
+    const $getPaymentUrlURLObj = $("meta#get_payment_url_url");
 
-    var $orderForm = $('.order-form');
-    var $userUuidInput = $("#user_uuid");
-    var $packInput = $("#pack_id");
-    var $emailInput = $("#email-input");
-    var $passwordInput = $("#password-input");
-    var $passwordConfirmInput = $("#repeat-password-input");
+    const $orderForm = $('.order-form');
+    const $userUuidInput = $("#user_uuid");
+    const $packInput = $("#pack_id");
+    const $emailInput = $("#email-input");
+    const $passwordInput = $("#password-input");
+    const $passwordConfirmInput = $("#repeat-password-input");
 
-    var $paymentMethodsModal = $("#payment_methods-modal");
+    const $paymentMethodsModal = $("#payment_methods-modal");
 
-    var USER_REGISTERED = !!$userUuidInput.val();
+    let compiledChoseSub;
 
-    var ORDER_LS = getFromLocalStorage(LS_ORDER_KEY);
-    var ACCOUNT_LS;
-    if (ORDER_LS) {
-        ACCOUNT_LS = ORDER_LS[LS_ORDER_ACCOUNT_KEY];
-    } else {
-        ORDER_LS = {}
-    }
+    let USER_REGISTERED = !!$userUuidInput.val();
+    let ORDER_LS = getFromLocalStorage(LS_ORDER_KEY);
+    let ACCOUNT_LS;
+    let CHOSEN_PACK = -1;
 
-    if (!ACCOUNT_LS) {
-        ACCOUNT_LS = {}
-    }
-
-    function restoreOrderFromLS() {
-        if (ORDER_LS) {
-            $packInput.val(ORDER_LS[LS_ORDER_PACK_ID_KEY]);
-            if (ACCOUNT_LS) {
-                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_EMAIL_KEY)) {
-                    $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
-                    checkEmail();
-                }
-                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_KEY)) {
-                    $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
-                    checkPassword();
-                }
-                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY)) {
-                    $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
-                    checkRepeatPassword();
-                }
-            }
-        }
-    }
-
-    function checkPackChosen() {
-        if (window.location.href.indexOf('pack=') !== -1 || (ORDER_LS && ORDER_LS[LS_ORDER_PACK_ID_KEY])) {
-            if (window.location.href.indexOf('pack=') !== -1) {
-                ORDER_LS[LS_ORDER_PACK_ID_KEY] = getUrlParameter('pack');
-                setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
-            } else {
-                window.location = $orderPageURLObj.data('url') + "?pack=" + ORDER_LS[LS_ORDER_PACK_ID_KEY]
-            }
-            goToStep('right', 'account');
-        } else {
-            $('#pack-fieldset').fadeIn('slow');
-        }
-    }
-
-    restoreOrderFromLS();
-
-    checkPackChosen();
+    init();
 
     // checkout sub btn
     $('.btn-checkout').on('click', function () {
-        ORDER_LS[LS_ORDER_PACK_ID_KEY] = $(this).data('id');
-        var is_ok = setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+        CHOSEN_PACK = $(this).data('id');
+        ORDER_LS[LS_ORDER_PACK_ID_KEY] = CHOSEN_PACK;
+        setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
         // for case when used local storage but browser does not support it
-        if (!is_ok) {
-            $packInput.val($(this).data('id'));
-        }
+        $packInput.val(CHOSEN_PACK);
+        goToStep('right');
     });
 
     // next step
-    $('.order-form .btn-next').on('click', function () {
+    $(document).on('click', ".order-form .btn-next", function () {
         goToStep('right');
     });
 
     // previous step
-    $('.order-form .btn-previous').on('click', function () {
+    $(document).on('click', ".order-form .btn-previous", function () {
         goToStep('left');
     });
 
@@ -118,10 +74,10 @@ $(document).ready(function () {
     });
 
     function goToStep(progress_direction, newStepId) {
-        var $currentStep = $('.order-form').find('.order-progress-step.active');
-        var currentStepId = $currentStep.data('id');
+        let $currentStep = $('.order-form').find('.order-progress-step.active');
+        let currentStepId = $currentStep.data('id');
 
-        var is_allow_next_step = true;
+        let is_allow_next_step = true;
 
         if (!newStepId || newStepId === '') {
             if (progress_direction === 'left') {
@@ -144,9 +100,9 @@ $(document).ready(function () {
             }
         }
 
-        var $newStep = $('.order-progress-step[data-id="' + newStepId + '"]');
-        var $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
-        var $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
+        let $newStep = $('.order-progress-step[data-id="' + newStepId + '"]');
+        let $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
+        let $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
 
         _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
     }
@@ -183,6 +139,19 @@ $(document).ready(function () {
                 }
             }
         }
+
+        const subsJSON = $("#subscriptionsDictData").data('json');
+        const choseSub = subsJSON[subscriptionIdVal];
+        $(".chosen-subscription-name").text(choseSub['name']);
+        if (subsJSON['is_best']) {
+            $(".chosen-subscription-best_badge").show();
+        } else {
+            $(".chosen-subscription-best_badge").hide();
+        }
+        const subJSON = {"chosen_subscription": subsJSON[subscriptionIdVal], "width": "width: 18rem;"};
+        const html = compiledChoseSub(subJSON);
+        $(".chosen-subscription").html(html);
+
         $packInput.val(subscriptionIdVal);
         return true;
     }
@@ -194,7 +163,7 @@ $(document).ready(function () {
             return true;
         }
 
-        var is_pwd_ok = checkPassword();
+        let is_pwd_ok = checkPassword();
         if (!is_pwd_ok) {
             return false;
         }
@@ -217,12 +186,12 @@ $(document).ready(function () {
 
     $orderForm.on('submit', function (e) {
         e.preventDefault();
-        var paymentMethodVal = $.trim($("#payment_method").val());
+        let paymentMethodVal = $.trim($("#payment_method").val());
         if (!paymentMethodVal || paymentMethodVal === '') {
             $('#payment-method-error').show();
             return false;
         }
-        var that = this;
+        let that = this;
         $(that).ajaxSubmit({
             success: function (response) {
                 if (response['success']) {
@@ -244,12 +213,12 @@ $(document).ready(function () {
     });
 
     function getPaymentPageURL(callback) {
-        var orderCodeVal = $.trim($("#order_code").text());
-        var subscriptionIdVal = $.trim($("#subscription-id").val());
-        var paymentMethodVal = $.trim($("#payment_method").val());
+        let orderCodeVal = $.trim($("#order_code").text());
+        let subscriptionIdVal = $.trim($("#subscription-id").val());
+        let paymentMethodVal = $.trim($("#payment_method").val());
 
-        var getPaymentURL = $getPaymentUrlURLObj.data('url');
-        var getPaymentURLMethod = $getPaymentUrlURLObj.data('method');
+        let getPaymentURL = $getPaymentUrlURLObj.data('url');
+        let getPaymentURLMethod = $getPaymentUrlURLObj.data('method');
 
         redirectToPaymentPage(orderCodeVal, subscriptionIdVal, paymentMethodVal, 'order', getPaymentURL,
             getPaymentURLMethod, callback);
@@ -260,7 +229,7 @@ $(document).ready(function () {
         if ($paymentMethodsModal.find('.modal-body').find('.payment-method.active').length === 0) {
             return;
         }
-        var $activePaymentMethodClone = $(".payment-method.active").parent().clone();
+        let $activePaymentMethodClone = $(".payment-method.active").parent().clone();
         // css fix
         $activePaymentMethodClone.addClass('col-xl-2');
         $("#payment_methods-container").append($activePaymentMethodClone);
@@ -297,8 +266,8 @@ $(document).ready(function () {
     });
 
     function checkEmail() {
-        var isEmailEmpty;
-        var emailVal = $.trim($emailInput.val());
+        let isEmailEmpty;
+        let emailVal = $.trim($emailInput.val());
         if (emailVal === '') {
             markInput($emailInput, false);
             $emailInput.parent().find('.empty_error').show();
@@ -313,12 +282,13 @@ $(document).ready(function () {
             isEmailEmpty = false;
         }
 
-        var data = {
+        let data = {
             'email': emailVal,
         };
-        var isAsync = true;
 
-        var successCallback = function (response) {
+        const isAsync = true;
+
+        const successCallback = function (response) {
             if (response.hasOwnProperty('success') && !response['success']) {
                 $emailInput.parent().find('.busy_error').show();
                 markInput($emailInput, false);
@@ -336,7 +306,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        const errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -344,8 +314,8 @@ $(document).ready(function () {
     }
 
     function checkPassword() {
-        var pwdVal = $.trim($passwordInput.val());
-        var $pwdFormGroup = $passwordInput.parent();
+        const pwdVal = $.trim($passwordInput.val());
+        const $pwdFormGroup = $passwordInput.parent();
 
         if (pwdVal === '') {
             $pwdFormGroup.find('.empty_error').show();
@@ -369,8 +339,8 @@ $(document).ready(function () {
     }
 
     function checkRepeatPassword() {
-        var pwdVal = $.trim($passwordInput.val());
-        var pwdConfirmVal = $.trim($passwordConfirmInput.val());
+        const pwdVal = $.trim($passwordInput.val());
+        const pwdConfirmVal = $.trim($passwordConfirmInput.val());
 
         if (pwdConfirmVal === '') {
             markInput($passwordConfirmInput, false);
@@ -393,5 +363,60 @@ $(document).ready(function () {
             setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
             return true;
         }
+    }
+
+    function init() {
+        $.ajax({
+            url: $("#chosen_sub_url").data("url"),
+            method: $("#chosen_sub_url").data("method"),
+            async: false,
+            dataType: 'html',
+            success: function (data) {
+                compiledChoseSub = _.template(data);
+
+                if (ORDER_LS) {
+                    ACCOUNT_LS = ORDER_LS[LS_ORDER_ACCOUNT_KEY];
+                } else {
+                    ORDER_LS = {}
+                }
+
+                if (!ACCOUNT_LS) {
+                    ACCOUNT_LS = {}
+                }
+
+                if (ORDER_LS) {
+                    $packInput.val(ORDER_LS[LS_ORDER_PACK_ID_KEY]);
+                    if (ACCOUNT_LS) {
+                        if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_EMAIL_KEY)) {
+                            $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
+                            checkEmail();
+                        }
+                        if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_KEY)) {
+                            $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
+                            checkPassword();
+                        }
+                        if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY)) {
+                            $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
+                            checkRepeatPassword();
+                        }
+                    }
+                }
+                if (window.location.href.indexOf('pack=') !== -1 || (ORDER_LS && ORDER_LS[LS_ORDER_PACK_ID_KEY])) {
+                    if (window.location.href.indexOf('pack=') !== -1) {
+                        CHOSEN_PACK = getUrlParameter('pack');
+                        ORDER_LS[LS_ORDER_PACK_ID_KEY] = getUrlParameter('pack');
+                        setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+                    } else {
+                        CHOSEN_PACK = ORDER_LS[LS_ORDER_PACK_ID_KEY];
+                    }
+                    goToStep('right', 'account');
+                } else {
+                    $('#pack-fieldset').fadeIn('slow');
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 });

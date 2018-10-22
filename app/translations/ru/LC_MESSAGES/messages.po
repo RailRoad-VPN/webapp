@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-08-27 15:04+0300\n"
+"POT-Creation-Date: 2018-10-19 16:56+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,65 +19,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/service.py:35 app/service.py:36
+#: app/service.py:36 app/service.py:37
 msgid "Welcome to"
 msgstr "Добро пожаловать в"
 
-#: app/service.py:35 app/service.py:36
+#: app/service.py:36 app/service.py:37
 msgid "Railroad Network Services"
 msgstr ""
 
-#: app/service.py:108 app/service.py:132
+#: app/service.py:109 app/service.py:133
 msgid "TRIAL_EMAIL_TICKET"
 msgstr ""
 "Поздаравляем! Вы получили RailroadTicket. Пожалуйста, не опоздайте на "
 "поезд."
 
-#: app/service.py:109 app/service.py:133
+#: app/service.py:110 app/service.py:134
 msgid "TRIAL_EMAIL_WELCOME"
 msgstr "Добро пожаловать в"
 
-#: app/service.py:110 app/service.py:134
+#: app/service.py:111 app/service.py:135
 msgid "RNS"
 msgstr "Railroad Network Services"
 
-#: app/service.py:111 app/service.py:135
+#: app/service.py:112 app/service.py:136
 msgid "Hello"
 msgstr "Привет!"
 
-#: app/service.py:112
+#: app/service.py:113
 msgid "NEW_SUB_BUY_FACT"
 msgstr "Railroad VPN подписка: "
 
-#: app/service.py:113
+#: app/service.py:114
 msgid "NEW_SUB_EMAIL_THANKS"
 msgstr "Спасибо за приобретение RailroadVPN подписку!"
 
-#: app/service.py:114
+#: app/service.py:115
 msgid "NEW_SUB_PAYMENT_INFORM"
 msgstr ""
 "Вы сможете воспользоваться RailroadVPN, когда придет ваш платеж, мы "
 "уведомим вас новым письмом по факту платежа"
 
-#: app/service.py:136
+#: app/service.py:137
 msgid "TRIAL_EMAIL_SUBSCRIPTION_READY"
 msgstr "Ваша триальная подписка зарегистрирована."
 
-#: app/service.py:137
+#: app/service.py:138
 msgid "TRIAL_EMAIL_THANKS"
 msgstr "Благодарим Вас за использование услуг Railroad Network Services"
 
-#: app/service.py:138
+#: app/service.py:139
 msgid "TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK"
 msgstr "Мы обещаем не посылать более 1 письма в неделю."
 
-#: app/service.py:139
+#: app/service.py:140
 msgid "TRIAL_EMAIL_INFORM"
 msgstr ""
 "Мы отправим Вам всю необходимую информацию, когда Вы сможете начать "
 "использовать свою бесплатную триальную подписку."
 
-#: app/service.py:143
+#: app/service.py:144
 msgid "unsubscribe"
 msgstr "отписаться"
 
@@ -95,7 +95,7 @@ msgid "d"
 msgstr ""
 
 #: app/models/exception.py:34 app/models/exception.py:46
-#: app/templates/order/order.html:108 app/templates/profile/profile.html:369
+#: app/templates/order/order.html:107 app/templates/profile/profile.html:408
 msgid "Entered email is busy"
 msgstr "Введенный электронный адрес занят"
 
@@ -160,8 +160,8 @@ msgstr "Вход"
 msgid "Email address"
 msgstr "Email адресс"
 
-#: app/templates/auth/signin.html:40 app/templates/order/order.html:112
-#: app/templates/order/order.html:114 app/templates/profile/profile.html:372
+#: app/templates/auth/signin.html:40 app/templates/order/order.html:111
+#: app/templates/order/order.html:113 app/templates/profile/profile.html:411
 msgid "Password"
 msgstr "Пароль"
 
@@ -186,7 +186,7 @@ msgid "RRoadVPN - Blog"
 msgstr ""
 
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:62
-#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:152
+#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:156
 msgid "Blog"
 msgstr "Блог"
 
@@ -238,9 +238,9 @@ msgstr "Подпишитесь на Railroad Network блог"
 
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:181
 #: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/order/order.html:98
-#: app/templates/profile/profile.html:170
-#: app/templates/profile/profile.html:346
+#: app/templates/contact/contact.html:171 app/templates/order/order.html:97
+#: app/templates/profile/profile.html:203
+#: app/templates/profile/profile.html:385
 msgid "Email"
 msgstr "Электронная почта"
 
@@ -261,8 +261,8 @@ msgstr "Имя"
 msgid "Enter name please"
 msgstr "Введите Ваше имя пожалуйста"
 
-#: app/templates/contact/contact.html:175 app/templates/order/order.html:104
-#: app/templates/profile/profile.html:365
+#: app/templates/contact/contact.html:175 app/templates/order/order.html:103
+#: app/templates/profile/profile.html:404
 msgid "Enter email please"
 msgstr "Введите электронную почту пожалуйста"
 
@@ -275,8 +275,8 @@ msgid "Enter message please"
 msgstr "Введите Ваше сообщение пожалуйста"
 
 #: app/templates/download/download.html:4
-#: app/templates/partials/layout.html:164
-#: app/templates/profile/profile.html:294
+#: app/templates/partials/layout.html:168
+#: app/templates/profile/profile.html:327
 msgid "Download"
 msgstr "Скачать"
 
@@ -380,7 +380,7 @@ msgstr "ДЕНЬГИ"
 msgid "Change your traffic for money."
 msgstr "Ваш трафик может приносить прибыль!"
 
-#: app/templates/index/index.html:145 app/templates/order/order.html:74
+#: app/templates/index/index.html:145 app/templates/order/order.html:72
 #: app/templates/pricing/pricing.html:32
 msgid "CHOOSE YOUR PACK"
 msgstr "ВЫБЕРИТЕ СВОЙ ПЛАН"
@@ -401,184 +401,184 @@ msgstr ""
 msgid "RRoadVPN - Privacy Policy"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:27
-#: app/templates/partials/layout.html:338
+#: app/templates/index/privacy-policy.html:28
+#: app/templates/partials/layout.html:342
 msgid "Privacy Policy"
 msgstr "Политика Конфиденциальности"
 
-#: app/templates/index/privacy-policy.html:28
+#: app/templates/index/privacy-policy.html:38
 msgid "privacy-policy-p1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:29
+#: app/templates/index/privacy-policy.html:39
 msgid "privacy-policy-p1-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:30
+#: app/templates/index/privacy-policy.html:40
 msgid "privacy-policy-p1-2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:31
+#: app/templates/index/privacy-policy.html:41
 msgid "privacy-policy-p1-3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:32
+#: app/templates/index/privacy-policy.html:42
 msgid "privacy-policy-p1-4"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:33
+#: app/templates/index/privacy-policy.html:43
 msgid "privacy-policy-p1-5"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:34
+#: app/templates/index/privacy-policy.html:44
 msgid "privacy-policy-h2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:35
+#: app/templates/index/privacy-policy.html:45
 msgid "privacy-policy-p2-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:36
+#: app/templates/index/privacy-policy.html:46
 msgid "privacy-policy-p2-2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:37
+#: app/templates/index/privacy-policy.html:47
 msgid "privacy-policy-p2-3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:38
+#: app/templates/index/privacy-policy.html:48
 msgid "privacy-policy-p2-4"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:39
+#: app/templates/index/privacy-policy.html:49
 msgid "privacy-policy-p2-5"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:41
+#: app/templates/index/privacy-policy.html:51
 msgid "privacy-policy-p2-l1-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:42
+#: app/templates/index/privacy-policy.html:52
 msgid "privacy-policy-p2-l1-2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:44
+#: app/templates/index/privacy-policy.html:54
 msgid "privacy-policy-p2-6"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:45
+#: app/templates/index/privacy-policy.html:55
 msgid "privacy-policy-p2-7"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:47
+#: app/templates/index/privacy-policy.html:57
 msgid "privacy-policy-p2-l2-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:48
+#: app/templates/index/privacy-policy.html:58
 msgid "privacy-policy-p2-l2-2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:50
+#: app/templates/index/privacy-policy.html:60
 msgid "privacy-policy-p2-l2-3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:52
+#: app/templates/index/privacy-policy.html:62
 msgid "privacy-policy-p2-l2-l-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:53
+#: app/templates/index/privacy-policy.html:63
 msgid "privacy-policy-p2-l2-l-2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:54
+#: app/templates/index/privacy-policy.html:64
 msgid "privacy-policy-p2-l2-l-3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:58
+#: app/templates/index/privacy-policy.html:68
 msgid "privacy-policy-p3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:59
+#: app/templates/index/privacy-policy.html:69
 msgid "privacy-policy-h3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:60
+#: app/templates/index/privacy-policy.html:70
 msgid "privacy-policy-p4"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:61
+#: app/templates/index/privacy-policy.html:71
 msgid "privacy-policy-h4"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:62
+#: app/templates/index/privacy-policy.html:72
 msgid "privacy-policy-p5"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:63
+#: app/templates/index/privacy-policy.html:73
 msgid "privacy-policy-p5-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:64
+#: app/templates/index/privacy-policy.html:74
 msgid "privacy-policy-h5"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:65
+#: app/templates/index/privacy-policy.html:75
 msgid "privacy-policy-p6"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:66
+#: app/templates/index/privacy-policy.html:76
 msgid "privacy-policy-p6-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:67
+#: app/templates/index/privacy-policy.html:77
 msgid "privacy-policy-p6-2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:68
+#: app/templates/index/privacy-policy.html:78
 msgid "privacy-policy-p6-3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:69
+#: app/templates/index/privacy-policy.html:79
 msgid "privacy-policy-h6"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:70
+#: app/templates/index/privacy-policy.html:80
 msgid "privacy-policy-p7"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:71
+#: app/templates/index/privacy-policy.html:81
 msgid "privacy-policy-h7"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:72
+#: app/templates/index/privacy-policy.html:82
 msgid "privacy-policy-p8"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:73
+#: app/templates/index/privacy-policy.html:83
 msgid "privacy-policy-p8-1"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:74
+#: app/templates/index/privacy-policy.html:84
 msgid "privacy-policy-p8-2"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:75
+#: app/templates/index/privacy-policy.html:85
 msgid "privacy-policy-p8-3"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:76
+#: app/templates/index/privacy-policy.html:86
 msgid "privacy-policy-p8-4"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:77
+#: app/templates/index/privacy-policy.html:87
 msgid "privacy-policy-p8-5"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:78
+#: app/templates/index/privacy-policy.html:88
 msgid "privacy-policy-p8-6"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:79
+#: app/templates/index/privacy-policy.html:89
 msgid "privacy-policy-p9"
 msgstr ""
 
@@ -586,27 +586,27 @@ msgstr ""
 msgid "RRoadVPN - Order"
 msgstr ""
 
-#: app/templates/order/order.html:47 app/templates/profile/profile.html:119
+#: app/templates/order/order.html:45 app/templates/profile/profile.html:152
 msgid "Order"
 msgstr "Заказ"
 
-#: app/templates/order/order.html:51
+#: app/templates/order/order.html:49
 msgid "Build your own railroad in 3 easy steps"
 msgstr "Постройте свою железную дорогу в 3 простых шага"
 
-#: app/templates/order/order.html:60
+#: app/templates/order/order.html:58
 msgid "pack"
 msgstr "план"
 
-#: app/templates/order/order.html:64
+#: app/templates/order/order.html:62
 msgid "account"
 msgstr "аккаунт"
 
-#: app/templates/order/order.html:68
+#: app/templates/order/order.html:66
 msgid "payment"
 msgstr "платеж"
 
-#: app/templates/order/order.html:91
+#: app/templates/order/order.html:90
 msgid ""
 "You already logged in, if you want buy subscription for other account you"
 " have to "
@@ -614,63 +614,63 @@ msgstr ""
 "Вы уже вошли в систему, если хотите купить подписку на другой аккаунт, "
 "вам необходимо "
 
-#: app/templates/order/order.html:92
+#: app/templates/order/order.html:91
 msgid "and than login."
 msgstr "и затем выполнить вход с другого аккаунта."
 
-#: app/templates/order/order.html:96
+#: app/templates/order/order.html:95
 msgid "CREATE ACCOUNT"
 msgstr "СОЗДАЙТЕ АККАУНТ"
 
-#: app/templates/order/order.html:118 app/templates/profile/profile.html:385
+#: app/templates/order/order.html:117 app/templates/profile/profile.html:424
 msgid "Enter password please"
 msgstr "Введите пароль пожалуйста"
 
-#: app/templates/order/order.html:122 app/templates/profile/profile.html:389
+#: app/templates/order/order.html:121 app/templates/profile/profile.html:428
 msgid "Entered password too short. Minimum length 6 chars"
 msgstr "Введенный пароль слишком короткий. Минимальная длина 6 символов"
 
-#: app/templates/order/order.html:126 app/templates/order/order.html:128
+#: app/templates/order/order.html:125 app/templates/order/order.html:127
 msgid "Verify password"
 msgstr "Подтвердите пароль"
 
-#: app/templates/order/order.html:132
+#: app/templates/order/order.html:131
 msgid "Enter password again to verify it"
 msgstr "Введите пароль еще раз"
 
-#: app/templates/order/order.html:136
+#: app/templates/order/order.html:135
 msgid "Entered passwords does not match"
 msgstr "Введенные пароли не совпадают"
 
-#: app/templates/order/order.html:141 app/templates/order/order.html:189
+#: app/templates/order/order.html:140 app/templates/order/order.html:188
 msgid "Back"
 msgstr "Назад"
 
-#: app/templates/order/order.html:142
+#: app/templates/order/order.html:141
 msgid "Choose payment method"
 msgstr ""
 
-#: app/templates/order/order.html:165
+#: app/templates/order/order.html:164
 msgid "Choose payment method before proceed to payment page"
 msgstr "Выберите способ оплаты, чтобы перейди на страницу оплаты"
 
-#: app/templates/order/order.html:185
+#: app/templates/order/order.html:184
 msgid "Show more ways to pay"
 msgstr "Выбрать другой способ оплаты"
 
-#: app/templates/order/order.html:191
+#: app/templates/order/order.html:190
 msgid "Proceed to payment page"
 msgstr "Перейтим на страницу оплаты"
 
-#: app/templates/order/order.html:212
+#: app/templates/order/order.html:211
 msgid "Choose your favorite payment method"
 msgstr "Выберите ваш любый способ оплаты"
 
-#: app/templates/order/order.html:272
+#: app/templates/order/order.html:271
 msgid "Other..."
 msgstr "Другой..."
 
-#: app/templates/order/order.html:279
+#: app/templates/order/order.html:278
 msgid ""
 "Some payment methods can be unavailable on payment page. Don't worry, you"
 " can change payment method any time on payment page."
@@ -678,128 +678,128 @@ msgstr ""
 "Некоторые способы оплаты могут быть недоступны на странице оплаты. Вы "
 "всегда можете выбрать другой способ оплаты на странице оплаты."
 
-#: app/templates/partials/layout.html:60
+#: app/templates/partials/layout.html:64
 msgid "RRoadVPN Services"
 msgstr ""
 
-#: app/templates/partials/layout.html:120
+#: app/templates/partials/layout.html:124
 msgid "Your IP"
 msgstr "Ваш IP"
 
-#: app/templates/partials/layout.html:121
+#: app/templates/partials/layout.html:125
 msgid "Your Location"
 msgstr "Ваше местоположение"
 
-#: app/templates/partials/layout.html:122
+#: app/templates/partials/layout.html:126
 msgid "Your ISP"
 msgstr "Ваш ISP"
 
-#: app/templates/partials/layout.html:124
-#: app/templates/partials/layout.html:127
+#: app/templates/partials/layout.html:128
+#: app/templates/partials/layout.html:131
 msgid "Your Status"
 msgstr "Ваш статус"
 
-#: app/templates/partials/layout.html:124
+#: app/templates/partials/layout.html:128
 msgid "protected"
 msgstr "защищен"
 
-#: app/templates/partials/layout.html:128
+#: app/templates/partials/layout.html:132
 msgid "unprotected"
 msgstr "незащищен"
 
-#: app/templates/partials/layout.html:129
+#: app/templates/partials/layout.html:134
 msgid "Protect me!"
 msgstr "Защитите меня!"
 
-#: app/templates/partials/layout.html:156
+#: app/templates/partials/layout.html:160
 msgid "Features"
 msgstr "Особенности"
 
-#: app/templates/partials/layout.html:160
+#: app/templates/partials/layout.html:164
 msgid "Pricing"
 msgstr "Купить"
 
-#: app/templates/partials/layout.html:168
+#: app/templates/partials/layout.html:172
 msgid "Contact"
 msgstr "Контакты"
 
-#: app/templates/partials/layout.html:178
+#: app/templates/partials/layout.html:182
 msgid "My Account"
 msgstr "Мой аккаунт"
 
-#: app/templates/partials/layout.html:184
+#: app/templates/partials/layout.html:188
 msgid "Logout"
 msgstr "Выйти"
 
-#: app/templates/partials/layout.html:224
+#: app/templates/partials/layout.html:228
 msgid "Information"
 msgstr "Информация"
 
-#: app/templates/partials/layout.html:229
+#: app/templates/partials/layout.html:233
 msgid "About us"
 msgstr "О нас"
 
-#: app/templates/partials/layout.html:233
+#: app/templates/partials/layout.html:237
 msgid "Plans and Pricing"
 msgstr "Планы и цены"
 
-#: app/templates/partials/layout.html:237
+#: app/templates/partials/layout.html:241
 msgid "Support"
 msgstr "Поддержка"
 
-#: app/templates/partials/layout.html:241
+#: app/templates/partials/layout.html:245
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: app/templates/partials/layout.html:245
+#: app/templates/partials/layout.html:249
 msgid "Partnership"
 msgstr "Партнерство"
 
-#: app/templates/partials/layout.html:274
+#: app/templates/partials/layout.html:278
 msgid "Tutorials"
 msgstr "Туториалы"
 
-#: app/templates/partials/layout.html:279
+#: app/templates/partials/layout.html:283
 msgid "How to use VPN?"
 msgstr ""
 
-#: app/templates/partials/layout.html:283
+#: app/templates/partials/layout.html:287
 msgid "Why I need VPN?"
 msgstr ""
 
-#: app/templates/partials/layout.html:287
+#: app/templates/partials/layout.html:291
 msgid "Which VPN to choose?"
 msgstr ""
 
-#: app/templates/partials/layout.html:291
+#: app/templates/partials/layout.html:295
 msgid "VPN for business"
 msgstr ""
 
-#: app/templates/partials/layout.html:300
+#: app/templates/partials/layout.html:304
 msgid "Products"
 msgstr ""
 
-#: app/templates/partials/layout.html:305
+#: app/templates/partials/layout.html:309
 msgid "VPN for Windows"
 msgstr ""
 
-#: app/templates/partials/layout.html:309
+#: app/templates/partials/layout.html:313
 msgid "VPN for iOS"
 msgstr ""
 
-#: app/templates/partials/layout.html:313
+#: app/templates/partials/layout.html:317
 msgid "VPN for Android"
 msgstr ""
 
-#: app/templates/partials/layout.html:317
+#: app/templates/partials/layout.html:321
 msgid "VPN for macOS"
 msgstr ""
 
-#: app/templates/partials/layout.html:340
+#: app/templates/partials/layout.html:344
 msgid "Terms &amp; Conditions"
 msgstr "Условия и положения"
 
-#: app/templates/partials/layout.html:351
+#: app/templates/partials/layout.html:355
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
@@ -809,11 +809,11 @@ msgstr ""
 "опыт использования Сайта. Используя cookies Вы можете использовать все "
 "возможности сайта. Если вы не согласны..."
 
-#: app/templates/partials/layout.html:352
+#: app/templates/partials/layout.html:356
 msgid "Read more..."
 msgstr "Прочитать больше..."
 
-#: app/templates/partials/layout.html:355
+#: app/templates/partials/layout.html:359
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
@@ -894,266 +894,299 @@ msgstr ""
 msgid "RRoadVPN - Profile"
 msgstr ""
 
-#: app/templates/profile/profile.html:52
+#: app/templates/profile/profile.html:88
 msgid "Working..."
 msgstr ""
 
-#: app/templates/profile/profile.html:53
+#: app/templates/profile/profile.html:89
 msgid "Email was successfully changed!"
 msgstr ""
 
-#: app/templates/profile/profile.html:54
+#: app/templates/profile/profile.html:90
 msgid "Password was successfully changed!"
 msgstr ""
 
-#: app/templates/profile/profile.html:64
+#: app/templates/profile/profile.html:100
 msgid "Dashboard"
 msgstr ""
 
-#: app/templates/profile/profile.html:70
+#: app/templates/profile/profile.html:105
 msgid "Account"
 msgstr ""
 
-#: app/templates/profile/profile.html:76
+#: app/templates/profile/profile.html:110
 msgid "Downloads"
 msgstr ""
 
-#: app/templates/profile/profile.html:82
+#: app/templates/profile/profile.html:115
+#: app/templates/profile/profile.html:447
 msgid "VPN Servers"
 msgstr ""
 
-#: app/templates/profile/profile.html:88 app/templates/profile/profile.html:333
+#: app/templates/profile/profile.html:121
+#: app/templates/profile/profile.html:372
 msgid "You cant generate PINCODE until you don't have any ACTIVE subscription"
 msgstr ""
 
-#: app/templates/profile/profile.html:90 app/templates/profile/profile.html:334
+#: app/templates/profile/profile.html:123
+#: app/templates/profile/profile.html:373
 msgid "Generate PIN-code"
 msgstr ""
 
-#: app/templates/profile/profile.html:98
+#: app/templates/profile/profile.html:131
 msgid "Your Services"
 msgstr ""
 
-#: app/templates/profile/profile.html:110
-#: app/templates/profile/profile.html:233
-#: app/templates/profile/profile.html:235
-#: app/templates/profile/profile.html:239
+#: app/templates/profile/profile.html:143
+#: app/templates/profile/profile.html:266
+#: app/templates/profile/profile.html:268
+#: app/templates/profile/profile.html:272
 msgid "Active"
 msgstr ""
 
-#: app/templates/profile/profile.html:112
-#: app/templates/profile/profile.html:234
-#: app/templates/profile/profile.html:240
-#: app/templates/profile/profile.html:241
+#: app/templates/profile/profile.html:145
+#: app/templates/profile/profile.html:267
+#: app/templates/profile/profile.html:273
+#: app/templates/profile/profile.html:274
 msgid "Inactive"
 msgstr ""
 
-#: app/templates/profile/profile.html:114
+#: app/templates/profile/profile.html:147
 msgid "Expired"
 msgstr ""
 
-#: app/templates/profile/profile.html:116
-#: app/templates/profile/profile.html:144
+#: app/templates/profile/profile.html:149
+#: app/templates/profile/profile.html:177
 msgid "Waiting for payment"
 msgstr ""
 
-#: app/templates/profile/profile.html:121
+#: app/templates/profile/profile.html:154
 msgid "New"
 msgstr ""
 
-#: app/templates/profile/profile.html:123
+#: app/templates/profile/profile.html:156
 msgid "Processing"
 msgstr ""
 
-#: app/templates/profile/profile.html:125
+#: app/templates/profile/profile.html:158
 msgid "Success"
 msgstr ""
 
-#: app/templates/profile/profile.html:127
+#: app/templates/profile/profile.html:160
 msgid "Failed"
 msgstr ""
 
-#: app/templates/profile/profile.html:138
+#: app/templates/profile/profile.html:171
 msgid "Payment is past due"
 msgstr ""
 
-#: app/templates/profile/profile.html:140
+#: app/templates/profile/profile.html:173
 msgid "Next payment"
 msgstr ""
 
-#: app/templates/profile/profile.html:154
+#: app/templates/profile/profile.html:187
 msgid "This subscription has been expired you can"
 msgstr ""
 
-#: app/templates/profile/profile.html:156
+#: app/templates/profile/profile.html:189
 msgid "buy new one"
 msgstr ""
 
-#: app/templates/profile/profile.html:158
+#: app/templates/profile/profile.html:191
 msgid "or"
 msgstr ""
 
-#: app/templates/profile/profile.html:163
+#: app/templates/profile/profile.html:196
 msgid "renew subscription"
 msgstr ""
 
-#: app/templates/profile/profile.html:171
+#: app/templates/profile/profile.html:204
+#: app/templates/profile/profile.html:470
 msgid "Type"
 msgstr ""
 
-#: app/templates/profile/profile.html:172
+#: app/templates/profile/profile.html:205
 msgid "Sum"
 msgstr ""
 
-#: app/templates/profile/profile.html:173
+#: app/templates/profile/profile.html:206
 msgid "Method"
 msgstr ""
 
-#: app/templates/profile/profile.html:174
+#: app/templates/profile/profile.html:207
 msgid "Date"
 msgstr ""
 
-#: app/templates/profile/profile.html:175
+#: app/templates/profile/profile.html:208
+#: app/templates/profile/profile.html:471
 msgid "Status"
 msgstr ""
 
-#: app/templates/profile/profile.html:176
+#: app/templates/profile/profile.html:209
 msgid "Invoice Link"
 msgstr ""
 
-#: app/templates/profile/profile.html:189
+#: app/templates/profile/profile.html:222
 msgid "success"
 msgstr ""
 
-#: app/templates/profile/profile.html:191
+#: app/templates/profile/profile.html:224
 msgid "failed"
 msgstr ""
 
-#: app/templates/profile/profile.html:193
+#: app/templates/profile/profile.html:226
 msgid "processing"
 msgstr ""
 
-#: app/templates/profile/profile.html:204
+#: app/templates/profile/profile.html:237
 msgid "Link"
 msgstr ""
 
-#: app/templates/profile/profile.html:220
+#: app/templates/profile/profile.html:253
 msgid "Your Devices"
 msgstr ""
 
-#: app/templates/profile/profile.html:229
+#: app/templates/profile/profile.html:262
 msgid "Your Device"
 msgstr ""
 
-#: app/templates/profile/profile.html:246
-#: app/templates/profile/profile.html:248
-#: app/templates/profile/profile.html:252
+#: app/templates/profile/profile.html:279
+#: app/templates/profile/profile.html:281
+#: app/templates/profile/profile.html:285
 msgid "Connected"
 msgstr ""
 
-#: app/templates/profile/profile.html:247
-#: app/templates/profile/profile.html:253
-#: app/templates/profile/profile.html:254
+#: app/templates/profile/profile.html:280
+#: app/templates/profile/profile.html:286
+#: app/templates/profile/profile.html:287
 msgid "Disconnected"
 msgstr ""
 
-#: app/templates/profile/profile.html:259
+#: app/templates/profile/profile.html:292
 msgid "Operation System"
 msgstr ""
 
-#: app/templates/profile/profile.html:271
-#: app/templates/profile/profile.html:287
+#: app/templates/profile/profile.html:304
+#: app/templates/profile/profile.html:320
 msgid "Location"
 msgstr ""
 
-#: app/templates/profile/profile.html:275
+#: app/templates/profile/profile.html:308
 msgid "Device IP Address"
 msgstr ""
 
-#: app/templates/profile/profile.html:279
+#: app/templates/profile/profile.html:312
 msgid "Virtual IP Address"
 msgstr ""
 
-#: app/templates/profile/profile.html:283
+#: app/templates/profile/profile.html:316
 msgid "Connected Since"
 msgstr ""
 
-#: app/templates/profile/profile.html:297
+#: app/templates/profile/profile.html:333
 msgid "Upload"
 msgstr ""
 
-#: app/templates/profile/profile.html:310
-#: app/templates/profile/profile.html:315
+#: app/templates/profile/profile.html:349
+#: app/templates/profile/profile.html:354
 msgid "Activate"
 msgstr ""
 
-#: app/templates/profile/profile.html:311
-#: app/templates/profile/profile.html:313
+#: app/templates/profile/profile.html:350
+#: app/templates/profile/profile.html:352
 msgid "Deactivate"
 msgstr ""
 
-#: app/templates/profile/profile.html:321
+#: app/templates/profile/profile.html:360
 msgid "Delete"
 msgstr ""
 
-#: app/templates/profile/profile.html:330
+#: app/templates/profile/profile.html:369
 msgid "You have no devices. Press "
 msgstr ""
 
-#: app/templates/profile/profile.html:336
+#: app/templates/profile/profile.html:375
 msgid "button to generate and activate your first device with RRoadVPN."
 msgstr ""
 
-#: app/templates/profile/profile.html:344
+#: app/templates/profile/profile.html:383
 msgid "Your Account"
 msgstr ""
 
-#: app/templates/profile/profile.html:356
-#: app/templates/profile/profile.html:380
+#: app/templates/profile/profile.html:395
+#: app/templates/profile/profile.html:419
 msgid "Save"
 msgstr ""
 
-#: app/templates/profile/profile.html:361
+#: app/templates/profile/profile.html:400
 msgid "Entered email is your email"
 msgstr ""
 
-#: app/templates/profile/profile.html:375
+#: app/templates/profile/profile.html:414
 msgid "Enter your new password here"
 msgstr ""
 
-#: app/templates/profile/profile.html:396
+#: app/templates/profile/profile.html:435
 msgid "DELETE ACCOUNT"
 msgstr ""
 
-#: app/templates/profile/profile.html:403
+#: app/templates/profile/profile.html:442
 msgid "downloads"
 msgstr ""
 
-#: app/templates/profile/profile.html:408
-msgid "servers"
+#: app/templates/profile/profile.html:453
+msgid "Search..."
 msgstr ""
 
-#: app/templates/profile/profile.html:418
+#: app/templates/profile/profile.html:465
+msgid "Country"
+msgstr ""
+
+#: app/templates/profile/profile.html:466
+msgid "City"
+msgstr ""
+
+#: app/templates/profile/profile.html:467
+msgid "State"
+msgstr ""
+
+#: app/templates/profile/profile.html:468
+msgid "Bandwith"
+msgstr ""
+
+#: app/templates/profile/profile.html:469
+msgid "Load"
+msgstr ""
+
+#: app/templates/profile/profile.html:506
+msgid "maintenance"
+msgstr ""
+
+#: app/templates/profile/profile.html:511
+msgid "op_nnc"
+msgstr ""
+
+#: app/templates/profile/profile.html:529
 msgid "Enter this PIN code in Railroad VPN client"
 msgstr ""
 
-#: app/templates/profile/profile.html:429
+#: app/templates/profile/profile.html:540
 msgid "This PIN code will regenerate in:"
 msgstr ""
 
-#: app/templates/profile/profile.html:443
+#: app/templates/profile/profile.html:554
 msgid "You are about to delete your account"
 msgstr ""
 
-#: app/templates/profile/profile.html:453
+#: app/templates/profile/profile.html:564
 msgid "Enter email assigned to account"
 msgstr ""
 
-#: app/templates/profile/profile.html:456
+#: app/templates/profile/profile.html:567
 msgid "Enter correct email please"
 msgstr ""
 
-#: app/templates/profile/profile.html:462
+#: app/templates/profile/profile.html:573
 msgid "Delete account"
 msgstr ""
 
@@ -1161,5 +1194,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "RRoadVPN"
+#~ msgstr ""
+
+#~ msgid "servers"
 #~ msgstr ""
 

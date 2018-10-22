@@ -185,7 +185,7 @@
                                 <div class="col-12">
                                     {% if us['status_id'] == 3 %} <!-- expired -->
                                         {{ _('This subscription has been expired you can') }}
-                                        <a href="{{ url_for('order.order') }}">
+                                        <a href="{{ url_for('order.order_page') }}">
                                             {{ _('buy new one') }}
                                         </a>
                                         {{ _('or') }}

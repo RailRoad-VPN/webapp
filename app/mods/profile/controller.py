@@ -155,43 +155,6 @@ def random_with_n_digits(n):
     return randint(range_start, range_end)
 
 
-@mod_profile.route('/renew_sub', methods=['POST'])
-@login_required
-def renew_sub():
-    logger.info('renew_sub method')
-
-    r = AjaxResponse(success=True)
-
-    data = json.loads(request.data)
-
-    sub_id = data.get('sub_id', None)
-    order_code = data.get('order_code', None)
-    subscription_uuid = data.get('subscription_uuid', None)
-
-    if sub_id is None or order_code is None or subscription_uuid is None:
-        r.set_failed()
-        error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
-                          code=DFNError.UNKNOWN_ERROR_CODE.code,
-                          developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
-        r.add_error(error)
-        resp = jsonify(r.serialize())
-        resp.code = HTTPStatus.OK
-        return resp
-
-    order = rrn_orders_service.get_order(code=order_code)
-    session['order'] = order
-    session['order']['renew'] = True
-    session['order']['subscription_uuid'] = subscription_uuid
-
-    redirect_url = url_for('order.order', pack=sub_id)
-
-    r.add_data('redirect_url', redirect_url)
-    r.set_success()
-    resp = jsonify(r.serialize())
-    resp.code = HTTPStatus.OK
-    return resp
-
-
 @mod_profile.route('/is_pin_code_activated', methods=['GET'])
 @login_required
 def is_pin_code_activated():

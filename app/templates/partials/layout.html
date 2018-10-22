@@ -57,6 +57,8 @@
     <meta name="msapplication-config" content="{{ url_for('static', filename='main/favicon/browserconfig.xml') }}">
     <meta name="theme-color" content="#f8cc46">
 
+    <link rel="gettext" type="application/x-po" href="{{ url_for('static', filename='translations/fr.po') }}">
+
     <title>
         {% block title %}
             {{ _('RRoadVPN Services') }}

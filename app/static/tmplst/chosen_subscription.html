@@ -1,0 +1,35 @@
+<div class="chosen-subscription card text-center" style="<%= width %>">
+    <h5 class="card-header">
+        <%= chosen_subscription.name %>
+    </h5>
+    <div class="card-body">
+        <h5 class="card-title">
+            <%= chosen_subscription.description %>
+        </h5>
+        <ul class="subscription-features list-group list-group-flush list-unstyled text-left">
+            <% _.each(chosen_subscription.features, function (feature, index) { %>
+                <% if (feature.enabled == false) { %>
+                    <li class="no-feature">
+                <% } else { %>
+                    <li>
+                <% } %>
+                        <span>
+                            <%= feature.name %>
+                        </span>
+                    </li>
+            <% }); %>
+        </ul>
+        <% if (chosen_subscription.is_best == true) { %>
+            <div class="blockquote-footer pull-right">
+                <small class="text-muted">
+                    <cite>Best plan!</cite>
+                </small>
+            </div>
+        <% } %>
+    </div>
+    <div class="card-footer bg-transparent border-warning">
+        <button type="button" class="btn btn-previous">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+</div>

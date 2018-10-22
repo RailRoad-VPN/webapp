@@ -50,21 +50,23 @@
                     <ul class="pricing-content list-unstyled">
                         {% for feature in subscription['features'] %}
                             <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
-                                <span {% if feature['tooltip'] is not none and feature['enabled'] == true %}
-                                    class="sub-feature-tooltip"
-                                    data-toggle="tooltip"
-                                    data-placement="top"
-                                    title="{{ feature['tooltip'] }}"
-                                {% endif %}
+                                <span
+                                    {% if feature['tooltip'] is not none and feature['enabled'] == true %}
+                                        class="sub-feature-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="{{ feature['tooltip'] }}"
+                                    {% endif %}
                                 >{{ feature['name'] }}</span>
                             </li>
                         {% endfor %}
                     </ul>
                     <div class="pricing-footer">
                         <a {% if order_page == true %}
-                            href="{{ url_for('order.order', pack=subscription['id']) }}" data-id="{{ subscription['id'] }}"
+                            href="#"
+                            data-id="{{ subscription['id'] }}"
                         {% else %}
-                            href="{{ url_for('order.order', pack=subscription['id']) }}"
+                            href="{{ url_for('order.order_page', pack=subscription['id']) }}"
                         {% endif %}
                             class="btn yellow-crusta btn-checkout">
                             {% if order_page == true %}

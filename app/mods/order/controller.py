@@ -1,13 +1,13 @@
+import json
 import logging
 import sys
 from http import HTTPStatus
 from uuid import UUID
 
 from flask import Blueprint, request, render_template, \
-    session, jsonify, redirect, url_for
+    session, jsonify, redirect, url_for, abort
 
-from app import rrn_user_service, rrn_orders_service, app_config, \
-    ppg_payments_service, subscription_service, email_service
+from app import rrn_user_service, rrn_orders_service, app_config, subscription_service, email_service
 from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user, login_required
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
@@ -43,13 +43,13 @@ def create_user_subscription(order_uuid: str, status_id: int, subscription_id: s
     user_email = session.get('user').get('email')
 
     try:
-        logging.info("Creating user subscription...")
+        logger.info("Creating user subscription...")
         user_subscription = rrn_user_service.create_user_subscription(user_uuid=user_uuid, status_id=status_id,
                                                                       subscription_id=subscription_id,
                                                                       order_uuid=order_uuid)
         logger.error(f"user subscription was created: {user_subscription}")
     except APIException as e:
-        logging.debug(e.serialize())
+        logger.debug(e.serialize())
         return False
 
     logger.debug('get subscription name')
@@ -60,117 +60,32 @@ def create_user_subscription(order_uuid: str, status_id: int, subscription_id: s
     email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=sub.get('name'))
 
     logger.debug('authorise user in system')
-    authorize_user(user_json=session['user'])
+    authorize_user(user_json=session.get('user'))
 
     return True
 
 
-@mod_order.route('', methods=['GET', 'POST'])
-def order():
-    logger.info('order method')
+@mod_order.route('', methods=['GET'])
+def order_page():
+    logger.info('order_page method')
 
-    logger.debug('check x-ordercode in request arguments and order in session')
-    if 'x-ordercode' in request.args and 'order' in session:
-        logger.debug('we have x-ordercode in request arguments and order in session')
-        logger.debug('get x-ordercode')
-        order_code_ppg = request.args.get('x-ordercode', None)
-        logger.debug('x-ordercode: %s' % order_code_ppg)
-
-        logger.debug(f"get order from session")
-        order_dict_from_session = session.get('order')
-        logger.debug(f"order from session: {order_dict_from_session}")
-
-        logger.debug('get order code from order in session')
-        order_code_session = order_dict_from_session.get('code')
-        logger.debug('order_code_session: %s' % order_code_session)
-
-        if order_code_ppg == order_code_session:
-            logger.error(
-                "Order from PPG does not equal. Why? PPG: %s, Session: %s" % (order_code_ppg, order_code_session))
-
-        subscription_id = order_dict_from_session.get('subscription_id')
-        order_uuid = order_dict_from_session.get('uuid')
-
-        if not order_dict_from_session.get('renew') and 'x-subscriptionuuid' not in request.args:
-            logger.error(f"we did NOT renew subscription, so create new one")
-            is_ok = create_user_subscription(order_uuid=order_uuid, subscription_id=subscription_id,
-                                             status_id=UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid)
-        else:
-            logger.debug(f"we renew user subscription")
-            is_ok = True
-
-            logger.debug("get subscription uuid from order in session")
-            subscription_uuid = order_dict_from_session.get('subscription_uuid')
-            logger.debug(f"subscription_uuid: {subscription_uuid}")
-
-            logger.debug("get user subscription")
-            user_subscription = rrn_user_service.get_user_subscription(user_uuid=session.get('user').get('uuid'),
-                                                                       subscription_uuid=subscription_uuid)
-
-            logger.debug(f"user subscription: {user_subscription}")
-
-            logger.debug("prepare user subscription to update")
-            user_subscription['status_id'] = UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid
-            user_subscription['modify_reason'] = f"update status to {UserSubscriptionStatus.WAIT_FOR_PAYMENT.sid}"
-            logger.debug(f"updated user subscription: {user_subscription}")
-
-            try:
-                logger.debug("update user subscription")
-                rrn_user_service.update_user_subscription(subscription_json=user_subscription)
-            except APIException as e:
-                logger.error(e)
-
-        if is_ok:
-            logger.debug(f"Set order {order_code_ppg} status processing")
-            order_dict_from_session['status_id'] = OrderStatus.PROCESSING.sid
-        else:
-            logger.error(f"user subscription was not created")
-            logger.debug(f"set order {order_code_ppg} status failed")
-            order_dict_from_session['status_id'] = OrderStatus.FAILED.sid
-
-        logger.debug("remove order from session")
-        session.pop('order')
-
-        order_dict_from_session['modify_reason'] = 'update order status'
-        rrn_orders_service.update_order(order_json=order_dict_from_session)
-        return redirect(url_for('profile.profile_page'))
-    elif 'x-ordercode' not in request.args and 'order' in session and 'redirect_url' in session['order']:
-        if 'error' in request.args:
-            error = request.args.get('error', None)
-            logger.error(f"PayProGlobal error: {error}")
-            return redirect(session['order']['redirect_url'])
-
-    pack_id = request.args.get('pack', None)
-
-    if 'order' not in session or session['order'] is None:
+    if 'order' not in session or session.get('order', None) is None:
         # create new order
         try:
-            logging.info("creating order...")
+            logger.info("create order")
             order_json = rrn_orders_service.create_order(status=OrderStatus.NEW.sid)
             session['order'] = order_json
-            logging.info("order created: %s" % order_json)
+            logger.debug("order created: %s" % order_json)
         except APIException as e:
-            logging.debug(e.serialize())
+            logger.debug(e.serialize())
+            abort(500)
 
     subscriptions = subscription_service.get_subscriptions(lang_code=session.get('lang_code'))
+    subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session.get('lang_code'))
+    logger.debug("got subscriptions. Size: %s" % len(subscriptions))
 
-    if subscriptions is None:
-        return redirect(url_for('order/order', lang_code=session.get('lang_code')))
-
-    logger.info("got subscriptions. Size: %s" % len(subscriptions))
-    if app_config['DEBUG'] is True:
-        for sub in subscriptions:
-            logger.debug(sub)
-
-    subscription = None
-    if pack_id is not None:
-        for sub in subscriptions:
-            if str(sub['id']) == pack_id:
-                subscription = sub
-                break
-
-    return render_template('order/order.html', pack_id=pack_id, chosen_subscription=subscription,
-                           subscriptions=subscriptions, code=200)
+    return render_template('order/order.html', subscriptions=subscriptions,
+                           subscriptions_dict=json.dumps(subscriptions_dict), code=200)
 
 
 @mod_order.route('/payment_url', methods=['GET'])
@@ -198,10 +113,7 @@ def build_payment_url(user_uuid: UUID, subscription_id: str, order_code: int, pa
                       subscription_uuid: UUID = None, user_locale: str = None):
     session['order']['subscription_id'] = subscription_id
 
-    redirect_url = ppg_payments_service.build_redirect_url(user_uuid=user_uuid, order_code=order_code,
-                                                           subscription_id=subscription_id,
-                                                           payment_method_id=payment_method_id,
-                                                           subscription_uuid=subscription_uuid, user_locale=user_locale)
+    redirect_url = ""
 
     session['order']['redirect_url'] = redirect_url
     return redirect_url
@@ -217,7 +129,7 @@ def get_order_payment(order_code: int):
     try:
         order_json = rrn_orders_service.get_order(code=order_code)
     except APIException as e:
-        logging.debug(e.serialize())
+        logger.debug(e.serialize())
         r.set_failed()
         error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
                           code=DFNError.UNKNOWN_ERROR_CODE.code,

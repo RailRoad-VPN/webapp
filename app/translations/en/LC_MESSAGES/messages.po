@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-08-27 15:04+0300\n"
+"POT-Creation-Date: 2018-10-19 16:56+0300\n"
 "PO-Revision-Date: 2018-05-06 09:35+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,63 +18,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/service.py:35 app/service.py:36
+#: app/service.py:36 app/service.py:37
 msgid "Welcome to"
 msgstr ""
 
-#: app/service.py:35 app/service.py:36
+#: app/service.py:36 app/service.py:37
 msgid "Railroad Network Services"
 msgstr ""
 
-#: app/service.py:108 app/service.py:132
+#: app/service.py:109 app/service.py:133
 msgid "TRIAL_EMAIL_TICKET"
 msgstr "You receive Railroad Ticket. Please don't late on train."
 
-#: app/service.py:109 app/service.py:133
+#: app/service.py:110 app/service.py:134
 msgid "TRIAL_EMAIL_WELCOME"
 msgstr "Welcome to"
 
-#: app/service.py:110 app/service.py:134
+#: app/service.py:111 app/service.py:135
 msgid "RNS"
 msgstr "Railroad Network Services"
 
-#: app/service.py:111 app/service.py:135
+#: app/service.py:112 app/service.py:136
 msgid "Hello"
 msgstr ""
 
-#: app/service.py:112
+#: app/service.py:113
 msgid "NEW_SUB_BUY_FACT"
 msgstr "Railroad VPN subscription: "
 
-#: app/service.py:113
+#: app/service.py:114
 msgid "NEW_SUB_EMAIL_THANKS"
 msgstr "Thank you for buying RailroadVPN subscription!"
 
-#: app/service.py:114
+#: app/service.py:115
 msgid "NEW_SUB_PAYMENT_INFORM"
 msgstr ""
 "You can use RailroadVPN, when your payment will processed. We will inform"
 " you by new email."
 
-#: app/service.py:136
+#: app/service.py:137
 msgid "TRIAL_EMAIL_SUBSCRIPTION_READY"
 msgstr "Your trial subscription registered"
 
-#: app/service.py:137
+#: app/service.py:138
 msgid "TRIAL_EMAIL_THANKS"
 msgstr "Thanks for joining Railroad Network Services. Stay in touch."
 
-#: app/service.py:138
+#: app/service.py:139
 msgid "TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK"
 msgstr "We promise send you no more than 1 email in a week"
 
-#: app/service.py:139
+#: app/service.py:140
 msgid "TRIAL_EMAIL_INFORM"
 msgstr ""
 "We will send you additional information when you can start use your free "
 "subscription."
 
-#: app/service.py:143
+#: app/service.py:144
 msgid "unsubscribe"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgid "d"
 msgstr ""
 
 #: app/models/exception.py:34 app/models/exception.py:46
-#: app/templates/order/order.html:108 app/templates/profile/profile.html:369
+#: app/templates/order/order.html:107 app/templates/profile/profile.html:408
 msgid "Entered email is busy"
 msgstr ""
 
@@ -155,8 +155,8 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: app/templates/auth/signin.html:40 app/templates/order/order.html:112
-#: app/templates/order/order.html:114 app/templates/profile/profile.html:372
+#: app/templates/auth/signin.html:40 app/templates/order/order.html:111
+#: app/templates/order/order.html:113 app/templates/profile/profile.html:411
 msgid "Password"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgid "RRoadVPN - Blog"
 msgstr ""
 
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:62
-#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:152
+#: app/templates/blog/blog.html:37 app/templates/partials/layout.html:156
 msgid "Blog"
 msgstr ""
 
@@ -233,9 +233,9 @@ msgstr ""
 
 #: app/templates/blog/articles/whats-new-in-vpn-world.html:181
 #: app/templates/contact/contact.html:170
-#: app/templates/contact/contact.html:171 app/templates/order/order.html:98
-#: app/templates/profile/profile.html:170
-#: app/templates/profile/profile.html:346
+#: app/templates/contact/contact.html:171 app/templates/order/order.html:97
+#: app/templates/profile/profile.html:203
+#: app/templates/profile/profile.html:385
 msgid "Email"
 msgstr ""
 
@@ -256,8 +256,8 @@ msgstr ""
 msgid "Enter name please"
 msgstr ""
 
-#: app/templates/contact/contact.html:175 app/templates/order/order.html:104
-#: app/templates/profile/profile.html:365
+#: app/templates/contact/contact.html:175 app/templates/order/order.html:103
+#: app/templates/profile/profile.html:404
 msgid "Enter email please"
 msgstr ""
 
@@ -270,8 +270,8 @@ msgid "Enter message please"
 msgstr ""
 
 #: app/templates/download/download.html:4
-#: app/templates/partials/layout.html:164
-#: app/templates/profile/profile.html:294
+#: app/templates/partials/layout.html:168
+#: app/templates/profile/profile.html:327
 msgid "Download"
 msgstr ""
 
@@ -316,7 +316,7 @@ msgid "Get Railroad VPN"
 msgstr ""
 
 #: app/templates/index/index.html:70
-msgid "Why Railroad VPN Services?"
+msgid "WHY Railroad VPN Services?"
 msgstr ""
 
 #: app/templates/index/index.html:72
@@ -324,7 +324,8 @@ msgid ""
 "We developing VPN-service with the best features and service on market. "
 "What we can offer?"
 msgstr ""
-"We are currently developing VPN service with the best features on the market:"
+"We are currently developing VPN service with the best features on the "
+"market:"
 
 #: app/templates/index/index.html:79
 msgid "SECURITY"
@@ -374,7 +375,7 @@ msgstr "EARN MONEY"
 msgid "Change your traffic for money."
 msgstr "Exchange your traffic for money"
 
-#: app/templates/index/index.html:145 app/templates/order/order.html:74
+#: app/templates/index/index.html:145 app/templates/order/order.html:72
 #: app/templates/pricing/pricing.html:32
 msgid "CHOOSE YOUR PACK"
 msgstr ""
@@ -395,12 +396,12 @@ msgstr ""
 msgid "RRoadVPN - Privacy Policy"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:27
-#: app/templates/partials/layout.html:338
+#: app/templates/index/privacy-policy.html:28
+#: app/templates/partials/layout.html:342
 msgid "Privacy Policy"
 msgstr ""
 
-#: app/templates/index/privacy-policy.html:28
+#: app/templates/index/privacy-policy.html:38
 msgid "privacy-policy-p1"
 msgstr ""
 "You have legitimate concerns about privacy and therefore we expressly "
@@ -408,14 +409,14 @@ msgstr ""
 "understand what limited information we collect and what may happen to "
 "that information when you use any of the RRoadVPN Services."
 
-#: app/templates/index/privacy-policy.html:29
+#: app/templates/index/privacy-policy.html:39
 msgid "privacy-policy-p1-1"
 msgstr ""
 "This document (hereinafter – the “Privacy Policy”) explains the privacy "
 "rules applicable to all information collected or submitted when you "
 "access, install or use the RRoadVPN Services."
 
-#: app/templates/index/privacy-policy.html:30
+#: app/templates/index/privacy-policy.html:40
 msgid "privacy-policy-p1-2"
 msgstr ""
 "Our top priority is customer data security. Operating under the "
@@ -423,13 +424,13 @@ msgstr ""
 "process only minimal user data – only as much as it is absolutely "
 "necessary to maintain our services."
 
-#: app/templates/index/privacy-policy.html:31
+#: app/templates/index/privacy-policy.html:41
 msgid "privacy-policy-p1-3"
 msgstr ""
 "All definitions and capitalized words used in this Privacy Policy are "
 "defined in our Terms of Service."
 
-#: app/templates/index/privacy-policy.html:32
+#: app/templates/index/privacy-policy.html:42
 msgid "privacy-policy-p1-4"
 msgstr ""
 "By visiting RRoadVPN website, by submitting your personal data to "
@@ -440,17 +441,18 @@ msgstr ""
 "Privacy Policy. If you disagree with the rules of this Privacy Policy, "
 "please do not use the RRoadVPN Services."
 
-#: app/templates/index/privacy-policy.html:33
+#: app/templates/index/privacy-policy.html:43
 msgid "privacy-policy-p1-5"
 msgstr ""
 "If you have any questions about this Privacy Policy or your privacy, "
-"please contact us by email <a href=\"mailto:support@rroadvpn.net\">support@rroadvpn.net</a>."
+"please contact us by email <a "
+"href=\"mailto:support@rroadvpn.net\">support@rroadvpn.net</a>."
 
-#: app/templates/index/privacy-policy.html:34
+#: app/templates/index/privacy-policy.html:44
 msgid "privacy-policy-h2"
 msgstr "Processing of your data"
 
-#: app/templates/index/privacy-policy.html:35
+#: app/templates/index/privacy-policy.html:45
 msgid "privacy-policy-p2-1"
 msgstr ""
 "RRoadVPN processes user data only to a very limited scope – only as much "
@@ -458,7 +460,7 @@ msgstr ""
 "processing of payments for the RRoadVPN Services, as well as functioning "
 "of the RRoadVPN website and mobile applications."
 
-#: app/templates/index/privacy-policy.html:36
+#: app/templates/index/privacy-policy.html:46
 msgid "privacy-policy-p2-2"
 msgstr ""
 "Personal data is processed by RRoadVPN automatically and manually. Unless"
@@ -467,7 +469,7 @@ msgstr ""
 "data processed. RRoadVPN uses third party data processors only for "
 "processing of payment data, and basic website analytics."
 
-#: app/templates/index/privacy-policy.html:37
+#: app/templates/index/privacy-policy.html:47
 msgid "privacy-policy-p2-3"
 msgstr ""
 "RRoadVPN guarantees a strict no-logs policy for RRoadVPN services, "
@@ -482,7 +484,7 @@ msgstr ""
 "policy when it comes to seeing user activity online: RRoadVPN is based in"
 " Panama, which does not require data storage."
 
-#: app/templates/index/privacy-policy.html:38
+#: app/templates/index/privacy-policy.html:48
 msgid "privacy-policy-p2-4"
 msgstr ""
 "Anyone may browse our website, install RRoadVPN application and mobile "
@@ -492,13 +494,13 @@ msgstr ""
 " to create a user account and provide basic personal data indicated "
 "below."
 
-#: app/templates/index/privacy-policy.html:39
+#: app/templates/index/privacy-policy.html:49
 msgid "privacy-policy-p2-5"
 msgstr ""
 "If you choose to create a user account, you must provide the following "
 "basic information:"
 
-#: app/templates/index/privacy-policy.html:41
+#: app/templates/index/privacy-policy.html:51
 msgid "privacy-policy-p2-l1-1"
 msgstr ""
 "Email address. We ask for your email address and password as part of your"
@@ -507,7 +509,7 @@ msgstr ""
 "to report. Valid email address is also needed to retrieve a lost password"
 " and to make a VPN connection."
 
-#: app/templates/index/privacy-policy.html:42
+#: app/templates/index/privacy-policy.html:52
 msgid "privacy-policy-p2-l1-2"
 msgstr ""
 "Payment data. In addition to the conventional payment methods, such as "
@@ -515,7 +517,7 @@ msgstr ""
 "cryptocurrency. Our payment processing partners process basic billing "
 "information for payment processing and refund requests."
 
-#: app/templates/index/privacy-policy.html:44
+#: app/templates/index/privacy-policy.html:54
 msgid "privacy-policy-p2-6"
 msgstr ""
 "You must maintain this information current, truthful, complete and "
@@ -525,39 +527,54 @@ msgstr ""
 "retain the right, in our sole discretion, to suspend or terminate your "
 "user account and your access to the RRoadVPN Services."
 
-#: app/templates/index/privacy-policy.html:45
+#: app/templates/index/privacy-policy.html:55
 msgid "privacy-policy-p2-7"
-msgstr "In order to maintain the VPN service, the RRoadVPN also processes limited technical information, which sometimes may be considered personal data. This information is used for improving the functionality and usability of our website and RRoadVPN Services. If you decide not to provide this limited information, we may not be able to provide you with the full scope of the RRoadVPN Services. Said information may also include:"
+msgstr ""
+"In order to maintain the VPN service, the RRoadVPN also processes limited"
+" technical information, which sometimes may be considered personal data. "
+"This information is used for improving the functionality and usability of"
+" our website and RRoadVPN Services. If you decide not to provide this "
+"limited information, we may not be able to provide you with the full "
+"scope of the RRoadVPN Services. Said information may also include:"
 
-#: app/templates/index/privacy-policy.html:47
+#: app/templates/index/privacy-policy.html:57
 msgid "privacy-policy-p2-l2-1"
-msgstr "Server load information. We monitor the server performance in order to recommend the most suitable servers to our customers."
+msgstr ""
+"Server load information. We monitor the server performance in order to "
+"recommend the most suitable servers to our customers."
 
-#: app/templates/index/privacy-policy.html:48
+#: app/templates/index/privacy-policy.html:58
 msgid "privacy-policy-p2-l2-2"
-msgstr "Customer service information. RRoadVPN.net stores inquiries and communications with users through the Contact Us and Community Area pages, unless a user requests to delete the conversation."
+msgstr ""
+"Customer service information. RRoadVPN.net stores inquiries and "
+"communications with users through the Contact Us and Community Area "
+"pages, unless a user requests to delete the conversation."
 
-#: app/templates/index/privacy-policy.html:50
+#: app/templates/index/privacy-policy.html:60
 msgid "privacy-policy-p2-l2-3"
-msgstr "Cookies. RRoadVPN.net uses a few types of different cookies to improve "
+msgstr ""
+"Cookies. RRoadVPN.net uses a few types of different cookies to improve "
 "the user experience on the website, such as:"
 
-#: app/templates/index/privacy-policy.html:52
+#: app/templates/index/privacy-policy.html:62
 msgid "privacy-policy-p2-l2-l-1"
-msgstr "Google Analytics for statistical assessment and website performance improvement;"
+msgstr ""
+"Google Analytics for statistical assessment and website performance "
+"improvement;"
 
-#: app/templates/index/privacy-policy.html:53
+#: app/templates/index/privacy-policy.html:63
 msgid "privacy-policy-p2-l2-l-2"
-msgstr "Affiliate cookies to identify the customers referred to the Site by our "
+msgstr ""
+"Affiliate cookies to identify the customers referred to the Site by our "
 "partners, so that we can grant the referrers with commissions;"
 
-#: app/templates/index/privacy-policy.html:54
+#: app/templates/index/privacy-policy.html:64
 msgid "privacy-policy-p2-l2-l-3"
 msgstr ""
 "Cookies for personalizing the content of the Site for users, such as "
 "setting the default language."
 
-#: app/templates/index/privacy-policy.html:58
+#: app/templates/index/privacy-policy.html:68
 msgid "privacy-policy-p3"
 msgstr ""
 "You can set up warnings for every time the Site places a cookie in your "
@@ -566,11 +583,11 @@ msgstr ""
 "procedure for managing cookies, look at your browser’s Help Menu to learn"
 " the correct way to do it."
 
-#: app/templates/index/privacy-policy.html:59
+#: app/templates/index/privacy-policy.html:69
 msgid "privacy-policy-h3"
 msgstr "Personal data of underage persons"
 
-#: app/templates/index/privacy-policy.html:60
+#: app/templates/index/privacy-policy.html:70
 msgid "privacy-policy-p4"
 msgstr ""
 "Persons younger than 18 shall not use the RRoadVPN Services and provide "
@@ -584,11 +601,11 @@ msgstr ""
 "person and all their data may be immediately and without any notice "
 "withdrawn by suspending their access to RRoadVPN Services."
 
-#: app/templates/index/privacy-policy.html:61
+#: app/templates/index/privacy-policy.html:71
 msgid "privacy-policy-h4"
 msgstr "Grounds for data processing"
 
-#: app/templates/index/privacy-policy.html:62
+#: app/templates/index/privacy-policy.html:72
 msgid "privacy-policy-p5"
 msgstr ""
 "Your personal data is processed for the purpose of providing you the best"
@@ -600,74 +617,140 @@ msgstr ""
 "consent) or when applicable law permits us to contact you without a "
 "separate consent (under the legal basis of a legitimate interest)."
 
-#: app/templates/index/privacy-policy.html:63
+#: app/templates/index/privacy-policy.html:73
 msgid "privacy-policy-p5-1"
-msgstr "RRoadVPN may process your personal data (email address) for direct marketing purposes in the following cases: when we obtain your consent to such processing (the legal basis for processing, in this case, is your consent) or when applicable law permits us to contact you without a separate consent (under the legal basis of a legitimate interest)."
+msgstr ""
+"RRoadVPN may process your personal data (email address) for direct "
+"marketing purposes in the following cases: when we obtain your consent to"
+" such processing (the legal basis for processing, in this case, is your "
+"consent) or when applicable law permits us to contact you without a "
+"separate consent (under the legal basis of a legitimate interest)."
 
-#: app/templates/index/privacy-policy.html:64
+#: app/templates/index/privacy-policy.html:74
 msgid "privacy-policy-h5"
 msgstr "Your personal data protection rights"
 
-#: app/templates/index/privacy-policy.html:65
+#: app/templates/index/privacy-policy.html:75
 msgid "privacy-policy-p6"
-msgstr "You may request us to inform you about the personal data that we have collected about you, to request any changes or correction of inaccurate information, to object to certain processing of personal data (e.g. for marketing purposes), to provide you with a copy of your personal data in a structured, commonly used and machine-readable format, to transmit (if technically feasible) your personal data to another controller, or to erase your personal data. You also may request to restrict the processing of your personal data (when there is a legal basis for that). In cases where your personal data is processed on a separate consent basis, you have the right at any time to withdraw your consent to the processing of your personal data."
+msgstr ""
+"You may request us to inform you about the personal data that we have "
+"collected about you, to request any changes or correction of inaccurate "
+"information, to object to certain processing of personal data (e.g. for "
+"marketing purposes), to provide you with a copy of your personal data in "
+"a structured, commonly used and machine-readable format, to transmit (if "
+"technically feasible) your personal data to another controller, or to "
+"erase your personal data. You also may request to restrict the processing"
+" of your personal data (when there is a legal basis for that). In cases "
+"where your personal data is processed on a separate consent basis, you "
+"have the right at any time to withdraw your consent to the processing of "
+"your personal data."
 
-#: app/templates/index/privacy-policy.html:66
+#: app/templates/index/privacy-policy.html:76
 msgid "privacy-policy-p6-1"
-msgstr "If you disagree with your data processing by RRoadVPN, you are free not to use the RRoadVPN Service, and to discontinue using it at any time. You may request us to discontinue processing of your personal data, in which case your data will be processed only as much as it is necessary to effect the discontinuation of your use of the RRoadVPN Services (e.g., final settlement, or deleting all personal data based on your email address), or finalizing other RRoadVPN’s legal relationship with you (e.g. accounting, invoicing, processing refunds)."
+msgstr ""
+"If you disagree with your data processing by RRoadVPN, you are free not "
+"to use the RRoadVPN Service, and to discontinue using it at any time. You"
+" may request us to discontinue processing of your personal data, in which"
+" case your data will be processed only as much as it is necessary to "
+"effect the discontinuation of your use of the RRoadVPN Services (e.g., "
+"final settlement, or deleting all personal data based on your email "
+"address), or finalizing other RRoadVPN’s legal relationship with you "
+"(e.g. accounting, invoicing, processing refunds)."
 
-#: app/templates/index/privacy-policy.html:67
+#: app/templates/index/privacy-policy.html:77
 msgid "privacy-policy-p6-2"
-msgstr "Due to technical reasons (such as backup copies of the databases) your personal data may be finally deleted only within 60 days or longer, if it is mandated by the statutory requirements."
+msgstr ""
+"Due to technical reasons (such as backup copies of the databases) your "
+"personal data may be finally deleted only within 60 days or longer, if it"
+" is mandated by the statutory requirements."
 
-#: app/templates/index/privacy-policy.html:68
+#: app/templates/index/privacy-policy.html:78
 msgid "privacy-policy-p6-3"
-msgstr "If you wish to use the RRoadVPN Services again, you will have to accept and agree to this Privacy Policy anew."
+msgstr ""
+"If you wish to use the RRoadVPN Services again, you will have to accept "
+"and agree to this Privacy Policy anew."
 
-#: app/templates/index/privacy-policy.html:69
+#: app/templates/index/privacy-policy.html:79
 msgid "privacy-policy-h6"
 msgstr "Term for storing personal data"
 
-#: app/templates/index/privacy-policy.html:70
+#: app/templates/index/privacy-policy.html:80
 msgid "privacy-policy-p7"
 msgstr ""
 "RRoadVPN stores limited personal data for the whole period when the "
 "RRoadVPN Services are used and for no longer than 2 years after last use "
 "of the App and/or the Services."
 
-#: app/templates/index/privacy-policy.html:71
+#: app/templates/index/privacy-policy.html:81
 msgid "privacy-policy-h7"
 msgstr "Other Terms"
 
-#: app/templates/index/privacy-policy.html:72
+#: app/templates/index/privacy-policy.html:82
 msgid "privacy-policy-p8"
-msgstr "Your data is processed under the jurisdiction of the Republic of Panama. If the data is processed by a designated subsidiary in your country, then the domestic law of your country may be applicable at our discretion."
+msgstr ""
+"Your data is processed under the jurisdiction of the Republic of Panama. "
+"If the data is processed by a designated subsidiary in your country, then"
+" the domestic law of your country may be applicable at our discretion."
 
-#: app/templates/index/privacy-policy.html:73
+#: app/templates/index/privacy-policy.html:83
 msgid "privacy-policy-p8-1"
-msgstr "RRoadVPN would like to remind you that you are yourself responsible for the security of your data. We ask you to be careful when using and storing personal data containing files on your devices, as well as the devices itself. Please ensure that nobody accesses and uses your devices without your consent."
+msgstr ""
+"RRoadVPN would like to remind you that you are yourself responsible for "
+"the security of your data. We ask you to be careful when using and "
+"storing personal data containing files on your devices, as well as the "
+"devices itself. Please ensure that nobody accesses and uses your devices "
+"without your consent."
 
-#: app/templates/index/privacy-policy.html:74
+#: app/templates/index/privacy-policy.html:84
 msgid "privacy-policy-p8-2"
-msgstr "You shall be extra careful and not disclose your personal information to unrelated third parties, since such information may be used in different ways and against your interests, including activities such as fraud, invasion of privacy, identity theft, etc."
+msgstr ""
+"You shall be extra careful and not disclose your personal information to "
+"unrelated third parties, since such information may be used in different "
+"ways and against your interests, including activities such as fraud, "
+"invasion of privacy, identity theft, etc."
 
-#: app/templates/index/privacy-policy.html:75
+#: app/templates/index/privacy-policy.html:85
 msgid "privacy-policy-p8-3"
-msgstr "In order to ensure security of the personal data, RRoadVPN employs various administrative, technical and physical security measures, however it is your responsibility to exercise caution and reason when using the RRoadVPN Services. You will be personally responsible if such action violates any third party’s privacy or any other rights, or any applicable law. Under no circumstances, RRoadVPN is liable for the consequences of your unlawful activities, your willful and negligent activities violating applicable laws or third party rights, as well as any circumstances, which may not have been reasonably controlled or foreseen."
+msgstr ""
+"In order to ensure security of the personal data, RRoadVPN employs "
+"various administrative, technical and physical security measures, however"
+" it is your responsibility to exercise caution and reason when using the "
+"RRoadVPN Services. You will be personally responsible if such action "
+"violates any third party’s privacy or any other rights, or any applicable"
+" law. Under no circumstances, RRoadVPN is liable for the consequences of "
+"your unlawful activities, your willful and negligent activities violating"
+" applicable laws or third party rights, as well as any circumstances, "
+"which may not have been reasonably controlled or foreseen."
 
-#: app/templates/index/privacy-policy.html:76
+#: app/templates/index/privacy-policy.html:86
 msgid "privacy-policy-p8-4"
-msgstr "This Privacy Policy may be modified and updated at any time, at our sole discretion, for any or no reason, and without liability, as indicated below. The date of the most current wording of the Privacy Policy is indicated at the top of the text. We ask all users to ensure that they are familiar with the most current wording of the Privacy Policy. The amendment of the Privacy Policy may be communicated to you by sending an email and/or by publishing the updated Privacy Policy on the RRoadVPN website. Please consider reviewing the Privacy Policy each time you use the RRoadVPN Services. Updates of the Privacy Policy come into force as of the moment when they are published."
+msgstr ""
+"This Privacy Policy may be modified and updated at any time, at our sole "
+"discretion, for any or no reason, and without liability, as indicated "
+"below. The date of the most current wording of the Privacy Policy is "
+"indicated at the top of the text. We ask all users to ensure that they "
+"are familiar with the most current wording of the Privacy Policy. The "
+"amendment of the Privacy Policy may be communicated to you by sending an "
+"email and/or by publishing the updated Privacy Policy on the RRoadVPN "
+"website. Please consider reviewing the Privacy Policy each time you use "
+"the RRoadVPN Services. Updates of the Privacy Policy come into force as "
+"of the moment when they are published."
 
-#: app/templates/index/privacy-policy.html:77
+#: app/templates/index/privacy-policy.html:87
 msgid "privacy-policy-p8-5"
-msgstr "You may not assign or transfer your rights or obligations under this Privacy Policy to any third party."
+msgstr ""
+"You may not assign or transfer your rights or obligations under this "
+"Privacy Policy to any third party."
 
-#: app/templates/index/privacy-policy.html:78
+#: app/templates/index/privacy-policy.html:88
 msgid "privacy-policy-p8-6"
-msgstr "Please contact us by email at <a href=\"mailto:support@rroadvpn.net\">support@rroadvpn.net</a> if you have any questions on our Privacy Policy or you want to enforce any of your rights related to your privacy."
+msgstr ""
+"Please contact us by email at <a "
+"href=\"mailto:support@rroadvpn.net\">support@rroadvpn.net</a> if you have"
+" any questions on our Privacy Policy or you want to enforce any of your "
+"rights related to your privacy."
 
-#: app/templates/index/privacy-policy.html:79
+#: app/templates/index/privacy-policy.html:89
 msgid "privacy-policy-p9"
 msgstr "The last update of this Privacy Policy was made on June 11, 2018."
 
@@ -675,227 +758,227 @@ msgstr "The last update of this Privacy Policy was made on June 11, 2018."
 msgid "RRoadVPN - Order"
 msgstr ""
 
-#: app/templates/order/order.html:47 app/templates/profile/profile.html:119
+#: app/templates/order/order.html:45 app/templates/profile/profile.html:152
 msgid "Order"
 msgstr ""
 
-#: app/templates/order/order.html:51
+#: app/templates/order/order.html:49
 msgid "Build your own railroad in 3 easy steps"
 msgstr ""
 
-#: app/templates/order/order.html:60
+#: app/templates/order/order.html:58
 msgid "pack"
 msgstr ""
 
-#: app/templates/order/order.html:64
+#: app/templates/order/order.html:62
 msgid "account"
 msgstr ""
 
-#: app/templates/order/order.html:68
+#: app/templates/order/order.html:66
 msgid "payment"
 msgstr ""
 
-#: app/templates/order/order.html:91
+#: app/templates/order/order.html:90
 msgid ""
 "You already logged in, if you want buy subscription for other account you"
 " have to "
 msgstr ""
 
-#: app/templates/order/order.html:92
+#: app/templates/order/order.html:91
 msgid "and than login."
 msgstr ""
 
-#: app/templates/order/order.html:96
+#: app/templates/order/order.html:95
 msgid "CREATE ACCOUNT"
 msgstr ""
 
-#: app/templates/order/order.html:118 app/templates/profile/profile.html:385
+#: app/templates/order/order.html:117 app/templates/profile/profile.html:424
 msgid "Enter password please"
 msgstr ""
 
-#: app/templates/order/order.html:122 app/templates/profile/profile.html:389
+#: app/templates/order/order.html:121 app/templates/profile/profile.html:428
 msgid "Entered password too short. Minimum length 6 chars"
 msgstr ""
 
-#: app/templates/order/order.html:126 app/templates/order/order.html:128
+#: app/templates/order/order.html:125 app/templates/order/order.html:127
 msgid "Verify password"
 msgstr ""
 
-#: app/templates/order/order.html:132
+#: app/templates/order/order.html:131
 msgid "Enter password again to verify it"
 msgstr ""
 
-#: app/templates/order/order.html:136
+#: app/templates/order/order.html:135
 msgid "Entered passwords does not match"
 msgstr ""
 
-#: app/templates/order/order.html:141 app/templates/order/order.html:189
+#: app/templates/order/order.html:140 app/templates/order/order.html:188
 msgid "Back"
 msgstr ""
 
-#: app/templates/order/order.html:142
+#: app/templates/order/order.html:141
 msgid "Choose payment method"
 msgstr ""
 
-#: app/templates/order/order.html:165
+#: app/templates/order/order.html:164
 msgid "Choose payment method before proceed to payment page"
 msgstr ""
 
-#: app/templates/order/order.html:185
+#: app/templates/order/order.html:184
 msgid "Show more ways to pay"
 msgstr ""
 
-#: app/templates/order/order.html:191
+#: app/templates/order/order.html:190
 msgid "Proceed to payment page"
 msgstr ""
 
-#: app/templates/order/order.html:212
+#: app/templates/order/order.html:211
 msgid "Choose your favorite payment method"
 msgstr ""
 
-#: app/templates/order/order.html:272
+#: app/templates/order/order.html:271
 msgid "Other..."
 msgstr ""
 
-#: app/templates/order/order.html:279
+#: app/templates/order/order.html:278
 msgid ""
 "Some payment methods can be unavailable on payment page. Don't worry, you"
 " can change payment method any time on payment page."
 msgstr ""
 
-#: app/templates/partials/layout.html:60
+#: app/templates/partials/layout.html:64
 msgid "RRoadVPN Services"
 msgstr ""
 
-#: app/templates/partials/layout.html:120
+#: app/templates/partials/layout.html:124
 msgid "Your IP"
 msgstr ""
 
-#: app/templates/partials/layout.html:121
+#: app/templates/partials/layout.html:125
 msgid "Your Location"
 msgstr ""
 
-#: app/templates/partials/layout.html:122
+#: app/templates/partials/layout.html:126
 msgid "Your ISP"
 msgstr ""
 
-#: app/templates/partials/layout.html:124
-#: app/templates/partials/layout.html:127
+#: app/templates/partials/layout.html:128
+#: app/templates/partials/layout.html:131
 msgid "Your Status"
 msgstr ""
 
-#: app/templates/partials/layout.html:124
+#: app/templates/partials/layout.html:128
 msgid "protected"
 msgstr ""
 
-#: app/templates/partials/layout.html:128
+#: app/templates/partials/layout.html:132
 msgid "unprotected"
 msgstr ""
 
-#: app/templates/partials/layout.html:129
+#: app/templates/partials/layout.html:134
 msgid "Protect me!"
 msgstr ""
 
-#: app/templates/partials/layout.html:156
+#: app/templates/partials/layout.html:160
 msgid "Features"
 msgstr ""
 
-#: app/templates/partials/layout.html:160
+#: app/templates/partials/layout.html:164
 msgid "Pricing"
 msgstr ""
 
-#: app/templates/partials/layout.html:168
+#: app/templates/partials/layout.html:172
 msgid "Contact"
 msgstr ""
 
-#: app/templates/partials/layout.html:178
+#: app/templates/partials/layout.html:182
 msgid "My Account"
 msgstr ""
 
-#: app/templates/partials/layout.html:184
+#: app/templates/partials/layout.html:188
 msgid "Logout"
 msgstr ""
 
-#: app/templates/partials/layout.html:224
+#: app/templates/partials/layout.html:228
 msgid "Information"
 msgstr ""
 
-#: app/templates/partials/layout.html:229
+#: app/templates/partials/layout.html:233
 msgid "About us"
 msgstr ""
 
-#: app/templates/partials/layout.html:233
+#: app/templates/partials/layout.html:237
 msgid "Plans and Pricing"
 msgstr ""
 
-#: app/templates/partials/layout.html:237
+#: app/templates/partials/layout.html:241
 msgid "Support"
 msgstr ""
 
-#: app/templates/partials/layout.html:241
+#: app/templates/partials/layout.html:245
 msgid "FAQ"
 msgstr ""
 
-#: app/templates/partials/layout.html:245
+#: app/templates/partials/layout.html:249
 msgid "Partnership"
 msgstr ""
 
-#: app/templates/partials/layout.html:274
+#: app/templates/partials/layout.html:278
 msgid "Tutorials"
 msgstr ""
 
-#: app/templates/partials/layout.html:279
+#: app/templates/partials/layout.html:283
 msgid "How to use VPN?"
 msgstr ""
 
-#: app/templates/partials/layout.html:283
+#: app/templates/partials/layout.html:287
 msgid "Why I need VPN?"
 msgstr ""
 
-#: app/templates/partials/layout.html:287
+#: app/templates/partials/layout.html:291
 msgid "Which VPN to choose?"
 msgstr ""
 
-#: app/templates/partials/layout.html:291
+#: app/templates/partials/layout.html:295
 msgid "VPN for business"
 msgstr ""
 
-#: app/templates/partials/layout.html:300
+#: app/templates/partials/layout.html:304
 msgid "Products"
 msgstr ""
 
-#: app/templates/partials/layout.html:305
+#: app/templates/partials/layout.html:309
 msgid "VPN for Windows"
 msgstr ""
 
-#: app/templates/partials/layout.html:309
+#: app/templates/partials/layout.html:313
 msgid "VPN for iOS"
 msgstr ""
 
-#: app/templates/partials/layout.html:313
+#: app/templates/partials/layout.html:317
 msgid "VPN for Android"
 msgstr ""
 
-#: app/templates/partials/layout.html:317
+#: app/templates/partials/layout.html:321
 msgid "VPN for macOS"
 msgstr ""
 
-#: app/templates/partials/layout.html:340
+#: app/templates/partials/layout.html:344
 msgid "Terms &amp; Conditions"
 msgstr ""
 
-#: app/templates/partials/layout.html:351
+#: app/templates/partials/layout.html:355
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
 "including a fast account login. If you disagree..."
 msgstr ""
 
-#: app/templates/partials/layout.html:352
+#: app/templates/partials/layout.html:356
 msgid "Read more..."
 msgstr ""
 
-#: app/templates/partials/layout.html:355
+#: app/templates/partials/layout.html:359
 msgid ""
 "Please know that our website uses cookies to provide you with a complete "
 "experience. By means of cookies, you can enjoy all website features, "
@@ -970,266 +1053,299 @@ msgstr ""
 msgid "RRoadVPN - Profile"
 msgstr ""
 
-#: app/templates/profile/profile.html:52
+#: app/templates/profile/profile.html:88
 msgid "Working..."
 msgstr ""
 
-#: app/templates/profile/profile.html:53
+#: app/templates/profile/profile.html:89
 msgid "Email was successfully changed!"
 msgstr ""
 
-#: app/templates/profile/profile.html:54
+#: app/templates/profile/profile.html:90
 msgid "Password was successfully changed!"
 msgstr ""
 
-#: app/templates/profile/profile.html:64
+#: app/templates/profile/profile.html:100
 msgid "Dashboard"
 msgstr ""
 
-#: app/templates/profile/profile.html:70
+#: app/templates/profile/profile.html:105
 msgid "Account"
 msgstr ""
 
-#: app/templates/profile/profile.html:76
+#: app/templates/profile/profile.html:110
 msgid "Downloads"
 msgstr ""
 
-#: app/templates/profile/profile.html:82
+#: app/templates/profile/profile.html:115
+#: app/templates/profile/profile.html:447
 msgid "VPN Servers"
 msgstr ""
 
-#: app/templates/profile/profile.html:88 app/templates/profile/profile.html:333
+#: app/templates/profile/profile.html:121
+#: app/templates/profile/profile.html:372
 msgid "You cant generate PINCODE until you don't have any ACTIVE subscription"
 msgstr ""
 
-#: app/templates/profile/profile.html:90 app/templates/profile/profile.html:334
+#: app/templates/profile/profile.html:123
+#: app/templates/profile/profile.html:373
 msgid "Generate PIN-code"
 msgstr ""
 
-#: app/templates/profile/profile.html:98
+#: app/templates/profile/profile.html:131
 msgid "Your Services"
 msgstr ""
 
-#: app/templates/profile/profile.html:110
-#: app/templates/profile/profile.html:233
-#: app/templates/profile/profile.html:235
-#: app/templates/profile/profile.html:239
+#: app/templates/profile/profile.html:143
+#: app/templates/profile/profile.html:266
+#: app/templates/profile/profile.html:268
+#: app/templates/profile/profile.html:272
 msgid "Active"
 msgstr ""
 
-#: app/templates/profile/profile.html:112
-#: app/templates/profile/profile.html:234
-#: app/templates/profile/profile.html:240
-#: app/templates/profile/profile.html:241
+#: app/templates/profile/profile.html:145
+#: app/templates/profile/profile.html:267
+#: app/templates/profile/profile.html:273
+#: app/templates/profile/profile.html:274
 msgid "Inactive"
 msgstr ""
 
-#: app/templates/profile/profile.html:114
+#: app/templates/profile/profile.html:147
 msgid "Expired"
 msgstr ""
 
-#: app/templates/profile/profile.html:116
-#: app/templates/profile/profile.html:144
+#: app/templates/profile/profile.html:149
+#: app/templates/profile/profile.html:177
 msgid "Waiting for payment"
 msgstr ""
 
-#: app/templates/profile/profile.html:121
+#: app/templates/profile/profile.html:154
 msgid "New"
 msgstr ""
 
-#: app/templates/profile/profile.html:123
+#: app/templates/profile/profile.html:156
 msgid "Processing"
 msgstr ""
 
-#: app/templates/profile/profile.html:125
+#: app/templates/profile/profile.html:158
 msgid "Success"
 msgstr ""
 
-#: app/templates/profile/profile.html:127
+#: app/templates/profile/profile.html:160
 msgid "Failed"
 msgstr ""
 
-#: app/templates/profile/profile.html:138
+#: app/templates/profile/profile.html:171
 msgid "Payment is past due"
 msgstr ""
 
-#: app/templates/profile/profile.html:140
+#: app/templates/profile/profile.html:173
 msgid "Next payment"
 msgstr ""
 
-#: app/templates/profile/profile.html:154
+#: app/templates/profile/profile.html:187
 msgid "This subscription has been expired you can"
 msgstr ""
 
-#: app/templates/profile/profile.html:156
+#: app/templates/profile/profile.html:189
 msgid "buy new one"
 msgstr ""
 
-#: app/templates/profile/profile.html:158
+#: app/templates/profile/profile.html:191
 msgid "or"
 msgstr ""
 
-#: app/templates/profile/profile.html:163
+#: app/templates/profile/profile.html:196
 msgid "renew subscription"
 msgstr ""
 
-#: app/templates/profile/profile.html:171
+#: app/templates/profile/profile.html:204
+#: app/templates/profile/profile.html:470
 msgid "Type"
 msgstr ""
 
-#: app/templates/profile/profile.html:172
+#: app/templates/profile/profile.html:205
 msgid "Sum"
 msgstr ""
 
-#: app/templates/profile/profile.html:173
+#: app/templates/profile/profile.html:206
 msgid "Method"
 msgstr ""
 
-#: app/templates/profile/profile.html:174
+#: app/templates/profile/profile.html:207
 msgid "Date"
 msgstr ""
 
-#: app/templates/profile/profile.html:175
+#: app/templates/profile/profile.html:208
+#: app/templates/profile/profile.html:471
 msgid "Status"
 msgstr ""
 
-#: app/templates/profile/profile.html:176
+#: app/templates/profile/profile.html:209
 msgid "Invoice Link"
 msgstr ""
 
-#: app/templates/profile/profile.html:189
+#: app/templates/profile/profile.html:222
 msgid "success"
 msgstr ""
 
-#: app/templates/profile/profile.html:191
+#: app/templates/profile/profile.html:224
 msgid "failed"
 msgstr ""
 
-#: app/templates/profile/profile.html:193
+#: app/templates/profile/profile.html:226
 msgid "processing"
 msgstr ""
 
-#: app/templates/profile/profile.html:204
+#: app/templates/profile/profile.html:237
 msgid "Link"
 msgstr ""
 
-#: app/templates/profile/profile.html:220
+#: app/templates/profile/profile.html:253
 msgid "Your Devices"
 msgstr ""
 
-#: app/templates/profile/profile.html:229
+#: app/templates/profile/profile.html:262
 msgid "Your Device"
 msgstr ""
 
-#: app/templates/profile/profile.html:246
-#: app/templates/profile/profile.html:248
-#: app/templates/profile/profile.html:252
+#: app/templates/profile/profile.html:279
+#: app/templates/profile/profile.html:281
+#: app/templates/profile/profile.html:285
 msgid "Connected"
 msgstr ""
 
-#: app/templates/profile/profile.html:247
-#: app/templates/profile/profile.html:253
-#: app/templates/profile/profile.html:254
+#: app/templates/profile/profile.html:280
+#: app/templates/profile/profile.html:286
+#: app/templates/profile/profile.html:287
 msgid "Disconnected"
 msgstr ""
 
-#: app/templates/profile/profile.html:259
+#: app/templates/profile/profile.html:292
 msgid "Operation System"
 msgstr ""
 
-#: app/templates/profile/profile.html:271
-#: app/templates/profile/profile.html:287
+#: app/templates/profile/profile.html:304
+#: app/templates/profile/profile.html:320
 msgid "Location"
 msgstr ""
 
-#: app/templates/profile/profile.html:275
+#: app/templates/profile/profile.html:308
 msgid "Device IP Address"
 msgstr ""
 
-#: app/templates/profile/profile.html:279
+#: app/templates/profile/profile.html:312
 msgid "Virtual IP Address"
 msgstr ""
 
-#: app/templates/profile/profile.html:283
+#: app/templates/profile/profile.html:316
 msgid "Connected Since"
 msgstr ""
 
-#: app/templates/profile/profile.html:297
+#: app/templates/profile/profile.html:333
 msgid "Upload"
 msgstr ""
 
-#: app/templates/profile/profile.html:310
-#: app/templates/profile/profile.html:315
+#: app/templates/profile/profile.html:349
+#: app/templates/profile/profile.html:354
 msgid "Activate"
 msgstr ""
 
-#: app/templates/profile/profile.html:311
-#: app/templates/profile/profile.html:313
+#: app/templates/profile/profile.html:350
+#: app/templates/profile/profile.html:352
 msgid "Deactivate"
 msgstr ""
 
-#: app/templates/profile/profile.html:321
+#: app/templates/profile/profile.html:360
 msgid "Delete"
 msgstr ""
 
-#: app/templates/profile/profile.html:330
+#: app/templates/profile/profile.html:369
 msgid "You have no devices. Press "
 msgstr ""
 
-#: app/templates/profile/profile.html:336
+#: app/templates/profile/profile.html:375
 msgid "button to generate and activate your first device with RRoadVPN."
 msgstr ""
 
-#: app/templates/profile/profile.html:344
+#: app/templates/profile/profile.html:383
 msgid "Your Account"
 msgstr ""
 
-#: app/templates/profile/profile.html:356
-#: app/templates/profile/profile.html:380
+#: app/templates/profile/profile.html:395
+#: app/templates/profile/profile.html:419
 msgid "Save"
 msgstr ""
 
-#: app/templates/profile/profile.html:361
+#: app/templates/profile/profile.html:400
 msgid "Entered email is your email"
 msgstr ""
 
-#: app/templates/profile/profile.html:375
+#: app/templates/profile/profile.html:414
 msgid "Enter your new password here"
 msgstr ""
 
-#: app/templates/profile/profile.html:396
+#: app/templates/profile/profile.html:435
 msgid "DELETE ACCOUNT"
 msgstr ""
 
-#: app/templates/profile/profile.html:403
+#: app/templates/profile/profile.html:442
 msgid "downloads"
 msgstr ""
 
-#: app/templates/profile/profile.html:408
-msgid "servers"
+#: app/templates/profile/profile.html:453
+msgid "Search..."
 msgstr ""
 
-#: app/templates/profile/profile.html:418
+#: app/templates/profile/profile.html:465
+msgid "Country"
+msgstr ""
+
+#: app/templates/profile/profile.html:466
+msgid "City"
+msgstr ""
+
+#: app/templates/profile/profile.html:467
+msgid "State"
+msgstr ""
+
+#: app/templates/profile/profile.html:468
+msgid "Bandwith"
+msgstr ""
+
+#: app/templates/profile/profile.html:469
+msgid "Load"
+msgstr ""
+
+#: app/templates/profile/profile.html:506
+msgid "maintenance"
+msgstr ""
+
+#: app/templates/profile/profile.html:511
+msgid "op_nnc"
+msgstr ""
+
+#: app/templates/profile/profile.html:529
 msgid "Enter this PIN code in Railroad VPN client"
 msgstr ""
 
-#: app/templates/profile/profile.html:429
+#: app/templates/profile/profile.html:540
 msgid "This PIN code will regenerate in:"
 msgstr ""
 
-#: app/templates/profile/profile.html:443
+#: app/templates/profile/profile.html:554
 msgid "You are about to delete your account"
 msgstr ""
 
-#: app/templates/profile/profile.html:453
+#: app/templates/profile/profile.html:564
 msgid "Enter email assigned to account"
 msgstr ""
 
-#: app/templates/profile/profile.html:456
+#: app/templates/profile/profile.html:567
 msgid "Enter correct email please"
 msgstr ""
 
-#: app/templates/profile/profile.html:462
+#: app/templates/profile/profile.html:573
 msgid "Delete account"
 msgstr ""
 
@@ -1245,5 +1361,11 @@ msgstr ""
 #~ " mobile applications."
 
 #~ msgid "RRoadVPN"
+#~ msgstr ""
+
+#~ msgid "Why Railroad VPN Services?"
+#~ msgstr ""
+
+#~ msgid "servers"
 #~ msgstr ""
 
