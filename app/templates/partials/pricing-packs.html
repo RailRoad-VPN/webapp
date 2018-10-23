@@ -23,12 +23,74 @@
         </p>
     {% else %}
         {% for subscription in subscriptions %}
-            <!-- skip free subscription -->
             {% if subscription['id'] == 1 %}
+                <!-- skip free subscription -->
                 {% continue %}
+                <!--/ skip free subscription -->
             {% endif %}
-            <!--/ skip free subscription -->
-            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 d-none d-lg-block">
+                <div id="{{ subscription['id'] }}"
+                     class="pricing {% if subscription['is_best'] == true %}pricing-active{% endif %} hover-effect">
+                    {% if subscription['is_best'] == true %}
+                        <div class="price-badge"><span>{{ _('best pack') }}</span></div>
+                    {% endif %}
+                    <div class="pricing-head {% if subscription['is_best'] == true %}pricing-head-active{% endif %}">
+                        <h3>
+                            {{ subscription['name'] }}
+                            <span>{{ subscription['description'] }}</span>
+                        </h3>
+                        {% if subscription['bill_freq'] is not none %}
+                            <h4>
+                                <i>$</i>{{ subscription['price_per_month'] }}
+                                <span>{{ subscription['price_freq'] }}</span>
+                                <span class="small">({{ subscription['bill_freq'] }})</span>
+                            </h4>
+                        {% endif %}
+                    </div>
+                    <ul class="pricing-content list-unstyled">
+                        {% for feature in subscription['features'] %}
+                            <li {% if not feature['enabled'] %} class="no-feature" {% endif %} >
+                                <span
+                                    {% if feature['tooltip'] is not none and feature['enabled'] == true %}
+                                        class="sub-feature-tooltip"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="{{ feature['tooltip'] }}"
+                                    {% endif %}
+                                >{{ feature['name'] }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="pricing-footer">
+                        <a {% if order_page == true %}
+                            href="#"
+                            data-id="{{ subscription['id'] }}"
+                        {% else %}
+                            href="{{ url_for('order.order_page', pack=subscription['id']) }}"
+                        {% endif %}
+                            class="btn yellow-crusta btn-checkout">
+                            {% if order_page == true %}
+                                {{ _('Checkout') }}
+                            {% else %}
+                                {% if subscription['bill_freq'] is not none %}
+                                    {{ _('Buy Now') }}
+                                {% else %}
+                                    {{ _('Sign Up') }}
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                        <p class="small">
+                            {% if subscription['old_price_per_month'] != '0' %}
+                                <span class="old-price">
+                                    ${{ (subscription['old_price_per_month']|to_decimal * subscription['billed_period_in_months']|to_decimal)|to_decimal|round(2) }}
+                                </span>
+                            {% endif %}
+                            ${{ (subscription['price_per_month']|to_decimal * subscription['billed_period_in_months']|to_decimal)|round(2) }} {{ subscription['bill_freq'] }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
                 <div id="{{ subscription['id'] }}"
                      class="pricing {% if subscription['is_best'] == true %}pricing-active{% endif %} hover-effect">
                     {% if subscription['is_best'] == true %}

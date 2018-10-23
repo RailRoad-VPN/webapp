@@ -6,25 +6,67 @@
         <h5 class="card-title">
             <%= chosen_subscription.description %>
         </h5>
-        <ul class="subscription-features list-group list-group-flush list-unstyled text-left">
-            <% _.each(chosen_subscription.features, function (feature, index) { %>
-                <% if (feature.enabled == false) { %>
+        <div class="d-none d-lg-none d-xl-none d-xxl-none d-xs-none d-sm-block d-md-block">
+            <div class="row">
+                <div class="col-6">
+                    <ul class="subscription-features list-group list-group-flush list-unstyled text-left">
+                        <% _.each(chosen_subscription.features, function (feature, index) { %>
+                        <% if (index < chosen_subscription.features.length / 2) { %>
+                        <% if (feature.enabled == false) { %>
+                        <li class="no-feature">
+                            <% } else { %>
+                        <li>
+                            <% } %>
+                            <span>
+                                            <%= feature.name %>
+                                        </span>
+                        </li>
+                        <% } %>
+                        <% }); %>
+                    </ul>
+                </div>
+                <div class="col-6">
+                <ul class="subscription-features list-group list-group-flush list-unstyled text-left">
+                    <% _.each(chosen_subscription.features, function (feature, index) { %>
+                    <% if (index > chosen_subscription.features.length / 2) { %>
+                    <% if (feature.enabled == false) { %>
                     <li class="no-feature">
-                <% } else { %>
+                        <% } else { %>
                     <li>
-                <% } %>
+                        <% } %>
+                        <span>
+                                        <%= feature.name %>
+                                    </span>
+                    </li>
+                    <% } %>
+                    <% }); %>
+                </ul>
+            </div>
+            </div>
+        </div>
+        <div class="d-none d-xs-block d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
+            <div class="row">
+                <ul class="subscription-features list-group list-group-flush list-unstyled text-left">
+                    <% _.each(chosen_subscription.features, function (feature, index) { %>
+                    <% if (feature.enabled == false) { %>
+                    <li class="no-feature">
+                        <% } else { %>
+                    <li>
+                        <% } %>
                         <span>
                             <%= feature.name %>
                         </span>
                     </li>
-            <% }); %>
-        </ul>
-        <% if (chosen_subscription.is_best == true) { %>
-            <div class="blockquote-footer pull-right">
-                <small class="text-muted">
-                    <cite>Best plan!</cite>
-                </small>
+                    <% }); %>
+                </ul>
             </div>
+        </div>
+        <% if (chosen_subscription.is_best == true) { %>
+        <div class="blockquote-footer pull-right">
+            <small class="text-muted">
+                <cite>Best plan!</cite>
+            </small>
+        </div>
         <% } %>
     </div>
     <div class="card-footer bg-transparent border-warning">

@@ -148,9 +148,12 @@ $(document).ready(function () {
         } else {
             $(".chosen-subscription-best_badge").hide();
         }
-        const subJSON = {"chosen_subscription": subsJSON[subscriptionIdVal], "width": "width: 18rem;"};
-        const html = compiledChoseSub(subJSON);
+        let subJSON = {"chosen_subscription": subsJSON[subscriptionIdVal], "width": "width: 18rem;"};
+        let html = compiledChoseSub(subJSON);
         $(".chosen-subscription").html(html);
+        subJSON = {"chosen_subscription": subsJSON[subscriptionIdVal], "width": ""};
+        html = compiledChoseSub(subJSON);
+        $(".chosen-subscription-mini").html(html);
 
         $packInput.val(subscriptionIdVal);
         return true;

@@ -206,6 +206,21 @@
     text-decoration: line-through;
 }
 
+@media screen and (max-width: 1200px) {
+    .pricing-content li {
+        padding: 3px 10px;
+        font-size: 10px;
+    }
+
+    .pricing-head h3 {
+        font-size: 20px;
+    }
+
+    .pricing-head h4 {
+        font-size: 34px;
+    }
+}
+
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .pricing-head h3 span {
