@@ -6,7 +6,6 @@ $(document).ready(function () {
     var passwordSavedText = $("meta#password_saved_text").data('text');
 
     var $getPinCodeUrlObj = $("meta#get_pincode_url");
-    var $renewSubUrlObj = $("meta#renew_sub_url");
     var $getOrderPaymentUrlObj = $("meta#get_order_payment_url");
     var $deleteUserDeviceUrlObj = $("meta#delete_user_device_url");
     var $changeStatusUserDeviceUrlObj = $("meta#change_status_user_device_url");
