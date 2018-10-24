@@ -15,6 +15,17 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
+function updateQueryStringParameter(uri, key, value) {
+    const re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    const separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+        return uri + separator + key + "=" + value;
+    }
+}
+
 
 function scrollToTop(speed) {
     if (!speed) {
@@ -170,6 +181,8 @@ function getFromLocalStorage(key) {
 
 function blockPage(cb) {
     $.blockUI({
+        fadeIn: 1000,
+        timeout: 2000,
         css: {
             border: 'none',
             padding: '15px',
@@ -178,9 +191,9 @@ function blockPage(cb) {
             '-moz-border-radius': '10px',
             opacity: .5,
             color: '#fff',
-            onBlock: function () {
-                if (cb) cb();
-            }
+        },
+        onBlock: function () {
+            if (cb) cb();
         }
     });
 }

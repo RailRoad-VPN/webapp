@@ -1,30 +1,14 @@
 'use strict';
 
-function bar_progress(direction) {
-    let $progressBar = $("#progress-bar");
-    let number_of_steps = $progressBar.data('number-of-steps');
-    let now_value = $progressBar.data('now-value');
-    let new_value = 0;
-    if (direction === 'right') {
-        new_value = now_value + (100 / number_of_steps);
-    } else if (direction === 'left') {
-        new_value = now_value - (100 / number_of_steps);
-    }
-    $progressBar.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
-}
-
-
 // account details save in local storage
-const LS_ORDER_KEY = 'order';
-const LS_ORDER_PACK_ID_KEY = 'pack_id';
-const LS_ORDER_ACCOUNT_KEY = 'account';
-const LS_ORDER_ACCOUNT_EMAIL_KEY = 'email';
-const LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password';
-const LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY = 'password_confirm';
+const LS_ORDER_KEY = 'order', LS_ORDER_PACK_ID_KEY = 'pack_id', LS_ORDER_ACCOUNT_KEY = 'account',
+    LS_ORDER_ACCOUNT_EMAIL_KEY = 'email', LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password',
+    LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY = 'password_confirm';
 
 $(document).ready(function () {
     const $emailCheckURLObj = $("meta#email_check_url");
     const $getPaymentUrlURLObj = $("meta#get_payment_url_url");
+    const $chosenSubTemplateURLObj = $("#chosen_sub_url");
 
     const $orderForm = $('.order-form');
     const $userUuidInput = $("#user_uuid");
@@ -35,14 +19,9 @@ $(document).ready(function () {
 
     const $paymentMethodsModal = $("#payment_methods-modal");
 
-    let compiledChoseSub;
+    let UNDERSCORE_CHOSEN_SUB_TMPLT, USER_REGISTERED, ORDER_LS, CHOSEN_PACK, ACCOUNT_LS;
 
-    let USER_REGISTERED = !!$userUuidInput.val();
-    let ORDER_LS = getFromLocalStorage(LS_ORDER_KEY);
-    let ACCOUNT_LS;
-    let CHOSEN_PACK = -1;
-
-    init();
+    blockPage(init);
 
     // checkout sub btn
     $('.btn-checkout').on('click', function () {
@@ -117,7 +96,7 @@ $(document).ready(function () {
             $currentStep.removeClass('active');
             $newStep.addClass('active').removeClass('activated');
             // progress bar
-            bar_progress(progress_direction);
+            stepProgressBar(progress_direction);
             // show new step fieldset
             $newStepFieldset.fadeIn();
             // scroll window to beginning of the form
@@ -125,37 +104,35 @@ $(document).ready(function () {
         });
     }
 
-    function packToAccount(subscriptionIdVal) {
-        if (!subscriptionIdVal) {
-            subscriptionIdVal = getUrlParameter('pack');
-            if (!subscriptionIdVal) {
-                subscriptionIdVal = ORDER_LS[LS_ORDER_PACK_ID_KEY];
-                if (!subscriptionIdVal) {
-                    // for case when used local storage but browser does not support it
-                    subscriptionIdVal = $packInput.val();
-                    if (!subscriptionIdVal) {
-                        return false
-                    }
-                }
-            }
+    function stepProgressBar(direction) {
+        let $progressBar = $("#progress-bar");
+        let number_of_steps = $progressBar.data('number-of-steps');
+        let now_value = $progressBar.data('now-value');
+        let new_value = 0;
+        if (direction === 'right') {
+            new_value = now_value + (100 / number_of_steps);
+        } else if (direction === 'left') {
+            new_value = now_value - (100 / number_of_steps);
         }
+        $progressBar.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
+    }
 
+    function packToAccount() {
         const subsJSON = $("#subscriptionsDictData").data('json');
-        const choseSub = subsJSON[subscriptionIdVal];
+        const choseSub = subsJSON[CHOSEN_PACK];
         $(".chosen-subscription-name").text(choseSub['name']);
         if (subsJSON['is_best']) {
             $(".chosen-subscription-best_badge").show();
         } else {
             $(".chosen-subscription-best_badge").hide();
         }
-        let subJSON = {"chosen_subscription": subsJSON[subscriptionIdVal], "width": "width: 18rem;"};
-        let html = compiledChoseSub(subJSON);
+        let subJSON = {"chosen_subscription": subsJSON[CHOSEN_PACK], "width": "width: 18rem;"};
+        let html = UNDERSCORE_CHOSEN_SUB_TMPLT(subJSON);
         $(".chosen-subscription").html(html);
-        subJSON = {"chosen_subscription": subsJSON[subscriptionIdVal], "width": ""};
-        html = compiledChoseSub(subJSON);
+        subJSON = {"chosen_subscription": subsJSON[CHOSEN_PACK], "width": ""};
+        html = UNDERSCORE_CHOSEN_SUB_TMPLT(subJSON);
         $(".chosen-subscription-mini").html(html);
 
-        $packInput.val(subscriptionIdVal);
         return true;
     }
 
@@ -369,57 +346,79 @@ $(document).ready(function () {
     }
 
     function init() {
+        USER_REGISTERED = !!$userUuidInput.val();
+        ORDER_LS = getFromLocalStorage(LS_ORDER_KEY);
+        CHOSEN_PACK = -1;
+
+        restorePageState();
+        loadUnderscoreTemplates(function () {
+            if (!CHOSEN_PACK || CHOSEN_PACK === -1) {
+                $('#pack-fieldset').fadeIn('slow');
+            } else {
+                $packInput.val(CHOSEN_PACK);
+                goToStep('right');
+            }
+
+            unblockPage();
+        });
+    }
+
+    function loadUnderscoreTemplates(cb) {
         $.ajax({
-            url: $("#chosen_sub_url").data("url"),
-            method: $("#chosen_sub_url").data("method"),
+            url: $chosenSubTemplateURLObj.data("url"),
+            method: $chosenSubTemplateURLObj.data("method"),
             async: false,
             dataType: 'html',
             success: function (data) {
-                compiledChoseSub = _.template(data);
-
-                if (ORDER_LS) {
-                    ACCOUNT_LS = ORDER_LS[LS_ORDER_ACCOUNT_KEY];
-                } else {
-                    ORDER_LS = {}
-                }
-
-                if (!ACCOUNT_LS) {
-                    ACCOUNT_LS = {}
-                }
-
-                if (ORDER_LS) {
-                    $packInput.val(ORDER_LS[LS_ORDER_PACK_ID_KEY]);
-                    if (ACCOUNT_LS) {
-                        if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_EMAIL_KEY)) {
-                            $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
-                            checkEmail();
-                        }
-                        if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_KEY)) {
-                            $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
-                            checkPassword();
-                        }
-                        if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY)) {
-                            $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
-                            checkRepeatPassword();
-                        }
-                    }
-                }
-                if (window.location.href.indexOf('pack=') !== -1 || (ORDER_LS && ORDER_LS[LS_ORDER_PACK_ID_KEY])) {
-                    if (window.location.href.indexOf('pack=') !== -1) {
-                        CHOSEN_PACK = getUrlParameter('pack');
-                        ORDER_LS[LS_ORDER_PACK_ID_KEY] = getUrlParameter('pack');
-                        setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
-                    } else {
-                        CHOSEN_PACK = ORDER_LS[LS_ORDER_PACK_ID_KEY];
-                    }
-                    goToStep('right', 'account');
-                } else {
-                    $('#pack-fieldset').fadeIn('slow');
-                }
+                UNDERSCORE_CHOSEN_SUB_TMPLT = _.template(data);
+                if (cb) cb();
             },
             error: function (data) {
                 console.log(data);
             }
         });
+    }
+
+    function restorePageState() {
+        if (ORDER_LS) {
+            ACCOUNT_LS = ORDER_LS[LS_ORDER_ACCOUNT_KEY];
+        } else {
+            ORDER_LS = {};
+        }
+
+        if (!ACCOUNT_LS) {
+            ACCOUNT_LS = {};
+        }
+
+        // restore state from localstorage
+        if (ORDER_LS) {
+            CHOSEN_PACK = ORDER_LS[LS_ORDER_PACK_ID_KEY];
+            if (ACCOUNT_LS) {
+                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_EMAIL_KEY)) {
+                    $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
+                    checkEmail();
+                }
+                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_KEY)) {
+                    $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
+                    checkPassword();
+                }
+                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY)) {
+                    $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
+                    checkRepeatPassword();
+                }
+            }
+        }
+
+        CHOSEN_PACK = $packInput.val();
+        if (CHOSEN_PACK === -1) {
+            CHOSEN_PACK = ORDER_LS[LS_ORDER_PACK_ID_KEY];
+            if (CHOSEN_PACK === -1) {
+                if (window.location.href.indexOf('pack=') !== -1) {
+                    CHOSEN_PACK = getUrlParameter('pack');
+                    ORDER_LS[LS_ORDER_PACK_ID_KEY] = getUrlParameter('pack');
+                    setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+                }
+            }
+        }
     }
 });

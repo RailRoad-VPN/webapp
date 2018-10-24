@@ -58,11 +58,3 @@ $(window).on('load', function () {
         });
     });
 });
-
-function blockUI() {
-    $.blockUI({message: '<img src="/static/main/img/loader.svg" />'});
-}
-
-function unblockUI() {
-    $.unblockUI();
-}
