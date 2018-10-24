@@ -155,11 +155,30 @@ function getFromLocalStorage(key) {
     return JSON.parse(localStorage.getItem(key));
 }
 
-function blockPage(cb) {
-    $.blockUI({
-        fadeIn: 1000,
-        timeout: 2000,
-        css: {
+function blockPage(text, cb) {
+    let message;
+    let css;
+    if (text === null) {
+        message = ' <img src="/static/main/images/30.svg" class="h-100"> ';
+        css = {
+            'z-index': '1011',
+            position: 'fixed',
+            top: '40%',
+            left: '35%',
+            'text-align': 'center',
+            'background-color': 'transparent',
+            cursor: 'wait',
+            'border-radius': 'none',
+            border: 'none',
+            backgroundColor: 'transparent',
+            '-webkit-border-radius': 'none',
+            '-moz-border-radius': 'none',
+            opacity: 1,
+            color: 'transparent',
+        }
+    } else {
+        message = '<span>' + text + '</span>';
+        css = {
             border: 'none',
             padding: '15px',
             backgroundColor: '#000',
@@ -167,7 +186,14 @@ function blockPage(cb) {
             '-moz-border-radius': '10px',
             opacity: .5,
             color: '#fff',
-        },
+        };
+    }
+
+    $.blockUI({
+        message: message,
+        fadeIn: 1000,
+        timeout: 2000,
+        css: css,
         onBlock: function () {
             if (cb) cb();
         }
@@ -183,9 +209,9 @@ function unblockPage(cb) {
 }
 
 function blockElement(text, $el, cb) {
-    var message;
+    let message;
     if (text === null) {
-        message = ' <img src="/static/main/images/loading.gif" class="h-100"> '
+        message = ' <img src="/static/main/images/loading.gif" class="h-100"> ';
     } else {
         message = '<span>' + text + '</span>'
     }

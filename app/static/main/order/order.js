@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     let UNDERSCORE_CHOSEN_SUB_TMPLT, USER_REGISTERED, ORDER_LS, CHOSEN_PACK, ACCOUNT_LS;
 
-    blockPage(init);
+    blockPage(null, init);
 
     $(".order-progress-step").on('click', function () {
         const stepId = $(this).data('id');
