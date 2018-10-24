@@ -23,6 +23,12 @@ $(document).ready(function () {
 
     blockPage(init);
 
+    $(".order-progress-step").on('click', function () {
+        const stepId = $(this).data('id');
+
+        goToStep(null, stepId);
+    });
+
     // checkout sub btn
     $('.btn-checkout').on('click', function () {
         CHOSEN_PACK = $(this).data('id');
@@ -63,6 +69,18 @@ $(document).ready(function () {
             }
         }
 
+        let $newStep = $('.order-progress-step[data-id="' + newStepId + '"]');
+        let $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
+        let $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
+
+        // business logic for newStep move
+        if (!progress_direction) {
+            const newStepNum = $newStep.data("num"), currStepNum = $currentStep.data("num");
+            if (parseInt(newStepNum) > parseInt(currStepNum)) {
+                progress_direction = 'right';
+            }
+        }
+
         // business logic for right direction
         if (progress_direction === 'right') {
             if (currentStepId === 'pack') {
@@ -75,10 +93,6 @@ $(document).ready(function () {
                 return;
             }
         }
-
-        let $newStep = $('.order-progress-step[data-id="' + newStepId + '"]');
-        let $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
-        let $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
 
         _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
     }
