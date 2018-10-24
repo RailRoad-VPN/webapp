@@ -1,8 +1,9 @@
 .services-title {
-    height: 55vh;
+    height: 40em;
     background: url(../../../static/main/features/images/bg_features.jpg) no-repeat center scroll;
     -moz-background-image: url(../../../static/main/features/images/bg_features.jpg);;
     background-size: cover;
+    background-position-y: 80%;
 }
 
 .services-title:before {
