@@ -26,10 +26,7 @@ $(document).ready(function () {
     // checkout sub btn
     $('.btn-checkout').on('click', function () {
         CHOSEN_PACK = $(this).data('id');
-        ORDER_LS[LS_ORDER_PACK_ID_KEY] = CHOSEN_PACK;
-        setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
-        // for case when used local storage but browser does not support it
-        $packInput.val(CHOSEN_PACK);
+        setChosenPack(CHOSEN_PACK);
         goToStep('right');
     });
 
@@ -390,35 +387,59 @@ $(document).ready(function () {
             ACCOUNT_LS = {};
         }
 
-        // restore state from localstorage
-        if (ORDER_LS) {
-            CHOSEN_PACK = ORDER_LS[LS_ORDER_PACK_ID_KEY];
-            if (ACCOUNT_LS) {
-                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_EMAIL_KEY)) {
-                    $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
-                    checkEmail();
-                }
-                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_KEY)) {
-                    $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
-                    checkPassword();
-                }
-                if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY)) {
-                    $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
-                    checkRepeatPassword();
+        if (!USER_REGISTERED) {
+            // restore state from localstorage
+            if (ORDER_LS) {
+                CHOSEN_PACK = ORDER_LS[LS_ORDER_PACK_ID_KEY];
+                if (ACCOUNT_LS) {
+                    if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_EMAIL_KEY)) {
+                        $emailInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_EMAIL_KEY]);
+                        checkEmail();
+                    }
+                    if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_KEY)) {
+                        $passwordInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_KEY]);
+                        checkPassword();
+                    }
+                    if (ACCOUNT_LS.hasOwnProperty(LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY)) {
+                        $passwordConfirmInput.val(ACCOUNT_LS[LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY]);
+                        checkRepeatPassword();
+                    }
                 }
             }
         }
 
-        CHOSEN_PACK = $packInput.val();
-        if (CHOSEN_PACK === -1) {
-            CHOSEN_PACK = ORDER_LS[LS_ORDER_PACK_ID_KEY];
-            if (CHOSEN_PACK === -1) {
-                if (window.location.href.indexOf('pack=') !== -1) {
-                    CHOSEN_PACK = getUrlParameter('pack');
-                    ORDER_LS[LS_ORDER_PACK_ID_KEY] = getUrlParameter('pack');
-                    setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
-                }
+        CHOSEN_PACK = getChosenPack();
+    }
+
+    function getChosenPack() {
+        let chosenPack;
+        // check in URL query string
+        if (window.location.href.indexOf('pack=') !== -1) {
+            chosenPack = getUrlParameter('pack');
+            if (isLocalStorageSupported()) {
+                ORDER_LS[LS_ORDER_PACK_ID_KEY] = chosenPack;
+                setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+            } else {
+                $packInput.val(chosenPack);
             }
+            return chosenPack;
+        }
+        if (!isLocalStorageSupported()) {
+            // check HTML input (in case localstorage does not work)
+            chosenPack = $packInput.val();
+        } else {
+            chosenPack = ORDER_LS[LS_ORDER_PACK_ID_KEY];
+        }
+
+        return chosenPack;
+    }
+
+    function setChosenPack(chosenPack) {
+        if (isLocalStorageSupported()) {
+            ORDER_LS[LS_ORDER_PACK_ID_KEY] = chosenPack;
+            setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+        } else {
+            $packInput.val(chosenPack);
         }
     }
 });

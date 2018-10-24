@@ -121,39 +121,15 @@ var doAjax = function (_url, _type, _data, isAsync, _successCallback, _errorCall
 
 };
 
-// var doAjaxSubmit = function (_$form, _successCallback, _errorCallback, _completeCallback) {
-//
-//     // Handling _successCallback
-//     if (!_successCallback || typeof _successCallback !== "function") throw new Error('Success callback is not defined');
-//
-//     // Handling _errorCallback
-//     if (!_errorCallback || typeof _errorCallback !== "function") _errorCallback = function () {
-//     };
-//
-//     // Handling _completeCallback
-//     if (!_completeCallback || typeof _completeCallback !== "function") _completeCallback = function () {
-//     };
-//
-//     var ajaxObj = {
-//         contentType: "application/json; charset=utf-8",
-//         dataType: "json",
-//         success: function (data) {
-//             try {
-//                 _successCallback(data);
-//             } catch (exception) {
-//                 console.log('Exception! ' + exception);
-//             }
-//         }, error: _errorCallback,
-//         complete: function () {
-//             _completeCallback();
-//         }
-//     };
-//
-//     return _$form.ajaxSubmit(ajaxObj);
-// };
+function isLocalStorageSupported() {
+    return typeof(Storage) !== 'undefined';
+
+
+}
 
 function setToLocalStorage(key, value) {
-    if (typeof(Storage) === 'undefined') {
+    if (!isLocalStorageSupported()) {
+        // Browser doesnt support local storage
         return false;
     }
 
@@ -171,8 +147,8 @@ function setToLocalStorage(key, value) {
 }
 
 function getFromLocalStorage(key) {
-    if (typeof(Storage) === 'undefined') {
-        //Broswer doesnt support local storage
+    if (!isLocalStorageSupported()) {
+        // Browser doesnt support local storage
         return null;
     }
 
