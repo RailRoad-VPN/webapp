@@ -83,8 +83,10 @@ $(document).ready(function () {
             newStepNum = $newStep.data("num"),
             currStepNum = $currentStep.data("num");
 
+        let byStep = false;
         // business logic for newStep move
         if (!progress_direction) {
+            byStep = true;
             if (parseInt(newStepNum) > parseInt(currStepNum)) {
                 progress_direction = 'right';
             }
@@ -103,32 +105,35 @@ $(document).ready(function () {
             }
         }
 
-        _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum);
+        _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum, byStep);
     }
 
-    function _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum) {
+    function _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum, byStep) {
         if (progress_direction === 'right') {
             $currentStep.addClass('activated');
         } else {
             $currentStep.removeClass('activated')
         }
 
-        for (let i in range(newStepNum+1)) {
-            $('.order-progress-step[data-num="' + i + '"]').addClass('activated');
-        }
+        if (byStep) {
+            for (let i = 0; i <= newStepNum; i++) {
+                $('.order-progress-step[data-num="' + i + '"]').addClass('activated');
+            }
 
-        if (newStepNum < currStepNum) {
-            for (let i in range(newStepNum, currStepNum+1)) {
-                $('.order-progress-step[data-num="' + i + '"]').removeClass('activated');
+            if (newStepNum < currStepNum) {
+                for (let i = newStepNum; i <= currStepNum; i++) {
+                    $('.order-progress-step[data-num="' + i + '"]').removeClass('activated');
+                }
             }
         }
+
+        // progress bar
+        stepProgressBar(currStepNum, newStepNum);
 
         // hide new step fieldset
         $currentStepFieldset.fadeOut(400, function () {
             $currentStep.removeClass('active');
             $newStep.addClass('active').removeClass('activated');
-            // progress bar
-            stepProgressBar(currStepNum, newStepNum);
             // show new step fieldset
             $newStepFieldset.fadeIn();
             // scroll window to beginning of the form
