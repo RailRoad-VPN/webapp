@@ -29,6 +29,12 @@ $(document).ready(function () {
         goToStep(null, stepId);
     });
 
+    $(".pricing").on('click', function () {
+        CHOSEN_PACK = $(this).data('id');
+        setChosenPack(CHOSEN_PACK);
+        goToStep('right');
+    });
+
     // checkout sub btn
     $('.btn-checkout').on('click', function () {
         CHOSEN_PACK = $(this).data('id');
@@ -73,9 +79,12 @@ $(document).ready(function () {
         let $newStepFieldset = $('fieldset[data-id="' + newStepId + '"]');
         let $currentStepFieldset = $('fieldset[data-id="' + currentStepId + '"]');
 
+        const
+            newStepNum = $newStep.data("num"),
+            currStepNum = $currentStep.data("num");
+
         // business logic for newStep move
         if (!progress_direction) {
-            const newStepNum = $newStep.data("num"), currStepNum = $currentStep.data("num");
             if (parseInt(newStepNum) > parseInt(currStepNum)) {
                 progress_direction = 'right';
             }
@@ -94,20 +103,32 @@ $(document).ready(function () {
             }
         }
 
-        _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset);
+        _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum);
     }
 
-    function _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset) {
+    function _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum) {
         if (progress_direction === 'right') {
             $currentStep.addClass('activated');
+        } else {
+            $currentStep.removeClass('activated')
         }
-        $currentStep.addClass('activated');
+
+        for (let i in range(newStepNum+1)) {
+            $('.order-progress-step[data-num="' + i + '"]').addClass('activated');
+        }
+
+        if (newStepNum < currStepNum) {
+            for (let i in range(newStepNum, currStepNum+1)) {
+                $('.order-progress-step[data-num="' + i + '"]').removeClass('activated');
+            }
+        }
+
         // hide new step fieldset
         $currentStepFieldset.fadeOut(400, function () {
             $currentStep.removeClass('active');
             $newStep.addClass('active').removeClass('activated');
             // progress bar
-            stepProgressBar(progress_direction);
+            stepProgressBar(currStepNum, newStepNum);
             // show new step fieldset
             $newStepFieldset.fadeIn();
             // scroll window to beginning of the form
@@ -115,16 +136,13 @@ $(document).ready(function () {
         });
     }
 
-    function stepProgressBar(direction) {
-        let $progressBar = $("#progress-bar");
-        let number_of_steps = $progressBar.data('number-of-steps');
-        let now_value = $progressBar.data('now-value');
-        let new_value = 0;
-        if (direction === 'right') {
-            new_value = now_value + (100 / number_of_steps);
-        } else if (direction === 'left') {
-            new_value = now_value - (100 / number_of_steps);
-        }
+    function stepProgressBar(currStepNum, newStepNum) {
+        const $progressBar = $("#progress-bar");
+        const number_of_steps = $progressBar.data('number-of-steps');
+        const step = 100 / number_of_steps;
+
+        let new_value = newStepNum * step;
+
         $progressBar.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
     }
 

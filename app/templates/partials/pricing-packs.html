@@ -30,6 +30,11 @@
             {% endif %}
             <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 d-none d-lg-block">
                 <div id="{{ subscription['id'] }}"
+                        {% if order_page == true %}
+                            data-id="{{ subscription['id'] }}"
+                        {% else %}
+                            data-href="{{ url_for('order.order_page', pack=subscription['id']) }}"
+                        {% endif %}
                      class="pricing {% if subscription['is_best'] == true %}pricing-active{% endif %} hover-effect">
                     {% if subscription['is_best'] == true %}
                         <div class="price-badge"><span>{{ _('best pack') }}</span></div>

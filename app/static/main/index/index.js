@@ -9,4 +9,9 @@ $(document).ready(function () {
     particlesJS.load('particles-js', $("#particlesJSConfigURL").data('url'), function () {
         console.log('callback - particles.js config loaded');
     });
+
+    $(".pricing").on('click', function () {
+        window.location = $(this).data("href");
+    });
+
 });
