@@ -119,7 +119,7 @@ $(document).ready(function () {
             unblockPage();
         };
 
-        blockPage(function () {
+        blockPage(null, function () {
             doAjax($getPinCodeUrlObj.data('url'), $getPinCodeUrlObj.data('method'), {}, isAsync, successCallback,
                 errorCallback);
         });
