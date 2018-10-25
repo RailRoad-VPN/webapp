@@ -642,9 +642,15 @@ hr {
     left: 35% !important;
 }
 
-@media (max-width: 580px) {
+@media (min-width: 450px) and (max-width: 500px) {
     .blockUI.blockMsg.blockPage {
-        left: 27% !important;
+        left: 23% !important;
+    }
+}
+
+@media (max-width: 450px) {
+    .blockUI.blockMsg.blockPage {
+        left: 18% !important;
     }
 }
 
