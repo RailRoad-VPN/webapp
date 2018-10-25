@@ -163,8 +163,7 @@ function blockPage(text, cb) {
         css = {
             'z-index': '1011',
             position: 'fixed',
-            top: '40%',
-            left: '35%',
+            top: '50%',
             'text-align': 'center',
             'background-color': 'transparent',
             cursor: 'wait',
