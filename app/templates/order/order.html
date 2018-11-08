@@ -38,7 +38,7 @@
     <meta id="chosen_sub_url" data-method="GET"
           data-url="{{ url_for('static', filename='tmplst/chosen_subscription.html') }}">
 
-    <meta id="subscriptionsDictData" data-json="{{ subscriptions_dict }}">
+    <meta id="subscriptionsData" data-json='{{ subscriptions | tojson }}'>
 {% endblock %}
 
 {% block body %}
@@ -75,7 +75,7 @@
                     <fieldset id="pack-fieldset" class="container container-wide" data-id="pack">
                         <input id="subscription-id" type="hidden" value="-1" data-subscription="">
                         <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
-                        {% with order_page=true %}
+                        {% with order_page=true, vpn_subs_services=subscriptions %}
                             {% include 'partials/pricing-packs.html' %}
                         {% endwith %}
                     </fieldset>

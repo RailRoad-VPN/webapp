@@ -4,7 +4,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, render_template, session, jsonify, request, url_for, json
 
-from app import rrn_user_service, subscription_service, app_config, rrn_orders_service
+from app import rrn_user_service, rrnservice_service, app_config, rrn_orders_service, RRNServiceType
 from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
@@ -33,15 +33,16 @@ def profile_page():
     user_uuid = session['user']['uuid']
 
     try:
-        user_subscriptions = rrn_user_service.get_user_subscriptions(user_uuid=user_uuid)
+        user_services = rrn_user_service.get_user_subscriptions(user_uuid=user_uuid)
     except APIException:
-        user_subscriptions = []
-    subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session['lang_code'])
-    if subscriptions_dict is None:
+        user_services = []
+    services = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
+    services = {services[i]['id']: services[i] for i in range(0, len(services))}
+    if services is None:
         pass
-    for us in user_subscriptions:
-        sub = subscriptions_dict.get(us['subscription_id'])
-        us['subscription'] = sub
+    for us in user_services:
+        sub = services.get(us['service_id'])
+        us['service'] = sub
 
         us_order_uuid = us['order_uuid']
         us_order = rrn_orders_service.get_order(suuid=us_order_uuid)
@@ -60,7 +61,7 @@ def profile_page():
     except (APIException, APINotFoundException) as e:
         user_vpn_servers = []
 
-    return render_template('profile/profile.html', code=HTTPStatus.OK, user_subscriptions=user_subscriptions,
+    return render_template('profile/profile.html', code=HTTPStatus.OK, user_services=user_services,
                            user_devices=user_device_list, user_vpn_servers=user_vpn_servers)
 
 

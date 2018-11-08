@@ -44,7 +44,7 @@ rrn_user_service = RRNUsersAPIService(api_url=app_config['API_URL'],
                                       resource_name=app_config['USERS_API_RESOURCE_NAME'])
 
 rrn_billing_service = RRNBillingAPIService(api_url=app_config['API_URL'],
-                                           resource_name=app_config['SUBSCRIPTIONS_API_RESOURCE_NAME'])
+                                           resource_name=app_config['SERVICES_API_RESOURCE_NAME'])
 
 rrn_orders_service = RRNOrdersAPIService(api_url=app_config['API_URL'],
                                          resource_name=app_config['ORDERS_API_RESOURCE_NAME'])
@@ -57,7 +57,7 @@ email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
                              from_email=app_config['EMAIL_SMTP']['support_account']['email'],
                              templates_path="%s%s" % (app.root_path, "/static/assets/email-tmpls"))
 
-subscription_service = SubscriptionService(billing_service=rrn_billing_service, cache_service=cache_service)
+rrnservice_service = RRNServicesService(billing_service=rrn_billing_service, cache_service=cache_service)
 
 from app.flask_utils import before_request, get_locale
 

@@ -1,7 +1,8 @@
 from enum import Enum
+from flask_babel import _
 
 
-class PaymentType(Enum):
+class RRNServiceType(Enum):
     __version__ = 1
 
     def __new__(cls, *args, **kwds):
@@ -14,4 +15,4 @@ class PaymentType(Enum):
         self.sid = sid
         self.text = text
 
-    FREE = (1, 'free')
+    VPN_SUBSCRIPTION = (1, _('vpn_subscription_type'))

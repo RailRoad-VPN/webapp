@@ -15,7 +15,12 @@ class CacheService(object):
         self._cache.set(prefix + key, value, timeout=timeout)
 
     def add(self, key, value, prefix: str = ''):
-        self._cache.add(prefix + key, value)
+        val = self.get(key=key, prefix=prefix)
+        if val is not None:
+            val.append(value)
+        else:
+            val = [value]
+        self.set(key=key, value=val, prefix=prefix)
 
     def get(self, key, prefix: str = ''):
         value = self._cache.get(prefix + key)

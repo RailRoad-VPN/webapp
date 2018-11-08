@@ -7,12 +7,12 @@ from uuid import UUID
 from flask import Blueprint, request, render_template, \
     session, jsonify, redirect, url_for, abort
 
-from app import rrn_user_service, rrn_orders_service, app_config, subscription_service, email_service
+from app import rrn_user_service, rrn_orders_service, app_config, rrnservice_service, email_service, RRNServiceType
 from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user, login_required
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 from app.models.order_status import OrderStatus
-from app.models.user_subscription_status import UserSubscriptionStatus
+from app.models.user_service_status import UserServiceStatus
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException
@@ -53,7 +53,7 @@ def create_user_subscription(order_uuid: str, status_id: int, subscription_id: s
         return False
 
     logger.debug('get subscription name')
-    subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session.get('lang_code'))
+    subscriptions_dict = rrnservice_service.get_services_dict(lang_code=session.get('lang_code'))
     sub = subscriptions_dict.get(int(subscription_id))
 
     logger.debug('send user email')
@@ -80,12 +80,10 @@ def order_page():
             logger.debug(e.serialize())
             abort(500)
 
-    subscriptions = subscription_service.get_subscriptions(lang_code=session.get('lang_code'))
-    subscriptions_dict = subscription_service.get_subscriptions_dict(lang_code=session.get('lang_code'))
+    subscriptions = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
     logger.debug("got subscriptions. Size: %s" % len(subscriptions))
 
-    return render_template('order/order.html', subscriptions=subscriptions,
-                           subscriptions_dict=json.dumps(subscriptions_dict), code=200)
+    return render_template('order/order.html', subscriptions=subscriptions, code=200)
 
 
 @mod_order.route('/payment_url', methods=['GET'])

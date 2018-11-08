@@ -5,10 +5,12 @@ const LS_ORDER_KEY = 'order', LS_ORDER_PACK_ID_KEY = 'pack_id', LS_ORDER_ACCOUNT
     LS_ORDER_ACCOUNT_EMAIL_KEY = 'email', LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password',
     LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY = 'password_confirm';
 
-$(document).ready(function () {
+$(window).on('load', function() {
     const $emailCheckURLObj = $("meta#email_check_url");
     const $getPaymentUrlURLObj = $("meta#get_payment_url_url");
     const $chosenSubTemplateURLObj = $("#chosen_sub_url");
+
+    const $subscriptionDataObj = $("#subscriptionsData");
 
     const $orderForm = $('.order-form');
     const $userUuidInput = $("#user_uuid");
@@ -27,12 +29,6 @@ $(document).ready(function () {
         const stepId = $(this).data('id');
 
         goToStep(null, stepId);
-    });
-
-    $(".pricing").on('click', function () {
-        CHOSEN_PACK = $(this).data('id');
-        setChosenPack(CHOSEN_PACK);
-        goToStep('right');
     });
 
     // checkout sub btn
@@ -152,15 +148,27 @@ $(document).ready(function () {
     }
 
     function packToAccount() {
-        const subsJSON = $("#subscriptionsDictData").data('json');
-        const choseSub = subsJSON[CHOSEN_PACK];
-        $(".chosen-subscription-name").text(choseSub['name']);
+        const subsJSON = $subscriptionDataObj.data('dict');
+        const chosenSubJSON = subsJSON[CHOSEN_PACK];
+        $(".chosen-subscription-name").text(chosenSubJSON['service_name']);
         if (subsJSON['is_best']) {
             $(".chosen-subscription-best_badge").show();
         } else {
             $(".chosen-subscription-best_badge").hide();
         }
-        let subJSON = {"chosen_subscription": subsJSON[CHOSEN_PACK], "width": "width: 18rem;"};
+        chosenSubJSON['features'] = [];
+        let $featuresHtml = $(".subscription-" + chosenSubJSON['id']).filter(function() {
+            return $(this).css('display') === 'block';
+        });
+        $featuresHtml.find("ul.pricing-content span").each(function() {
+            const feature = {
+                "name": $(this).text(),
+                "enabled": !$(this).parent().hasClass("no-feature")
+            };
+            let chosensubFeatures = chosenSubJSON['features'];
+            chosensubFeatures.push(feature);
+        });
+        let subJSON = {"chosen_subscription": chosenSubJSON, "width": "width: 18rem;"};
         let html = UNDERSCORE_CHOSEN_SUB_TMPLT(subJSON);
         $(".chosen-subscription").html(html);
         subJSON = {"chosen_subscription": subsJSON[CHOSEN_PACK], "width": ""};
@@ -380,6 +388,17 @@ $(document).ready(function () {
     }
 
     function init() {
+        // format
+        const subsJSON = $subscriptionDataObj.data('json');
+        let subsObj = {};
+        for (let i = 0; i < subsJSON.length; i++) {
+            const sub = subsJSON[i];
+            const subId = sub['id'];
+            subsObj[subId] = sub;
+        }
+
+        $subscriptionDataObj.data('dict', subsObj);
+
         USER_REGISTERED = !!$userUuidInput.val();
         ORDER_LS = getFromLocalStorage(LS_ORDER_KEY);
         CHOSEN_PACK = -1;

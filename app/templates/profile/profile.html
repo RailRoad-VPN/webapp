@@ -91,7 +91,7 @@
 {% endblock %}
 
 {% block body %}
-    <section class="pt-6 pb-6" style="background-color: #f8f8f8;">
+    <div class="pt-6 pb-6" style="background-color: #f8f8f8;">
         <div class="menu-header nav justify-content-centers" style="background-color: #fff; padding-top: 50px;">
             <ul id="profile-menu" class="nav nav-tabs">
                 <li class="nav-item menu-entry">
@@ -129,12 +129,17 @@
                 <div class="container">
                     <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Services') }}</h4>
                     <div class="user-services well container">
-                        {% for us in user_subscriptions %}
-                            {% set sub = us['subscription'] %}
+                        {% for us in user_services %}
+                            {% set service = us['service'] %}
                             {% set order = us['order'] %}
                             {% set payments = order['payments'] %}
+
+                            <h3>
+                                {{ service['type']['name'] }}
+                            </h3>
+
                             <h4 class="d-inline">
-                                {{ sub['name'] }}
+                                {{ service['service_name'] }}
                             </h4>
                             <span class="sub-badges">
                                 {% if us['status_id'] == 1 %}
@@ -160,11 +165,18 @@
                                     {% endif %}
                                 </span>
                                 <span class="badge badge-info">
-                                    {{ sub['bill_freq'] }}
+                                    {{ _('billed') }}
+                                    {% if service['billed_period'] == 1 %}
+                                        {{ _('monthly') }}
+                                    {% elif service['billed_period'] == 12 %}
+                                        {{ _('yearly') }}
+                                    {% elif service['billed_period'] == 36 %}
+                                        {{ _('every 3 years') }}
+                                    {% endif %}
                                 </span>
                             </span>
-                            <!-- 0 price for free sub -->
-                            {% if sub['price_per_month'] != 0 %}
+                            <!-- 0 price for free sub or perpetual service -->
+                            {% if service['price'] != "0" %}
                                 <span class="d-inline float-right">
                                     {% if us['status_id'] == 3 %} <!-- expired -->
                                         <small class="text-muted">{{ _('Payment is past due') }}:</small>
@@ -189,7 +201,7 @@
                                         </a>
                                         {{ _('or') }}
                                         <a class="renew-sub-btn" href="#"
-                                           data-sub_id="{{ sub['id'] }}"
+                                           data-sub_id="{{ service['id'] }}"
                                            data-subscription_uuid="{{ us['uuid'] }}"
                                            data-order_code="{{ order['code'] }}">
                                             {{ _('renew subscription') }}
@@ -210,12 +222,12 @@
                                             </thead>
                                             <tbody>
                                             {% for payment in payments %}
-                                                {% if payment['type_id'] == 1 %} <!-- PPG -->
-                                                    {% set email = payment['json_data']['CUSTOMER_EMAIL'] %}
-                                                    {% set type = 'PayPro Global, Inc' %}
-                                                    {% set sum = payment['json_data']['ORDER_ITEM_TOTAL_AMOUNT'] %}
-                                                    {% set method = payment['json_data']['PAYMENT_METHOD_NAME'] %}
-                                                    {% set invoice_link = payment['json_data']['INVOICE_LINK'] %}
+                                                {% if payment['type_id'] == 1 %} <!-- FREE -->
+                                                    {% set email = "t@t.t" %}
+                                                    {% set type = 'Free Subscription' %}
+                                                    {% set sum = "$0" %}
+                                                    {% set method = "-" %}
+                                                    {% set invoice_link = "#" %}
                                                 {% endif %}
                                                 {% if payment['status_id'] == 1 %}
                                                     {% set status = _('success') %}
@@ -227,7 +239,7 @@
                                                 <tr>
                                                     <td>{{ email }}</td>
                                                     <td>{{ type }}</td>
-                                                    <td>{{ sum }} {{ payment['json_data']['ORDER_CURRENCY_CODE'] }}</td>
+                                                    <td>{{ sum }}</td>
                                                     <td>{{ method }}</td>
                                                     <td>{{ moment(payment['created_date'] | strftime).format('Do MMMM YYYY, HH:mm:ss') }}</td>
                                                     <td><span class="badge badge-success">{{ status }}</span></td>
@@ -242,6 +254,8 @@
                                             {% endfor %}
                                             </tbody>
                                         </table>
+                                    {% else %}
+                                        No payments yet
                                     {% endif %}
                                 </div>
                             </div>
@@ -519,7 +533,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <div id="pincode-modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

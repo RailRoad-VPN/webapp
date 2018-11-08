@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class UserSubscriptionStatus(Enum):
+class UserServiceStatus(Enum):
     __version__ = 1
 
     def __new__(cls, *args, **kwds):

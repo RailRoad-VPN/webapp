@@ -15,7 +15,7 @@ class Config(object):
     LANGUAGES = ['ru', 'en']
 
     USERS_API_RESOURCE_NAME = 'users'
-    SUBSCRIPTIONS_API_RESOURCE_NAME = 'subscriptions'
+    SERVICES_API_RESOURCE_NAME = 'services'
     ORDERS_API_RESOURCE_NAME = 'orders'
 
     PAY_PRO_GLOBAL = {
