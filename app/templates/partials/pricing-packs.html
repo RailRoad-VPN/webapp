@@ -25,8 +25,12 @@
         {% for vpn_sub_service in vpn_subs_services %}
             {% if vpn_sub_service['id'] != 1 %}
             <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
-                <div data-href="{{ url_for('order.order_page', pack=vpn_sub_service['id']) }}" class="pricing subscription-{{ vpn_sub_service['id'] }} hover-effect">
-                    <div class="pricing-head ">
+                <div data-href="{{ url_for('order.order_page', pack=vpn_sub_service['id']) }}"
+                     class="pricing {% if vpn_sub_service['id'] == 3 %} pricing-active {% endif %} subscription-{{ vpn_sub_service['id'] }} hover-effect">
+                    {% if vpn_sub_service['id'] == 3 %}
+                        <div class="price-badge"><span>{{ _('best pack') }}</span></div>
+                    {% endif %}
+                    <div class="pricing-head {% if vpn_sub_service['id'] == 3 %} pricing-head-active {% endif %}">
                         {% if vpn_sub_service['id'] == 4 %}
                             <h3>
                                 ULTIMATE PACK

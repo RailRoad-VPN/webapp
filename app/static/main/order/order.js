@@ -151,11 +151,6 @@ $(window).on('load', function() {
         const subsJSON = $subscriptionDataObj.data('dict');
         const chosenSubJSON = subsJSON[CHOSEN_PACK];
         $(".chosen-subscription-name").text(chosenSubJSON['service_name']);
-        if (subsJSON['is_best']) {
-            $(".chosen-subscription-best_badge").show();
-        } else {
-            $(".chosen-subscription-best_badge").hide();
-        }
         chosenSubJSON['features'] = [];
         let $featuresHtml = $(".subscription-" + chosenSubJSON['id']).filter(function() {
             return $(this).css('display') === 'block';

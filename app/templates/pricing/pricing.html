@@ -30,7 +30,7 @@
 {% block body %}
     <div class="container container-wide pb-75 pt-75">
         <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
-        {% with order=false %}
+        {% with order=false, vpn_subs_services=subscriptions %}
             {% include 'partials/pricing-packs.html' %}
         {% endwith %}
     </div>

@@ -28,9 +28,9 @@ def pull_lang_code(endpoint, values):
 def pricing_page():
     logger.info('pricing_page method')
 
-    services = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
+    subscriptions = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
 
-    if services is None:
+    if subscriptions is None:
         raise abort(404)
 
-    return render_template('pricing/pricing.html', code=200, subscriptions=services)
+    return render_template('pricing/pricing.html', code=200, subscriptions=subscriptions)
