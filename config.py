@@ -69,7 +69,7 @@ class TestingConfig(Config):
     TESTING = True
     DEBUG = True
 
-    API_URL = 'http://127.0.0.1:61885/api/v1'
+    API_URL = 'https://api.rroadvpn.net/api/v1'
 
     FS = {
         'contact': '/opt/apps/dfn/contact/',
