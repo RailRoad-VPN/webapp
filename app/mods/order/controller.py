@@ -66,12 +66,15 @@ def submit_order() -> bool:
     password = request.form.get('password', None)
     password_repeat = request.form.get('password_repeat', None)
 
-    is_trial_available = False
     order_uuid = session.get('order').get('uuid')
     service_id = session.get('order').get('service_id')
 
+    logger.debug('get service')
+    service = rrn_servicesapi_service.get_service_by_id(service_id=service_id)
+
+    is_trial_available = service['is_trial']
+
     if 'user' not in session:
-        is_trial_available = True
         try:
             logger.debug('create user')
             user_json = user_policy.create_user(email=email, password=password, password_repeat=password_repeat)
@@ -86,9 +89,10 @@ def submit_order() -> bool:
             return resp
     else:
         user_json = session.get('user')
-        is_trial_available = user_policy.is_trial_available_for_service(user_uuid=user_json['uuid'],
-                                                                        service_id=service_id)
-        # TODO if trial is not available check payment
+
+    is_trial_available = user_policy.is_trial_available_for_service(user_uuid=user_json['uuid'],
+                                                                    service_id=service_id)
+    # TODO if trial is not available check payment
 
     user_uuid = user_json.get('uuid')
     user_email = user_json.get('email')
@@ -103,9 +107,6 @@ def submit_order() -> bool:
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.BAD_REQUEST
         return resp
-
-    logger.debug('get service')
-    service = rrn_servicesapi_service.get_service_by_id(service_id=service_id)
 
     logger.debug('send user email')
     email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=service.get('service_name'))
