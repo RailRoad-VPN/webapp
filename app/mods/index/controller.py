@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, session, request, jsonify
 from flask_babel import _
 
 # Define the blueprint: 'index', set its url prefix: app.url/
-from app import rrn_billing_service, app_config, email_service, RRNServiceType, rrnservice_service
+from app import rrn_billingapi_service, app_config, email_service, RRNServiceType, rrn_servicesapi_service, user_policy
 from app.flask_utils import _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
 
@@ -33,7 +33,7 @@ def index_lang_page():
     logger.info('index_lang page')
 
     try:
-        vpn_subs_services = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
+        vpn_subs_services = user_policy.get_user_available_services()
     except APIException:
         vpn_subs_services = None
 

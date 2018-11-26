@@ -8,6 +8,7 @@ from smtplib import SMTPException
 from typing import Optional
 
 import requests
+from flask import session
 from flask_babel import _
 from werkzeug.security import generate_password_hash
 
@@ -15,7 +16,7 @@ from app.cache import CacheService
 from app.models.rrn_service import RRNServiceType
 
 sys.path.insert(0, '../rest_api_library')
-from rest import RESTService, APIException
+from rest import RESTService, APIException, APINotFoundException
 from response import APIResponse
 from utils import gen_sec_token
 
@@ -208,6 +209,7 @@ class RRNOrdersAPIService(RESTService):
         }
         api_response = self._post(data=data, headers=headers)
         if 'Location' in api_response.headers:
+            headers['X-Auth-Token'] = gen_sec_token()
             api_response = self._get(url=api_response.headers.get('Location'), headers=headers)
             return api_response.data
         else:
@@ -289,18 +291,18 @@ class RRNUsersAPIService(RESTService):
         api_response = self._get(url=url, headers=headers)
         return api_response.data
 
-    def get_user_subscription(self, user_uuid: str, subscription_uuid: str) -> dict:
+    def get_user_service(self, user_uuid: str, service_uuid: str) -> dict:
         self.logger.debug(f"{self.__class__}: get_user_subscription with parameters user_uuid: {user_uuid}, "
-                          f"subscription_uuid: {subscription_uuid}")
-        url = f"{self._url}/{user_uuid}/subscriptions/{subscription_uuid}"
+                          f"subscription_uuid: {service_uuid}")
+        url = f"{self._url}/{user_uuid}/services/{service_uuid}"
         headers = {
             'X-Auth-Token': gen_sec_token()
         }
         api_response = self._get(url=url, headers=headers)
         return api_response.data
 
-    def get_user_subscriptions(self, user_uuid: str) -> dict:
-        self.logger.debug(f"{self.__class__}: get_user_subscriptions method with parameters user_uuid: {user_uuid}")
+    def get_user_services(self, user_uuid: str) -> dict:
+        self.logger.debug(f"{self.__class__}: get_user_services method with parameters user_uuid: {user_uuid}")
         url = f"{self._url}/{user_uuid}/services"
         headers = {
             'X-Auth-Token': gen_sec_token()
@@ -308,23 +310,25 @@ class RRNUsersAPIService(RESTService):
         api_response = self._get(url=url, headers=headers)
         return api_response.data
 
-    def create_user_subscription(self, user_uuid: str, status_id: int, subscription_id: int, order_uuid: str) -> dict:
+    def create_user_service(self, user_uuid: str, status_id: int, is_trial: bool, service_id: int, order_uuid: str) -> dict:
         self.logger.debug(
-            f"create_user_subscription method with parameters user_uuid: {user_uuid}. user_uuid: {user_uuid}, "
-            f"subscription_id: {subscription_id}, order_uuid: {order_uuid}")
+            f"create_user_service method with parameters user_uuid: {user_uuid}. user_uuid: {user_uuid}, "
+            f"service_id: {service_id}, order_uuid: {order_uuid}, is_trial: {is_trial}")
         data = {
             'user_uuid': user_uuid,
             'status_id': status_id,
-            'subscription_id': subscription_id,
+            'is_trial': is_trial,
+            'service_id': service_id,
             'order_uuid': order_uuid,
         }
-        url = f"{self._url}/{user_uuid}/subscriptions"
+        url = f"{self._url}/{user_uuid}/services"
         headers = {
             'X-Auth-Token': gen_sec_token()
         }
         api_response = self._post(data=data, url=url, headers=headers)
         if 'Location' in api_response.headers:
-            api_response = self._get(url=api_response.headers.get('Location'))
+            headers['X-Auth-Token'] = gen_sec_token()
+            api_response = self._get(url=api_response.headers.get('Location'), headers=headers)
             return api_response.data
         else:
             self.logger.debug(api_response.serialize())
@@ -332,7 +336,7 @@ class RRNUsersAPIService(RESTService):
 
     def update_user_service(self, user_service_json: dict):
         self.logger.debug(
-            f"{self.__class__}: update_user_subscription method with parameters subscription_json: {user_service_json}")
+            f"{self.__class__}: update_user_service method with parameters service_json: {user_service_json}")
         url = f"{self._url}/{user_service_json['user_uuid']}/services/{user_service_json['uuid']}"
         headers = {
             'X-Auth-Token': gen_sec_token()
@@ -405,7 +409,7 @@ class RRNBillingAPIService(RESTService):
         return api_response.data
 
 
-class RRNServicesService(object):
+class RRNServicesAPIService(object):
     __version__ = 1
 
     logger = logging.getLogger(__name__)
@@ -416,6 +420,10 @@ class RRNServicesService(object):
     def __init__(self, billing_service: RRNBillingAPIService, cache_service: CacheService):
         self._billing_service = billing_service
         self._cache_service = cache_service
+
+    def get_service_by_id(self, service_id: int) -> dict:
+        services = self.get_services_dict()
+        return services[int(service_id)]
 
     def get_services(self) -> list:
         self.logger.debug(f"{self.__class__}: get_services method")
@@ -452,15 +460,18 @@ class RRNServicesService(object):
 
     def __update_cache_services(self):
         self.logger.debug(
-            f"{self.__class__}: __update_cache_subscriptions method")
+            f"{self.__class__}: __update_cache_services method")
         try:
             self.logger.info("Call billing service")
             services = self._billing_service.get_services()
             self.logger.info(f"Save services in cache. Size: {len(services)}")
             self._cache_service.set('services', services)
+            services_dict = {}
             for service in services:
                 service_type_id = f"services_{service['type']['id']}"
                 self._cache_service.add(service_type_id, service)
+                services_dict[service['id']] = service
+            self._cache_service.set(key="services_dict", value=services_dict)
         except APIException as e:
             self.logger.error("Error when call billing service")
             self.logger.error(e)

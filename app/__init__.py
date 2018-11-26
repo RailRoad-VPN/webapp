@@ -10,6 +10,7 @@ from flask_moment import Moment
 from app.cache import CacheService
 from app.mods.error import page_not_found, forbidden, internal_server_error
 from app.service import *
+from app.policy import *
 
 logging.basicConfig(level=logging.DEBUG, format='WEBAPP: %(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -40,14 +41,14 @@ user_discovery_service = UserDiscoveryService()
 
 cache_service = CacheService(app=app)
 
-rrn_user_service = RRNUsersAPIService(api_url=app_config['API_URL'],
-                                      resource_name=app_config['USERS_API_RESOURCE_NAME'])
+rrn_usersapi_service = RRNUsersAPIService(api_url=app_config['API_URL'],
+                                          resource_name=app_config['USERS_API_RESOURCE_NAME'])
 
-rrn_billing_service = RRNBillingAPIService(api_url=app_config['API_URL'],
-                                           resource_name=app_config['SERVICES_API_RESOURCE_NAME'])
+rrn_billingapi_service = RRNBillingAPIService(api_url=app_config['API_URL'],
+                                              resource_name=app_config['SERVICES_API_RESOURCE_NAME'])
 
-rrn_orders_service = RRNOrdersAPIService(api_url=app_config['API_URL'],
-                                         resource_name=app_config['ORDERS_API_RESOURCE_NAME'])
+rrn_ordersapi_service = RRNOrdersAPIService(api_url=app_config['API_URL'],
+                                            resource_name=app_config['ORDERS_API_RESOURCE_NAME'])
 
 email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
                              smtp_port=app_config['EMAIL_SMTP']['port'],
@@ -57,7 +58,10 @@ email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
                              from_email=app_config['EMAIL_SMTP']['support_account']['email'],
                              templates_path="%s%s" % (app.root_path, "/static/assets/email-tmpls"))
 
-rrnservice_service = RRNServicesService(billing_service=rrn_billing_service, cache_service=cache_service)
+rrn_servicesapi_service = RRNServicesAPIService(billing_service=rrn_billingapi_service, cache_service=cache_service)
+
+
+user_policy = UserPolicy(rrn_users_api_service=rrn_usersapi_service, rrn_services_api_service=rrn_servicesapi_service)
 
 from app.flask_utils import before_request, get_locale
 

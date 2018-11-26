@@ -74,6 +74,30 @@ a:focus, a:hover {
     color: black;
 }
 
+.pr-xl-75 {
+    padding-right: 7.5rem !important
+}
+
+.pl-xl-75 {
+    padding-left: 7.5rem !important
+}
+
+.pr-xl-7 {
+    padding-right: 7rem !important
+}
+
+.pl-xl-7 {
+    padding-left: 7rem !important
+}
+
+.pr-xl-6 {
+    padding-right: 6.5rem !important
+}
+
+.pl-xl-6 {
+    padding-left: 6.5rem !important
+}
+
 .pt-75 {
     padding-top: 7.5rem !important
 }

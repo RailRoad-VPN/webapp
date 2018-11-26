@@ -4,7 +4,7 @@ import sys
 from flask import Blueprint, render_template, session, abort
 
 # Define the blueprint: 'index', set its url prefix: app.url/
-from app import app_config, rrnservice_service, RRNServiceType
+from app import app_config, rrn_servicesapi_service, RRNServiceType, user_policy
 from app.flask_utils import _pull_lang_code, _add_language_code
 
 sys.path.insert(0, '../rest_api_library')
@@ -28,7 +28,7 @@ def pull_lang_code(endpoint, values):
 def pricing_page():
     logger.info('pricing_page method')
 
-    subscriptions = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
+    subscriptions = user_policy.get_user_available_services()
 
     if subscriptions is None:
         raise abort(404)

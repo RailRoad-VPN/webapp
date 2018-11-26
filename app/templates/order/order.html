@@ -32,11 +32,12 @@
 {% endblock %}
 
 {% block meta %}
+    <meta id="profile_page_url" data-method="GET" data-url="{{ url_for('profile.profile_page') }}">
+    <meta id="choose_service_pack_url" data-method="POST" data-url="{{ url_for('order.choose_service_pack') }}">
     <meta id="email_check_url" data-method="GET" data-url="{{ url_for('auth.is_email_busy') }}">
-    <meta id="signup_user_url" data-method="POST" data-url="{{ url_for('auth.signup') }}">
+    <meta id="is_trial_available_url" data-method="GET" data-url="{{ url_for('auth.is_trial_available') }}">
 
-    <meta id="chosen_sub_url" data-method="GET"
-          data-url="{{ url_for('static', filename='tmplst/chosen_subscription.html') }}">
+    <meta id="chosen_sub_url" data-method="GET" data-url="{{ url_for('static', filename='tmplst/chosen_subscription.html') }}">
 
     <meta id="subscriptionsData" data-json='{{ subscriptions | tojson }}'>
 {% endblock %}
@@ -45,7 +46,7 @@
     <div id="order-form-container" class="container container-wide content-section" style="padding-top: 50px;">
         <div class="row text-center justify-content-center">
             <div class="form-box">
-                <form class="order-form" role="form" action="{{ url_for('auth.signup') }}" method="POST">
+                <form class="order-form" role="form" action="{{ url_for('order.submit_order') }}" method="POST">
                     <h3>
                         {{ _('Order') }}
                         <small>#</small>
@@ -60,7 +61,7 @@
                         </div>
                         <div id="pack-step" class="order-progress-step active" data-id="pack" data-num="1">
                             <div class="order-progress-step-icon"><i class="fa fa-cube"></i></div>
-                            <p>{{ _('pack') }}</p>
+                            <p>{{ _('service') }}</p>
                         </div>
                         <div id="account-step" class="order-progress-step" data-id="account" data-num="2">
                             <div class="order-progress-step-icon"><i class="fa fa-user"></i></div>
@@ -73,8 +74,7 @@
                     </div>
 
                     <fieldset id="pack-fieldset" class="container container-wide" data-id="pack">
-                        <input id="subscription-id" type="hidden" value="-1" data-subscription="">
-                        <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
+                        <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR SERVICE') }}</h2>
                         {% with order_page=true, vpn_subs_services=subscriptions %}
                             {% include 'partials/pricing-packs.html' %}
                         {% endwith %}
@@ -158,124 +158,130 @@
                         <input id="payment_method" type="hidden">
                         <div class="row">
                             <div class="col-lg-4 col-xl-3 col-xxl-3 d-none d-xs-none d-sm-none d-md-none d-lg-block d-xl-block d-xxl-block">
-                                <div class="last-steps">
+                                <div class="last-step">
                                     <div class="card">
                                         <h5 class="card-header" style="background-color: rgba(248, 204, 70, 3);">
-                                            {{ _('Just last step to get...') }}
-                                            <p class="card-text" style="font-size: 50%; text-decoration: line-through;">
-                                                {{ _('be a king of internet') }}
-                                            </p>
+                                            {{ _('Just last step to...') }}
                                         </h5>
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> acquire
+                                                    <i class="fa fa-check-circle"></i>
+                                                    {{ _('pay ') }} <span class="last_step-price text-warning"></span>
+                                                    {{ _('and acquire') }}
                                                     <span class="chosen-subscription-name"
-                                                          style="color: rgba(248, 204, 70, 3)">
-
-                                                    </span>
-                                                    <sup class="chosen-subscription-best_badge">
-                                                        {{ _('best pack') }}
-                                                    </sup>
+                                                          style="color: rgba(248, 204, 70, 3)"></span>
                                                 </li>
-                                                <li class="list-group-item">
+                                                <li class="list-group-item paid-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('speed up your internet connection') }}
+                                                </li>
+                                                <li class="list-group-item free-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('obtain security') }}
+                                                </li>
+                                                <li class="list-group-item free-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('be anonymous in internet') }}
+                                                </li>
+                                                <li class="list-group-item free-feature">
                                                     <i class="fa fa-check-circle"></i> {{ _('access to geo-restricted resources') }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('possibility cancel anytime anywhere') }}
+                                                <li class="list-group-item paid-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('get friendly customer support') }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('kill-switch') }}
+                                                <li class="list-group-item free-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('feel safe while using public wifi') }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('easy to use') }}
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('friendly customer support') }}
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('possibility use public wifi') }}
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('build your network') }}
+                                                <li class="list-group-item paid-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('build your own network') }}
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- check trial -->
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-9 col-xxl-9 justify-content-center text-center">
                                 <div class="form-group">
                                     <div id="payment-method-error" class="col-12 error small">
                                         <i class="fa fa-exclamation-triangle"></i>
-                                        {{ _('Choose payment method before proceed to payment page') }}
+                                        {{ _('Choose payment method before proceed') }}
                                     </div>
                                 </div>
-                                <div id="payment_methods-container" class="row">
-                                    <div class="col-sm-12 col-md-6 col-xl-4 col-xxl-4 px-0 p-4">
-                                        <div class="payment-method" data-id="1">
-                                            <img src="{{ url_for('static', filename='main/order/images/cc.png') }}"
-                                                 class="img-fluid">
+                                <div class="need_payment" style="display: none;">
+                                    <div id="payment_methods-container" class="row">
+                                        <div class="col-sm-12 col-md-6 col-xl-4 col-xxl-4 px-0 p-4">
+                                            <div class="payment-method" data-id="1">
+                                                <img src="{{ url_for('static', filename='main/order/images/cc.png') }}"
+                                                     class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-xl-4 col-xxl-4 px-0 p-4">
+                                            <div class="payment-method" data-id="14">
+                                                <img src="{{ url_for('static', filename='main/order/images/paypal.png') }}"
+                                                     class="img-fluid">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-xl-4 col-xxl-4 px-0 p-4">
-                                        <div class="payment-method" data-id="14">
-                                            <img src="{{ url_for('static', filename='main/order/images/paypal.png') }}"
-                                                 class="img-fluid">
-                                        </div>
+                                    <div id="show_more_payment_methods-text" class="text-center">
+                                        <h5>
+                                            <button type="button" data-toggle="modal"
+                                                    data-target="#payment_methods-modal"
+                                                    class="btn btn-link">{{ _('Show more ways to pay') }}</button>
+                                        </h5>
                                     </div>
                                 </div>
-                                <div id="show_more_payment_methods-text" class="text-center">
-                                    <h5>
-                                        <button type="button" data-toggle="modal" data-target="#payment_methods-modal"
-                                                class="btn btn-link">{{ _('Show more ways to pay') }}</button>
-                                    </h5>
+                                <div class="free_payment" style="display: none;">
+                                    <i class="fa fa-info-circle"></i>
+                                    {{ _('For free pack no need payment. Press Continue button.') }}
+                                </div>
+                                <div class="trial_payment" style="display: none;">
+                                    <p>
+                                        <i class="fa fa-info-circle"></i>
+                                        {{ _('You order trial period for ') }} <span class="trial_days"></span> {{ _(' days') }}.
+                                    </p>
+                                    <p>
+                                        <small>{{ _('After this period, if you want to continue use VPN service you have to pay for month subscription. You can do this in profile page.') }}</small>
+                                    </p>
                                 </div>
                                 <div class="order-form-buttons" style="padding-bottom: 50px">
                                     <button type="button" class="btn btn-link btn-previous">{{ _('Back') }}</button>
-                                    <button type="submit" class="btn">
-                                        {{ _('Proceed to payment page') }}
-                                    </button>
+                                    <button type="submit" class="btn">{{ _('Continue') }}</button>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 d-none d-xs-block d-sm-block d-md-block d-lg-none d-xl-none d-xxl-none">
-                                <div class="last-steps">
+                                <div class="last-step">
                                     <div class="card">
                                         <h5 class="card-header" style="background-color: rgba(248, 204, 70, 3);">
-                                            {{ _('Just last step to get...') }}
-                                            <p class="card-text" style="font-size: 50%; text-decoration: line-through;">
-                                                {{ _('be a king of internet') }}
-                                            </p>
+                                            {{ _('Just last step to...') }}
                                         </h5>
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> acquire
+                                                    <i class="fa fa-check-circle"></i>
+                                                    {{ _('pay ') }} <span class="last_step-price text-warning"></span>
+                                                    {{ _('and acquire') }}
                                                     <span class="chosen-subscription-name"
-                                                          style="color: rgba(248, 204, 70, 3)">
-
-                                                    </span>
+                                                          style="color: rgba(248, 204, 70, 3)"></span>
                                                 </li>
-                                                <li class="list-group-item">
+                                                <li class="list-group-item paid-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('speed up your internet connection') }}
+                                                </li>
+                                                <li class="list-group-item free-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('obtain security') }}
+                                                </li>
+                                                <li class="list-group-item free-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('be anonymous in internet') }}
+                                                </li>
+                                                <li class="list-group-item free-feature">
                                                     <i class="fa fa-check-circle"></i> {{ _('access to geo-restricted resources') }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('possibility cancel anytime anywhere') }}
+                                                <li class="list-group-item paid-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('get friendly customer support') }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('kill-switch') }}
+                                                <li class="list-group-item free-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('feel safe while using public wifi') }}
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('easy to use') }}
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('friendly customer support') }}
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('possibility use public wifi') }}
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <i class="fa fa-check-circle"></i> {{ _('build your network') }}
+                                                <li class="list-group-item paid-feature">
+                                                    <i class="fa fa-check-circle"></i> {{ _('build your own network') }}
                                                 </li>
                                             </ul>
                                         </div>
@@ -284,7 +290,6 @@
                             </div>
                         </div>
                     </fieldset>
-
                 </form>
             </div>
         </div>

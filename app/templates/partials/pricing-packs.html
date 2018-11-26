@@ -15,7 +15,7 @@
                 charset="utf-8"></script>
     {% endif %}
 {% endblock %}
-<div id="pricing-pack" class="row">
+<div id="pricing-pack" class="row {% if vpn_subs_services|length == 2 %} pl-xl-75 pr-xl-75 {% endif %}">
     {% if vpn_subs_services is none %}
         <p>
             {{ _('Error occurred. Please contact us by email <a href="mailto:support@railroadman.net">support@railroadman.net</a> or ') }}
@@ -23,41 +23,33 @@
         </p>
     {% else %}
         {% for vpn_sub_service in vpn_subs_services %}
-            {% if vpn_sub_service['id'] != 1 %}
-            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12">
+            {% if (vpn_subs_services|length) == 1 %}
+                <div class="offset-xl-4 col-xl-4 offset-lg-4 col-lg-4 col-md-12 col-sm-12">
+            {% elif (vpn_subs_services|length) == 2 %}
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+            {% elif (vpn_subs_services|length) == 3 %}
+                <div class="offset-xl-2 col-xl-3 col-lg-6 col-md-12 col-sm-12">
+            {% elif (vpn_subs_services|length) == 4 %}
+                <div class="offset-xl-2 col-xl-3 col-lg-6 col-md-12 col-sm-12">
+            {% else %}
+                <div class="offset-xl-2 col-xl-3 col-lg-6 col-md-12 col-sm-12">
+            {% endif %}
                 <div data-href="{{ url_for('order.order_page', pack=vpn_sub_service['id']) }}"
                      class="pricing {% if vpn_sub_service['id'] == 3 %} pricing-active {% endif %} subscription-{{ vpn_sub_service['id'] }} hover-effect">
-                    {% if vpn_sub_service['id'] == 3 %}
-                        <div class="price-badge"><span>{{ _('best pack') }}</span></div>
+                    {% if vpn_sub_service['is_trial'] and vpn_sub_service['is_trial_available'] != false %}
+                        <div class="price-badge"><span>{{ vpn_sub_service['trial_period_days'] }} {{ _('days free') }}</span></div>
                     {% endif %}
                     <div class="pricing-head {% if vpn_sub_service['id'] == 3 %} pricing-head-active {% endif %}">
-                        {% if vpn_sub_service['id'] == 4 %}
-                            <h3>
-                                ULTIMATE PACK
-                                <span>{{ _('ultimate_pack_description') }}</span>
-                            </h3>
+                        {% if vpn_sub_service['id'] == 1 %}
+                            <h3>FREE VPN PACK</h3>
 
                             <h4>
                                 <i>$</i>{{ vpn_sub_service['price'] }}
                                 <span>{{ _('per month') }}</span>
-                                <span class="small">{{ _('billed every') }} {{ billed_period }} {{ _('months') }} </span>
-                            </h4>
-                        {% elif vpn_sub_service['id'] == 3 %}
-                            <h3>
-                                PRO PACK
-                                <span>{{ _('We know what you need') }}</span>
-                            </h3>
-
-                            <h4>
-                                <i>$</i>{{ vpn_sub_service['price'] }}
-                                <span>{{ _('per month') }}</span>
-                                <span class="small">({{ _('billed yearly') }})</span>
+                                <span class="small">({{ _('billed monthly') }})</span>
                             </h4>
                         {% elif vpn_sub_service['id'] == 2 %}
-                            <h3>
-                                STARTER PACK
-                                <span>{{ _('Good pack to start!') }}</span>
-                            </h3>
+                            <h3>VPN PACK</h3>
 
                             <h4>
                                 <i>$</i>{{ vpn_sub_service['price'] }}
@@ -67,23 +59,23 @@
                         {% endif %}
                     </div>
                     <ul class="pricing-content list-unstyled">
-                        {% if vpn_sub_service['id'] == 4 %}
+                        {% if vpn_sub_service['id'] == 1 %}
                             <li>
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                       data-original-title="{{ _('Number of countries where you can choose VPN server') }}">
-                                    {{ _('ALL') }} {{ _('Countries') }}
+                                    1 {{ _('Country') }}
                                 </span>
                             </li>
                             <li>
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                       data-original-title="{{ _('Number of devices (laptop, smartphone, tablet) where you can connect VPN at once time') }}">
-                                    10 {{ _('Devices') }}
+                                    1 {{ _('Device') }}
                                 </span>
                             </li>
                             <li>
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Your connection will be on Highest speed') }}">
-                                    {{ _('Speed') }}: {{ _('Highest') }}
+                                      data-original-title="{{ _('It is enough for internet browsing') }}">
+                                    {{ _('Speed') }}: {{ _('Low') }}
                                 </span>
                             </li>
                             <li>
@@ -101,43 +93,29 @@
                                     {{ _('Fast Connect') }}
                                 </span>
                             </li>
-                            <li>
+                            <li class="no-feature">
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Write us any time with any problem about Railroad Network') }}">
-                                    {{ _('Full support') }}
+                                      data-original-title="{{ _('There is no support for this pack. We can test new features on this pack and it can be unavailable sometimes') }}">
+                                    {{ _('Support') }}
                                 </span>
                             </li>
-                            <li>
+                            <li class="no-feature">
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Our servers use advanced 256-bit encryption to offer best protection for you') }}">
+                                      data-original-title="{{ _('We encrypt your connection, but it is not military grade.') }}">
                                     {{ _('Military Grade 256-Bit Encryption') }}
                                 </span>
                             </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('We support multiple VPN security protocols for you to choose from to fulfill your needs and requirements') }}">
-                                    {{ _('Advanced IPSec &amp; IKEv2 protocols') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Servers only available to VIP users with the highest speed') }}">
-                                    {{ _('Service +') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Watch Netflix, Twitch and Youtube') }}">
+                            <li class="no-feature">
+                                <span>
                                     {{ _('Streaming Services') }}
                                 </span>
                             </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('User P2P services, download torrents without restricts or limits ') }}">
+                            <li class="no-feature">
+                                <span>
                                     {{ _('Torrents and P2P') }}
                                 </span>
                             </li>
-                        {% elif vpn_sub_service['id'] == 3 %}
+                        {% elif vpn_sub_service['id'] == 2 %}
                             <li>
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                       data-original-title="{{ _('Number of countries where you can choose VPN server') }}">
@@ -173,7 +151,7 @@
                             </li>
                             <li>
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Write us any time with any problem about Railroad Network') }}">
+                                      data-original-title="{{ _('Contact us any time with any problem about any service in this pack') }}">
                                     {{ _('Full support') }}
                                 </span>
                             </li>
@@ -181,12 +159,6 @@
                                 <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
                                       data-original-title="{{ _('Our servers use advanced 256-bit encryption to offer best protection for you') }}">
                                     {{ _('Military Grade 256-Bit Encryption') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('We support multiple VPN security protocols for you to choose from to fulfill your needs and requirements') }}">
-                                    {{ _('Advanced IPSec &amp; IKEv2 protocols') }}
                                 </span>
                             </li>
                             <li>
@@ -201,69 +173,6 @@
                                     {{ _('Torrents and P2P') }}
                                 </span>
                             </li>
-                            <li class="no-feature">
-                                <span>{{ _('Service +') }}</span>
-                            </li>
-                        {% elif vpn_sub_service['id'] == 2 %}
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Number of countries where you can choose VPN server') }}">
-                                    {{ _('ALL') }} {{ _('Countries') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Number of devices (laptop, smartphone, tablet) where you can connect VPN at once time') }}">
-                                    3 {{ _('Devices') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Your connection will be on Low speed') }}">
-                                    {{ _('Speed') }}: {{ _('Low') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('We do not collect logs about your connection, which means you can browse the internet without any worry of being recorded') }}">
-                                    {{ _('No Browsing Logs Policy') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span>
-                                    {{ _('Virus Protection') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('VPN client connects automatically to the fastest server available within few seconds') }}">
-                                    {{ _('Fast Connect') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('Write an email or forum post about your problems, we will help, may be') }}">
-                                    {{ _('Limited support') }}
-                                </span>
-                            </li>
-                            <li>
-                                <span class="sub-feature-tooltip" data-toggle="tooltip" data-placement="top" title=""
-                                      data-original-title="{{ _('We support multiple VPN security protocols for you to choose from to fulfill your needs and requirements') }}">
-                                    {{ _('Advanced IPSec &amp; IKEv2 protocols') }}
-                                </span>
-                            </li>
-                            <li class="no-feature">
-                                <span>{{ _('Military Grade 256-Bit Encryption') }}</span>
-                            </li>
-                            <li class="no-feature">
-                                <span>{{ _('Service +') }}</span>
-                            </li>
-                            <li class="no-feature">
-                                <span>{{ _('Streaming Services') }}</span>
-                            </li>
-                            <li class="no-feature">
-                                <span>{{ _('Torrents and P2P') }}</span>
-                            </li>
                         {% endif %}
                     </ul>
                     <div class="pricing-footer">
@@ -277,24 +186,11 @@
                             </a>
                         {% endif %}
                         <p class="small">
-                            {% if vpn_sub_service['id'] == 4 %}
-                                <span class="old-price">
-                                    ${{ (vpn_sub_service['old_price']|to_decimal * vpn_sub_service['billed_period']|to_decimal)|round(2) }}
-                                </span>
-                                <i>$</i>{{ (vpn_sub_service['price']|to_decimal * vpn_sub_service['billed_period']|to_decimal)|round(2) }} {{ _('billed every 3 years') }}
-                            {% elif vpn_sub_service['id'] == 3 %}
-                                <span class="old-price">
-                                    ${{ (vpn_sub_service['old_price']|to_decimal * vpn_sub_service['billed_period']|to_decimal)|round(2) }}
-                                </span>
-                                <i>$</i>{{ (vpn_sub_service['price']|to_decimal * vpn_sub_service['billed_period']|to_decimal)|round(2) }} {{ _('billed yearly') }}
-                            {% elif vpn_sub_service['id'] == 2 %}
-                                <i>$</i>{{ vpn_sub_service['price'] }} {{ _('billed monthly') }}
-                            {% endif %}
+                            <i>$</i>{{ vpn_sub_service['price'] }} {{ _('billed monthly') }}
                         </p>
                     </div>
                 </div>
             </div>
-            {% endif %}
         {% endfor %}
     {% endif %}
 </div>

@@ -45,3 +45,17 @@ class DFNError(APIErrorEnum):
 
     USER_PROFILE_EMAIL_BUSY = (name + str(count()), _l('Entered email is busy'), _('d'))
     USER_PROFILE_BAD_EMAIL_DELETE_ACCOUNT = (name + str(count()), _l('You have entered wrong email. Enter correct email to delete your account'), _('d'))
+
+
+class UserPolicyException(Exception):
+    __version__ = 1
+
+    error = None
+    error_code = None
+    developer_message = None
+
+    def __init__(self, error: str, error_code: int, developer_message: str = None, *args):
+        super().__init__(*args)
+        self.error = error
+        self.error_code = error_code
+        self.developer_message = developer_message

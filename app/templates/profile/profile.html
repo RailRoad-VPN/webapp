@@ -134,10 +134,6 @@
                             {% set order = us['order'] %}
                             {% set payments = order['payments'] %}
 
-                            <h3>
-                                {{ service['type']['name'] }}
-                            </h3>
-
                             <h4 class="d-inline">
                                 {{ service['service_name'] }}
                             </h4>
@@ -164,31 +160,51 @@
                                         {{ _('Failed') }}
                                     {% endif %}
                                 </span>
-                                <span class="badge badge-info">
-                                    {{ _('billed') }}
+                                {% if service['is_free'] == false and us['is_trial'] == false %}
+                                    <span class="badge badge-info">
                                     {% if service['billed_period'] == 1 %}
-                                        {{ _('monthly') }}
+                                        {{ _('billed monthly') }}
                                     {% elif service['billed_period'] == 12 %}
-                                        {{ _('yearly') }}
+                                        {{ _('billed yearly') }}
                                     {% elif service['billed_period'] == 36 %}
-                                        {{ _('every 3 years') }}
+                                        {{ _('billed every 3 years') }}
                                     {% endif %}
                                 </span>
+                                {% endif %}
+                                {% if service['is_free'] %}
+                                    <span class="badge badge-secondary">
+                                        {{ _('free') }}
+                                    </span>
+                                {% endif %}
+                                {% if us['is_trial'] %}
+                                    <span class="badge badge-primary">
+                                        {{ _('trial') }}
+                                    </span>
+                                {% endif %}
                             </span>
                             <!-- 0 price for free sub or perpetual service -->
-                            {% if service['price'] != "0" %}
+                            {% if service['is_free'] == false %}
                                 <span class="d-inline float-right">
-                                    {% if us['status_id'] == 3 %} <!-- expired -->
-                                        <small class="text-muted">{{ _('Payment is past due') }}:</small>
-                                    {% else %}
-                                        <small class="text-muted">{{ _('Next payment') }}:</small>
-                                    {% endif %}
-                                    {% if us['status_id'] == 4 %} <!-- wait_for_payment -->
-                                        <small class="payment-wait" data-order_code="{{ us['order']['code'] }}">
-                                            {{ _('Waiting for payment') }}
+                                    {% if us['is_trial'] == true %}
+                                        <small class="text-muted">
+                                            {{ _('Trial') }}: {{ service['trial_period_days'] }} {{ _('days') }}
+                                            {{ _('Ends ') }} {{ moment(us['expire_date'] | strftime).fromNow() }}
                                         </small>
                                     {% else %}
-                                        <small>{{ moment(us['expire_date'] | strftime).fromNow() }}</small>
+                                        {% if us['status_id'] == 3 %} <!-- expired -->
+                                            <small class="text-muted">{{ _('Payment is past due') }}:</small>
+                                        {% else %}
+                                            <small class="text-muted">{{ _('Next payment') }}:</small>
+                                        {% endif %}
+                                        {% if us['status_id'] == 4 %} <!-- wait_for_payment -->
+                                            <small class="payment-wait" data-order_code="{{ us['order']['code'] }}">
+                                                {{ _('Waiting for payment') }}
+                                            </small>
+                                        {% else %}
+                                            {% if us['expire_date'] %}
+                                                <small>{{ moment(us['expire_date'] | strftime).fromNow() }}</small>
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
                             {% endif %}
@@ -222,13 +238,6 @@
                                             </thead>
                                             <tbody>
                                             {% for payment in payments %}
-                                                {% if payment['type_id'] == 1 %} <!-- FREE -->
-                                                    {% set email = "t@t.t" %}
-                                                    {% set type = 'Free Subscription' %}
-                                                    {% set sum = "$0" %}
-                                                    {% set method = "-" %}
-                                                    {% set invoice_link = "#" %}
-                                                {% endif %}
                                                 {% if payment['status_id'] == 1 %}
                                                     {% set status = _('success') %}
                                                 {% elif payment['status_id'] == 2 %}

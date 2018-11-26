@@ -4,7 +4,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, render_template, session, jsonify, request, url_for, json
 
-from app import rrn_user_service, rrnservice_service, app_config, rrn_orders_service, RRNServiceType
+from app import rrn_usersapi_service, rrn_servicesapi_service, app_config, rrn_ordersapi_service, RRNServiceType
 from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
@@ -30,13 +30,13 @@ def pull_lang_code(endpoint, values):
 def profile_page():
     logger.info('profile_page method')
 
-    user_uuid = session['user']['uuid']
+    user_uuid = session.get('user').get('uuid')
 
     try:
-        user_services = rrn_user_service.get_user_subscriptions(user_uuid=user_uuid)
+        user_services = rrn_usersapi_service.get_user_services(user_uuid=user_uuid)
     except APIException:
         user_services = []
-    services = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
+    services = rrn_servicesapi_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
     services = {services[i]['id']: services[i] for i in range(0, len(services))}
     if services is None:
         pass
@@ -45,29 +45,24 @@ def profile_page():
         us['service'] = sub
 
         us_order_uuid = us['order_uuid']
-        us_order = rrn_orders_service.get_order(suuid=us_order_uuid)
-        api_response = rrn_orders_service.get_order_payments(order_uuid=us_order['uuid'])
+        us_order = rrn_ordersapi_service.get_order(suuid=us_order_uuid)
+        api_response = rrn_ordersapi_service.get_order_payments(order_uuid=us_order['uuid'])
         us_order['payments'] = api_response.data
 
         us['order'] = us_order
 
     try:
-        user_device_list = rrn_user_service.get_user_devices(user_uuid=user_uuid)
+        user_device_list = rrn_usersapi_service.get_user_devices(user_uuid=user_uuid)
     except (APIException, APINotFoundException) as e:
         user_device_list = []
 
     try:
-        user_vpn_servers = rrn_user_service.get_user_vpn_servers(user_uuid=user_uuid)
+        user_vpn_servers = rrn_usersapi_service.get_user_vpn_servers(user_uuid=user_uuid)
     except (APIException, APINotFoundException) as e:
         user_vpn_servers = []
 
     return render_template('profile/profile.html', code=HTTPStatus.OK, user_services=user_services,
                            user_devices=user_device_list, user_vpn_servers=user_vpn_servers)
-
-
-@mod_profile.url_value_preprocessor
-def pull_lang_code(endpoint, values):
-    _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
 
 
 @mod_profile.route('/generate_pincode', methods=['GET'])
@@ -85,7 +80,7 @@ def generate_pincode():
     user_session = session['user']
 
     logger.debug("Refresh user from service")
-    updated_user_json = rrn_user_service.get_user(uuid=user_session['uuid'])
+    updated_user_json = rrn_usersapi_service.get_user(uuid=user_session['uuid'])
 
     logger.debug("Updater user in session")
     session['user'] = updated_user_json
@@ -123,7 +118,7 @@ def generate_pincode():
             pin_code = random_with_n_digits(4)
             logger.debug(f"PIN code: {pin_code}")
             logger.debug("Searching user by new generated pin code")
-            rrn_user_service.get_user(pin_code=pin_code)
+            rrn_usersapi_service.get_user(pin_code=pin_code)
             logger.debug("Found")
         except APIException:
             logger.debug("User not found")
@@ -137,7 +132,7 @@ def generate_pincode():
     updated_user_json['pin_code_expire_date'] = pin_code_expire_date.isoformat()
     updated_user_json['modify_reason'] = 'generate pin code'
 
-    rrn_user_service.update_user(user_json=updated_user_json)
+    rrn_usersapi_service.update_user(user_json=updated_user_json)
 
     delta = pin_code_expire_date - now
 
@@ -163,7 +158,7 @@ def is_pin_code_activated():
 
     r = AjaxResponse(success=True)
 
-    updated_user_json = rrn_user_service.get_user(uuid=session['user']['uuid'])
+    updated_user_json = rrn_usersapi_service.get_user(uuid=session['user']['uuid'])
     session['user'] = updated_user_json
 
     is_pin_code_activated_var = updated_user_json.get('is_pin_code_activated')
@@ -186,7 +181,7 @@ def delete_user_device():
 
     device_uuid = data.get('device_uuid')
 
-    rrn_user_service.delete_user_device(user_uuid=session.get('user').get('uuid'), device_uuid=device_uuid)
+    rrn_usersapi_service.delete_user_device(user_uuid=session.get('user').get('uuid'), device_uuid=device_uuid)
 
     r.set_success()
     resp = jsonify(r.serialize())
@@ -206,8 +201,8 @@ def change_status_user_device():
     device_uuid = data.get('device_uuid')
     status = data.get('status')
 
-    rrn_user_service.change_status_user_device(user_uuid=session['user']['uuid'], device_uuid=device_uuid,
-                                               status=status)
+    rrn_usersapi_service.change_status_user_device(user_uuid=session['user']['uuid'], device_uuid=device_uuid,
+                                                   status=status)
 
     r.set_success()
     resp = jsonify(r.serialize())

@@ -7,15 +7,17 @@ from uuid import UUID
 from flask import Blueprint, request, render_template, \
     session, jsonify, redirect, url_for, abort
 
-from app import rrn_user_service, rrn_orders_service, app_config, rrnservice_service, email_service, RRNServiceType
+from app import rrn_usersapi_service, rrn_ordersapi_service, app_config, rrn_servicesapi_service, email_service, \
+    RRNServiceType, user_policy
 from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user, login_required
 from app.models import AjaxResponse, AjaxError
-from app.models.exception import DFNError
+from app.models.exception import DFNError, UserPolicyException
 from app.models.order_status import OrderStatus
 from app.models.user_service_status import UserServiceStatus
+from utils import check_uuid
 
 sys.path.insert(0, '../rest_api_library')
-from rest import APIException
+from rest import APIException, APINotFoundException
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_order = Blueprint('order', __name__, url_prefix='/<lang_code>/order')
@@ -33,38 +35,6 @@ def pull_lang_code(endpoint, values):
     _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
 
 
-def create_user_subscription(order_uuid: str, status_id: int, subscription_id: str) -> bool:
-    logger.info('create_user_subscription method with parameters subscription_id: %s, order_uuid: %s' % (
-        subscription_id, order_uuid))
-
-    # create user subscription with created order
-    logger.debug('get user_uuid and user_email')
-    user_uuid = session.get('user').get('uuid')
-    user_email = session.get('user').get('email')
-
-    try:
-        logger.info("Creating user subscription...")
-        user_subscription = rrn_user_service.create_user_subscription(user_uuid=user_uuid, status_id=status_id,
-                                                                      subscription_id=subscription_id,
-                                                                      order_uuid=order_uuid)
-        logger.error(f"user subscription was created: {user_subscription}")
-    except APIException as e:
-        logger.debug(e.serialize())
-        return False
-
-    logger.debug('get subscription name')
-    subscriptions_dict = rrnservice_service.get_services_dict(lang_code=session.get('lang_code'))
-    sub = subscriptions_dict.get(int(subscription_id))
-
-    logger.debug('send user email')
-    email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=sub.get('name'))
-
-    logger.debug('authorise user in system')
-    authorize_user(user_json=session.get('user'))
-
-    return True
-
-
 @mod_order.route('', methods=['GET'])
 def order_page():
     logger.info('order_page method')
@@ -73,48 +43,77 @@ def order_page():
         # create new order
         try:
             logger.info("create order")
-            order_json = rrn_orders_service.create_order(status=OrderStatus.NEW.sid)
+            order_json = rrn_ordersapi_service.create_order(status=OrderStatus.NEW.sid)
             session['order'] = order_json
             logger.debug("order created: %s" % order_json)
         except APIException as e:
             logger.debug(e.serialize())
             abort(500)
 
-    subscriptions = rrnservice_service.get_services_by_type(service_type=RRNServiceType.VPN_SUBSCRIPTION)
-    logger.debug("got subscriptions. Size: %s" % len(subscriptions))
+    subscriptions = user_policy.get_user_available_services()
+    logger.debug("got services. Size: %s" % len(subscriptions))
 
     return render_template('order/order.html', subscriptions=subscriptions, code=200)
 
 
-@mod_order.route('/payment_url', methods=['GET'])
-def payment_url():
-    logger.info('payment_url method')
+@mod_order.route('/submit', methods=['POST'])
+def submit_order() -> bool:
+    logger.info('submit_order method')
 
     r = AjaxResponse(success=True)
 
-    order_code = request.args.get('order_code', None)
-    subscription_id = request.args.get('subscription_id', None)
-    payment_method_id = request.args.get('payment_method_id', None)
-    user_locale = session['user_locale']
+    email = request.form.get('email', None)
+    password = request.form.get('password', None)
+    password_repeat = request.form.get('password_repeat', None)
 
-    redirect_url = build_payment_url(user_uuid=session.get('user').get('uuid'), subscription_id=subscription_id,
-                                     order_code=order_code, payment_method_id=payment_method_id,
-                                     user_locale=user_locale)
-    r.add_data('redirect_url', redirect_url)
+    is_trial_available = False
+    order_uuid = session.get('order').get('uuid')
+    service_id = session.get('order').get('service_id')
+
+    if 'user' not in session:
+        is_trial_available = True
+        try:
+            logger.debug('create user')
+            user_json = user_policy.create_user(email=email, password=password, password_repeat=password_repeat)
+            logger.debug('authorise user in system')
+            authorize_user(user_json=user_json)
+        except UserPolicyException as e:
+            r.set_failed()
+            error = AjaxError(message=e.error, code=e.error_code, developer_message=e.developer_message)
+            r.add_error(error)
+            resp = jsonify(r.serialize())
+            resp.code = HTTPStatus.BAD_REQUEST
+            return resp
+    else:
+        user_json = session.get('user')
+        is_trial_available = user_policy.is_trial_available_for_service(user_uuid=user_json['uuid'],
+                                                                        service_id=service_id)
+        # TODO if trial is not available check payment
+
+    user_uuid = user_json.get('uuid')
+    user_email = user_json.get('email')
+
+    try:
+        user_policy.create_user_service(user_uuid=user_uuid, service_id=service_id, order_uuid=order_uuid,
+                                        is_trial=is_trial_available)
+    except UserPolicyException as e:
+        r.set_failed()
+        error = AjaxError(message=e.error, code=e.error_code, developer_message=e.developer_message)
+        r.add_error(error)
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.BAD_REQUEST
+        return resp
+
+    logger.debug('get service')
+    service = rrn_servicesapi_service.get_service_by_id(service_id=service_id)
+
+    logger.debug('send user email')
+    email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=service.get('service_name'))
+
     r.set_success()
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK
     return resp
-
-
-def build_payment_url(user_uuid: UUID, subscription_id: str, order_code: int, payment_method_id: int,
-                      subscription_uuid: UUID = None, user_locale: str = None):
-    session['order']['subscription_id'] = subscription_id
-
-    redirect_url = ""
-
-    session['order']['redirect_url'] = redirect_url
-    return redirect_url
 
 
 @mod_order.route('/<int:order_code>/payment')
@@ -125,7 +124,7 @@ def get_order_payment(order_code: int):
     r = AjaxResponse(success=True)
 
     try:
-        order_json = rrn_orders_service.get_order(code=order_code)
+        order_json = rrn_ordersapi_service.get_order(code=order_code)
     except APIException as e:
         logger.debug(e.serialize())
         r.set_failed()
@@ -140,16 +139,36 @@ def get_order_payment(order_code: int):
     is_order_success = order_json['status_id'] == OrderStatus.SUCCESS.sid
 
     order_r = {
-        'is_success': order_json['status_id'] == OrderStatus.SUCCESS.sid,
+        'is_success': is_order_success,
         'code': order_code
     }
 
     if is_order_success:
-        api_response = rrn_orders_service.get_order_payments(order_uuid=order_json['uuid'])
+        api_response = rrn_ordersapi_service.get_order_payments(order_uuid=order_json['uuid'])
         order_r['payments'] = api_response.data
 
     r.add_data('order', order_r)
     r.set_success()
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK
+    return resp
+
+
+@mod_order.route('/choose_pack', methods=['POST'])
+def choose_service_pack() -> bool:
+    logger.info('choose_service_pack method')
+
+    r = AjaxResponse(success=True)
+
+    data = json.loads(request.data)
+
+    service_id = data.get('service_id', None)
+    if service_id is None:
+        r.set_failed()
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.BAD_REQUEST
+    else:
+        session['order']['service_id'] = service_id
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.OK
     return resp

@@ -1,14 +1,20 @@
 'use strict';
 
 // account details save in local storage
-const LS_ORDER_KEY = 'order', LS_ORDER_PACK_ID_KEY = 'pack_id', LS_ORDER_ACCOUNT_KEY = 'account',
-    LS_ORDER_ACCOUNT_EMAIL_KEY = 'email', LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password',
+const
+    LS_ORDER_KEY = 'order',
+    LS_ORDER_PACK_ID_KEY = 'pack_id',
+    LS_ORDER_ACCOUNT_KEY = 'account',
+    LS_ORDER_ACCOUNT_EMAIL_KEY = 'email',
+    LS_ORDER_ACCOUNT_PASSWORD_KEY = 'password',
     LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY = 'password_confirm';
 
-$(window).on('load', function() {
+$(window).on('load', function () {
+    const $profilePageURLObj = $("meta#profile_page_url");
     const $emailCheckURLObj = $("meta#email_check_url");
-    const $getPaymentUrlURLObj = $("meta#get_payment_url_url");
-    const $chosenSubTemplateURLObj = $("#chosen_sub_url");
+    const $isTrialAvailableURLObj = $("meta#is_trial_available_url");
+    const $chosenSubTemplateURLObj = $("meta#chosen_sub_url");
+    const $chooseServicePackURLObj = $("meta#choose_service_pack_url");
 
     const $subscriptionDataObj = $("#subscriptionsData");
 
@@ -21,7 +27,7 @@ $(window).on('load', function() {
 
     const $paymentMethodsModal = $("#payment_methods-modal");
 
-    let UNDERSCORE_CHOSEN_SUB_TMPLT, USER_REGISTERED, ORDER_LS, CHOSEN_PACK, ACCOUNT_LS;
+    let VPN_FREE, VPN_TRIAL, UNDERSCORE_CHOSEN_SUB_TMPLT, USER_REGISTERED, ORDER_LS, CHOSEN_PACK, ACCOUNT_LS;
 
     blockPage(null, init);
 
@@ -34,8 +40,9 @@ $(window).on('load', function() {
     // checkout sub btn
     $('.btn-checkout').on('click', function () {
         CHOSEN_PACK = $(this).data('id');
-        setChosenPack(CHOSEN_PACK);
-        goToStep('right');
+        setChosenPack(CHOSEN_PACK, function () {
+            goToStep('right');
+        });
     });
 
     // next step
@@ -60,8 +67,6 @@ $(window).on('load', function() {
     function goToStep(progress_direction, newStepId) {
         let $currentStep = $('.order-form').find('.order-progress-step.active');
         let currentStepId = $currentStep.data('id');
-
-        let is_allow_next_step = true;
 
         if (!newStepId || newStepId === '') {
             if (progress_direction === 'left') {
@@ -91,17 +96,17 @@ $(window).on('load', function() {
         // business logic for right direction
         if (progress_direction === 'right') {
             if (currentStepId === 'pack') {
-                is_allow_next_step = packToAccount();
+                packToAccount(function () {
+                    _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum, byStep);
+                });
             } else if (currentStepId === 'account') {
-                is_allow_next_step = accountToPayment();
+                accountToPayment(function () {
+                    _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum, byStep);
+                });
             }
-
-            if (!is_allow_next_step) {
-                return;
-            }
+        } else {
+            _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum, byStep);
         }
-
-        _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum, byStep);
     }
 
     function _goToStep($currentStepFieldset, $currentStep, $newStep, progress_direction, $newStepFieldset, currStepNum, newStepNum, byStep) {
@@ -147,15 +152,24 @@ $(window).on('load', function() {
         $progressBar.attr('style', 'width: ' + new_value + '%;').data('now-value', new_value);
     }
 
-    function packToAccount() {
+    function packToAccount(successCb) {
         const subsJSON = $subscriptionDataObj.data('dict');
         const chosenSubJSON = subsJSON[CHOSEN_PACK];
-        $(".chosen-subscription-name").text(chosenSubJSON['service_name']);
+        if (!chosenSubJSON) {
+            goToStep(null, 'pack');
+            return false;
+        }
+        try {
+            $(".chosen-subscription-name").text(chosenSubJSON['service_name']);
+        } catch (TypeError) {
+            goToStep(null, 'pack');
+            return false;
+        }
         chosenSubJSON['features'] = [];
-        let $featuresHtml = $(".subscription-" + chosenSubJSON['id']).filter(function() {
+        let $featuresHtml = $(".subscription-" + chosenSubJSON['id']).filter(function () {
             return $(this).css('display') === 'block';
         });
-        $featuresHtml.find("ul.pricing-content span").each(function() {
+        $featuresHtml.find("ul.pricing-content span").each(function () {
             const feature = {
                 "name": $(this).text(),
                 "enabled": !$(this).parent().hasClass("no-feature")
@@ -170,27 +184,58 @@ $(window).on('load', function() {
         html = UNDERSCORE_CHOSEN_SUB_TMPLT(subJSON);
         $(".chosen-subscription-mini").html(html);
 
-        return true;
+        checkTrialAvailable(successCb);
     }
 
-    function accountToPayment() {
-        checkEmail();
+    function accountToPayment(successCb) {
 
-        if (USER_REGISTERED) {
-            return true;
+        const subsJSON = $subscriptionDataObj.data('dict');
+        const chosenSubJSON = subsJSON[CHOSEN_PACK];
+
+        // TODO promo or some sale price will be here
+        $(".last_step-price").text("$" + chosenSubJSON['price']);
+
+        if (!USER_REGISTERED) {
+            let is_pwd_ok = checkPassword();
+            if (!is_pwd_ok) {
+                return false;
+            }
+            is_pwd_ok = checkRepeatPassword();
+            if (!is_pwd_ok) {
+                return false;
+            }
+
+            if ($emailInput.hasClass('is-invalid')) {
+                return false;
+            }
         }
 
-        let is_pwd_ok = checkPassword();
-        if (!is_pwd_ok) {
-            return false;
-        }
-        is_pwd_ok = checkRepeatPassword();
+        checkTrialAvailable(function () {
+            if (!USER_REGISTERED) {
+                checkEmail(successCb);
+            } else {
+                successCb();
+            }
 
-        if ($emailInput.hasClass('is-invalid')) {
-            return false;
-        }
-
-        return is_pwd_ok;
+            // free subscription
+            if (parseInt(chosenSubJSON['price']) === 0) {
+                VPN_FREE = true;
+                $(".need_payment").hide();
+                $(".free_payment").show();
+                $(".trial_payment").hide()
+                // trial subscription
+            } else if (chosenSubJSON['is_trial'] && VPN_TRIAL) {
+                $(".need_payment").hide();
+                $(".free_payment").hide();
+                $(".trial_payment").show();
+                $(".trial_days").text(chosenSubJSON['trial_period_days']);
+                $(".last_step-price").text("$0.00");
+            } else {
+                $(".need_payment").show();
+                $(".free_payment").hide();
+                $(".trial_payment").hide()
+            }
+        });
     }
 
     // prevent form submit by pressing enter button
@@ -203,19 +248,19 @@ $(window).on('load', function() {
 
     $orderForm.on('submit', function (e) {
         e.preventDefault();
-        let paymentMethodVal = $.trim($("#payment_method").val());
-        if (!paymentMethodVal || paymentMethodVal === '') {
-            $('#payment-method-error').show();
-            return false;
+        if (VPN_FREE !== true && VPN_TRIAL !== true) {
+            let paymentMethodVal = $.trim($("#payment_method").val());
+            if (!paymentMethodVal || paymentMethodVal === '') {
+                $('#payment-method-error').show();
+                return false;
+            }
         }
+
         let that = this;
         $(that).ajaxSubmit({
             success: function (response) {
                 if (response['success']) {
-                    console.log(JSON.stringify(response));
-                    getPaymentPageURL(function () {
-                        setToLocalStorage(LS_ORDER_KEY, {});
-                    });
+                    window.location = $profilePageURLObj.data("url");
                 } else {
                     if (response.hasOwnProperty('errors')) {
                         showErrors(response);
@@ -228,18 +273,6 @@ $(window).on('load', function() {
             }
         });
     });
-
-    function getPaymentPageURL(callback) {
-        let orderCodeVal = $.trim($("#order_code").text());
-        let subscriptionIdVal = $.trim($("#subscription-id").val());
-        let paymentMethodVal = $.trim($("#payment_method").val());
-
-        let getPaymentURL = $getPaymentUrlURLObj.data('url');
-        let getPaymentURLMethod = $getPaymentUrlURLObj.data('method');
-
-        redirectToPaymentPage(orderCodeVal, subscriptionIdVal, paymentMethodVal, 'order', getPaymentURL,
-            getPaymentURLMethod, callback);
-    }
 
     $paymentMethodsModal.on('hide.bs.modal', function (e) {
         // if in modal nothing was chosen - do nothing
@@ -282,7 +315,28 @@ $(window).on('load', function() {
         checkRepeatPassword();
     });
 
-    function checkEmail() {
+    function checkTrialAvailable(successCb) {
+        const isAsync = true;
+
+        const successCallback = function (response) {
+            if (response.hasOwnProperty('success') && response['success']) {
+                VPN_TRIAL = response['data']['is_vpn_trial'];
+            } else {
+                VPN_TRIAL = false;
+            }
+
+            if (successCb) successCb();
+        };
+
+        const errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($isTrialAvailableURLObj.data('url'), $isTrialAvailableURLObj.data('method'), {},
+            isAsync, successCallback, errorCallback);
+    }
+
+    function checkEmail(successCb) {
         let isEmailEmpty;
         let emailVal = $.trim($emailInput.val());
         if (emailVal === '') {
@@ -319,6 +373,7 @@ $(window).on('load', function() {
                 if (isEmailEmpty === false) {
                     $emailInput.parent().find('.empty_error').hide();
                     markInput($emailInput, true);
+                    if (successCb) successCb();
                 }
             }
         };
@@ -327,7 +382,7 @@ $(window).on('load', function() {
             notyError("System Error");
         };
 
-        doAjax($emailCheckURLObj.data('url'), $emailCheckURLObj.data('method'), data, isAsync, successCallback, errorCallback)
+        doAjax($emailCheckURLObj.data('url'), $emailCheckURLObj.data('method'), data, isAsync, successCallback, errorCallback);
     }
 
     function checkPassword() {
@@ -404,9 +459,10 @@ $(window).on('load', function() {
                 $('#pack-fieldset').fadeIn('slow');
             } else {
                 $packInput.val(CHOSEN_PACK);
-                goToStep('right');
+                setChosenPack(CHOSEN_PACK, function () {
+                    goToStep('right');
+                });
             }
-
             unblockPage();
         });
     }
@@ -485,12 +541,31 @@ $(window).on('load', function() {
         return chosenPack;
     }
 
-    function setChosenPack(chosenPack) {
-        if (isLocalStorageSupported()) {
-            ORDER_LS[LS_ORDER_PACK_ID_KEY] = chosenPack;
-            setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
-        } else {
-            $packInput.val(chosenPack);
-        }
+    function setChosenPack(chosenPack, successCb) {
+        let data = {
+            'service_id': chosenPack
+        };
+
+        const isAsync = true;
+
+        const successCallback = function (response) {
+            if (!response.hasOwnProperty('success') || !response['success']) {
+                showErrors(response);
+            } else {
+                if (isLocalStorageSupported()) {
+                    ORDER_LS[LS_ORDER_PACK_ID_KEY] = chosenPack;
+                    setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
+                } else {
+                    $packInput.val(chosenPack);
+                }
+                successCb();
+            }
+        };
+
+        const errorCallback = function (response) {
+            notyError("System Error");
+        };
+
+        doAjax($chooseServicePackURLObj.data('url'), $chooseServicePackURLObj.data('method'), JSON.stringify(data), isAsync, successCallback, errorCallback);
     }
 });

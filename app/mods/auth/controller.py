@@ -1,3 +1,4 @@
+import datetime
 import json
 import logging
 import sys
@@ -7,7 +8,7 @@ from flask import Blueprint, request, render_template, \
     g, session, redirect, url_for, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import rrn_user_service, app_config
+from app import rrn_usersapi_service, app_config, rrn_servicesapi_service, user_policy
 from app.flask_utils import login_required, authorize_user, _add_language_code, _pull_lang_code
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
@@ -32,90 +33,6 @@ def pull_lang_code(endpoint, values):
     _pull_lang_code(endpoint=endpoint, values=values, app_config=app_config)
 
 
-@mod_auth.route('/signup', methods=['POST'])
-def signup():
-    logger.info('signup method')
-
-    r = AjaxResponse(success=True)
-
-    email = request.form.get('email', None)
-    password = request.form.get('password', None)
-    password_repeat = request.form.get('password_repeat', None)
-    existed_user_uuid = request.form.get('existed_user_uuid', None)
-
-    is_uuid = check_uuid(suuid=existed_user_uuid)
-    if is_uuid:
-        try:
-            rrn_user_service.get_user(uuid=existed_user_uuid)
-            r.set_success()
-            resp = jsonify(r.serialize())
-            resp.code = HTTPStatus.OK
-            return resp
-        except (APINotFoundException, APIException):
-            email = None
-            password = None
-            password_repeat = None
-
-    if email is None or password is None or password_repeat is None or password != password_repeat:
-        r.set_failed()
-        error = AjaxError(message=DFNError.USER_SIGNUP_FIELDS_INCOMPLETE.message,
-                          code=DFNError.USER_SIGNUP_FIELDS_INCOMPLETE.code,
-                          developer_message=DFNError.USER_SIGNUP_FIELDS_INCOMPLETE.developer_message)
-        r.add_error(error)
-        resp = jsonify(r.serialize())
-        resp.code = HTTPStatus.OK
-        return resp
-
-    try:
-        # try to find user by email
-        rrn_user_service.get_user(email=email)
-        r.set_failed()
-        error = AjaxError(message=DFNError.USER_SIGNUP_EMAIL_BUSY.message,
-                          code=DFNError.USER_SIGNUP_EMAIL_BUSY.code,
-                          developer_message=DFNError.USER_SIGNUP_EMAIL_BUSY.developer_message)
-        r.add_error(error)
-        resp = jsonify(r.serialize())
-        resp.code = HTTPStatus.OK
-        return resp
-    except APINotFoundException:
-        pass
-    except APIException as e:
-        logging.debug(e.serialize())
-        r.set_failed()
-        error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
-                          code=DFNError.UNKNOWN_ERROR_CODE.code,
-                          developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
-        r.add_error(error)
-        resp = jsonify(r.serialize())
-        resp.code = e.http_code
-        return resp
-
-    # try to register user
-    try:
-        user_json = rrn_user_service.create_user(email=email, password=password)
-        user_json.pop('password')
-        logging.info("created user: %s" % user_json)
-    except APIException as e:
-        logger.debug(e.serialize())
-        r.set_failed()
-        error = AjaxError(message=DFNError.UNKNOWN_ERROR_CODE.message,
-                          code=DFNError.UNKNOWN_ERROR_CODE.code,
-                          developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
-        r.add_error(error)
-        resp = jsonify(r.serialize())
-        resp.code = e.http_code
-        return resp
-
-    # try to auth user
-    authorize_user(user_json=user_json)
-    logging.info("User authorized")
-
-    r.set_success()
-    resp = jsonify(r.serialize())
-    resp.code = HTTPStatus.OK
-    return resp
-
-
 @mod_auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     logger.info('signin method')
@@ -137,11 +54,12 @@ def signin():
             r.add_error(error)
         else:
             try:
-                user_json = rrn_user_service.get_user(email=email)
+                user_json = rrn_usersapi_service.get_user(email=email)
             except APINotFoundException as e:
                 logging.debug(e.serialize())
                 r.set_failed()
-                error = AjaxError(message=DFNError.USER_LOGIN_NOT_EXIST.message, code=DFNError.USER_LOGIN_NOT_EXIST.code,
+                error = AjaxError(message=DFNError.USER_LOGIN_NOT_EXIST.message,
+                                  code=DFNError.USER_LOGIN_NOT_EXIST.code,
                                   developer_message=DFNError.USER_LOGIN_NOT_EXIST.developer_message)
                 r.add_error(error)
                 resp = jsonify(r.serialize())
@@ -230,7 +148,7 @@ def is_email_busy():
 
     try:
         # try to find user by email
-        rrn_user_service.get_user(email=email)
+        rrn_usersapi_service.get_user(email=email)
         r.set_failed()
         error = AjaxError(message=DFNError.USER_SIGNUP_EMAIL_BUSY.message,
                           code=DFNError.USER_SIGNUP_EMAIL_BUSY.code,
@@ -259,7 +177,7 @@ def update_email():
 
     try:
         # try to find user by email
-        rrn_user_service.get_user(email=email)
+        rrn_usersapi_service.get_user(email=email)
         r.set_failed()
         error = AjaxError(message=DFNError.USER_PROFILE_EMAIL_BUSY.message,
                           code=DFNError.USER_PROFILE_EMAIL_BUSY.code,
@@ -273,7 +191,7 @@ def update_email():
         user_json['email'] = email
         user_json['modify_reason'] = 'change email'
 
-        rrn_user_service.update_user(user_json=user_json)
+        rrn_usersapi_service.update_user(user_json=user_json)
 
         session['user'] = user_json
 
@@ -299,7 +217,7 @@ def update_password():
     user_json['password'] = password
     user_json['modify_reason'] = 'change password'
 
-    rrn_user_service.update_user(user_json=user_json)
+    rrn_usersapi_service.update_user(user_json=user_json)
 
     session['user'] = user_json
 
@@ -335,12 +253,39 @@ def delete_account():
     user_json['enabled'] = False
     user_json['modify_reason'] = 'delete account'
 
-    rrn_user_service.update_user(user_json=user_json)
+    rrn_usersapi_service.update_user(user_json=user_json)
 
     session['user'] = user_json
 
     r.set_success()
     r.set_next(url_for('auth.logout', lang_code=session['lang_code']))
+    resp = jsonify(r.serialize())
+    resp.code = HTTPStatus.OK
+    return resp
+
+
+@mod_auth.route('/is_trial_available', methods=['GET'])
+def is_trial_available():
+    logger.info("is_trial_available_url method")
+
+    r = AjaxResponse(success=True)
+
+    data = {
+        'is_vpn_trial': True,
+    }
+
+    service_id = session.get('order').get('service_id', None)
+    if service_id is None:
+        r.set_failed()
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.BAD_REQUEST
+        return resp
+
+    if 'user' in session:
+        user_uuid = session.get('user').get('uuid')
+        data['is_vpn_trial'] = user_policy.is_trial_available_for_service(user_uuid=user_uuid, service_id=service_id)
+
+    r.set_data(data)
     resp = jsonify(r.serialize())
     resp.code = HTTPStatus.OK
     return resp
