@@ -8,16 +8,16 @@ from flask import Blueprint, request, render_template, \
     session, jsonify, redirect, url_for, abort
 
 from app import rrn_usersapi_service, rrn_ordersapi_service, app_config, rrn_servicesapi_service, email_service, \
-    RRNServiceType, user_policy
+    RRNServiceType, user_policy, order_policy
 from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user, login_required
 from app.models import AjaxResponse, AjaxError
-from app.models.exception import DFNError, UserPolicyException
+from app.models.exception import DFNError, UserPolicyException, OrderPolicyException
 from app.models.order_status import OrderStatus
 from app.models.user_service_status import UserServiceStatus
-from utils import check_uuid
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APIException, APINotFoundException
+from utils import check_uuid
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_order = Blueprint('order', __name__, url_prefix='/<lang_code>/order')
@@ -43,17 +43,17 @@ def order_page():
         # create new order
         try:
             logger.info("create order")
-            order_json = rrn_ordersapi_service.create_order(status=OrderStatus.NEW.sid)
+            order_json = order_policy.create_order()
             session['order'] = order_json
             logger.debug("order created: %s" % order_json)
-        except APIException as e:
-            logger.debug(e.serialize())
+        except OrderPolicyException as e:
+            logger.error("OrderPolicyException: {}", e)
             abort(500)
 
-    subscriptions = user_policy.get_user_available_services()
-    logger.debug("got services. Size: %s" % len(subscriptions))
+    services = user_policy.get_user_available_services()
+    logger.debug("got services. Size: %s" % len(services))
 
-    return render_template('order/order.html', subscriptions=subscriptions, code=200)
+    return render_template('order/order.html', services=services, code=200)
 
 
 @mod_order.route('/submit', methods=['POST'])
@@ -92,10 +92,20 @@ def submit_order() -> bool:
 
     is_trial_available = user_policy.is_trial_available_for_service(user_uuid=user_json['uuid'],
                                                                     service_id=service_id)
-    # TODO if trial is not available check payment
+
+    # TODO if trial is not available we have to check payment, check order, change status of order
 
     user_uuid = user_json.get('uuid')
     user_email = user_json.get('email')
+
+    order_json = session.get('order')
+
+    try:
+        updated_order = order_policy.finish_order(order_json=order_json)
+        session['order'] = updated_order
+    except OrderPolicyException as e:
+        logger.error("OrderPolicyException: {}", e)
+        abort(500)
 
     try:
         user_policy.create_user_service(user_uuid=user_uuid, service_id=service_id, order_uuid=order_uuid,

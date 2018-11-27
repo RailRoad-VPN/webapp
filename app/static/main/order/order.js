@@ -257,20 +257,26 @@ $(window).on('load', function () {
         }
 
         let that = this;
-        $(that).ajaxSubmit({
-            success: function (response) {
-                if (response['success']) {
-                    window.location = $profilePageURLObj.data("url");
-                } else {
-                    if (response.hasOwnProperty('errors')) {
-                        showErrors(response);
+
+        blockPage(null, function () {
+            $(that).ajaxSubmit({
+                success: function (response) {
+                    if (response['success']) {
+                        window.location = $profilePageURLObj.data("url");
+                    } else {
+                        if (response.hasOwnProperty('errors')) {
+                            showErrors(response);
+                        }
+                        unblockPage()
                     }
+                },
+                error: function (response) {
+                    console.log(JSON.stringify(response));
+                    notyError("error");
                 }
-            },
-            error: function (response) {
-                console.log(JSON.stringify(response));
-                notyError("error");
-            }
+            }).done(function (msg) {
+                unblockPage();
+            });
         });
     });
 

@@ -40,7 +40,6 @@ class DFNError(APIErrorEnum):
     USER_LOGIN_LOCKED = (name + str(count()), _l('Unable to log in. You account was locked. If you want to unlock account please contact support'), _('d'))
     USER_LOGIN_EXPIRED = (name + str(count()), _l('Unable to log in. You account was expired. If you want to restore account please contact support'), _('d'))
 
-    USER_UNKNOWN_ERROR = (name + str(count()), _l('Unable to log in. Please check the login details'), _('d'))
     USER_PASSWORDS_NOT_MATCH = (name + str(count()), _l('Password does not match'), _('d'))
 
     USER_PROFILE_EMAIL_BUSY = (name + str(count()), _l('Entered email is busy'), _('d'))
@@ -48,6 +47,20 @@ class DFNError(APIErrorEnum):
 
 
 class UserPolicyException(Exception):
+    __version__ = 1
+
+    error = None
+    error_code = None
+    developer_message = None
+
+    def __init__(self, error: str, error_code: int, developer_message: str = None, *args):
+        super().__init__(*args)
+        self.error = error
+        self.error_code = error_code
+        self.developer_message = developer_message
+
+
+class OrderPolicyException(Exception):
     __version__ = 1
 
     error = None

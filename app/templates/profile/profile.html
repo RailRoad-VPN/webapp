@@ -68,8 +68,6 @@
 
 {% block meta %}
     <meta id="get_pincode_url" data-method="GET" data-url="{{ url_for('profile.generate_pincode') }}">
-    <meta id="get_order_payment_url" data-method="GET"
-          data-url="{{ url_for('order.get_order_payment', order_code=-1) }}">
     <meta id="delete_user_device_url" data-method="POST" data-url="{{ url_for('profile.delete_user_device') }}">
     <meta id="change_status_user_device_url" data-method="POST"
           data-url="{{ url_for('profile.change_status_user_device') }}">

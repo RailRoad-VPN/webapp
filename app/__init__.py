@@ -62,6 +62,7 @@ rrn_servicesapi_service = RRNServicesAPIService(billing_service=rrn_billingapi_s
 
 
 user_policy = UserPolicy(rrn_users_api_service=rrn_usersapi_service, rrn_services_api_service=rrn_servicesapi_service)
+order_policy = OrderPolicy(rrn_orders_api_service=rrn_ordersapi_service)
 
 from app.flask_utils import before_request, get_locale
 

@@ -1,30 +1,29 @@
 'use strict';
 
 $(document).ready(function () {
-    var changeStatusUserDeviceBlockText = $("meta#change_status_user_device_block_text").data('text');
-    var emailSavedText = $("meta#email_saved_text").data('text');
-    var passwordSavedText = $("meta#password_saved_text").data('text');
+    let changeStatusUserDeviceBlockText = $("meta#change_status_user_device_block_text").data('text');
+    let emailSavedText = $("meta#email_saved_text").data('text');
+    let passwordSavedText = $("meta#password_saved_text").data('text');
 
-    var $getPinCodeUrlObj = $("meta#get_pincode_url");
-    var $getOrderPaymentUrlObj = $("meta#get_order_payment_url");
-    var $deleteUserDeviceUrlObj = $("meta#delete_user_device_url");
-    var $changeStatusUserDeviceUrlObj = $("meta#change_status_user_device_url");
-    var $deleteAccountUrlObj = $("meta#delete_account_url");
-    var $isPincodeActivatedUrlObj = $("meta#is_pin_code_activated_url");
+    let $getPinCodeUrlObj = $("meta#get_pincode_url");
+    let $deleteUserDeviceUrlObj = $("meta#delete_user_device_url");
+    let $changeStatusUserDeviceUrlObj = $("meta#change_status_user_device_url");
+    let $deleteAccountUrlObj = $("meta#delete_account_url");
+    let $isPincodeActivatedUrlObj = $("meta#is_pin_code_activated_url");
 
-    var $updateEmailUrlObj = $("meta#update_email_url");
-    var $updatePasswordUrlObj = $("meta#update_password_url");
-    var $emailCheckURLObj = $("meta#email_check_url");
+    let $updateEmailUrlObj = $("meta#update_email_url");
+    let $updatePasswordUrlObj = $("meta#update_password_url");
+    let $emailCheckURLObj = $("meta#email_check_url");
 
-    var $el, leftPos, newWidth;
+    let $el, leftPos, newWidth;
 
-    var $menu = $("#profile-menu");
-    var $menuItems = $menu.find("li");
-    var $menuItemsLinks = $menuItems.find('a');
+    let $menu = $("#profile-menu");
+    let $menuItems = $menu.find("li");
+    let $menuItemsLinks = $menuItems.find('a');
 
-    var $generatePinBtn = $(".generate-pin-btn");
+    let $generatePinBtn = $(".generate-pin-btn");
 
-    var is_user_has_active_subscribe = $(".is_user_has_active_subscribe").length > 0;
+    let is_user_has_active_subscribe = $(".is_user_has_active_subscribe").length > 0;
 
     if (!is_user_has_active_subscribe) {
         $generatePinBtn.addClass("disabled");
@@ -36,11 +35,11 @@ $(document).ready(function () {
         console.log("tab shown...");
     });
 
-    var $emailInput = $("#account-email-input");
-    var $passwordInput = $("#account-password-input");
-    var $deleteAccountEmailInput = $("#delete-account-email-input");
+    let $emailInput = $("#account-email-input");
+    let $passwordInput = $("#account-password-input");
+    let $deleteAccountEmailInput = $("#delete-account-email-input");
 
-    var table = $('#vpn_servers-table').DataTable({
+    let table = $('#vpn_servers-table').DataTable({
         paging: false,
         searching: true,
         language: {
@@ -56,7 +55,7 @@ $(document).ready(function () {
     $menu.append("<li id='magic-line'></li>");
 
     /* Cache it */
-    var $magicLine = $("#magic-line");
+    let $magicLine = $("#magic-line");
 
     placeMagicLine($menuItems.first());
 
@@ -93,9 +92,9 @@ $(document).ready(function () {
             // TODO notification to user
             return false;
         }
-        var isAsync = true;
+        let isAsync = true;
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
                 if (response.hasOwnProperty('data')) {
                     $('#pincode-t').text(response['data']['pin_code']);
@@ -114,7 +113,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
             unblockPage();
         };
@@ -125,12 +124,12 @@ $(document).ready(function () {
         });
     });
 
-    var checkPincodeInterval;
+    let checkPincodeInterval;
     $("#pincode-modal").on('shown.bs.modal', function () {
         checkPincodeInterval = setInterval(function () {
-            var isAsync = true;
+            let isAsync = true;
 
-            var successCallback = function (response) {
+            let successCallback = function (response) {
                 if (response['success']) {
                     if (response.hasOwnProperty('data') && response['data'].hasOwnProperty('is_pin_code_activated')) {
                         if (response['data']['is_pin_code_activated']) {
@@ -140,7 +139,7 @@ $(document).ready(function () {
                 }
             };
 
-            var errorCallback = function (response) {
+            let errorCallback = function (response) {
                 notyError("System Error");
             };
 
@@ -154,15 +153,15 @@ $(document).ready(function () {
     });
 
     $(".renew-sub-btn").click(function () {
-        var isAsync = true;
+        let isAsync = true;
 
-        var _data = {
+        let _data = {
             'sub_id': $(this).data('sub_id'),
             'order_code': $(this).data('order_code'),
             'subscription_uuid': $(this).data('subscription_uuid')
         };
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response['success']) {
                 window.location = response['data']['redirect_url'];
             } else {
@@ -172,7 +171,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -180,21 +179,11 @@ $(document).ready(function () {
             errorCallback);
     });
 
-    var order_intervals = {};
-
-    $(".payment-wait").each(function () {
-        var order_code = $(this).data('order_code');
-
-        order_intervals[order_code] = setInterval(function () {
-            getOrderByCode(order_code);
-        }, 5000);
-    });
-
     $(".change-status-device-btn").click(function () {
-        var device_uuid = $(this).data('uuid');
-        var is_active = $(this).data('is_active');
+        let device_uuid = $(this).data('uuid');
+        let is_active = $(this).data('is_active');
 
-        var n_status;
+        let n_status;
         if (is_active === 1) {
             n_status = 0
         } else {
@@ -204,7 +193,7 @@ $(document).ready(function () {
     });
 
     $(".delete-device-btn").click(function () {
-        var device_uuid = $(this).data('uuid');
+        let device_uuid = $(this).data('uuid');
 
         deleteUserDevice(device_uuid);
     });
@@ -228,7 +217,7 @@ $(document).ready(function () {
             markInput($emailInput, false);
             return false;
         }
-        var password = $passwordInput.val();
+        let password = $passwordInput.val();
 
         if (!checkPassword()) {
             return false;
@@ -238,7 +227,7 @@ $(document).ready(function () {
     });
 
     $("#account-delete-btn").click(function () {
-        var emailVal = $.trim($deleteAccountEmailInput.val());
+        let emailVal = $.trim($deleteAccountEmailInput.val());
 
         if ($deleteAccountEmailInput.data("current_email") !== emailVal) {
             markInput($deleteAccountEmailInput, false);
@@ -249,12 +238,12 @@ $(document).ready(function () {
         $deleteAccountEmailInput.parent().find('.error').hide();
         markInput($deleteAccountEmailInput, true);
 
-        var data = {
+        let data = {
             'email': emailVal
         };
-        var isAsync = true;
+        let isAsync = true;
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response.hasOwnProperty('success') && !response['success']) {
                 $deleteAccountEmailInput.parent().find('.correct_error').show();
                 markInput($deleteAccountEmailInput, false);
@@ -265,7 +254,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -273,54 +262,22 @@ $(document).ready(function () {
             errorCallback)
     });
 
-    function getOrderByCode(order_code) {
-        var isAsync = true;
-
-        var successCallback = function (response) {
-            if (response.hasOwnProperty('success') && response['success']) {
-                if (response.hasOwnProperty('data')) {
-                    var data = response['data'];
-                    if (data.hasOwnProperty('order')) {
-                        var order = data['order'];
-
-                        var is_success = order['is_success'];
-                        var code = order['code'];
-
-                        if (is_success === true) {
-                            clearInterval(order_intervals[code]);
-                            window.location.reload();
-                        }
-                    }
-                }
-            } else {
-                showErrors(response);
-            }
-        };
-
-        var errorCallback = function (response) {
-            notyError("System Error");
-        };
-
-        doAjax($getOrderPaymentUrlObj.data('url').replace(-1, order_code), $getOrderPaymentUrlObj.data('method'), {}, isAsync, successCallback,
-            errorCallback);
-    }
-
     function changeStatusUserDevice(user_device_uuid, n_status) {
-        var $device = $('.user-device[data-uuid="' + user_device_uuid + '"]');
-        var $deviceChangeStatusButton = $device.find(".change-status-device-btn");
+        let $device = $('.user-device[data-uuid="' + user_device_uuid + '"]');
+        let $deviceChangeStatusButton = $device.find(".change-status-device-btn");
 
-        var isAsync = true;
+        let isAsync = true;
 
-        var data = {
+        let data = {
             'device_uuid': user_device_uuid,
             'status': n_status === 1
         };
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
-                var $deviceBadge = $device.find('.badge-status');
-                var button_text;
-                var badge_text;
+                let $deviceBadge = $device.find('.badge-status');
+                let button_text;
+                let badge_text;
                 if (n_status === 1) {
                     // change badge
                     $deviceBadge.removeClass('badge-warning').addClass('badge-success');
@@ -346,7 +303,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -357,13 +314,13 @@ $(document).ready(function () {
     }
 
     function deleteUserDevice(user_device_uuid) {
-        var isAsync = true;
+        let isAsync = true;
 
-        var data = {
+        let data = {
             'device_uuid': user_device_uuid
         };
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
                 $('.user-device[data-uuid="' + user_device_uuid + '"]').remove();
             } else {
@@ -371,7 +328,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -386,13 +343,13 @@ $(document).ready(function () {
             return false;
         }
 
-        var isAsync = true;
+        let isAsync = true;
 
-        var data = {
+        let data = {
             'password': password
         };
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
                 notySuccess(passwordSavedText);
                 unblockElement($("#save-password-btn"));
@@ -401,7 +358,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -425,13 +382,13 @@ $(document).ready(function () {
             return false;
         }
 
-        var isAsync = true;
+        let isAsync = true;
 
-        var data = {
+        let data = {
             'email': email
         };
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
                 notySuccess(emailSavedText);
                 $emailInput.data("current_email", email);
@@ -442,7 +399,7 @@ $(document).ready(function () {
             unblockElement($("#save-email-btn"));
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -451,8 +408,8 @@ $(document).ready(function () {
     }
 
     function checkEmail() {
-        var isEmailEmpty;
-        var emailVal = $.trim($emailInput.val());
+        let isEmailEmpty;
+        let emailVal = $.trim($emailInput.val());
         if (emailVal === '') {
             markInput($emailInput, false);
             $emailInput.parent().find('.empty_error').show();
@@ -471,12 +428,12 @@ $(document).ready(function () {
             return false;
         }
 
-        var data = {
+        let data = {
             'email': emailVal
         };
-        var isAsync = true;
+        let isAsync = true;
 
-        var successCallback = function (response) {
+        let successCallback = function (response) {
             if (response.hasOwnProperty('success') && !response['success']) {
                 $emailInput.parent().find('.busy_error').show();
                 markInput($emailInput, false);
@@ -489,7 +446,7 @@ $(document).ready(function () {
             }
         };
 
-        var errorCallback = function (response) {
+        let errorCallback = function (response) {
             notyError("System Error");
         };
 
@@ -497,8 +454,8 @@ $(document).ready(function () {
     }
 
     function checkPassword() {
-        var pwdVal = $.trim($passwordInput.val());
-        var $pwdFormGroup = $passwordInput.parent();
+        let pwdVal = $.trim($passwordInput.val());
+        let $pwdFormGroup = $passwordInput.parent();
 
         if (pwdVal === '') {
             $pwdFormGroup.find('.empty_error').show();
@@ -524,15 +481,15 @@ $(document).ready(function () {
         table.search($(this).val()).draw();
     });
 
-    var hash = document.location.hash;
-    var prefix = "tab_";
+    let hash = document.location.hash;
+    let prefix = "tab_";
     if (hash.indexOf(prefix) > -1) {
         $('.nav-tabs a[href="' + hash + '"]').click();
     }
 
     $('.nav-tabs a').click(function (e) {
         $(this).tab('show');
-        var scrollmem = $('body').scrollTop();
+        let scrollmem = $('body').scrollTop();
         window.location.hash = this.hash;
         $('html,body').scrollTop(scrollmem);
     });

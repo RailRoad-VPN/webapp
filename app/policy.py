@@ -1,6 +1,7 @@
+from app.models.order_status import OrderStatus
 from app.models.user_service_status import UserServiceStatus
 from app.service import *
-from app.models.exception import UserPolicyException, DFNError
+from app.models.exception import UserPolicyException, DFNError, OrderPolicyException
 
 sys.path.insert(0, '../rest_api_library')
 from rest import APINotFoundException, APIException
@@ -82,6 +83,8 @@ class UserPolicy(object):
     def get_user_available_services(self):
         self.logger.debug("get_user_available_services method")
         services = self._rrn_services_api_service.get_services()
+        if services is None:
+            return []
         self.logger.debug(f"Size: %s" % len(services))
 
         if 'user' in session:
@@ -129,3 +132,32 @@ class UserPolicy(object):
                                       error_code=DFNError.UNKNOWN_ERROR_CODE.code,
                                       developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
         return True
+
+
+class OrderPolicy(object):
+    __version__ = 1
+
+    logger = logging.getLogger(__name__)
+
+    _rrn_orders_api_service = None
+
+    def __init__(self, rrn_orders_api_service: RRNOrdersAPIService):
+        self._rrn_orders_api_service = rrn_orders_api_service
+
+    def create_order(self):
+        return self._rrn_orders_api_service.create_order(status=OrderStatus.NEW.sid)
+
+    def finish_order(self, order_json: dict) -> dict:
+        self.logger.debug(f"update_order method with parameters: order_json: {order_json}")
+
+        # TODO analyze trial, free, payment and etc
+
+        order_json['status_id'] = OrderStatus.SUCCESS.sid
+
+        try:
+            return self._rrn_orders_api_service.update_order(order_json=order_json)
+        except APIException as e:
+            self.logger.error(e.serialize())
+            raise OrderPolicyException(error=DFNError.UNKNOWN_ERROR_CODE.message,
+                                       error_code=DFNError.UNKNOWN_ERROR_CODE.code,
+                                       developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
