@@ -269,13 +269,13 @@ $(window).on('load', function () {
                         }
                         unblockPage()
                     }
+                    unblockPage();
                 },
                 error: function (response) {
                     console.log(JSON.stringify(response));
                     notyError("error");
+                    unblockPage();
                 }
-            }).done(function (msg) {
-                unblockPage();
             });
         });
     });
