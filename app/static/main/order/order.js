@@ -532,16 +532,16 @@ $(window).on('load', function () {
             if (isLocalStorageSupported()) {
                 ORDER_LS[LS_ORDER_PACK_ID_KEY] = chosenPack;
                 setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
-            } else {
-                $packInput.val(chosenPack);
             }
+            $packInput.val(chosenPack);
             return chosenPack;
         }
-        if (!isLocalStorageSupported()) {
-            // check HTML input (in case localstorage does not work)
-            chosenPack = $packInput.val();
-        } else {
+        if (isLocalStorageSupported()) {
             chosenPack = ORDER_LS[LS_ORDER_PACK_ID_KEY];
+        }
+
+        if (!chosenPack) {
+            chosenPack = $packInput.val();
         }
 
         return chosenPack;
@@ -561,8 +561,10 @@ $(window).on('load', function () {
                 if (isLocalStorageSupported()) {
                     ORDER_LS[LS_ORDER_PACK_ID_KEY] = chosenPack;
                     setToLocalStorage(LS_ORDER_KEY, ORDER_LS);
-                } else {
-                    $packInput.val(chosenPack);
+                }
+
+                if (!chosenPack) {
+                    chosenPack = $packInput.val();
                 }
                 successCb();
             }

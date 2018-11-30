@@ -74,6 +74,7 @@
                     </div>
 
                     <fieldset id="pack-fieldset" class="container container-wide" data-id="pack">
+                        <input id="pack_id" type="hidden" name="service_id" value="">
                         <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR SERVICE') }}</h2>
                         {% with order_page=true, vpn_subs_services=services %}
                             {% include 'partials/pricing-packs.html' %}

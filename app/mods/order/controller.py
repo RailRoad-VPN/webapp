@@ -71,6 +71,8 @@ def submit_order() -> bool:
     logger.debug(f"password: {password}")
     password_repeat = request.form.get('password_repeat', None)
     logger.debug(f"password_repeat: {password_repeat}")
+    service_id = request.form.get('service_id', None)
+    logger.debug(f"service_id: {service_id}")
 
     logger.debug("get parameters from session")
     order = session.get("order")
@@ -78,8 +80,8 @@ def submit_order() -> bool:
     order_uuid = order.get('uuid')
     logger.debug(f"order_uuid: {order_uuid}")
 
-    service_id = order.get('service_id')
-    logger.debug(f"session service_id: {service_id}")
+    if not service_id:
+        service_id = order.get('service_id', None)
 
     if service_id is None:
         r.set_failed()
@@ -206,6 +208,7 @@ def choose_service_pack() -> bool:
     else:
         logger.debug(f"save service_id to session")
         session['order']['service_id'] = service_id
+        logger.debug(f"service_id from session: {session['order']['service_id']}")
 
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
