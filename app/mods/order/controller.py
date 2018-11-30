@@ -7,6 +7,8 @@ from uuid import UUID
 from flask import Blueprint, request, render_template, \
     session, jsonify, redirect, url_for, abort
 
+from flask_babel import _
+
 from app import rrn_usersapi_service, rrn_ordersapi_service, app_config, rrn_servicesapi_service, email_service, \
     RRNServiceType, user_policy, order_policy
 from app.flask_utils import _add_language_code, _pull_lang_code, authorize_user, login_required
@@ -72,11 +74,12 @@ def submit_order() -> bool:
 
     logger.debug("get parameters from session")
     order = session.get("order")
-    logger.debug(f"order: {order}")
+    logger.debug(f"session order: {order}")
     order_uuid = order.get('uuid')
     logger.debug(f"order_uuid: {order_uuid}")
-    service_id = order.get('service_id')
-    logger.debug(f"service_id: {service_id}")
+
+    service_id = session['service_id']
+    logger.debug(f"session service_id: {service_id}")
 
     if service_id is None:
         r.set_failed()
@@ -201,18 +204,8 @@ def choose_service_pack() -> bool:
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.BAD_REQUEST
     else:
-        logger.debug(f"get order from session")
-        order = session.get('order')
-        logger.debug(f"order: {order}")
-
-        logger.debug(f"save service_id to session order")
-        order['service_id'] = service_id
-        session['order'] = order
-        logger.debug(f"read order from session")
-        order = session.get('order')
-        logger.debug(f"order: {order}")
-        service_id = order.get('service_id')
-        logger.debug(f"service_id: {service_id}")
+        logger.debug(f"save service_id to session")
+        session['service_id'] = service_id
 
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
