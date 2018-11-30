@@ -62,17 +62,27 @@ def submit_order() -> bool:
 
     r = AjaxResponse(success=True)
 
+    logger.debug("get parameters from request form")
     email = request.form.get('email', None)
+    logger.debug(f"email: {email}")
     password = request.form.get('password', None)
+    logger.debug(f"password: {password}")
     password_repeat = request.form.get('password_repeat', None)
+    logger.debug(f"password_repeat: {password_repeat}")
 
-    order_uuid = session.get('order').get('uuid')
-    service_id = session.get('order').get('service_id')
+    logger.debug("get parameters from session")
+    order = session.get("order")
+    logger.debug(f"order: {order}")
+    order_uuid = order.get('uuid')
+    logger.debug(f"order_uuid: {order_uuid}")
+    service_id = order.get('service_id')
+    logger.debug(f"service_id: {service_id}")
 
-    logger.debug('get service')
+    logger.debug('get service by service_id')
     service = rrn_servicesapi_service.get_service_by_id(service_id=service_id)
+    logger.debug(f"service: {service}")
 
-    is_trial_available = service['is_trial']
+    is_trial_available = service.get('is_trial')
 
     if 'user' not in session:
         try:
