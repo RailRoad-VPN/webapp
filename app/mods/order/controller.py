@@ -78,6 +78,15 @@ def submit_order() -> bool:
     service_id = order.get('service_id')
     logger.debug(f"service_id: {service_id}")
 
+    if service_id is None:
+        r.set_failed()
+        error = AjaxError(message=_('System error. Please write us support@rroadvpn.net'), code='RRN-001',
+                          developer_message="service id is None")
+        r.add_error(error)
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.BAD_REQUEST
+        return resp
+
     logger.debug('get service by service_id')
     service = rrn_servicesapi_service.get_service_by_id(service_id=service_id)
     logger.debug(f"service: {service}")
@@ -202,6 +211,8 @@ def choose_service_pack() -> bool:
         logger.debug(f"read order from session")
         order = session.get('order')
         logger.debug(f"order: {order}")
+        service_id = order.get('service_id')
+        logger.debug(f"service_id: {service_id}")
 
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
