@@ -173,12 +173,16 @@ def choose_service_pack() -> bool:
 
     data = json.loads(request.data)
 
+    logger.debug("get service_id")
     service_id = data.get('service_id', None)
+    logger.debug(f"service_id: {service_id}")
     if service_id is None:
+        logger.debug(f"service_id is None")
         r.set_failed()
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.BAD_REQUEST
     else:
+        logger.debug(f"save service_id to session order")
         session['order']['service_id'] = service_id
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
