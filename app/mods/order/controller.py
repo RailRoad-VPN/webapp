@@ -192,8 +192,17 @@ def choose_service_pack() -> bool:
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.BAD_REQUEST
     else:
+        logger.debug(f"get order from session")
+        order = session.get('order')
+        logger.debug(f"order: {order}")
+
         logger.debug(f"save service_id to session order")
-        session['order']['service_id'] = service_id
+        order['service_id'] = service_id
+        session['order'] = order
+        logger.debug(f"read order from session")
+        order = session.get('order')
+        logger.debug(f"order: {order}")
+
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
     return resp
