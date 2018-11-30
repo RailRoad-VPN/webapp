@@ -78,7 +78,7 @@ def submit_order() -> bool:
     order_uuid = order.get('uuid')
     logger.debug(f"order_uuid: {order_uuid}")
 
-    service_id = session['service_id']
+    service_id = order.get('service_id')
     logger.debug(f"session service_id: {service_id}")
 
     if service_id is None:
@@ -205,7 +205,7 @@ def choose_service_pack() -> bool:
         resp.code = HTTPStatus.BAD_REQUEST
     else:
         logger.debug(f"save service_id to session")
-        session['service_id'] = service_id
+        session['order']['service_id'] = service_id
 
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
