@@ -166,7 +166,7 @@ a:focus, a:hover {
     border: 1px solid white;
 }
 
-#main-navbar a {
+#main-navbar-responsive > ul > li > a {
     color: white;
 }
 
@@ -222,8 +222,8 @@ a:focus, a:hover {
     }
 
     #main-navbar.navbar-shrink {
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         background: black;
     }
@@ -550,6 +550,18 @@ img::-moz-selection {
     color: #fff;
     text-decoration: none;
     background-color: #f8cc46;
+}
+
+.color-default {
+    color: #f8cc46 !important;
+}
+
+.color-white {
+    color: white !important;
+}
+
+.color-black {
+    color: black !important;
 }
 
 /*

@@ -117,13 +117,21 @@
 </head>
 
 <body>
-
-{% if session['network-status'] is not none %}
+{% if session['network-status'] is not none and (session['network-status']['ip'] is not none or session['network-status']['city'] is not none or session['network-status']['isp'])%}
     <div id="network-status" class="d-none d-md-block d-sm-none">
         <ul class="network-info list-inline text-white text-center mb-md-0">
-            <li>{{ _('Your IP') }}: <span data-id="ip">{{ session['network-status']['ip'] }}</span></li>
-            <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>
-            <li>{{ _('Your ISP') }}: <span data-id="loc">{{ session['network-status']['isp'] }}</span></li>
+            {% if session['network-status']['ip'] %}
+                <li>{{ _('Your IP') }}: <span data-id="ip">{{ session['network-status']['ip'] }}</span></li>
+            {% endif %}
+
+            {% if session['network-status']['city'] %}
+                <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>
+            {% endif %}
+
+            {% if session['network-status']['isp'] %}
+                <li>{{ _('Your ISP') }}: <span data-id="loc">{{ session['network-status']['isp'] }}</span></li>
+            {% endif %}
+
             {% if session['network-status']['status'] %}
                 <li>{{ _('Your Status') }}: <span data-id="status" class="status-protected">{{ _('protected') }}</span>
                 </li>
@@ -131,7 +139,7 @@
                 <li>{{ _('Your Status') }}: <span data-id="status"
                                                   class="status-unprotected">{{ _('unprotected') }}</span></li>
                 <li>
-                    <a href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger">{{ _('Protect me!') }}</a>
+                    <a href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger color-default">{{ _('Protect me!') }}</a>
                     <button style="margin-top: -10px;" onclick="$('#network-status').remove();" class="btn btn-link">x</button>
                 </li>
             {% endif %}
@@ -144,11 +152,11 @@
         <img class="" width="50" src="{{ url_for('static', filename='main/images/mascot/mascot_head.png') }}">
         Railroad Network
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar-responsive"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
+    <div id="main-navbar-responsive" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
             {% block nav_menu %}
                 <li class="nav-item">
