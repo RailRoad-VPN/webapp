@@ -5,20 +5,14 @@
 
 <!-- Head -->
 <head>
-    {% if config['DEBUG'] == false %}
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89956285-3"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
-            gtag('js', new Date());
-
-            gtag('config', 'UA-89956285-3');
-        </script>
+    {% if 'debug' not in session %}
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TBHD2JT');</script>
+        <!-- End Google Tag Manager -->
     {% endif %}
     <!-- yandex check -->
     <meta name="yandex-verification" content="567b07301ce071b1"/>
@@ -117,6 +111,13 @@
 </head>
 
 <body>
+{% if 'debug' not in session %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBHD2JT"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+{% endif %}
+
 {% if session['network-status'] is not none and (session['network-status']['ip'] is not none or session['network-status']['city'] is not none or session['network-status']['isp'])%}
     <div id="network-status" class="d-none d-md-block d-sm-none">
         <ul class="network-info list-inline text-white text-center mb-md-0">
@@ -457,6 +458,19 @@
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
+{% endif %}
+
+{% if 'debug' not in session %}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89956285-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
 {% endif %}
 
 {% block import_js %}{% endblock %}
