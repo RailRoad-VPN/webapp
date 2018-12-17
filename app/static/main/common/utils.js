@@ -273,7 +273,7 @@ function range(start, stop, step) {
     }
 
     return result;
-};
+}
 
 function htmlEscape(str) {
     return String(str)
