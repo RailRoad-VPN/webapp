@@ -16,6 +16,9 @@ body {
 html {
     width: 100%;
     height: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
 }
 
 h1,
@@ -284,10 +287,6 @@ a:focus, a:hover {
     .network-status {
         display: none !important;
     }
-
-    #main-navbar {
-        padding-top: 0;
-    }
 }
 
 .btn-group img {
@@ -458,7 +457,6 @@ img::-moz-selection {
     background-color: #f8cc46;
     color: black;
     border: 0;
-
 }
 
 .btn-primary .btn-rad {

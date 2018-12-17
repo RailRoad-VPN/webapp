@@ -301,7 +301,7 @@ msgstr ""
 
 #: app/templates/index/index.html:46
 msgid "Railroad VPN"
-msgstr "Railroad VPN ¶"
+msgstr "Railroad VPN"
 
 #: app/templates/index/index.html:48
 msgid "the best way to get content"

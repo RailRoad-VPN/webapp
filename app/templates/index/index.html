@@ -39,42 +39,38 @@
     <section id="header">
         <div class="intro-body">
             <div class="container">
-                <div class="row text-center text-lg-left text-md-left align-items-center">
-                    <div class="col-lg-7">
-                        <div class="banner-content">
-                            <h1 class="text-white text-uppercase mb-10">
-                                {{ _('Railroad VPN') }}
-                                <br>
-                                {{ _('the best way to get content') }}
-                            </h1>
-                            <p class="text-white mb-30">
-                                {{ _('Break down borders. Be anonymous. Obtain freedom.') }}
-                            </p>
-                            <a href="{{ url_for('about.about_page') }}" class="btn btn-link">{{ _('Learn More!') }}</a>
-                            <a id="intro-subscribe" href="#pricing" class="btn btn-primary js-scroll-trigger">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-md-5 col-lg-5">
+                        <div class="banner-text-content">
+                            <h5 class="color-white">Welcome To Railroad Services</h5>
+                            <h1 class="color-white">New VPN <br> service 2019</h1>
+                            <p>it is NOT just another VPN service</p>
+                            <a href="{{ url_for('about.about_page') }}"
+                               class="btn color-white">{{ _('Learn More!') }}</a>
+                            <a id="intro-subscribe" href="#pricing"
+                               class="btn btn-primary font-weight-bold js-scroll-trigger">
                                 {{ _('Get Railroad VPN') }}
                             </a>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-lg-7">
+                        <div class="d-none d-md-block banner-img">
+                            <img class="w-100"
+                                 src="{{ url_for('static', filename='main/index/images/devices_coming_soon.png') }}"
+                                 alt="Banner Image">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Features Section -->
+    <!-- features section -->
     <section id="features" class="pb-75 pt-75">
         <div style="position:relative;">
             <div id="particles-js"></div>
             <div class="container container-wide">
-                <h2 class="text-center text-dark"
-                    style="margin-bottom: 100px;">{{ _('WHY Railroad VPN Services?') }}</h2>
-                <p class="text-center pb-7" style="font-style: italic; font-weight: 600;">
-                    {{ _('We developing VPN-service with the best features and service on market. What we can offer?') }}
-                </p>
                 <div class="row">
                     <div class="col-lg-4">
-                        <img class="img-fluid mx-auto d-block feature-image"
-                             src="{{ url_for('static', filename='main/index/images/features/mascot_geo.png') }}">
                         <div class="wrap feature">
                             <h4>{{ _('SECURITY') }}</h4>
                             <p>
@@ -83,8 +79,6 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <img class="img-fluid mx-auto d-block feature-image"
-                             src="{{ url_for('static', filename='main/index/images/features/mascot_anonym.png') }}">
                         <div class="wrap feature">
                             <h4>{{ _('PRIVACY') }}</h4>
                             <p>
@@ -93,8 +87,6 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <img class="img-fluid mx-auto d-block feature-image"
-                             src="{{ url_for('static', filename='main/index/images/features/mascot_network.png') }}">
                         <div class="wrap feature">
                             <h4>{{ _('DISENGAGEMENT') }}</h4>
                             <p>
@@ -105,8 +97,6 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
-                        <img class="img-fluid mx-auto d-block feature-image"
-                             src="{{ url_for('static', filename='main/index/images/features/mascot_devices.png') }}">
                         <div class="wrap feature">
                             <h4>{{ _('VPN Apps') }}</h4>
                             <p>
@@ -115,8 +105,6 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <img class="img-fluid mx-auto d-block feature-image"
-                             src="{{ url_for('static', filename='main/index/images/features/mascot_support.png') }}">
                         <div class="wrap feature">
                             <h4>{{ _('SUPPORT') }}</h4>
                             <p>
@@ -125,8 +113,6 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <img class="img-fluid mx-auto d-block feature-image"
-                             src="{{ url_for('static', filename='main/index/images/features/mascot_money.png') }}">
                         <div class="wrap feature">
                             <h4>{{ _('EXTRA MONEY') }}</h4>
                             <p>
@@ -140,7 +126,7 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="pb-7 pt-7">
+    <section id="pricing" class="">
         <div class="container container-wide content">
             <h2 class="text-center text-dark" style="margin-bottom: 100px;">{{ _('CHOOSE YOUR PACK') }}</h2>
             {% with order=false %}
@@ -154,7 +140,7 @@
         <div class="container shadow-text justify-content-center justify-content-center align-self-center">
             <div class="col-lg-12 mx-auto">
                 <h2 class="text-white">{{ _('DOWNLOAD') }}</h2>
-                <p>{{ _('You can download for free on the preview page.') }}</p>
+                <p>{{ _('You can download VPN application for free on the download page.') }}</p>
                 <a href="#" class="btn btn-link">{{ _('Visit Download Page') }}</a>
             </div>
         </div>

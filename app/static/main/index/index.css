@@ -12,19 +12,17 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 90vh;
-    margin-bottom: -50px;
-
+    height: 100vh;
 }
 
 #header .intro-body {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
     vertical-align: middle;
-    height: 90vh;
+    height: 100vh;
 }
 
 #header .intro-body .container {
-    padding-top: 15%;
+    padding-top: 12%;
 }
 
 @media (max-height: 500px) {
@@ -39,29 +37,26 @@
     }
 }
 
-#header .intro-body .brand-heading:after {
-    content: "";
-    position: absolute;
-    height: 4px;
-    width: 100px;
-    display: block;
-    background: #f8cc46;
-    margin-top: 10px;
-}
-
 #header .intro-body .intro-text {
     font-size: 18px;
 }
 
-.intro-body:after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 50%;
-    height: 90%;
-    background: url(../index/images/devices_coming_soon.png) no-repeat bottom right/contain;
-    z-index: 2;
+.header-text h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.header-text p {
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 50px;
+    line-height: 1.6;
 }
 
 @media (max-width: 575px) {
@@ -69,19 +64,9 @@
         height: 100vh;
     }
 
-    #header .intro-body {
-        height: 100vh;
-    }
-
     .intro-body:after {
         display: none;
     }
-}
-
-#intro-subscribe span {
-    color: #fff;
-    position: relative;
-    z-index: 2;
 }
 
 .shadow-text {
@@ -123,11 +108,13 @@
 }
 
 #features .feature {
-    margin-top: -50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     padding-top: 50px;
     padding-bottom: 30px;
     background-color: #333333;
     box-shadow: 5px 8px 13px 0 rgba(0, 0, 0, .33);
+    height: 260px;
 }
 
 #features .feature .wrap {
@@ -167,4 +154,26 @@
     height: 100%;
     top: 0;
     left: 0;
+}
+
+.t-cover__arrow {
+    position: absolute;
+    z-index: 9;
+    bottom: 40px;
+    right: 0;
+    left: 0;
+    text-align: center;
+}
+
+.t-cover__arrow-wrapper {
+    display: inline-block;
+    -webkit-transition: all ease-in-out 0.2s;
+    -moz-transition: all ease-in-out 0.2s;
+    -o-transition: all ease-in-out 0.2s;
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+}
+
+.t-cover__arrow-wrapper_animated {
+    animation: t-arrow-bottom 1.7s infinite ease;
 }

@@ -140,7 +140,6 @@
                                                   class="status-unprotected">{{ _('unprotected') }}</span></li>
                 <li>
                     <a href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger color-default">{{ _('Protect me!') }}</a>
-                    <button style="margin-top: -10px;" onclick="$('#network-status').remove();" class="btn btn-link">x</button>
                 </li>
             {% endif %}
         </ul>
@@ -165,10 +164,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
-                       href="{{ url_for('features.features_page') }}">{{ _('Features') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
                        href="{{ url_for('pricing.pricing_page') }}">{{ _('Pricing') }}</a>
                 </li>
                 <li class="nav-item">
@@ -187,7 +182,7 @@
                             {{ url_for('auth.signin') }}
                         {% endif %}
                        ">
-                        {{ _('My Account') }}
+                        {{ _('Account') }}
                     </a>
                 </li>
                 {% if session.logged_in and session['user'] is not none %}

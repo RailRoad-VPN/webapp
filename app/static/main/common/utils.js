@@ -274,3 +274,16 @@ function range(start, stop, step) {
 
     return result;
 };
+
+function htmlEscape(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+function htmlEncode(value) {
+    return $('<div/>').text(value).html();
+}

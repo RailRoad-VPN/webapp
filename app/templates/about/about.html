@@ -30,7 +30,7 @@
 {% block body %}
     <section class="pt-7 pb-7 pt-sm-5 pb-sm-5">
         <div class="container">
-            <div class="about-title text-center">
+            <div class="about-title text-center pt-7">
                 <h2 class="text-center text-dark" data-animate="fadeInUp" data-delay=".1" class="animated fadeInUp"
                     style="animation-duration: 0.6s; animation-delay: 0.1s;">{{ _('Welcome to Railroad Network') }}</h2>
                 <p data-animate="fadeInUp" data-delay=".1" class="animated fadeInUp"
@@ -91,8 +91,11 @@
                                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                                 eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae
                             </p>
-                            <a href="{{ url_for('contact.contact') }}" class="btn btn-warning animated fadeIn"
+                            <a href="{{ url_for('contact.contact') }}" class="btn btn-outline-secondary color-black animated fadeIn"
                                style="animation-duration: 0.6s; animation-delay: 0.3s;">Contact With Us</a>
+                            <span class="pl-5 pr-5">or</span>
+                            <a href="{{ url_for('order.order_page') }}" class="btn btn-primary font-weight-bold animated fadeIn"
+                               style="animation-duration: 0.6s; animation-delay: 0.3s;">Get Railroad VPN</a>
                         </div>
                     </div>
                 </div>
