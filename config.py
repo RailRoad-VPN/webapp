@@ -67,7 +67,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     ENV = 'testing'
     TESTING = True
-    DEBUG = True
+    DEBUG = False
 
     API_URL = 'https://api.rroadvpn.net/api/v1'
 
