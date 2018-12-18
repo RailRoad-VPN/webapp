@@ -14,9 +14,8 @@ $(document).ready(function () {
         e.preventDefault();
         const name = $(this).data("name");
         const href = $(this).attr("href");
-        analytics_link_click(name, href, function () {
-            window.location = href;
-        });
+        analytics_link_click(name, href);
+        window.location = href;
     });
 
     var year = moment().format('YYYY');

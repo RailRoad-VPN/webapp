@@ -23,6 +23,17 @@ function analytics_link_click(name, url, cb) {
     _analytics_event('link_click', data, cb);
 }
 
+function get_analytices_data() {
+    let data = {};
+    let userEmail = $("#user").data('email');
+    if (!userEmail) {
+        userEmail = 'anonymous';
+    }
+
+    data['email'] = userEmail;
+    return data;
+}
+
 function _analytics_event(event_name, data, cb) {
     try {
         let ga_data = prepare_ga_data(data, null);

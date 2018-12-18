@@ -7,13 +7,12 @@ $(document).ready(function () {
     });
 
     particlesJS.load('particles-js', $("#particlesJSConfigURL").data('url'), function () {
-        console.log('callback - particles.js config loaded');
+        console.debug('callback - particles.js config loaded');
     });
 
     $(".pricing").on('click', function () {
-        analytics_link_click('pricing', $(this).data("href"), function() {
-            window.location = $(this).data("href");
-        });
+        analytics_link_click('pricing', $(this).data("href"));
+        window.location = $(this).data("href");
     });
 
 });

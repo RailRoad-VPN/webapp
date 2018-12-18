@@ -44,14 +44,23 @@ $(document).ready(function () {
         var that = this;
         $(that).ajaxSubmit({
             success: function (response) {
+                let evt_data = get_analytices_data();
+                evt_data['name'] = nameVal;
+                evt_data['email'] = emailVal;
+                evt_data['message'] = messVal;
+
                 if (response['success']) {
+                    evt_data['success'] = 'true';
                     console.log(JSON.stringify(response));
                     notySuccess("Thank you!");
                 } else {
+                    evt_data['success'] = 'false';
                     if (response.hasOwnProperty('errors')) {
                         showErrors(response);
                     }
                 }
+
+                analytics_event("contact", evt_data);
             },
             error: function (response) {
                 console.log(JSON.stringify(response));

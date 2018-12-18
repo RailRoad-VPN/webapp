@@ -74,7 +74,7 @@
     <meta name="theme-color" content="#f8cc46">
 
     {% if 'user' in session %}
-        <meta id="user-email" data-username="{{ session['user']['email'] }}">
+        <meta id="user" data-username="{{ session['user']['email'] }}">
         <script type="text/javascript">
             gtag('set', {'user_id': "{{ session['user']['email'] }}" });
         </script>

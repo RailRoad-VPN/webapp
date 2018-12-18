@@ -93,6 +93,12 @@ $(window).on('load', function () {
             }
         }
 
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['current_step'] = currentStepId;
+        analytics_evt_data['progress_direction'] = progress_direction;
+        analytics_evt_data['newStepId'] = newStepId;
+        analytics_event('order', analytics_evt_data);
+
         // business logic for right direction
         if (progress_direction === 'right') {
             if (currentStepId === 'pack') {
@@ -153,9 +159,16 @@ $(window).on('load', function () {
     }
 
     function packToAccount(successCb) {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'pack_to_account';
+
         const subsJSON = $subscriptionDataObj.data('dict');
         const chosenSubJSON = subsJSON[CHOSEN_PACK];
+        analytics_evt_data['pack_id'] = CHOSEN_PACK;
+
         if (!chosenSubJSON) {
+            analytics_evt_data['description'] = "deny move, pack was no chosen";
+            analytics_event('order', analytics_evt_data);
             goToStep(null, 'pack');
             return false;
         }
@@ -163,6 +176,8 @@ $(window).on('load', function () {
             $(".chosen-subscription-name").text(chosenSubJSON['service_name']);
         } catch (TypeError) {
             goToStep(null, 'pack');
+            analytics_evt_data['description'] = "type error when try to get service name from subscription json";
+            analytics_event('order', analytics_evt_data);
             return false;
         }
         chosenSubJSON['features'] = [];
@@ -184,13 +199,20 @@ $(window).on('load', function () {
         html = UNDERSCORE_CHOSEN_SUB_TMPLT(subJSON);
         $(".chosen-subscription-mini").html(html);
 
+        analytics_evt_data['description'] = "access move";
+        analytics_event('order', analytics_evt_data);
+
         checkTrialAvailable(successCb);
     }
 
     function accountToPayment(successCb) {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'account_to_payment';
 
         const subsJSON = $subscriptionDataObj.data('dict');
         const chosenSubJSON = subsJSON[CHOSEN_PACK];
+
+        analytics_evt_data['pack_id'] = CHOSEN_PACK;
 
         // TODO promo or some sale price will be here
         $(".last_step-price").text("$" + chosenSubJSON['price']);
@@ -198,17 +220,26 @@ $(window).on('load', function () {
         if (!USER_REGISTERED) {
             let is_pwd_ok = checkPassword();
             if (!is_pwd_ok) {
+                analytics_evt_data['description'] = "deny move, password not ok";
+                analytics_event('order', analytics_evt_data);
                 return false;
             }
             is_pwd_ok = checkRepeatPassword();
             if (!is_pwd_ok) {
+                analytics_evt_data['description'] = "deny move, password repeat not ok";
+                analytics_event('order', analytics_evt_data);
                 return false;
             }
 
             if ($emailInput.hasClass('is-invalid')) {
+                analytics_evt_data['description'] = "deny move, email not ok";
+                analytics_event('order', analytics_evt_data);
                 return false;
             }
         }
+
+        analytics_evt_data['description'] = "access move";
+        analytics_event('order', analytics_evt_data);
 
         checkTrialAvailable(function () {
             if (!USER_REGISTERED) {
@@ -247,11 +278,15 @@ $(window).on('load', function () {
     });
 
     $orderForm.on('submit', function (e) {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'submit';
         e.preventDefault();
         if (VPN_FREE !== true && VPN_TRIAL !== true) {
             let paymentMethodVal = $.trim($("#payment_method").val());
             if (!paymentMethodVal || paymentMethodVal === '') {
                 $('#payment-method-error').show();
+                analytics_evt_data['description'] = 'vpn free and trial not available and payment method not chosen. show payments';
+                analytics_event('order', analytics_evt_data);
                 return false;
             }
         }
@@ -262,8 +297,12 @@ $(window).on('load', function () {
             $(that).ajaxSubmit({
                 success: function (response) {
                     if (response['success']) {
+                        analytics_evt_data['success'] = 'true';
+                        analytics_event('order', analytics_evt_data);
                         window.location = $profilePageURLObj.data("url");
                     } else {
+                        analytics_evt_data['success'] = 'false';
+                        analytics_event('order', analytics_evt_data);
                         if (response.hasOwnProperty('errors')) {
                             showErrors(response);
                         }

@@ -104,6 +104,7 @@ def signin():
                 authorize_user(user_json=user_json)
                 r.set_success()
                 r.set_next(url_for('profile.profile_page'))
+                r.add_data("email", user_json['email'])
         resp = jsonify(r.serialize())
         resp.code = HTTPStatus.OK
         return resp

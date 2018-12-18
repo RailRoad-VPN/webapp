@@ -88,8 +88,13 @@ $(document).ready(function () {
     }
 
     $generatePinBtn.click(function () {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'generate_pin_code';
+
         if (!is_user_has_active_subscribe) {
             // TODO notification to user
+            analytics_evt_data['description'] = 'user has no active subscription';
+            analytics_event('profile', analytics_evt_data);
             return false;
         }
         let isAsync = true;
@@ -104,12 +109,18 @@ $(document).ready(function () {
 
                     unblockPage(function () {
                         $("#pincode-modal").modal('show');
+
+                        analytics_evt_data['success'] = 'true';
+                        analytics_event('profile', analytics_evt_data);
                     });
                 }
             } else {
                 showErrors(response);
 
                 unblockPage();
+
+                analytics_evt_data['success'] = 'false';
+                analytics_event('profile', analytics_evt_data);
             }
         };
 
@@ -133,6 +144,7 @@ $(document).ready(function () {
                 if (response['success']) {
                     if (response.hasOwnProperty('data') && response['data'].hasOwnProperty('is_pin_code_activated')) {
                         if (response['data']['is_pin_code_activated']) {
+                            // TODO
                             alert('pin code activated');
                         }
                     }
@@ -153,6 +165,9 @@ $(document).ready(function () {
     });
 
     $(".renew-sub-btn").click(function () {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'renew_subscription';
+
         let isAsync = true;
 
         let _data = {
@@ -161,13 +176,21 @@ $(document).ready(function () {
             'subscription_uuid': $(this).data('subscription_uuid')
         };
 
+        analytics_evt_data['sub_id'] = $(this).data('sub_id');
+        analytics_evt_data['order_code'] = $(this).data('order_code');
+        analytics_evt_data['subscription_uuid'] = $(this).data('subscription_uuid');
+
         let successCallback = function (response) {
             if (response['success']) {
+                analytics_evt_data['success'] = 'true';
+                analytics_event('profile', analytics_evt_data);
                 window.location = response['data']['redirect_url'];
             } else {
                 if (response.hasOwnProperty('errors')) {
                     showErrors(response);
                 }
+                analytics_evt_data['success'] = 'false';
+                analytics_event('profile', analytics_evt_data);
             }
         };
 
@@ -175,6 +198,7 @@ $(document).ready(function () {
             notyError("System Error");
         };
 
+        // TODO
         doAjax($renewSubUrlObj.data('url'), $renewSubUrlObj.data('method'), JSON.stringify(_data), isAsync, successCallback,
             errorCallback);
     });
@@ -227,11 +251,16 @@ $(document).ready(function () {
     });
 
     $("#account-delete-btn").click(function () {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'delete_account';
+
         let emailVal = $.trim($deleteAccountEmailInput.val());
 
         if ($deleteAccountEmailInput.data("current_email") !== emailVal) {
             markInput($deleteAccountEmailInput, false);
             $deleteAccountEmailInput.parent().find('.correct_error').show();
+            analytics_evt_data['description'] = 'entered email does not correct';
+            analytics_event('profile', analytics_evt_data);
             return false;
         }
 
@@ -247,8 +276,12 @@ $(document).ready(function () {
             if (response.hasOwnProperty('success') && !response['success']) {
                 $deleteAccountEmailInput.parent().find('.correct_error').show();
                 markInput($deleteAccountEmailInput, false);
+                analytics_evt_data['success'] = 'false';
+                analytics_event('profile', analytics_evt_data);
             } else {
                 if (response.hasOwnProperty('next')) {
+                    analytics_evt_data['success'] = 'true';
+                    analytics_event('profile', analytics_evt_data);
                     window.location = response['next'];
                 }
             }
@@ -263,6 +296,12 @@ $(document).ready(function () {
     });
 
     function changeStatusUserDevice(user_device_uuid, n_status) {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'change_device_status';
+
+        analytics_evt_data['device_uuid'] = user_device_uuid;
+        analytics_evt_data['n_status'] = n_status;
+
         let $device = $('.user-device[data-uuid="' + user_device_uuid + '"]');
         let $deviceChangeStatusButton = $device.find(".change-status-device-btn");
 
@@ -298,8 +337,14 @@ $(document).ready(function () {
                 $deviceChangeStatusButton.data('is_active', n_status);
 
                 unblockElement($device);
+
+                analytics_evt_data['success'] = 'true';
+                analytics_event('profile', analytics_evt_data);
             } else {
                 showErrors(response);
+
+                analytics_evt_data['success'] = 'false';
+                analytics_event('profile', analytics_evt_data);
             }
         };
 
@@ -314,17 +359,27 @@ $(document).ready(function () {
     }
 
     function deleteUserDevice(user_device_uuid) {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'delete_device';
+
         let isAsync = true;
 
         let data = {
             'device_uuid': user_device_uuid
         };
 
+        analytics_evt_data['device_uuid'] = user_device_uuid;
+
         let successCallback = function (response) {
             if (response.hasOwnProperty('success') && response['success']) {
                 $('.user-device[data-uuid="' + user_device_uuid + '"]').remove();
+
+                analytics_evt_data['success'] = 'true';
+                analytics_event('profile', analytics_evt_data);
             } else {
                 showErrors(response);
+                analytics_evt_data['success'] = 'false';
+                analytics_event('profile', analytics_evt_data);
             }
         };
 
@@ -337,9 +392,14 @@ $(document).ready(function () {
     }
 
     function updatePassword(password) {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'update_password';
+
         if (password === '') {
             markInput($passwordInput, false);
             $passwordInput.parent().find('.empty_error').show();
+            analytics_evt_data['description'] = 'bad password';
+            analytics_event('profile', analytics_evt_data);
             return false;
         }
 
@@ -353,8 +413,12 @@ $(document).ready(function () {
             if (response.hasOwnProperty('success') && response['success']) {
                 notySuccess(passwordSavedText);
                 unblockElement($("#save-password-btn"));
+                analytics_evt_data['success'] = 'true';
+                analytics_event('profile', analytics_evt_data);
             } else {
                 showErrors(response);
+                analytics_evt_data['success'] = 'false';
+                analytics_event('profile', analytics_evt_data);
             }
         };
 
@@ -369,16 +433,23 @@ $(document).ready(function () {
     }
 
     function updateEmail(email) {
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'update_email';
+
         if (email === '') {
             markInput($emailInput, false);
             $emailInput.parent().find('.empty_error').show();
             unblockElement($("#save-email-btn"));
+            analytics_evt_data['description'] = 'empty email';
+            analytics_event('profile', analytics_evt_data);
             return false;
         }
 
         if ($emailInput.data("current_email") === email) {
             unblockElement($("#save-email-btn"));
             $emailInput.parent().find('.same_warning').show();
+            analytics_evt_data['description'] = 'same email';
+            analytics_event('profile', analytics_evt_data);
             return false;
         }
 
@@ -393,10 +464,13 @@ $(document).ready(function () {
                 notySuccess(emailSavedText);
                 $emailInput.data("current_email", email);
                 $deleteAccountEmailInput.data("current_email", email);
+                analytics_evt_data['success'] = 'true';
             } else {
                 showErrors(response);
+                analytics_evt_data['success'] = 'false';
             }
             unblockElement($("#save-email-btn"));
+            analytics_event('profile', analytics_evt_data);
         };
 
         let errorCallback = function (response) {
@@ -479,6 +553,10 @@ $(document).ready(function () {
 
     $('#vpn_servers-search-input').keyup(function () {
         table.search($(this).val()).draw();
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'search_vpn_server';
+        analytics_evt_data['value'] = $(this).val();
+        analytics_event('profile', analytics_evt_data);
     });
 
     let hash = document.location.hash;
@@ -492,5 +570,9 @@ $(document).ready(function () {
         let scrollmem = $('body').scrollTop();
         window.location.hash = this.hash;
         $('html,body').scrollTop(scrollmem);
+        let analytics_evt_data = get_analytices_data();
+        analytics_evt_data['action'] = 'nav click';
+        analytics_evt_data['tab_name'] = this.hash;
+        analytics_event('profile', analytics_evt_data);
     });
 });
