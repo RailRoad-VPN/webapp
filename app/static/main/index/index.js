@@ -11,7 +11,9 @@ $(document).ready(function () {
     });
 
     $(".pricing").on('click', function () {
-        window.location = $(this).data("href");
+        analytics_link_click('pricing', $(this).data("href"), function() {
+            window.location = $(this).data("href");
+        });
     });
 
 });

@@ -18,7 +18,7 @@
 <div id="pricing-pack" class="row {% if vpn_subs_services|length == 2 %} pl-xl-75 pr-xl-75 {% endif %}">
     {% if vpn_subs_services is none %}
         <p>
-            {{ _('Error occurred. Please contact us by email <a href="mailto:support@railroadman.net">support@railroadman.net</a> or ') }}
+            {{ _('Error occurred. Please contact us by email <a data-name="href="mailto:support@railroadman.net">support@railroadman.net</a> or ') }}
             <a href="{{ url_for('contact.contact') }}">{{ _('contact form') }}</a>
         </p>
     {% else %}

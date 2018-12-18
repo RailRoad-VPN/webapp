@@ -140,14 +140,14 @@
                 <li>{{ _('Your Status') }}: <span data-id="status"
                                                   class="status-unprotected">{{ _('unprotected') }}</span></li>
                 <li>
-                    <a href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger color-default">{{ _('Protect me!') }}</a>
+                    <a data-name="protect_me" href="{{ url_for('pricing.pricing_page') }}" class="js-scroll-trigger color-default">{{ _('Protect me!') }}</a>
                 </li>
             {% endif %}
         </ul>
     </div>
 {% endif %}
 <nav id="main-navbar" class="navbar navbar-expand-md navbar-dark fixed-top">
-    <a class="navbar-brand js-scroll-trigger"
+    <a data-name="logo" class="navbar-brand js-scroll-trigger"
        href="{{ url_for('index.index_lang_page', lang_code=session['lang_code']) }}">
         <img class="" width="50" src="{{ url_for('static', filename='main/images/mascot/mascot_head.png') }}">
         Railroad Network
@@ -160,23 +160,23 @@
         <ul class="navbar-nav ml-auto">
             {% block nav_menu %}
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
+                    <a data-name="menu_blog" class="nav-link js-scroll-trigger"
                        href="{{ url_for('blog.blog_page') }}">{{ _('Blog') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
+                    <a data-name="menu_pricing" class="nav-link js-scroll-trigger"
                        href="{{ url_for('pricing.pricing_page') }}">{{ _('Pricing') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
+                    <a data-name="menu_download" class="nav-link js-scroll-trigger"
                        href="{{ url_for('download.download_page') }}">{{ _('Download') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
+                    <a data-name="menu_contact" class="nav-link js-scroll-trigger"
                        href="{{ url_for('contact.contact') }}">{{ _('Contact') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="
+                    <a data-name="menu_account" class="nav-link" href="
                         {% if session.logged_in and session['user'] is not none %}
                             {{ url_for('profile.profile_page') }}
                         {% else %}
@@ -188,7 +188,7 @@
                 </li>
                 {% if session.logged_in and session['user'] is not none %}
                     <li class="nav-item">
-                        <a class="nav-link"
+                        <a data-name="menu_logout" class="nav-link"
                            href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
                     </li>
                 {% endif %}
@@ -234,23 +234,23 @@
                     <ul class="footer-contacts list-unstyled">
                         <li data-animate="fadeInUp" data-delay=".15" class="animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.15s;">
-                            <a href="{{ url_for('about.about_page') }}">{{ _('About us') }}</a>
+                            <a data-name="footer_about" href="{{ url_for('about.about_page') }}">{{ _('About us') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.20s;">
-                            <a href="{{ url_for('pricing.pricing_page') }}">{{ _('Plans and Pricing') }}</a>
+                            <a data-name="footer_pricing" href="{{ url_for('pricing.pricing_page') }}">{{ _('Plans and Pricing') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.25s;">
-                            <a href="{{ url_for('contact.contact') }}">{{ _('Support') }}</a>
+                            <a data-name="footer_contact" href="{{ url_for('contact.contact') }}">{{ _('Support') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.35s;">
-                            <a href="{{ url_for('faq.faq_page') }}">{{ _('FAQ') }}</a>
+                            <a data-name="footer_faq" href="{{ url_for('faq.faq_page') }}">{{ _('FAQ') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.30s;">
-                            <a href="#">{{ _('Partnership') }}</a>
+                            <a data-name="footer_partner" href="#">{{ _('Partnership') }}</a>
                         </li>
                     </ul>
                     <ul class="social-links list-inline mb-0">
@@ -357,7 +357,7 @@
     <div id="gdpr-notification">
         <p>
             {{ _('Please know that our website uses cookies to provide you with a complete experience. By means of cookies, you can enjoy all website features, including a fast account login. If you disagree...') }}
-            <a id="gdpr-read_more-btn">{{ _('Read more...') }}</a>
+            <a data-name="gdrp_more" id="gdpr-read_more-btn">{{ _('Read more...') }}</a>
         </p>
         <p id="gdpr_more-p" style="display: none;">
             {{ _('Please know that our website uses cookies to provide you with a complete experience. By means of cookies, you can enjoy all website features, including a fast account login. If you disagree with our usage of cookies, please make the necessary changes, to either block or disable them, from your browser\'s settings at any time. The option to continue visiting the website without making any changes will be regarded as an acceptance of cookies.') }}
@@ -367,6 +367,18 @@
 {% endif %}
 
 <!-- Javascript -->
+
+{% if 'debug' not in session %}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89956285-3', 'auto');
+  ga('send', 'pageview');
+</script>
+{% endif %}
 
 <!-- moment -->
 {{ moment.include_jquery() }}
@@ -417,6 +429,8 @@
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.js') }}" type="text/javascript"
             charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/cga.js') }}" type="text/javascript"
+            charset="utf-8"></script>
 {% else %}
     <!-- JQuery Resources -->
     <script src="{{ url_for('static', filename='assets/jquery/jquery.form.min.js') }}" type="text/javascript"
@@ -458,19 +472,8 @@
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.min.js') }}" type="text/javascript"
             charset="utf-8"></script>
-{% endif %}
-
-{% if 'debug' not in session %}
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89956285-3', 'auto');
-  ga('send', 'pageview');
-
-</script>
+    <script src="{{ url_for('static', filename='main/common/cga.min.js') }}" type="text/javascript"
+            charset="utf-8"></script>
 {% endif %}
 
 {% block import_js %}{% endblock %}

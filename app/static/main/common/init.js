@@ -9,7 +9,16 @@ $(document).ready(function () {
             return true;
         }
     });
-    
+
+    $('body').on('click', 'a', function (e) {
+        e.preventDefault();
+        const name = $(this).data("name");
+        const href = $(this).attr("href");
+        analytics_link_click(name, href, function () {
+            window.location = href;
+        });
+    });
+
     var year = moment().format('YYYY');
     $("#copy-year").text(year);
 

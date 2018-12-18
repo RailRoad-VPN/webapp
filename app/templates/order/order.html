@@ -94,7 +94,7 @@
                                            value="{{ session['user']['uuid'] }}">
                                     <div class="text-center">
                                         {{ _('You already logged in, if you want buy subscription for other account you have to ') }}
-                                        <a href="{{ url_for('auth.logout', next=request.url) }}"> {{ 'Logout' }} </a>{{ _('and than login.') }}
+                                        <a data-name="logout" href="{{ url_for('auth.logout', next=request.url) }}"> {{ 'Logout' }} </a>{{ _('and than login.') }}
                                     </div>
                                 {% else %}
                                     <h2 class="text-center text-dark"

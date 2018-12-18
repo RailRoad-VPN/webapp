@@ -91,22 +91,22 @@
         <div class="menu-header nav justify-content-centers" style="background-color: #fff; padding-top: 50px;">
             <ul id="profile-menu" class="nav nav-tabs">
                 <li class="nav-item menu-entry">
-                    <a id="dashboard-tab" class="nav-link active" href="#tab_dashboard" data-toggle="tab">
+                    <a data-name="profile_dashboard" id="dashboard-tab" class="nav-link active" href="#tab_dashboard" data-toggle="tab">
                         <i class="fas fa-tachometer-alt"></i> {{ _('Dashboard') }}
                     </a>
                 </li>
                 <li class="nav-item menu-entry">
-                    <a id="account-tab" class="nav-link" href="#tab_account" data-toggle="tab">
+                    <a data-name="profile_account" id="account-tab" class="nav-link" href="#tab_account" data-toggle="tab">
                         <i class="fas fa-user-alt"></i> {{ _('Account') }}
                     </a>
                 </li>
                 <li class="nav-item menu-entry">
-                    <a id="downloads-tab" class="nav-link" href="#tab_downloads" data-toggle="tab">
+                    <a data-name="profile_download" id="downloads-tab" class="nav-link" href="#tab_downloads" data-toggle="tab">
                         <i class="fas fa-download"></i> {{ _('Downloads') }}
                     </a>
                 </li>
                 <li class="nav-item menu-entry">
-                    <a id="servers-tab" class="nav-link" href="#tab_servers" data-toggle="tab">
+                    <a data-name="profile_servers" id="servers-tab" class="nav-link" href="#tab_servers" data-toggle="tab">
                         <i class="fas fa-server"></i> {{ _('VPN Servers') }}
                     </a>
                 </li>
@@ -212,7 +212,7 @@
                                             {{ _('buy new one') }}
                                         </a>
                                         {{ _('or') }}
-                                        <a class="renew-sub-btn" href="#"
+                                        <a data-name="profile_renewsub" class="renew-sub-btn" href="#"
                                            data-sub_id="{{ service['id'] }}"
                                            data-subscription_uuid="{{ us['uuid'] }}"
                                            data-order_code="{{ order['code'] }}">

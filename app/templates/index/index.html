@@ -45,9 +45,9 @@
                             <h5 class="color-white">Welcome To Railroad Services</h5>
                             <h1 class="color-white">New VPN <br> service 2019</h1>
                             <p>it is NOT just another VPN service</p>
-                            <a href="{{ url_for('about.about_page') }}"
+                            <a data-name="about" href="{{ url_for('about.about_page') }}"
                                class="btn color-white">{{ _('Learn More!') }}</a>
-                            <a id="intro-subscribe" href="#pricing"
+                            <a data-name="order" id="intro-subscribe" href="#pricing"
                                class="btn btn-primary font-weight-bold js-scroll-trigger">
                                 {{ _('Get Railroad VPN') }}
                             </a>
@@ -141,7 +141,7 @@
             <div class="col-lg-12 mx-auto">
                 <h2 class="text-white">{{ _('DOWNLOAD') }}</h2>
                 <p>{{ _('You can download VPN application for free on the download page.') }}</p>
-                <a href="#" class="btn btn-link">{{ _('Visit Download Page') }}</a>
+                <a data-name="download" href="#" class="btn btn-link">{{ _('Visit Download Page') }}</a>
             </div>
         </div>
     </section>
