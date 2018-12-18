@@ -5,6 +5,13 @@ $(document).ready(function () {
     gtag('config', 'UA-89956285-3', {'groups': 'events'});
 });
 
+function analytics_event(name, evt_data, cb) {
+    const data = {
+        'send_to': 'events'
+    };
+    _analytics_event('events', data, cb);
+}
+
 function analytics_link_click(name, url, cb) {
     const data = {
         'send_to': 'clicks',
@@ -13,10 +20,10 @@ function analytics_link_click(name, url, cb) {
             'url': url
         }
     };
-    analytics_event('link_click', data, cb);
+    _analytics_event('link_click', data, cb);
 }
 
-function analytics_event(event_name, data, cb) {
+function _analytics_event(event_name, data, cb) {
     try {
         let ga_data = prepare_ga_data(data, null);
         gtag('event', event_name, ga_data);
