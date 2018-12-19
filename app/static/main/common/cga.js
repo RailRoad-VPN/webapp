@@ -1,6 +1,17 @@
 'use strict';
 
 $(document).ready(function () {
+    gtag('config', 'UA-89956285-3', {
+        'custom_map': {
+            'dimension1': 'name',
+            'dimension2': 'url',
+            'dimension3': 'email',
+            'dimension4': 'action',
+            'dimension5': 'pack_id',
+            'dimension6': 'description',
+            'dimension7': 'success',
+        }
+    });
     gtag('config', 'UA-89956285-3', {'groups': 'clicks'});
     gtag('config', 'UA-89956285-3', {'groups': 'events'});
 });
@@ -15,10 +26,8 @@ function analytics_event(name, evt_data, cb) {
 function analytics_link_click(name, url, cb) {
     const data = {
         'send_to': 'clicks',
-        'link': {
-            'name': name,
-            'url': url
-        }
+        'name': name,
+        'url': url
     };
     _analytics_event('link_click', data, cb);
 }

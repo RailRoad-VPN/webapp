@@ -93,12 +93,6 @@ $(window).on('load', function () {
             }
         }
 
-        let analytics_evt_data = get_analytices_data();
-        analytics_evt_data['current_step'] = currentStepId;
-        analytics_evt_data['progress_direction'] = progress_direction;
-        analytics_evt_data['newStepId'] = newStepId;
-        analytics_event('order', analytics_evt_data);
-
         // business logic for right direction
         if (progress_direction === 'right') {
             if (currentStepId === 'pack') {
