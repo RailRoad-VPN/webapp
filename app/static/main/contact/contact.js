@@ -26,6 +26,8 @@ $(document).ready(function () {
     $(".contact-form").on('submit', function (e) {
         e.preventDefault();
 
+        analytics_action('contact_form_submit');
+
         var nameVal = $.trim($nameInput.val());
         var emailVal = $.trim($emailInput.val());
         var messVal = $.trim($messageTa.val());
@@ -44,27 +46,21 @@ $(document).ready(function () {
         var that = this;
         $(that).ajaxSubmit({
             success: function (response) {
-                let evt_data = get_analytices_data();
-                evt_data['name'] = nameVal;
-                evt_data['email'] = emailVal;
-                evt_data['message'] = messVal;
-
                 if (response['success']) {
-                    evt_data['success'] = 'true';
                     console.log(JSON.stringify(response));
                     notySuccess("Thank you!");
+                    analytics_action('contact_form_submit_success');
                 } else {
-                    evt_data['success'] = 'false';
                     if (response.hasOwnProperty('errors')) {
                         showErrors(response);
                     }
+                    analytics_action('contact_form_submit_failed');
                 }
-
-                analytics_event("contact", evt_data);
             },
             error: function (response) {
                 console.log(JSON.stringify(response));
                 notyError("error");
+                analytics_exception("error when submit contact", true);
             }
         });
     });

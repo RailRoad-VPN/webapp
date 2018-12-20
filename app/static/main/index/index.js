@@ -11,7 +11,7 @@ $(document).ready(function () {
     });
 
     $(".pricing").on('click', function () {
-        analytics_link_click('pricing', $(this).data("href"));
+        analytics_action('pricing_link');
         window.location = $(this).data("href");
     });
 

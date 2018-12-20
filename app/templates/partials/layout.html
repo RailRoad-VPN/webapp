@@ -516,6 +516,10 @@
             charset="utf-8"></script>
 {% endif %}
 
+<script type="text/javascript">
+    analytics_page_view($('title').text(), window.location.href, window.location.pathname);
+</script>
+
 {% block import_js %}{% endblock %}
 </body>
 
