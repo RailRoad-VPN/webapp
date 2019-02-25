@@ -260,7 +260,7 @@
                                             </tbody>
                                         </table>
                                     {% else %}
-                                        No payments yet
+                                        {{ _('No payments yet') }}
                                     {% endif %}
                                 </div>
                             </div>
@@ -292,7 +292,7 @@
                                                         {{ _('Inactive') }}
                                                     </span>
                                                 {% endif %}
-                                                {% if "_connections" in user_device %}
+                                                {% if user_device['is_connected'] %}
                                                     <span class="badge badge-success"
                                                           data-connected_text="{{ _('Connected') }}"
                                                           data-disconnected_text="{{ _('Disconnected') }}">
@@ -362,7 +362,7 @@
                                                             {% endif %}
                                                         {% endfor %}
                                                     {% else %}
-                                                        <li>No alive session</li>
+                                                        <li>{{ _('No alive session') }}</li>
                                                     {% endif %}
                                                 </ul>
                                                 <button class="btn btn-link card-link change-status-device-btn"
