@@ -334,11 +334,14 @@
                                                                     {{ user_device['bytes_o']|filesizeformat(true) if user_device['bytes_o'] else 'N/A' }}
                                                                 </span>
                                                     </li>
+                                                    {% if not user_device['is_connected'] %}
+                                                        <li>{{ _('No alive session') }}</li>
+                                                    {% endif %}
                                                     {% if "_connections" in user_device %}
-                                                        <li><br></li>
-                                                        <li><strong class="small">Current Session</strong></li>
                                                         {% for conn in user_device['_connections'] %}
                                                             {% if conn['is_connected'] %}
+                                                                <li><br></li>
+                                                                <li><strong class="small">{{ _('Current Session') }}</strong></li>
                                                                 <li class="text-muted">
                                                                     {{ _('Virtual IP Address') }}:
                                                                     {{ conn['virtual_ip'] if conn['virtual_ip'] else 'N/A' }}
@@ -361,8 +364,6 @@
                                                                 </li>
                                                             {% endif %}
                                                         {% endfor %}
-                                                    {% else %}
-                                                        <li>{{ _('No alive session') }}</li>
                                                     {% endif %}
                                                 </ul>
                                                 <button class="btn btn-link card-link change-status-device-btn"
