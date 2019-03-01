@@ -573,7 +573,7 @@
                                 {{ _('PINCODE generation service') }}
                             </li>
                             <li class="list-group-item">
-                                {% if not vpn_config_rdy['windows'] %}
+                                {% if not vpn_config_rdy['windows'] == 'False' %}
                                     <img style="width: 30px; margin-left: -20px;"
                                          src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
                                          alt="{{ _('Loading profile...') }}">
@@ -583,7 +583,7 @@
                                 {{ _('Windows VPN configuration') }}
                             </li>
                             <li class="list-group-item">
-                                {% if not vpn_config_rdy['android'] %}
+                                {% if vpn_config_rdy['android'] == 'False' %}
                                     <img style="width: 30px; margin-left: -20px;"
                                          src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
                                          alt="{{ _('Loading profile...') }}">
@@ -593,7 +593,7 @@
                                 {{ _('Android VPN configuration') }}
                             </li>
                             <li class="list-group-item">
-                                {% if not vpn_config_rdy['ios'] %}
+                                {% if vpn_config_rdy['ios'] == 'False' %}
                                     <img style="width: 30px; margin-left: -20px;"
                                          src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
                                          alt="{{ _('Loading profile...') }}">

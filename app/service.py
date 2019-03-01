@@ -1,4 +1,5 @@
 import codecs
+import json
 import logging
 import smtplib
 import sys
@@ -217,6 +218,7 @@ class RRNUserServerConfigurationsAPIService(RESTService):
             vpn_conf_platform = VPNConfigurationPlatform.find_by_sid(server_json['vpn_type_id'])
             d[vpn_conf_platform.text] = True
 
+        self.logger.debug("vpn_config_ready dict: " + json.dumps(d))
         return d
 
 
