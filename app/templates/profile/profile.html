@@ -510,6 +510,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {% if user_vpn_servers %}
                                 {% for uvs in user_vpn_servers %}
                                     <tr>
                                         <td scope="row">{{ uvs['num'] }}</td>
@@ -552,6 +553,7 @@
                                         {% endif %}
                                     </tr>
                                 {% endfor %}
+                                {% endif %}
                                 </tbody>
                             </table>
                         </div>
