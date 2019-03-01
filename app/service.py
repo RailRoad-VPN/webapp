@@ -215,10 +215,9 @@ class RRNUserServerConfigurationsAPIService(RESTService):
         api_response = self._get(url=url, headers=headers)
 
         for server_json in api_response.data:
-            vpn_conf_platform = VPNConfigurationPlatform.find_by_sid(server_json['vpn_type_id'])
+            self.logger.debug("server")
+            vpn_conf_platform = VPNConfigurationPlatform.find_by_sid(server_json['vpn_device_platform_id'])
             d[vpn_conf_platform.text] = True
-
-        self.logger.debug("vpn_config_ready dict: " + json.dumps(d))
         return d
 
 
