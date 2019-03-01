@@ -75,9 +75,11 @@
 
     {% if 'user' in session %}
         <meta id="user" data-username="{{ session['user']['email'] }}">
-        <script type="text/javascript">
-            gtag('set', {'user_id': "{{ session['user']['email'] }}" });
-        </script>
+        {% if 'debug' not in session %}
+            <script type="text/javascript">
+                gtag('set', {'user_id': "{{ session['user']['email'] }}" });
+            </script>
+        {% endif %}
     {% endif %}
 
     <link rel="gettext" type="application/x-po" href="{{ url_for('static', filename='translations/fr.po') }}">
@@ -468,8 +470,6 @@
     <script src="{{ url_for('static', filename='main/common/notification.js') }}" type="text/javascript"
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.js') }}" type="text/javascript"
-            charset="utf-8"></script>
-    <script src="{{ url_for('static', filename='main/common/cga.js') }}" type="text/javascript"
             charset="utf-8"></script>
 {% else %}
     <!-- JQuery Resources -->

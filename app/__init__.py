@@ -9,8 +9,8 @@ from flask_moment import Moment
 
 from app.cache import CacheService
 from app.mods.error import page_not_found, forbidden, internal_server_error
-from app.service import *
 from app.policy import *
+from app.service import *
 
 logging.basicConfig(level=logging.DEBUG, format='WEBAPP: %(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
@@ -44,11 +44,18 @@ cache_service = CacheService(app=app)
 rrn_usersapi_service = RRNUsersAPIService(api_url=app_config['API_URL'],
                                           resource_name=app_config['USERS_API_RESOURCE_NAME'])
 
+rrn_vpnserversapi_service = RRNVPNServersAPIService(api_url=app_config['API_URL'],
+                                                    resource_name=app_config['USER_VPNSERVERS_API_RESOURCE_NAME'])
+
 rrn_billingapi_service = RRNBillingAPIService(api_url=app_config['API_URL'],
                                               resource_name=app_config['SERVICES_API_RESOURCE_NAME'])
 
 rrn_ordersapi_service = RRNOrdersAPIService(api_url=app_config['API_URL'],
                                             resource_name=app_config['ORDERS_API_RESOURCE_NAME'])
+
+rrn_userserverconfigurationsapi_service = RRNUserServerConfigurationsAPIService(api_url=app_config['API_URL'],
+                                                                                resource_name=app_config[
+                                                                                    'USER_VPNSERVER_CONFIGS_API_RESOURCE_NAME'])
 
 email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
                              smtp_port=app_config['EMAIL_SMTP']['port'],
@@ -59,7 +66,6 @@ email_service = EmailService(smtp_server=app_config['EMAIL_SMTP']['server'],
                              templates_path="%s%s" % (app.root_path, "/static/assets/email-tmpls"))
 
 rrn_servicesapi_service = RRNServicesAPIService(billing_service=rrn_billingapi_service, cache_service=cache_service)
-
 
 user_policy = UserPolicy(rrn_users_api_service=rrn_usersapi_service, rrn_services_api_service=rrn_servicesapi_service)
 order_policy = OrderPolicy(rrn_orders_api_service=rrn_ordersapi_service)

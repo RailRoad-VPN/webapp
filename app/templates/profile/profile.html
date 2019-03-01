@@ -84,56 +84,64 @@
     <meta id="email_saved_text" data-text="{{ _('Email was successfully changed!') }}">
     <meta id="password_saved_text" data-text="{{ _('Password was successfully changed!') }}">
 
+    <meta id="generate_available" data-value="{{ generate_available }}">
+
 {% endblock %}
 
 {% block body %}
     <div class="pt-6 pb-6" style="background-color: #f8f8f8;">
-        <div class="menu-header nav justify-content-centers" style="background-color: #fff; padding-top: 50px;">
-            <ul id="profile-menu" class="nav nav-tabs">
-                <li class="nav-item menu-entry">
-                    <a data-name="profile_dashboard" id="dashboard-tab" class="nav-link active" href="#tab_dashboard" data-toggle="tab">
-                        <i class="fas fa-tachometer-alt"></i> {{ _('Dashboard') }}
-                    </a>
-                </li>
-                <li class="nav-item menu-entry">
-                    <a data-name="profile_account" id="account-tab" class="nav-link" href="#tab_account" data-toggle="tab">
-                        <i class="fas fa-user-alt"></i> {{ _('Account') }}
-                    </a>
-                </li>
-                <li class="nav-item menu-entry">
-                    <a data-name="profile_download" id="downloads-tab" class="nav-link" href="#tab_downloads" data-toggle="tab">
-                        <i class="fas fa-download"></i> {{ _('Downloads') }}
-                    </a>
-                </li>
-                <li class="nav-item menu-entry">
-                    <a data-name="profile_servers" id="servers-tab" class="nav-link" href="#tab_servers" data-toggle="tab">
-                        <i class="fas fa-server"></i> {{ _('VPN Servers') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <button class="btn btn-link text-danger text-uppercase generate-pin-btn"
-                            data-placement="top"
-                            title="{{ _("You cant generate PINCODE until you don't have any ACTIVE subscription") }}"
-                            style="font-weight: bold;">
-                        <i class="fas fa-barcode"></i> {{ _('Generate PIN-code') }}
-                    </button>
-                </li>
-            </ul>
-        </div>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="tab_dashboard" role="tabpanel" aria-labelledby="home-tab">
-                <div class="container">
-                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Services') }}</h4>
-                    <div class="user-services well container">
-                        {% for us in user_services %}
-                            {% set service = us['service'] %}
-                            {% set order = us['order'] %}
-                            {% set payments = order['payments'] %}
+        {% if generate_available %}
+            <div class="menu-header nav justify-content-centers" style="background-color: #fff; padding-top: 50px;">
+                <ul id="profile-menu" class="nav nav-tabs">
+                    <li class="nav-item menu-entry">
+                        <a data-name="profile_dashboard" id="dashboard-tab" class="nav-link active"
+                           href="#tab_dashboard"
+                           data-toggle="tab">
+                            <i class="fas fa-tachometer-alt"></i> {{ _('Dashboard') }}
+                        </a>
+                    </li>
+                    <li class="nav-item menu-entry">
+                        <a data-name="profile_account" id="account-tab" class="nav-link" href="#tab_account"
+                           data-toggle="tab">
+                            <i class="fas fa-user-alt"></i> {{ _('Account') }}
+                        </a>
+                    </li>
+                    <li class="nav-item menu-entry">
+                        <a data-name="profile_download" id="downloads-tab" class="nav-link" href="#tab_downloads"
+                           data-toggle="tab">
+                            <i class="fas fa-download"></i> {{ _('Downloads') }}
+                        </a>
+                    </li>
+                    <li class="nav-item menu-entry">
+                        <a data-name="profile_servers" id="servers-tab" class="nav-link" href="#tab_servers"
+                           data-toggle="tab">
+                            <i class="fas fa-server"></i> {{ _('VPN Servers') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-link text-danger text-uppercase generate-pin-btn"
+                                data-placement="top" disabled
+                                title="{{ _("You cant generate PINCODE until you don't have any ACTIVE subscription") }}"
+                                style="font-weight: bold;">
+                            <i class="fas fa-barcode"></i> {{ _('Generate PIN-code') }}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tab_dashboard" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="container">
+                        <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Services') }}</h4>
+                        <div class="user-services well container">
+                            {% for us in user_services %}
+                                {% set service = us['service'] %}
+                                {% set order = us['order'] %}
+                                {% set payments = order['payments'] %}
 
-                            <h4 class="d-inline">
-                                {{ service['service_name'] }}
-                            </h4>
-                            <span class="sub-badges">
+                                <h4 class="d-inline">
+                                    {{ service['service_name'] }}
+                                </h4>
+                                <span class="sub-badges">
                                 {% if us['status_id'] == 1 %}
                                     <input class="is_user_has_active_subscribe" type="hidden" value="true">
                                     <span class="badge badge-success">{{ _('Active') }}</span>
@@ -144,20 +152,20 @@
                                 {% elif us['status_id'] == 4 %}
                                     <span class="badge badge-primary">{{ _('Waiting for payment') }}</span>
                                 {% endif %}
-                                <span class="badge badge-dark">
+                                    <span class="badge badge-dark">
                                     {{ _('Order') }} #{{ order['code'] }}
-                                    {% if order['status_id'] == 1 %}
-                                        {{ _('New') }}
-                                    {% elif order['status_id'] == 2 %}
-                                        {{ _('Processing') }}
-                                    {% elif order['status_id'] == 3 %}
-                                        {{ _('Success') }}
-                                    {% elif order['status_id'] == 4 %}
-                                        {{ _('Failed') }}
-                                    {% endif %}
+                                        {% if order['status_id'] == 1 %}
+                                            {{ _('New') }}
+                                        {% elif order['status_id'] == 2 %}
+                                            {{ _('Processing') }}
+                                        {% elif order['status_id'] == 3 %}
+                                            {{ _('Success') }}
+                                        {% elif order['status_id'] == 4 %}
+                                            {{ _('Failed') }}
+                                        {% endif %}
                                 </span>
-                                {% if service['is_free'] == false and us['is_trial'] == false %}
-                                    <span class="badge badge-info">
+                                    {% if service['is_free'] == false and us['is_trial'] == false %}
+                                        <span class="badge badge-info">
                                     {% if service['billed_period'] == 1 %}
                                         {{ _('billed monthly') }}
                                     {% elif service['billed_period'] == 12 %}
@@ -166,21 +174,21 @@
                                         {{ _('billed every 3 years') }}
                                     {% endif %}
                                 </span>
-                                {% endif %}
-                                {% if service['is_free'] %}
-                                    <span class="badge badge-secondary">
+                                    {% endif %}
+                                    {% if service['is_free'] %}
+                                        <span class="badge badge-secondary">
                                         {{ _('free') }}
                                     </span>
-                                {% endif %}
-                                {% if us['is_trial'] %}
-                                    <span class="badge badge-primary">
+                                    {% endif %}
+                                    {% if us['is_trial'] %}
+                                        <span class="badge badge-primary">
                                         {{ _('trial') }}
                                     </span>
-                                {% endif %}
+                                    {% endif %}
                             </span>
-                            <!-- 0 price for free sub or perpetual service -->
-                            {% if service['is_free'] == false %}
-                                <span class="d-inline float-right">
+                                <!-- 0 price for free sub or perpetual service -->
+                                {% if service['is_free'] == false %}
+                                    <span class="d-inline float-right">
                                     {% if us['is_trial'] == true %}
                                         <small class="text-muted">
                                             {{ _('Trial') }}: {{ service['trial_period_days'] }} {{ _('days') }}
@@ -203,350 +211,402 @@
                                         {% endif %}
                                     {% endif %}
                                 </span>
-                            {% endif %}
-                            <div class="row">
-                                <div class="col-12">
-                                    {% if us['status_id'] == 3 %} <!-- expired -->
-                                        {{ _('This subscription has been expired you can') }}
-                                        <a href="{{ url_for('order.order_page') }}">
-                                            {{ _('buy new one') }}
-                                        </a>
-                                        {{ _('or') }}
-                                        <a data-name="profile_renewsub" class="renew-sub-btn" href="#"
-                                           data-sub_id="{{ service['id'] }}"
-                                           data-subscription_uuid="{{ us['uuid'] }}"
-                                           data-order_code="{{ order['code'] }}">
-                                            {{ _('renew subscription') }}
-                                        </a>
-                                    {% endif %}
-                                    {% if payments | length > 0 %}
-                                        <table class="table pt-2">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">{{ _('Email') }}</th>
-                                                <th scope="col">{{ _('Type') }}</th>
-                                                <th scope="col">{{ _('Sum') }}</th>
-                                                <th scope="col">{{ _('Method') }}</th>
-                                                <th scope="col">{{ _('Date') }}</th>
-                                                <th scope="col">{{ _('Status') }}</th>
-                                                <th scope="col">{{ _('Invoice Link') }}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for payment in payments %}
-                                                {% if payment['status_id'] == 1 %}
-                                                    {% set status = _('success') %}
-                                                {% elif payment['status_id'] == 2 %}
-                                                    {% set status = _('failed') %}
-                                                {% elif payment['status_id'] == 3 %}
-                                                    {% set status = _('processing') %}
-                                                {% endif %}
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        {% if us['status_id'] == 3 %} <!-- expired -->
+                                            {{ _('This subscription has been expired you can') }}
+                                            <a href="{{ url_for('order.order_page') }}">
+                                                {{ _('buy new one') }}
+                                            </a>
+                                            {{ _('or') }}
+                                            <a data-name="profile_renewsub" class="renew-sub-btn" href="#"
+                                               data-sub_id="{{ service['id'] }}"
+                                               data-subscription_uuid="{{ us['uuid'] }}"
+                                               data-order_code="{{ order['code'] }}">
+                                                {{ _('renew subscription') }}
+                                            </a>
+                                        {% endif %}
+                                        {% if payments | length > 0 %}
+                                            <table class="table pt-2">
+                                                <thead>
                                                 <tr>
-                                                    <td>{{ email }}</td>
-                                                    <td>{{ type }}</td>
-                                                    <td>{{ sum }}</td>
-                                                    <td>{{ method }}</td>
-                                                    <td>{{ moment(payment['created_date'] | strftime).format('Do MMMM YYYY, HH:mm:ss') }}</td>
-                                                    <td><span class="badge badge-success">{{ status }}</span></td>
-                                                    <td>
-                                                        {% if invoice_link %}
-                                                            <a href="{{ invoice_link }}">{{ _('Link') }}</a>
-                                                        {% else %}
-                                                            N/A
-                                                        {% endif %}
-                                                    </td>
+                                                    <th scope="col">{{ _('Email') }}</th>
+                                                    <th scope="col">{{ _('Type') }}</th>
+                                                    <th scope="col">{{ _('Sum') }}</th>
+                                                    <th scope="col">{{ _('Method') }}</th>
+                                                    <th scope="col">{{ _('Date') }}</th>
+                                                    <th scope="col">{{ _('Status') }}</th>
+                                                    <th scope="col">{{ _('Invoice Link') }}</th>
                                                 </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    {% else %}
-                                        {{ _('No payments yet') }}
-                                    {% endif %}
+                                                </thead>
+                                                <tbody>
+                                                {% for payment in payments %}
+                                                    {% if payment['status_id'] == 1 %}
+                                                        {% set status = _('success') %}
+                                                    {% elif payment['status_id'] == 2 %}
+                                                        {% set status = _('failed') %}
+                                                    {% elif payment['status_id'] == 3 %}
+                                                        {% set status = _('processing') %}
+                                                    {% endif %}
+                                                    <tr>
+                                                        <td>{{ email }}</td>
+                                                        <td>{{ type }}</td>
+                                                        <td>{{ sum }}</td>
+                                                        <td>{{ method }}</td>
+                                                        <td>{{ moment(payment['created_date'] | strftime).format('Do MMMM YYYY, HH:mm:ss') }}</td>
+                                                        <td><span class="badge badge-success">{{ status }}</span></td>
+                                                        <td>
+                                                            {% if invoice_link %}
+                                                                <a href="{{ invoice_link }}">{{ _('Link') }}</a>
+                                                            {% else %}
+                                                                N/A
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {% else %}
+                                            {{ _('No payments yet') }}
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <hr>
-                        {% endfor %}
-                    </div>
-                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Devices') }}</h4>
-                    <div class="user-devices well container" style="padding-bottom: 50px;">
-                        {% if user_devices %}
-                            <div class="row">
-                                {% for user_device in user_devices %}
-                                    <div class="col-lg-4">
-                                        <div class="card text-center user-device" data-uuid="{{ user_device['uuid'] }}">
-                                            <div class="card-body">
-                                                <h5 class="card-title d-inline">
-                                                    {{ _('Your Device') }}
-                                                </h5>
-                                                {% if user_device['is_active'] %}
-                                                    <span class="badge badge-status badge-success"
-                                                          data-active_text="{{ _('Active') }}"
-                                                          data-inactive_text="{{ _('Inactive') }}">
+                                <div class="clearfix"></div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                        <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Devices') }}</h4>
+                        <div class="user-devices well container" style="padding-bottom: 50px;">
+                            {% if user_devices %}
+                                <div class="row">
+                                    {% for user_device in user_devices %}
+                                        <div class="col-lg-4">
+                                            <div class="card text-center user-device"
+                                                 data-uuid="{{ user_device['uuid'] }}">
+                                                <div class="card-body">
+                                                    <h5 class="card-title d-inline">
+                                                        {{ _('Your Device') }}
+                                                    </h5>
+                                                    {% if user_device['is_active'] %}
+                                                        <span class="badge badge-status badge-success"
+                                                              data-active_text="{{ _('Active') }}"
+                                                              data-inactive_text="{{ _('Inactive') }}">
                                                         {{ _('Active') }}
                                                     </span>
-                                                {% else %}
-                                                    <span class="badge badge-status badge-warning"
-                                                          data-active_text="{{ _('Active') }}"
-                                                          data-inactive_text="{{ _('Inactive') }}">
+                                                    {% else %}
+                                                        <span class="badge badge-status badge-warning"
+                                                              data-active_text="{{ _('Active') }}"
+                                                              data-inactive_text="{{ _('Inactive') }}">
                                                         {{ _('Inactive') }}
                                                     </span>
-                                                {% endif %}
-                                                {% if user_device['is_connected'] %}
-                                                    <span class="badge badge-success"
-                                                          data-connected_text="{{ _('Connected') }}"
-                                                          data-disconnected_text="{{ _('Disconnected') }}">
+                                                    {% endif %}
+                                                    {% if user_device['is_connected'] %}
+                                                        <span class="badge badge-success"
+                                                              data-connected_text="{{ _('Connected') }}"
+                                                              data-disconnected_text="{{ _('Disconnected') }}">
                                                         {{ _('Connected') }}
                                                     </span>
-                                                {% else %}
-                                                    <span class="badge badge-warning"
-                                                          data-connected_text="{{ _('Connected') }}"
-                                                          data-disconnected_text="{{ _('Disconnected') }}">
+                                                    {% else %}
+                                                        <span class="badge badge-warning"
+                                                              data-connected_text="{{ _('Connected') }}"
+                                                              data-disconnected_text="{{ _('Disconnected') }}">
                                                         {{ _('Disconnected') }}
                                                     </span>
-                                                {% endif %}
-                                                <ul class="list-unstyled">
-                                                    <li class="text-muted">
-                                                        {{ _('Operation System') }}:
-                                                        {% if user_device['platform_id'] == 1 %}
-                                                            iOS
-                                                        {% elif user_device['platform_id'] == 2 %}
-                                                            Android
-                                                        {% elif user_device['platform_id'] == 3 %}
-                                                            Windows
-                                                        {% elif user_device['platform_id'] == 4 %}
-                                                            macOS
-                                                        {% endif %}
-                                                    </li>
-                                                    <li class="text-muted">
-                                                        {{ _('Location') }}:
-                                                        {{ user_device['location'] if user_device['location'] else 'N/A' }}
-                                                    </li>
-                                                    <li>
-                                                        {{ _('Total Download') }}:<span
-                                                                        class="download-traffic">
+                                                    {% endif %}
+                                                    <ul class="list-unstyled">
+                                                        <li class="text-muted">
+                                                            {{ _('Operation System') }}:
+                                                            {% if user_device['platform_id'] == 1 %}
+                                                                iOS
+                                                            {% elif user_device['platform_id'] == 2 %}
+                                                                Android
+                                                            {% elif user_device['platform_id'] == 3 %}
+                                                                Windows
+                                                            {% elif user_device['platform_id'] == 4 %}
+                                                                macOS
+                                                            {% endif %}
+                                                        </li>
+                                                        <li class="text-muted">
+                                                            {{ _('Location') }}:
+                                                            {{ user_device['location'] if user_device['location'] else 'N/A' }}
+                                                        </li>
+                                                        <li>
+                                                            {{ _('Total Download') }}:<span
+                                                                class="download-traffic">
                                                                     {{ user_device['bytes_i']|filesizeformat(true) if user_device['bytes_i'] else 'N/A' }}
                                                                 </span>
-                                                    </li>
-                                                    <li>
-                                                        {{ _('Total Upload') }}:<span
-                                                                        class="download-traffic">
+                                                        </li>
+                                                        <li>
+                                                            {{ _('Total Upload') }}:<span
+                                                                class="download-traffic">
                                                                     {{ user_device['bytes_o']|filesizeformat(true) if user_device['bytes_o'] else 'N/A' }}
                                                                 </span>
-                                                    </li>
-                                                    {% if not user_device['is_connected'] %}
-                                                        <li>{{ _('No alive session') }}</li>
-                                                    {% endif %}
-                                                    {% if "_connections" in user_device %}
-                                                        {% for conn in user_device['_connections'] %}
-                                                            {% if conn['is_connected'] %}
-                                                                <li><br></li>
-                                                                <li><strong class="small">{{ _('Current Session') }}</strong></li>
-                                                                <li class="text-muted">
-                                                                    {{ _('Virtual IP Address') }}:
-                                                                    {{ conn['virtual_ip'] if conn['virtual_ip'] else 'N/A' }}
-                                                                </li>
-                                                                <li class="text-muted">
-                                                                    {{ _('Connected Since') }}:
-                                                                    {{ conn['connected_since'] if conn['connected_since'] else 'N/A' }}
-                                                                </li>
-                                                                <li class="text-muted">
-                                                                    {{ _('Download') }}: <span
-                                                                        class="download-traffic">
+                                                        </li>
+                                                        {% if not user_device['is_connected'] %}
+                                                            <li>{{ _('No alive session') }}</li>
+                                                        {% endif %}
+                                                        {% if "_connections" in user_device %}
+                                                            {% for conn in user_device['_connections'] %}
+                                                                {% if conn['is_connected'] %}
+                                                                    <li><br></li>
+                                                                    <li><strong
+                                                                            class="small">{{ _('Current Session') }}</strong>
+                                                                    </li>
+                                                                    <li class="text-muted">
+                                                                        {{ _('Virtual IP Address') }}:
+                                                                        {{ conn['virtual_ip'] if conn['virtual_ip'] else 'N/A' }}
+                                                                    </li>
+                                                                    <li class="text-muted">
+                                                                        {{ _('Connected Since') }}:
+                                                                        {{ conn['connected_since'] if conn['connected_since'] else 'N/A' }}
+                                                                    </li>
+                                                                    <li class="text-muted">
+                                                                        {{ _('Download') }}: <span
+                                                                            class="download-traffic">
                                                                     {{ conn['bytes_i']|filesizeformat(true) if conn['bytes_i'] else 'N/A' }}
                                                                 </span>
-                                                                </li>
-                                                                <li class="text-muted">
-                                                                    {{ _('Upload') }}: <span
-                                                                        class="upload-traffic">
+                                                                    </li>
+                                                                    <li class="text-muted">
+                                                                        {{ _('Upload') }}: <span
+                                                                            class="upload-traffic">
                                                                     {{ conn['bytes_o']|filesizeformat(true) if conn['bytes_o'] else 'N/A' }}
                                                                 </span>
-                                                                </li>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </ul>
-                                                <button class="btn btn-link card-link change-status-device-btn"
-                                                        {% if user_device['is_active'] %}
-                                                        data-is_active="1"
-                                                        {% else %}
-                                                        data-is_active="0"
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endfor %}
                                                         {% endif %}
-                                                        data-uuid="{{ user_device['uuid'] }}"
-                                                        data-activate_text="{{ _('Activate') }}"
-                                                        data-deactivate_text="{{ _('Deactivate') }}">
-                                                    {% if user_device['is_active'] == true %}
-                                                        {{ _('Deactivate') }}
-                                                    {% else %}
-                                                        {{ _('Activate') }}
-                                                    {% endif %}
-                                                </button>
-                                                <button class="btn btn-link card-link delete-device-btn"
-                                                        data-uuid="{{ user_device['uuid'] }}"
-                                                        style="color: red;">
-                                                    {{ _('Delete') }}
-                                                </button>
+                                                    </ul>
+                                                    <button class="btn btn-link card-link change-status-device-btn"
+                                                            {% if user_device['is_active'] %}
+                                                            data-is_active="1"
+                                                            {% else %}
+                                                            data-is_active="0"
+                                                            {% endif %}
+                                                            data-uuid="{{ user_device['uuid'] }}"
+                                                            data-activate_text="{{ _('Activate') }}"
+                                                            data-deactivate_text="{{ _('Deactivate') }}">
+                                                        {% if user_device['is_active'] == true %}
+                                                            {{ _('Deactivate') }}
+                                                        {% else %}
+                                                            {{ _('Activate') }}
+                                                        {% endif %}
+                                                    </button>
+                                                    <button class="btn btn-link card-link delete-device-btn"
+                                                            data-uuid="{{ user_device['uuid'] }}"
+                                                            style="color: red;">
+                                                        {{ _('Delete') }}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="text-center">
-                                {{ _('You have no devices. Press ') }}
-                                <button class="btn btn-link text-danger text-uppercase generate-pin-btn"
-                                        data-placement="top"
-                                        title="{{ _("You cant generate PINCODE until you don't have any ACTIVE subscription") }}">
-                                    <i class="fas fa-barcode"></i> {{ _('Generate PIN-code') }}
-                                </button>
-                                {{ _('button to generate and activate your first device with RRoadVPN.') }}
-                            </div>
-                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="text-center">
+                                    {{ _('You have no devices. Press ') }}
+                                    <button class="btn btn-link text-danger text-uppercase generate-pin-btn"
+                                            data-placement="top"
+                                            title="{{ _("You cant generate PINCODE until you don't have any ACTIVE subscription") }}">
+                                        <i class="fas fa-barcode"></i> {{ _('Generate PIN-code') }}
+                                    </button>
+                                    {{ _('button to generate and activate your first device with RRoadVPN.') }}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="tab_account" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container">
-                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Account') }}</h4>
-                    <div class="user-devices well container " style="padding-bottom: 50px;">
-                        <label for="account-email-input">{{ _('Email') }}</label>
-                        <div class="input-group mb-3 col-4">
-                            <input id="account-email-input" type="email" class="form-control"
-                                   data-current_email="{{ session['user']['email'] }}"
-                                   value="{{ session['user']['email'] }}"
-                                   placeholder="example@domain.com"
-                                   aria-label="Your email"
-                                   aria-describedby="save-email-btn" required>
-                            <div class="input-group-append">
-                                <button id="save-email-btn" type="button" class="btn btn-outline-secondary">
-                                    {{ _('Save') }}
-                                </button>
+                <div class="tab-pane fade" id="tab_account" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="container">
+                        <h4 style="padding-top: 70px; text-transform: none;">{{ _('Your Account') }}</h4>
+                        <div class="user-devices well container " style="padding-bottom: 50px;">
+                            <label for="account-email-input">{{ _('Email') }}</label>
+                            <div class="input-group mb-3 col-4">
+                                <input id="account-email-input" type="email" class="form-control"
+                                       data-current_email="{{ session['user']['email'] }}"
+                                       value="{{ session['user']['email'] }}"
+                                       placeholder="example@domain.com"
+                                       aria-label="Your email"
+                                       aria-describedby="save-email-btn" required>
+                                <div class="input-group-append">
+                                    <button id="save-email-btn" type="button" class="btn btn-outline-secondary">
+                                        {{ _('Save') }}
+                                    </button>
+                                </div>
+                                <div class="col-12 error warning small same_warning">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Entered email is your email') }}
+                                </div>
+                                <div class="col-12 error small empty_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Enter email please') }}
+                                </div>
+                                <div class="col-12 error small busy_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Entered email is busy') }}
+                                </div>
                             </div>
-                            <div class="col-12 error warning small same_warning">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                {{ _('Entered email is your email') }}
+                            <label for="account-password-input">{{ _('Password') }}</label>
+                            <div class="input-group mb-3 col-4">
+                                <input id="account-password-input" type="password" class="form-control"
+                                       placeholder="{{ _('Enter your new password here') }}"
+                                       aria-label="Your password"
+                                       aria-describedby="change-password-btn">
+                                <div class="input-group-append">
+                                    <button id="save-password-btn" type="button" class="btn btn-outline-secondary">
+                                        {{ _('Save') }}
+                                    </button>
+                                </div>
+                                <div class="col-12 error small empty_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Enter password please') }}
+                                </div>
+                                <div class="col-12 error small short_error">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    {{ _('Entered password too short. Minimum length 6 chars') }}
+                                </div>
                             </div>
-                            <div class="col-12 error small empty_error">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                {{ _('Enter email please') }}
-                            </div>
-                            <div class="col-12 error small busy_error">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                {{ _('Entered email is busy') }}
-                            </div>
+                            <hr>
+                            <button type="button"
+                                    data-toggle="modal" data-target="#delete-account-modal"
+                                    class="btn btn-secondary float-right">
+                                {{ _('DELETE ACCOUNT') }}
+                            </button>
                         </div>
-                        <label for="account-password-input">{{ _('Password') }}</label>
-                        <div class="input-group mb-3 col-4">
-                            <input id="account-password-input" type="password" class="form-control"
-                                   placeholder="{{ _('Enter your new password here') }}"
-                                   aria-label="Your password"
-                                   aria-describedby="change-password-btn">
-                            <div class="input-group-append">
-                                <button id="save-password-btn" type="button" class="btn btn-outline-secondary">
-                                    {{ _('Save') }}
-                                </button>
-                            </div>
-                            <div class="col-12 error small empty_error">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                {{ _('Enter password please') }}
-                            </div>
-                            <div class="col-12 error small short_error">
-                                <i class="fa fa-exclamation-triangle"></i>
-                                {{ _('Entered password too short. Minimum length 6 chars') }}
-                            </div>
-                        </div>
-                        <hr>
-                        <button type="button"
-                                data-toggle="modal" data-target="#delete-account-modal"
-                                class="btn btn-secondary float-right">
-                            {{ _('DELETE ACCOUNT') }}
-                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="tab_downloads" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="container">
-                    {{ _('downloads') }}
+                <div class="tab-pane fade" id="tab_downloads" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="container">
+                        {{ _('downloads') }}
+                    </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="tab_servers" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="container">
-                    <h4 style="padding-top: 70px; text-transform: none;">{{ _('VPN Servers') }}</h4>
-                    <div class="user-services well container">
-                        <div class="col-lg-10 offset-1">
-                            <div class="input-group">
-                                <input id="vpn_servers-search-input"
-                                       class="form-control py-2 border-right-0 border"
-                                       type="search" placeholder="{{ _('Search...') }}">
-                                <span class="input-group-append">
+                <div class="tab-pane fade" id="tab_servers" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="container">
+                        <h4 style="padding-top: 70px; text-transform: none;">{{ _('VPN Servers') }}</h4>
+                        <div class="user-services well container">
+                            <div class="col-lg-10 offset-1">
+                                <div class="input-group">
+                                    <input id="vpn_servers-search-input"
+                                           class="form-control py-2 border-right-0 border"
+                                           type="search" placeholder="{{ _('Search...') }}">
+                                    <span class="input-group-append">
                                       <div class="input-group-text bg-transparent">
                                           <i class="fa fa-search"></i>
                                       </div>
                                 </span>
+                                </div>
                             </div>
-                        </div>
-                        <table id="vpn_servers-table" class="table" style="margin-top: 50px !important;">
-                            <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">{{ _('Country') }}</th>
-                                <th scope="col">{{ _('City') }}</th>
-                                <th scope="col">{{ _('State') }}</th>
-                                <th scope="col">{{ _('Bandwith') }}</th>
-                                <th scope="col">{{ _('Load') }}</th>
-                                <th scope="col">{{ _('Type') }}</th>
-                                <th scope="col">{{ _('Status') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for uvs in user_vpn_servers %}
+                            <table id="vpn_servers-table" class="table" style="margin-top: 50px !important;">
+                                <thead class="thead-dark">
                                 <tr>
-                                    <td scope="row">{{ uvs['num'] }}</td>
-                                    {% if 'geo' in uvs and 'country' in uvs['geo'] %}
-                                        <td>{{ uvs['geo']['country']['name'] }}</td>
-                                    {% else %}
-                                        <td> -</td>
-                                    {% endif %}
-                                    {% if 'geo' in uvs and 'city' in uvs['geo'] %}
-                                        <td>{{ uvs['geo']['city']['name'] }}</td>
-                                    {% else %}
-                                        <td> -</td>
-                                    {% endif %}
-                                    {% if 'geo' in uvs and 'state' in uvs['geo'] %}
-                                        <td>{{ uvs['geo']['state']['name'] }}</td>
-                                    {% else %}
-                                        <td> -</td>
-                                    {% endif %}
-                                    <td>{{ uvs['bandwidth'] }}</td>
-                                    <td>{{ uvs['load'] }}%</td>
-                                    {% if uvs['type_id'] == 1 %}
-                                        <th>OpenVPN</th>
-                                    {% elif uvs['type_id'] == 2 %}
-                                        <td>IPSec over IKEv2</td>
-                                    {% endif %}
-                                    {% if uvs['status_id'] == 1 %}
-                                        <td>
-                                            <i class="fas fa-thumbs-up"></i>
-                                        </td>
-                                    {% elif uvs['status_id'] == 3 %}
-                                        <td>
-                                            {{ _('maintenance') }}
-                                            <i class="fas fa-heartbeat"></i>
-                                        </td>
-                                    {% elif uvs['status_id'] == 4 %}
-                                        <td>
-                                            {{ _('op_nnc') }}
-                                            <i class="fas fa-life-ring"></i>
-                                        </td>
-                                    {% endif %}
+                                    <th scope="col">#</th>
+                                    <th scope="col">{{ _('Country') }}</th>
+                                    <th scope="col">{{ _('City') }}</th>
+                                    <th scope="col">{{ _('State') }}</th>
+                                    <th scope="col">{{ _('Bandwith') }}</th>
+                                    <th scope="col">{{ _('Load') }}</th>
+                                    <th scope="col">{{ _('Type') }}</th>
+                                    <th scope="col">{{ _('Status') }}</th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {% for uvs in user_vpn_servers %}
+                                    <tr>
+                                        <td scope="row">{{ uvs['num'] }}</td>
+                                        {% if 'geo' in uvs and 'country' in uvs['geo'] %}
+                                            <td>{{ uvs['geo']['country']['name'] }}</td>
+                                        {% else %}
+                                            <td> -</td>
+                                        {% endif %}
+                                        {% if 'geo' in uvs and 'city' in uvs['geo'] %}
+                                            <td>{{ uvs['geo']['city']['name'] }}</td>
+                                        {% else %}
+                                            <td> -</td>
+                                        {% endif %}
+                                        {% if 'geo' in uvs and 'state' in uvs['geo'] %}
+                                            <td>{{ uvs['geo']['state']['name'] }}</td>
+                                        {% else %}
+                                            <td> -</td>
+                                        {% endif %}
+                                        <td>{{ uvs['bandwidth'] }}</td>
+                                        <td>{{ uvs['load'] }}%</td>
+                                        {% if uvs['type_id'] == 1 %}
+                                            <th>OpenVPN</th>
+                                        {% elif uvs['type_id'] == 2 %}
+                                            <td>IPSec over IKEv2</td>
+                                        {% endif %}
+                                        {% if uvs['status_id'] == 1 %}
+                                            <td>
+                                                <i class="fas fa-thumbs-up"></i>
+                                            </td>
+                                        {% elif uvs['status_id'] == 3 %}
+                                            <td>
+                                                {{ _('maintenance') }}
+                                                <i class="fas fa-heartbeat"></i>
+                                            </td>
+                                        {% elif uvs['status_id'] == 4 %}
+                                            <td>
+                                                {{ _('op_nnc') }}
+                                                <i class="fas fa-life-ring"></i>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <div class="row pt-5">
+                <div class="col pt-5">
+                    <div class="card mx-auto mr-5" style="width: 18rem;">
+                        <div class="card-header ">
+                            {{ _('Building profile...') }}
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <img style="width: 30px; margin-left: -20px;"
+                                     src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
+                                     alt="{{ _('Loading profile...') }}">
+                                {{ _('PINCODE generation service') }}
+                            </li>
+                            <li class="list-group-item">
+                                {% if not vpn_config_rdy['windows'] %}
+                                    <img style="width: 30px; margin-left: -20px;"
+                                         src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
+                                         alt="{{ _('Loading profile...') }}">
+                                {% else %}
+                                    <i style="width: 30px; margin-left: -20px;" class="far fa-check-circle"></i>
+                                {% endif %}
+                                {{ _('Windows VPN configuration') }}
+                            </li>
+                            <li class="list-group-item">
+                                {% if not vpn_config_rdy['android'] %}
+                                    <img style="width: 30px; margin-left: -20px;"
+                                         src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
+                                         alt="{{ _('Loading profile...') }}">
+                                {% else %}
+                                    <i style="width: 30px; margin-left: -20px;" class="far fa-check-circle"></i>
+                                {% endif %}
+                                {{ _('Android VPN configuration') }}
+                            </li>
+                            <li class="list-group-item">
+                                {% if not vpn_config_rdy['ios'] %}
+                                    <img style="width: 30px; margin-left: -20px;"
+                                         src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
+                                         alt="{{ _('Loading profile...') }}">
+                                {% else %}
+                                    <i style="width: 30px; margin-left: -20px;" class="far fa-check-circle"></i>
+                                {% endif %}
+                                {{ _('iOS VPN configuration') }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 
     <div id="pincode-modal" class="modal fade" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">

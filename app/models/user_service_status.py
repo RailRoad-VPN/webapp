@@ -18,3 +18,4 @@ class UserServiceStatus(Enum):
     INACTIVE = (2, 'inactive')
     EXPIRED = (3, 'expired')
     WAIT_FOR_PAYMENT = (4, 'waiting for payment')
+    WAIT_FOR_CONFIG = (5, 'waiting for configuration')

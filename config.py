@@ -15,6 +15,8 @@ class Config(object):
     LANGUAGES = ['ru', 'en']
 
     USERS_API_RESOURCE_NAME = 'users'
+    USER_VPNSERVERS_API_RESOURCE_NAME = f"{USERS_API_RESOURCE_NAME}/user_uuid/servers"
+    USER_VPNSERVER_CONFIGS_API_RESOURCE_NAME = f"{USER_VPNSERVERS_API_RESOURCE_NAME}/server_uuid/configurations"
     SERVICES_API_RESOURCE_NAME = 'services'
     ORDERS_API_RESOURCE_NAME = 'orders'
 

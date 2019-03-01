@@ -8,15 +8,15 @@ from smtplib import SMTPException
 from typing import Optional
 
 import requests
-from flask import session
 from flask_babel import _
 from werkzeug.security import generate_password_hash
 
 from app.cache import CacheService
 from app.models.rrn_service import RRNServiceType
+from app.models.vpn_conf_platform import VPNConfigurationPlatform
 
 sys.path.insert(0, '../rest_api_library')
-from rest import RESTService, APIException, APINotFoundException
+from rest import RESTService, APIException
 from response import APIResponse
 from utils import gen_sec_token
 
@@ -178,6 +178,48 @@ class EmailService(object):
             return False
 
 
+class RRNVPNServersAPIService(RESTService):
+    __version__ = 1
+
+    logger = logging.getLogger(__name__)
+
+    def get_random_server_uuid(self, user_uuid: str) -> str:
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+
+        url = self._url.replace("user_uuid", user_uuid)
+        url += "?random"
+        return self._get(url=url, headers=headers).data['uuid']
+
+
+class RRNUserServerConfigurationsAPIService(RESTService):
+    __version__ = 1
+
+    logger = logging.getLogger(__name__)
+
+    def get_vpn_configurations_ready(self, user_uuid: str, any_server_uuid: str) -> dict:
+        d = {
+            VPNConfigurationPlatform.WINDOWS.text: False,
+            VPNConfigurationPlatform.ANDROID.text: False,
+            VPNConfigurationPlatform.MACOS.text: False,
+            VPNConfigurationPlatform.IOS.text: False
+        }
+        url = self._url.replace("user_uuid", user_uuid)
+        url = url.replace("server_uuid", any_server_uuid)
+
+        headers = {
+            'X-Auth-Token': gen_sec_token()
+        }
+        api_response = self._get(url=url, headers=headers)
+
+        for server_json in api_response.data:
+            vpn_conf_platform = VPNConfigurationPlatform.find_by_sid(server_json['vpn_type_id'])
+            d[vpn_conf_platform.text] = True
+
+        return d
+
+
 class RRNOrdersAPIService(RESTService):
     __version__ = 1
 
@@ -310,7 +352,8 @@ class RRNUsersAPIService(RESTService):
         api_response = self._get(url=url, headers=headers)
         return api_response.data
 
-    def create_user_service(self, user_uuid: str, status_id: int, is_trial: bool, service_id: int, order_uuid: str) -> dict:
+    def create_user_service(self, user_uuid: str, status_id: int, is_trial: bool, service_id: int,
+                            order_uuid: str) -> dict:
         self.logger.debug(
             f"create_user_service method with parameters user_uuid: {user_uuid}. user_uuid: {user_uuid}, "
             f"service_id: {service_id}, order_uuid: {order_uuid}, is_trial: {is_trial}")

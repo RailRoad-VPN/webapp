@@ -25,6 +25,15 @@ $(document).ready(function () {
 
     let is_user_has_active_subscribe = $(".is_user_has_active_subscribe").length > 0;
 
+    let generate_available = $("#generate_available").data("value");
+    if (generate_available === "False") {
+        setTimeout(function () {
+            location.reload();
+        }, 10000);
+        return;
+    }
+
+
     if (!is_user_has_active_subscribe) {
         $generatePinBtn.addClass("disabled");
         $generatePinBtn.attr('data-toggle', "tooltip");
@@ -246,7 +255,7 @@ $(document).ready(function () {
 
     $("#account-delete-btn").click(function () {
         analytics_action('account_delete_button');
-        
+
         let emailVal = $.trim($deleteAccountEmailInput.val());
 
         if ($deleteAccountEmailInput.data("current_email") !== emailVal) {
