@@ -62,10 +62,6 @@ def profile_page():
     if services is not None and (len(user_device_list) > 0 or ('pin_code' in session['user']
                                                                and session['user']['pin_code'] is not None)):
         generate_available = True
-        try:
-            user_vpn_servers = rrn_usersapi_service.get_user_vpn_servers(user_uuid=user_uuid)
-        except (APIException, APINotFoundException) as e:
-            user_vpn_servers = []
     else:
         generate_available = True
         try:
@@ -78,6 +74,13 @@ def profile_page():
                     break
         except (APIException, APINotFoundException) as e:
             logger.error(e)
+
+    user_vpn_servers = []
+    if generate_available:
+        try:
+            user_vpn_servers = rrn_usersapi_service.get_user_vpn_servers(user_uuid=user_uuid)
+        except (APIException, APINotFoundException) as e:
+            pass
 
     return render_template('profile/profile.html', code=HTTPStatus.OK, user_services=user_services,
                            vpn_config_rdy=vpn_config_rdy, generate_available=generate_available,
