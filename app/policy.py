@@ -1,3 +1,5 @@
+from flask import session
+
 from app.models.order_status import OrderStatus
 from app.models.user_service_status import UserServiceStatus
 from app.service import *
