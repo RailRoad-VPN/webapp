@@ -201,10 +201,8 @@ class RRNUserServerConfigurationsAPIService(RESTService):
 
     def get_vpn_configurations_ready(self, user_uuid: str, any_server_uuid: str) -> dict:
         d = {
-            VPNConfigurationPlatform.WINDOWS.text: False,
-            VPNConfigurationPlatform.ANDROID.text: False,
-            VPNConfigurationPlatform.MACOS.text: False,
-            VPNConfigurationPlatform.IOS.text: False
+            VPNConfigurationPlatform.WINDOWS.sid: False,
+            VPNConfigurationPlatform.ANDROID.sid: False,
         }
         url = self._url.replace("user_uuid", user_uuid)
         url = url.replace("server_uuid", any_server_uuid)
@@ -215,9 +213,7 @@ class RRNUserServerConfigurationsAPIService(RESTService):
         api_response = self._get(url=url, headers=headers)
 
         for server_json in api_response.data:
-            self.logger.debug("server")
-            vpn_conf_platform = VPNConfigurationPlatform.find_by_sid(server_json['vpn_device_platform_id'])
-            d[vpn_conf_platform.text] = True
+            d[server_json['vpn_device_platform_id']] = True
         return d
 
 
