@@ -575,7 +575,7 @@
                                 {{ _('PINCODE generation service') }}
                             </li>
                             <li class="list-group-item">
-                                {% if not vpn_config_rdy[3] == 'False' %}
+                                {% if vpn_config_rdy[3] == 'False' %}
                                     <img style="width: 30px; margin-left: -20px;"
                                          src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
                                          alt="{{ _('Loading profile...') }}">
