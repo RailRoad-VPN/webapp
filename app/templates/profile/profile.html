@@ -359,7 +359,7 @@
                                                                     </li>
                                                                     <li class="text-muted">
                                                                         {{ _('Connected Since') }}:
-                                                                        {{ moment(conn['connected_since'] | strftime).fromNow() if conn['connected_since'] else 'N/A' }}
+                                                                        {{ moment(conn['connected_since'] | strftime).format('Do MMMM YYYY, HH:mm:ss') if conn['connected_since'] else 'N/A' }}
                                                                     </li>
                                                                     <li class="text-muted">
                                                                         {{ _('Download') }}: <span
