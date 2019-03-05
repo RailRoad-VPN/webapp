@@ -2,7 +2,7 @@ import os
 from http import HTTPStatus
 from pprint import pprint
 
-from flask import Flask, url_for, redirect, session
+from flask import Flask, url_for, redirect
 from flask_babel import Babel
 from flask_disqus import Disqus
 from flask_moment import Moment
@@ -127,7 +127,35 @@ app.register_error_handler(HTTPStatus.INTERNAL_SERVER_ERROR, internal_server_err
 def index_page():
     logger.info('index page')
     redirect_url = url_for('index.index_lang_page', lang_code=session['lang_code'])
-    return redirect(redirect_url)
+    return redirect(location=redirect_url, code=302)
+
+
+@app.route('/profile/', methods=['GET'])
+def profile_page():
+    logger.info('profile page')
+    redirect_url = url_for('profile.profile_page', lang_code=session['lang_code'])
+    return redirect(location=redirect_url, code=302)
+
+
+@app.route('/download/', methods=['GET'])
+def download_page():
+    logger.info('downloads page')
+    redirect_url = url_for('download.download_page', lang_code=session['lang_code'])
+    return redirect(location=redirect_url, code=302)
+
+
+@app.route('/downloads/', methods=['GET'])
+def downloads_page():
+    logger.info('downloads page')
+    redirect_url = url_for('download.download_page', lang_code=session['lang_code'])
+    return redirect(location=redirect_url, code=302)
+
+
+@app.route('/down/', methods=['GET'])
+def down_page():
+    logger.info('downloads page')
+    redirect_url = url_for('download.download_page', lang_code=session['lang_code'])
+    return redirect(location=redirect_url, code=302)
 
 
 pprint(app.url_map._rules_by_endpoint)
