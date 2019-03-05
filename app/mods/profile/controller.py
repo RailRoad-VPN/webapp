@@ -223,8 +223,19 @@ def change_status_user_device():
     device_uuid = data.get('device_uuid')
     status = data.get('status')
 
-    rrn_usersapi_service.change_status_user_device(user_uuid=session['user']['uuid'], device_uuid=device_uuid,
-                                                   status=status)
+    try:
+        rrn_usersapi_service.change_status_user_device(user_uuid=session['user']['uuid'], device_uuid=device_uuid,
+                                                       status=status)
+    except APIException as e:
+        logger.debug(f"change status user device APIException")
+        logger.debug(f"status code: {e.http_code}")
+        logger.debug(f"errors")
+        for error in e.errors:
+            logger.debug(error['message'])
+        r.set_failed()
+        resp = jsonify(r.serialize())
+        resp.code = HTTPStatus.BAD_REQUEST
+        return resp
 
     r.set_success()
     resp = jsonify(r.serialize())
