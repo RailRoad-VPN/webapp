@@ -32,29 +32,29 @@ $(document).ready(function () {
         }, 10000);
         return;
     }
-
-
+    
     if (!is_user_has_active_subscribe) {
         $generatePinBtn.addClass("disabled");
         $generatePinBtn.attr('data-toggle', "tooltip");
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        console.log("tab shown...");
-    });
-
     let $emailInput = $("#account-email-input");
     let $passwordInput = $("#account-password-input");
     let $deleteAccountEmailInput = $("#delete-account-email-input");
 
-    let table = $('#vpn_servers-table').DataTable({
-        paging: false,
-        searching: true,
-        language: {
-            url: $("#data_table_lang_url").data('url')
-        }
-    });
+    let vpnServersTable;
+    try {
+        vpnServersTable = $('#vpn_servers-table').DataTable({
+            paging: false,
+            searching: true,
+            language: {
+                url: $("#data_table_lang_url").data('url')
+            }
+        });
+    } catch (TypeError) {
+        console.error("vpnServersTable generate error");
+    }
 
     /*
      MENU
@@ -507,7 +507,12 @@ $(document).ready(function () {
     }, 500);
 
     $('#vpn_servers-search-input').keyup(function () {
-        table.search($(this).val()).draw();
+        try {
+            vpnServersTable.search($(this).val()).draw();
+        } catch (e) {
+            console.error("vpnServersTable search error");
+            console.error(e);
+        }
     });
 
     let hash = document.location.hash;
