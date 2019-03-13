@@ -75,6 +75,9 @@ def profile_page():
         except (APIException, APINotFoundException) as e:
             logger.error(e)
 
+    if "debug" in session:
+        generate_available = True
+
     user_vpn_servers = []
     if generate_available:
         try:
