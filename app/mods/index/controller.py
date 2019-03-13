@@ -11,7 +11,7 @@ from app.flask_utils import _pull_lang_code, _add_language_code
 from app.models import AjaxResponse, AjaxError
 
 sys.path.insert(0, '../rest_api_library')
-from rest import APIException
+from api import APIException
 
 mod_index = Blueprint('index', __name__, url_prefix='/<lang_code>/')
 

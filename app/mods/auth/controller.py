@@ -14,7 +14,7 @@ from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 
 sys.path.insert(0, '../rest_api_library')
-from rest import APIException, APINotFoundException
+from api import APIException, APINotFoundException
 from utils import check_uuid
 
 logger = logging.getLogger(__name__)

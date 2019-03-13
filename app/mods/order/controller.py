@@ -18,7 +18,7 @@ from app.models.order_status import OrderStatus
 from app.models.user_service_status import UserServiceStatus
 
 sys.path.insert(0, '../rest_api_library')
-from rest import APIException, APINotFoundException
+from api import APIException, APINotFoundException
 from utils import check_uuid
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth

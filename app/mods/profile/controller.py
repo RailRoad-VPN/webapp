@@ -8,7 +8,7 @@ from app import rrn_usersapi_service, rrn_servicesapi_service, app_config, rrn_o
     rrn_userserverconfigurationsapi_service, RRNServiceType, rrn_vpnserversapi_service
 from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 from app.models import AjaxResponse
-from rest import APINotFoundException, APIException
+from api import APIException, APINotFoundException
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/<lang_code>/profile')
 

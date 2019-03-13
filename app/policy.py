@@ -6,7 +6,7 @@ from app.service import *
 from app.models.exception import UserPolicyException, DFNError, OrderPolicyException
 
 sys.path.insert(0, '../rest_api_library')
-from rest import APINotFoundException, APIException
+from api import APIException, APINotFoundException
 
 
 class UserPolicy(object):

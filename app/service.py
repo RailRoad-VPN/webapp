@@ -17,7 +17,8 @@ from app.models.rrn_service import RRNServiceType
 from app.models.vpn_conf_platform import VPNConfigurationPlatform
 
 sys.path.insert(0, '../rest_api_library')
-from rest import RESTService, APIException
+from rest import RESTService
+from api import APIException
 from response import APIResponse
 from utils import gen_sec_token
 
