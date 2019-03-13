@@ -516,9 +516,11 @@
             charset="utf-8"></script>
 {% endif %}
 
+{% if 'debug' not in session %}
 <script type="text/javascript">
     analytics_page_view($('title').text(), window.location.href, window.location.pathname);
 </script>
+{% endif %}
 
 {% block import_js %}{% endblock %}
 </body>

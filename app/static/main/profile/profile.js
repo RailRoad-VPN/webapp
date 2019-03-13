@@ -32,7 +32,7 @@ $(document).ready(function () {
         }, 10000);
         return;
     }
-    
+
     if (!is_user_has_active_subscribe) {
         $generatePinBtn.addClass("disabled");
         $generatePinBtn.attr('data-toggle', "tooltip");
@@ -97,7 +97,7 @@ $(document).ready(function () {
     }
 
     $generatePinBtn.click(function () {
-        analytics_action("generate_pincode_button");
+        try {analytics_action("generate_pincode_button");} catch (e) {}
 
         if (!is_user_has_active_subscribe) {
             // TODO notification to user
@@ -146,7 +146,7 @@ $(document).ready(function () {
                     if (response.hasOwnProperty('data') && response['data'].hasOwnProperty('is_pin_code_activated')) {
                         if (response['data']['is_pin_code_activated']) {
                             // TODO
-                            analytics_action('pin_code_activated');
+                            try{analytics_action('pin_code_activated');} catch (e) {}
                             alert("pincode activated");
                         }
                     }
@@ -169,7 +169,7 @@ $(document).ready(function () {
     });
 
     $(".renew-sub-btn").click(function () {
-        analytics_action('renew_subscription_button');
+        try{analytics_action('renew_subscription_button');} catch (e) {}
 
         let isAsync = true;
 
@@ -181,13 +181,13 @@ $(document).ready(function () {
 
         let successCallback = function (response) {
             if (response['success']) {
-                analytics_action('renew_subscription_success');
+                try{analytics_action('renew_subscription_success');} catch (e) {}
                 window.location = response['data']['redirect_url'];
             } else {
                 if (response.hasOwnProperty('errors')) {
                     showErrors(response);
                 }
-                analytics_action('renew_subscription_failed');
+                try{analytics_action('renew_subscription_failed');} catch (e) {}
             }
         };
 
@@ -201,7 +201,7 @@ $(document).ready(function () {
     });
 
     $(".change-status-device-btn").click(function () {
-        analytics_action('change_status_button');
+        try{analytics_action('change_status_button');} catch (e) {}
 
         let device_uuid = $(this).data('uuid');
         let is_active = $(this).data('is_active');
@@ -216,7 +216,7 @@ $(document).ready(function () {
     });
 
     $(".delete-device-btn").click(function () {
-        analytics_action('delete_device_button');
+        try{analytics_action('delete_device_button');} catch (e) {}
 
         let device_uuid = $(this).data('uuid');
 
@@ -228,7 +228,7 @@ $(document).ready(function () {
     });
 
     $("#save-email-btn").click(function () {
-        analytics_action('save_email_button');
+        try{analytics_action('save_email_button');} catch (e) {}
 
         if ($emailInput.hasClass('is-invalid')) {
             markInput($emailInput, false);
@@ -254,7 +254,7 @@ $(document).ready(function () {
     });
 
     $("#account-delete-btn").click(function () {
-        analytics_action('account_delete_button');
+        try{analytics_action('account_delete_button');} catch (e) {}
 
         let emailVal = $.trim($deleteAccountEmailInput.val());
 
