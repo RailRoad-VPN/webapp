@@ -42,6 +42,7 @@ $(window).on('load', function () {
     // checkout sub btn
     $('.btn-checkout').on('click', function () {
         CHOSEN_PACK = $(this).data('id');
+        $packInput.val(CHOSEN_PACK);
         setChosenPack(CHOSEN_PACK, function () {
             goToStep('right');
         });
@@ -565,6 +566,8 @@ $(window).on('load', function () {
         if (!chosenPack) {
             chosenPack = $packInput.val();
         }
+
+        $packInput.val(chosenPack);
 
         return chosenPack;
     }
