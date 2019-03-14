@@ -137,6 +137,20 @@ def profile_page():
     return redirect(location=redirect_url, code=302)
 
 
+@app.route('/pricing/', methods=['GET'])
+def profile_page():
+    logger.info('pricing page')
+    redirect_url = url_for('pricing.pricing_page', lang_code=session['lang_code'])
+    return redirect(location=redirect_url, code=302)
+
+
+@app.route('/order/', methods=['GET'])
+def profile_page():
+    logger.info('order page')
+    redirect_url = url_for('order.order_page', lang_code=session['lang_code'])
+    return redirect(location=redirect_url, code=302)
+
+
 @app.route('/download/', methods=['GET'])
 def download_page():
     logger.info('downloads page')
