@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template
 
 # Define the blueprint: 'index', set its url prefix: app.url/
 from app import app_config

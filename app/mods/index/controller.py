@@ -40,39 +40,6 @@ def index_lang_page():
     return render_template('index/index.html', code=200, vpn_subs_services=vpn_subs_services)
 
 
-@mod_index.route('/', methods=['POST'])
-def subscribe_trial():
-    logger.info('subscribe_trial method')
-
-    r = AjaxResponse(success=True)
-
-    email = request.form.get('email', None)
-
-    if email is None:
-        r.set_failed()
-        resp = jsonify(r.serialize())
-        resp.code = HTTPStatus.OK
-        return resp
-
-    with open('%s' % (app_config['FS']['subscribe']), 'a') as file:
-        file.write("%r\n" % email)
-        file.close()
-
-    is_sent = email_service.send_trial_email(to_name=email, to_email=email)
-    if not is_sent:
-        r.set_failed()
-        err = AjaxError(code='hz', message=_('We can not send you email, please correct and try it again'))
-        r.add_error(error=err)
-        resp = jsonify(r.serialize())
-        resp.code = HTTPStatus.OK
-        return resp
-
-    r.set_success()
-    resp = jsonify(r.serialize())
-    resp.code = HTTPStatus.OK
-    return resp
-
-
 @mod_index.route('/privacy-policy', methods=['GET'])
 def privacy_policy_page():
     logger.info('privacy_policy_page page')

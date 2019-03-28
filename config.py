@@ -20,25 +20,13 @@ class Config(object):
     SERVICES_API_RESOURCE_NAME = 'services'
     ORDERS_API_RESOURCE_NAME = 'orders'
 
-    PAY_PRO_GLOBAL = {
-        'base_url': 'https://store.payproglobal.com/checkout?products[1][id]=%s&use-test-mode=%s&secret-key=%s',
-        'secret_key': '848dee',
-        'params_name': {
-            'payment_method': '&payment-method=%s',
-            'language': '&language=%s',
-            'order_code': '&x-ordercode=%s',
-            'user_uuid': '&x-useruuid=%s',
-            'subscription_uuid': '&x-subscriptionuuid=%s',
-        }
-    }
-
     EMAIL_SMTP = {
-        'server': 'smtp.novicorp.com',
+        'server': 'mail.rroadvpn.net',
         'port': 465,
         'support_account': {
-            'from_name': _('Support Railroad'),
+            'from_name': _('Support Railroad VPN'),
             'email': 'support@rroadvpn.net',
-            'password': 'X29fRtP0G9bfVW',
+            'password': 'C8fk2m8iaW6n',
         },
     }
 

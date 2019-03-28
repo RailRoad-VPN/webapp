@@ -143,7 +143,7 @@ def submit_order() -> bool:
         return resp
 
     logger.debug('send user email')
-    email_service.send_new_sub_email(to_name=user_email, to_email=user_email, sub_name=service.get('service_name'))
+    email_service.send_signup_email(to_name=user_email, to_email=user_email, sub_name=service.get('service_name'))
 
     r.set_success()
     resp = jsonify(r.serialize())

@@ -36,6 +36,10 @@ def pull_lang_code(endpoint, values):
 @mod_auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     logger.info('signin method')
+
+    if 'user' in session:
+        return redirect(location=url_for("profile.profile_page"), code=201)
+
     r = AjaxResponse(success=True)
     if request.method == 'POST':
         email = request.form.get('email', None)

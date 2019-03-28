@@ -35,7 +35,6 @@ class EmailMessageType(Enum):
         self.subject = subject
         self.html_template = html_template_name
 
-    TRIAL = (0, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.html')
     NEW_SUB = (1, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.html')
 
 
@@ -71,18 +70,20 @@ class EmailService(object):
 
         self.__templates_path = templates_path
 
-    def send_trial_email(self, to_name: str, to_email: str) -> bool:
-        self.logger.debug(
-            f"{self.__class__}: send_trial_email method with parameters to_name: {to_name}, to_email: {to_email}")
-        email_str = self.__prepare_trial_email(to_name=to_name, to_email=to_email)
-        return self.__send_message(to_email=to_email, email_str=email_str)
+    def __quo_head(self, text):
+        import quopri
+        s = quopri.encodestring(text.encode('UTF-8'), 1, 0)
+        return "=?utf-8?Q?" + s.decode('UTF-8') + "?="
 
-    def send_new_sub_email(self, to_name: str, to_email: str, sub_name: str) -> bool:
+    def send_signup_email(self, to_name: str, to_email: str, sub_name: str) -> bool:
         self.logger.debug(
             f"{self.__class__}: send_new_sub_email method with parameters to_name: {to_name}, to_email: {to_email}, "
             f"sub_name: {sub_name}")
-        email_str = self.__prepare_new_subscription_email(to_name=to_name, to_email=to_email, sub_name=sub_name)
+        email_str = self.__signup_email(to_name=to_name, to_email=to_email, sub_name=sub_name)
         return self.__send_message(to_email=to_email, email_str=email_str)
+
+    def _test_method(self):
+        pass
 
     def __send_message(self, to_email: str, email_str: str) -> bool:
         self.logger.debug(
@@ -102,7 +103,7 @@ class EmailService(object):
             self.logger.error("unable to send email to %s" % to_email, e)
             return False
 
-    def __prepare_new_subscription_email(self, to_name: str, to_email: str, sub_name: str) -> str:
+    def __signup_email(self, to_name: str, to_email: str, sub_name: str) -> str:
         self.logger.debug(
             f"{self.__class__}: __prepare_new_subscription_email method with parameters to_name: {to_name}, "
             f"to_email: {to_email}, sub_name: {sub_name}")
@@ -115,7 +116,7 @@ class EmailService(object):
         email_html_text = email_html_text.replace("@ticket@", _('TRIAL_EMAIL_TICKET'))
         email_html_text = email_html_text.replace("@welcome_to@", _('TRIAL_EMAIL_WELCOME'))
         email_html_text = email_html_text.replace("@RNS@", _('RNS'))
-        email_html_text = email_html_text.replace("@hello_user@", _('Hello'))
+        email_html_text = email_html_text.replace("@hello_user@", _('Hello, ') + to_name)
         email_html_text = email_html_text.replace("@trial_ready@", _('NEW_SUB_BUY_FACT') + sub_name)
         email_html_text = email_html_text.replace("@thank_you@", _('NEW_SUB_EMAIL_THANKS'))
         email_html_text = email_html_text.replace("@one_letter@", _('NEW_SUB_PAYMENT_INFORM'))
@@ -128,33 +129,6 @@ class EmailService(object):
                                          html_message=email_html_text)
         return email_str
 
-    def __prepare_trial_email(self, to_name: str, to_email: str) -> str:
-        self.logger.debug(
-            f"{self.__class__}: __prepare_trial_email method with parameters to_name: {to_email}, to_email: {to_email}")
-
-        self.logger.info("reading trial html template")
-        f = codecs.open("%s/%s" % (self.__templates_path, EmailMessageType.TRIAL.html_template), 'r')
-        email_html_text = str(f.read())
-
-        self.logger.info("replacing anchors in HTML")
-        email_html_text = email_html_text.replace("@ticket@", _('TRIAL_EMAIL_TICKET'))
-        email_html_text = email_html_text.replace("@welcome_to@", _('TRIAL_EMAIL_WELCOME'))
-        email_html_text = email_html_text.replace("@RNS@", _('RNS'))
-        email_html_text = email_html_text.replace("@hello_user@", _('Hello'))
-        email_html_text = email_html_text.replace("@trial_ready@", _('TRIAL_EMAIL_SUBSCRIPTION_READY'))
-        email_html_text = email_html_text.replace("@thank_you@", _('TRIAL_EMAIL_THANKS'))
-        email_html_text = email_html_text.replace("@one_letter@", _('TRIAL_EMAIL_ONE_EMAIL_IN_A_WEEK'))
-        email_html_text = email_html_text.replace("@service_ready@", _('TRIAL_EMAIL_INFORM'))
-        # TODO URL
-        email_html_text = email_html_text.replace("@unsubscribe_user_url@",
-                                                  'https://rroadvpn.net/unsubscribe?email=%s' % to_email)
-        email_html_text = email_html_text.replace("@unsubscribe@", _('unsubscribe'))
-
-        self.logger.info("preparing email object")
-        email_str = self.__prepare_email(to_name=to_name, to_email=to_email, subject=EmailMessageType.TRIAL.subject,
-                                         html_message=email_html_text)
-        return email_str
-
     def __prepare_email(self, to_name, to_email, subject, html_message) -> str:
         self.logger.debug(f"{self.__class__}: __prepare_email method with parameters to_name: {to_name}, "
                           f"to_email: {to_email}, subject: {subject}, html_message: {html_message}")
@@ -163,6 +137,8 @@ class EmailService(object):
         html_email['From'] = '%s <%s>' % (self.__from_name, self.__from_email)
         html_email['To'] = '%s <%s>' % (to_name, to_email)
         html_email['Subject'] = subject
+        from email.utils import formatdate
+        html_email['Date'] = formatdate(localtime=True)
 
         email_str = html_email.as_string()
         return email_str

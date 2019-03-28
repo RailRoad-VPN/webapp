@@ -1,7 +1,7 @@
 {% extends "partials/layout.html" %}
 
 {% block title %}
-    {{ _('RRoadVPN - Profile') }}
+    {{ _('Railroad VPN - Profile') }}
 {% endblock %}
 
 {% set nav_bar = true %}
@@ -410,7 +410,7 @@
                                             title="{{ _("You cant generate PINCODE until you don't have any ACTIVE subscription") }}">
                                         <i class="fas fa-barcode"></i> {{ _('Generate PIN-code') }}
                                     </button>
-                                    {{ _('button to generate and activate your first device with RRoadVPN.') }}
+                                    {{ _('button to generate and activate your first device with Railroad VPN.') }}
                                 </div>
                             {% endif %}
                         </div>
@@ -565,7 +565,7 @@
                 <div class="col pt-5">
                     <div class="card mx-auto mr-5" style="width: 18rem;">
                         <div class="card-header ">
-                            {{ _('Building profile...') }}
+                            {{ _('Building a profile. Page refresh every 5 seconds...') }}
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
@@ -573,6 +573,17 @@
                                      src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
                                      alt="{{ _('Loading profile...') }}">
                                 {{ _('PINCODE generation service') }}
+                            </li>
+                            {% set email_confirmed = 'False' %}
+                            <li class="list-group-item">
+                                {% if email_confirmed == 'False' %}
+                                    <img style="width: 30px; margin-left: -20px;"
+                                         src="{{ url_for('static', filename='main/images/profile_loading.svg') }}"
+                                         alt="{{ _('Loading profile...') }}">
+                                {% else %}
+                                    <i style="width: 30px; margin-left: -20px;" class="far fa-check-circle"></i>
+                                {% endif %}
+                                {{ _('Email confirmed') }}
                             </li>
                             <li class="list-group-item">
                                 {% if vpn_config_rdy[3] == 'False' %}

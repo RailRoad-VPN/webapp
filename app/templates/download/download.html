@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block import_js %}
-
     {% if 'debug' in session %}
         <script src="{{ url_for('static', filename='main/download/download.js') }}" type="text/javascript"
                 charset="utf-8"></script>
@@ -28,7 +27,144 @@
 {% endblock %}
 
 {% block body %}
-    <section class="container">
-        <p>DOWNLOAD!</p>
+    <section class="pt-75 pb-75">
+        <div class="container container-wide">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1>Download Railroad VPN</h1>
+                </div>
+            </div>
+            <div class="jumbotron jumbotron-fluid pt-5 pb-5 pl-5 pr-5">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="">
+                            <ul id="downloads-menu" class="nav nav-tabs">
+                                <li class="nav-item menu-entry">
+                                    <a id="windows-tab" class="nav-link active font-weight-bold"
+                                       role="tab"
+                                       aria-controls="windows"
+                                       aria-selected="false"
+                                       href="#windows"
+                                       data-toggle="tab">
+                                        {{ _('Windows') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item menu-entry ml-2">
+                                    <a id="android-tab" class="nav-link font-weight-bold"
+                                       role="tab"
+                                       aria-controls="windows"
+                                       aria-selected="false"
+                                       href="#android"
+                                       data-toggle="tab">
+                                        {{ _('Android') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item menu-entry ml-2">
+                                    <a id="ios-tab" class="nav-link font-weight-bold"
+                                       role="tab"
+                                       aria-controls="windows"
+                                       aria-selected="false"
+                                       href="#ios"
+                                       data-toggle="tab">
+                                        {{ _('iOS') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5">
+                    <div class="col-12">
+                        <div class="pl-4 tab-content">
+                            <div class="tab-pane fade show active" id="windows" role="tabpanel"
+                                 aria-labelledby="windows-tab">
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-md-5 col-sm-10 col-xl-8">
+                                            <h2 style="text-transform: none !important;">
+                                                {{ _('VPN for Windows') }}
+                                            </h2>
+                                            <p>
+                                                {{ _('Windows application supports Windows 7, 8, 10') }}
+                                            </p>
+                                            <p>
+                                                <small>
+                                                    {{ _('By downloading Railroad VPN for Windows, you accept') }}
+                                                    <a href="#">Terms Of Use</a>
+                                                    {{ _('and') }}
+                                                    <a href="{{ url_for('index.privacy_policy_page') }}">Privacy Policy</a>
+                                                </small>
+                                            </p>
+                                            <div class="">
+                                                <a class="btn btn-primary font-weight-bold js-scroll-trigger"
+                                                   href="/download/app/rroadvpn_1.0a.exe"
+                                                   style="border-radius: 25px; text-transform: none !important;">
+                                                    {{ _('Get VPN for Windows') }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7 col-sm-2 col-xl-4 image-col">
+                                            <div class="d-none d-md-block device-img">
+                                                <img class="w-100"
+                                                     src="{{ url_for('static', filename='main/download/images/macbook.png') }}"
+                                                     alt="Laptop Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="android" role="tabpanel"
+                                 aria-labelledby="android-tab">
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-10 col-xl-8">
+                                            <h2 style="text-transform: none !important;">
+                                                {{ _('VPN for Android') }}
+                                            </h2>
+                                            <p>
+                                                {{ _('You can download APK or use Google Play Market') }}
+                                            </p>
+                                            <div class="">
+                                                <a class="btn btn-primary font-weight-bold js-scroll-trigger"
+                                                   href="/download/app/rroadvpn_1.0a.apk"
+                                                   style="border-radius: 25px; text-transform: none !important;">
+                                                    {{ _('Get VPN for Android (apk)') }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-2 col-xl-4 image-col">
+                                            <div class="d-none d-md-block device-img">
+                                                <img class="w-100"
+                                                     src="{{ url_for('static', filename='main/download/images/android.svg') }}"
+                                                     alt="Android Image">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="ios" role="tabpanel"
+                                 aria-labelledby="ios-tab">
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-10 col-xl-8">
+                                            <h2 style="text-transform: none !important;">
+                                                {{ _('VPN for iOS') }}
+                                            </h2>
+                                            <p>
+                                                {{ _('Coming soon..') }}
+                                            </p>
+                                        </div>
+                                        <div class="col-md-6 col-sm-2 col-xl-4 image-col">
+                                            <div class="d-none d-md-block device-img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 {% endblock %}

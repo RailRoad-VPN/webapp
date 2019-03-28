@@ -12,28 +12,37 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 100vh;
 }
 
 #header .intro-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+    background: rgba(0, 0, 0, 0.7);
     vertical-align: middle;
-    height: 100vh;
 }
 
 #header .intro-body .container {
     padding-top: 12%;
+    padding-bottom: 5%;
 }
 
 @media (max-height: 500px) {
+    #header .intro-body {
+        height: 100vh;
+    }
+
     #header .intro-body .container {
         padding-top: 5%;
+        padding-bottom: 2%;
     }
 }
 
 @media (max-width: 500px) {
+    #header .intro-body {
+        height: 100vh;
+    }
+
     #header .intro-body .container {
         padding-top: 35%;
+        padding-bottom: 5%;
     }
 }
 
