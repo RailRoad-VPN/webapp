@@ -1,14 +1,11 @@
 import logging
 import sys
-from http import HTTPStatus
 
-from flask import Blueprint, render_template, session, request, jsonify
-from flask_babel import _
+from flask import Blueprint, render_template
 
 # Define the blueprint: 'index', set its url prefix: app.url/
-from app import rrn_billingapi_service, app_config, email_service, RRNServiceType, rrn_servicesapi_service, user_policy
+from app import app_config, user_policy
 from app.flask_utils import _pull_lang_code, _add_language_code
-from app.models import AjaxResponse, AjaxError
 
 sys.path.insert(0, '../rest_api_library')
 from api import APIException
@@ -45,3 +42,10 @@ def privacy_policy_page():
     logger.info('privacy_policy_page page')
 
     return render_template('index/privacy-policy.html', code=200)
+
+
+@mod_index.route('/terms-of-service', methods=['GET'])
+def terms_of_service_page():
+    logger.info('terms_of_service_page page')
+
+    return render_template('index/terms-of-service.html', code=200)
