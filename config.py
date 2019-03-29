@@ -12,7 +12,7 @@ class Config(object):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
-    LANGUAGES = ['ru', 'en']
+    LANGUAGES = ['en']
 
     USERS_API_RESOURCE_NAME = 'users'
     USER_VPNSERVERS_API_RESOURCE_NAME = f"{USERS_API_RESOURCE_NAME}/user_uuid/servers"
