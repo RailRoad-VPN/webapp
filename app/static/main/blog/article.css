@@ -4,22 +4,25 @@
     margin-right: auto;
 }
 
-h4 {
-    font-size: 2.28rem;
-    line-height: 110%;
-    margin: 1.14rem 0 .912rem 0;
-}
-
 p.article-paragraph {
     text-indent: 50px;
 }
 
 h1 {
     font-weight: 400;
-    font-size: 4.2rem;
+    text-transform: none;
+    font-size: 3.5rem;
     line-height: 110%;
     margin: 2.1rem 0 1.68rem 0;
 }
+
+h3 {
+    font-size: 2.28rem;
+    text-transform: none;
+    line-height: 110%;
+    margin: 1.14rem 0 .912rem 0;
+}
+
 
 .breadcrumb {
     background-color: transparent;

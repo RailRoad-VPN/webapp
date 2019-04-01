@@ -24,7 +24,29 @@
 {% endblock %}
 
 {% block meta %}
+    {% set title = "RailroadVPN - Blog" %}
+    {% set description = "Any geo restrictions? Be first who knew it!" %}
+    <meta name="description" content="{{ description }}">
 
+    <!-- OpenGraph -->
+    <meta property="og:url" content="{{ request.url }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="{{ title }}"/>
+    <meta property="og:description" content="{{ description }}"/>
+    <meta property="og:image" content="{{ url_for('static', filename='main/images/mascot/mascot.png') }}"/>
+    <meta property="og:image:width" content="360"/>
+    <meta property="og:image:height" content="240"/>
+    <meta property="og:locale" content="en_EN"/>
+    <meta property="og:site_name" content="RailroadVPN"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content="{{ title }}"/>
+    <meta name="twitter:description" content="{{ description }}"/>
+    <meta name="twitter:image:src" content="{{ url_for('static', filename='main/images/mascot/mascot.png') }}"/>
+    <meta name="twitter:image" content="{{ url_for('static', filename='main/images/mascot/mascot.png') }}"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@rroadvpn"/>
+    <meta name="twitter:domain" content="rroadvpn.net">
 {% endblock %}
 
 {% block body %}
@@ -40,10 +62,10 @@
                 </div>
                 <div class="col-12">
                     <div class="card featured-article sha-1 sha-3-hover">
-                        <a data-name="article_page" href="{{ url_for('blog.article_page', article_name='whats-new-in-vpn-world') }}">
+                        <a data-name="article_page" href="{{ url_for('blog.article_page', article_name='resources-blocked-in-different-countries') }}">
                             <div class="row no-gutters">
                                 <div class="col-sm-12 col-md-12 col-xl-6 col-xxl-6">
-                                    <img src="https://nordvpn.com/wp-content/uploads/2018/06/facebook-shares-data-with-phone-makers-03-blog.jpg"
+                                    <img src="{{ url_for('static', filename='main/images/articles/resources-blocked-in-different-countries/title.jpg') }}"
                                          class="img-fluid" alt="">
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-xl-6 col-xxl-6 p-5">
@@ -52,77 +74,17 @@
                                             <i class="fa fa-star" style="color: #f8cc46"></i> {{ _('Featured article') }}
                                         </small>
                                         <h4 class="card-title pt-1">
-                                            What's new in VPN world happened?
+                                            Resource blocked in different countries
                                         </h4>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer w-100">
                                 <small class="text-muted">
-                                    {{ _('Posted at ') }} 29 {{ _('June') }}
+                                    {{ _('Posted at ') }} 2 {{ _('April') }}
                                 </small>
                             </div>
                         </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="row mt-5 ml-0">
-                        <div class="col-xs-12">
-                            <h4 class="small mb-3 blog-header">
-                                {{ _('Articles') }}
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-4 mb-4">
-                            <div class="card sha-1 sha-3-hover">
-                                <img class="card-img-top"
-                                     src="https://nordvpn.com/wp-content/uploads/2018/06/facebook-shares-data-with-phone-makers-03-blog.jpg"
-                                     alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">
-                                        {{ _('Posted at ') }} 29 {{ _('June') }}
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-4 mb-4">
-                            <div class="card sha-1 sha-3-hover">
-                                <img class="card-img-top"
-                                     src="https://nordvpn.com/wp-content/uploads/2018/06/facebook-shares-data-with-phone-makers-03-blog.jpg"
-                                     alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Card title
-                                    </h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">
-                                        {{ _('Posted at ') }} 29 {{ _('June') }}
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-4 mb-4">
-                            <div class="card sha-1 sha-3-hover">
-                                <img class="card-img-top"
-                                     src="https://nordvpn.com/wp-content/uploads/2018/06/facebook-shares-data-with-phone-makers-03-blog.jpg"
-                                     alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">
-                                        {{ _('Posted at ') }} 29 {{ _('June') }}
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
