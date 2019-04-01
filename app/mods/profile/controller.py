@@ -4,11 +4,11 @@ from http import HTTPStatus
 
 from flask import Blueprint, render_template, session, jsonify, request, json
 
+from api import APIException, APINotFoundException
 from app import rrn_usersapi_service, rrn_servicesapi_service, app_config, rrn_ordersapi_service, \
     rrn_userserverconfigurationsapi_service, RRNServiceType, rrn_vpnserversapi_service
 from app.flask_utils import login_required, _pull_lang_code, _add_language_code
 from app.models import AjaxResponse
-from api import APIException, APINotFoundException
 
 mod_profile = Blueprint('profile', __name__, url_prefix='/<lang_code>/profile')
 
@@ -57,7 +57,6 @@ def profile_page():
     except (APIException, APINotFoundException) as e:
         user_device_list = []
 
-    user_vpn_servers = None
     vpn_config_rdy = None
     if services is not None and (len(user_device_list) > 0 or ('pin_code' in session['user']
                                                                and session['user']['pin_code'] is not None)):
