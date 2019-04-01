@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block meta %}
-    {% set title = "RailroadVPN - Blogw" %}
+    {% set title = "RailroadVPN - Blog" %}
     {% set description = "RailroadVPN Blog - Resources blocked in your country" %}
     <meta name="description" content="{{ description }}">
 
@@ -33,7 +33,8 @@
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="{{ title }}"/>
     <meta property="og:description" content="{{ description }}"/>
-    <meta property="og:image" content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
+    <meta property="og:image"
+          content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
     <meta property="og:image:width" content="360"/>
     <meta property="og:image:height" content="240"/>
     <meta property="og:locale" content="en_EN"/>
@@ -42,8 +43,10 @@
     <!-- Twitter -->
     <meta name="twitter:title" content="{{ title }}"/>
     <meta name="twitter:description" content="{{ description }}"/>
-    <meta name="twitter:image:src" content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
-    <meta name="twitter:image" content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
+    <meta name="twitter:image:src"
+          content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
+    <meta name="twitter:image"
+          content="{{ url_for('static', filename='main/images/articles/resources_blocked_in_different_countries/title.jpg') }}"/>
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="@rroadvpn"/>
     <meta name="twitter:domain" content="rroadvpn.net">
@@ -183,7 +186,10 @@
                 {% endif %}
                 <!-- FaceBook -->
                 <li>
-                    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}">
+                    <a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank"
+                       href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}"
+                       onclick="window.open(this.href); return false;"
+                       onkeypress="window.open(this.href); return false;">
                         <div class="row text-muted">
                             <div class="col-2">
                                 <i class="fab fa-facebook-f"></i>
@@ -196,7 +202,11 @@
                 </li>
                 <!-- Twitter -->
                 <li>
-                    <a target="_blank" href="https://twitter.com/intent/tweet?URL={{ request.url | urlencode }}&amp;text=RailroadNetwork%20-%20Create%20your%20own%RailroadVPN! {{ request.url | urlencode }}%0A&amp;hashtags=vpn,rroadvpn,rr">
+                    <a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank"
+                       onclick="window.open(this.href); return false;"
+                       onkeypress="window.open(this.href); return false;"
+                       href="https://twitter.com/intent/tweet?text={{ "RailroadVPN - create your own VPN railroad dream!" | urlencode }}&amp;url={{ request.url | urlencode }}&amp;hashtags=vpn,rroadvpn,business&amp;via=rroadvpn"
+                       data-link="https://twitter.com/intent/tweet?text={{ "RailroadVPN - create your own VPN railroad dream!" | urlencode }}&amp;url={{ request.url | urlencode }}&amp;hashtags=vpn,rroadvpn,business&amp;via=rroadvpn">
                         <div class="row text-muted">
                             <div class="col-2">
                                 <i class="fab fa-twitter"></i>
