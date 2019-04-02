@@ -62,12 +62,12 @@
     <!-- Intro Header -->
     <section id="header">
         <div class="intro-body">
-            <div class="container">
+            <div class="container container-wide">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-md-5 col-lg-5">
                         <div class="banner-text-content">
                             <h5 class="color-white">{{ _('Welcome To Railroad Services') }}</h5>
-                            <h1 class="color-white">{{ _('New VPN') }} <br> {{ _('service 2019') }}</h1>
+                            <h1 class="color-white">{{ _('New VPN service 2019') }}</h1>
                             <p>{{ _('it is NOT just another VPN service') }}</p>
                             <a data-name="about" href="{{ url_for('about.about_page') }}"
                                class="btn color-white btn-outline-secondary">{{ _('Learn More!') }}</a>
@@ -78,10 +78,60 @@
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7">
-                        <div class="d-none d-md-block banner-img">
-                            <img class="w-100"
-                                 src="{{ url_for('static', filename='main/index/images/devices_coming_soon.png') }}"
-                                 alt="Banner Image">
+                        <div class="d-none d-md-block banner-img" style="padding-top: 2rem;">
+                            <picture>
+                                <source
+                                        media="(max-width: 767px)"
+                                        sizes="(max-width: 767px) 100vw, 767px"
+                                        srcset="
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_200.png') }} 200w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_290.png') }} 290w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_366.png') }} 366w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_436.png') }} 436w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_496.png') }} 496w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_552.png') }} 552w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_611.png') }} 611w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_671.png') }} 671w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_725.png') }} 725w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_767.png') }} 767w">
+                                <source
+                                        media="(min-width: 768px) and (max-width: 991px)"
+                                        sizes="(max-width: 991px) 70vw, 694px"
+                                        srcset="
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_538.png') }} 538w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_598.png') }} 598w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_655.png') }} 655w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_436.png') }} 694w">
+                                <source
+                                        media="(min-width: 992px) and (max-width: 1199px)"
+                                        sizes="(max-width: 1200px) 60vw, 720px"
+                                        src="{{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_596.png') }}">
+                                <img
+                                        sizes="(max-width: 3500px) 40vw, 1200px, 1400px"
+                                        srcset="
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_480.png') }} 480w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_542.png') }} 542w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_601.png') }} 601w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_653.png') }} 653w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_705.png') }} 705w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_759.png') }} 759w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_808.png') }} 808w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_864.png') }} 864w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_918.png') }} 918w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_963.png') }} 963w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1008.png') }} 1008w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1051.png') }} 1051w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1100.png') }} 1100w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1150.png') }} 1150w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1195.png') }} 1195w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1237.png') }} 1237w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1289.png') }} 1289w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1336.png') }} 1336w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1382.png') }} 1382w,
+                                            {{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1400.png') }} 1400w"
+                                        src="{{ url_for('static', filename='main/images/devices/all/all_lyxqkt_c_scale,w_1400.png') }}"
+                                        alt="">
+                            </picture>
                         </div>
                     </div>
                 </div>
@@ -165,7 +215,8 @@
             <div class="col-lg-12 mx-auto">
                 <h2 class="text-white">{{ _('DOWNLOAD') }}</h2>
                 <p>{{ _('You can download VPN application for free on the download page.') }}</p>
-                <a data-name="download" href="{{ url_for('download.download_page') }}" class="btn btn-link">{{ _('Visit Download Page') }}</a>
+                <a data-name="download" href="{{ url_for('download.download_page') }}"
+                   class="btn btn-link">{{ _('Visit Download Page') }}</a>
             </div>
         </div>
     </section>

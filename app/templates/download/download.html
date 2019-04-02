@@ -102,7 +102,7 @@
                                  aria-labelledby="windows-tab">
                                 <div class="">
                                     <div class="row">
-                                        <div class="col-md-5 col-sm-10 col-xl-8">
+                                        <div class="col-md-5 col-sm-10 col-xl-6 col-xxl-6">
                                             <h2 style="text-transform: none !important;">
                                                 {{ _('VPN for Windows') }}
                                             </h2>
@@ -125,11 +125,48 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="col-md-7 col-sm-2 col-xl-4 image-col">
+                                        <div class="col-md-7 col-sm-2 col-xl-6 col-xxl-6">
                                             <div class="d-none d-md-block device-img">
-                                                <img class="w-100"
-                                                     src="{{ url_for('static', filename='main/download/images/macbook.png') }}"
-                                                     alt="Laptop Image">
+                                                <picture>
+                                                    <source
+                                                            media="(max-width: 767px)"
+                                                            sizes="(max-width: 767px) 100vw, 767px"
+                                                            srcset="
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_200.png') }} 200w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 281w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 349w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 409w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 467w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 525w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 572w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 617w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 668w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 714w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 763w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_281.png') }} 767w">
+                                                    <source
+                                                            media="(min-width: 768px) and (max-width: 991px)"
+                                                            sizes="(max-width: 991px) 70vw, 694px"
+                                                            srcset="
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_349.png') }}  538w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_349.png') }}  590w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_349.png') }}  636w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_349.png') }}  687w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_349.png') }}  694w">
+                                                    <source
+                                                            media="(min-width: 992px) and (max-width: 1619px)"
+                                                            sizes="(max-width: 1620px) 60vw, 720px"
+                                                            src=""
+                                                            srcset="
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_525.png') }}  596w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_525.png') }}  644w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_525.png') }}  690w,
+                                                                {{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_525.png') }}  720w">
+                                                    <img
+                                                            sizes="(max-width: 3500px) 40vw, 1400px"
+                                                            src="{{ url_for('static', filename='main/images/devices/windows/windows_jiz0kc_c_scale,w_617.png') }}"
+                                                            alt="">
+                                                </picture>
                                             </div>
                                         </div>
                                     </div>
@@ -156,9 +193,41 @@
                                         </div>
                                         <div class="col-md-6 col-sm-2 col-xl-4 image-col">
                                             <div class="d-none d-md-block device-img">
-                                                <img class="w-100"
-                                                     src="{{ url_for('static', filename='main/download/images/android.svg') }}"
-                                                     alt="Android Image">
+                                                <picture>
+                                                    <source
+                                                            media="(max-width: 767px)"
+                                                            sizes="(max-width: 663px) 100vw, 663px"
+                                                            srcset="
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_200.png') }} 200w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 294w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 369w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 447w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 516w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 584w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 663w">
+                                                    <source
+                                                            media="(min-width: 768px) and (max-width: 991px)"
+                                                            sizes="(max-width: 947px) 70vw, 663px"
+                                                            srcset="
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 538w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 610w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 663w">
+                                                    <source
+                                                            media="(min-width: 992px) and (max-width: 1199px)"
+                                                            sizes="(max-width: 1105px) 60vw, 663px"
+                                                            srcset="
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 596w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 663w">
+                                                    <img
+                                                            sizes="(max-width: 1658px) 40vw, 663px"
+                                                            srcset="
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 480w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 552w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 618w,
+                                                                    {{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }} 663w"
+                                                            src="{{ url_for('static', filename='main/images/devices/android/android_d02afm_c_scale,w_294.png') }}"
+                                                            alt="">
+                                                </picture>
                                             </div>
                                         </div>
                                     </div>

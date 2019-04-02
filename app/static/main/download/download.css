@@ -44,7 +44,7 @@
     -ms-flex: 0 0 60%;
     -webkit-flex: 0 0 60%;
     flex: 0 0 60%;
-    height: 1px;
+    /*height: 1px;*/
 }
 
 .device-img {
