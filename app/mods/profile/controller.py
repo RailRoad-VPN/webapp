@@ -59,28 +59,27 @@ def profile_page():
 
     vpn_config_rdy = None
     pincode_service_ready = False
+    generate_available = False
     if services is not None and (len(user_device_list) > 0 or ('pin_code' in session['user']
-                                                               and session['user']['pin_code'] is not None)):
+                                                               and session['user']['pin_code'] is not None)) and session.get('user').get('is_email_confirmed', False):
         generate_available = True
     else:
-        generate_available = True
+
         try:
             random_server_uuid = rrn_vpnserversapi_service.get_random_server_uuid(user_uuid=user_uuid)
             vpn_config_rdy = rrn_userserverconfigurationsapi_service.get_vpn_configurations_ready(user_uuid=user_uuid,
                                                                                                   any_server_uuid=random_server_uuid)
             for val in vpn_config_rdy.values():
                 if not val:
-                    generate_available = False
                     break
-                else:
-                    pincode_service_ready = True
+
+            pincode_service_ready = True
+            generate_available = session.get('user').get('is_email_confirmed', False)
         except (APIException, APINotFoundException) as e:
             logger.error(e)
 
     # if "debug" in session:
     #     generate_available = True
-
-    generate_available = session.get('user').get('is_email_confirmed', False)
 
 
     user_vpn_servers = []
