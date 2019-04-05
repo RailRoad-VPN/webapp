@@ -139,8 +139,8 @@ def confirm_email():
 
     logger.debug(f"email: {e}, token: {token}")
 
-    if 'user' not in session or not e or not token:
-        logger.info('no user in session or no email or no token. redirect to index')
+    if not e or not token:
+        logger.info('no email or no token. redirect to index')
         return redirect(url_for('index.index_lang_page'))
 
     if 'user' in session:
