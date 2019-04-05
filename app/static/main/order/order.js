@@ -277,6 +277,13 @@ $(window).on('load', function () {
             $(that).ajaxSubmit({
                 success: function (response) {
                     if (response['success']) {
+                        setToLocalStorage(LS_ORDER_KEY, null);
+                        setToLocalStorage(LS_ORDER_KEY, null);
+                        setToLocalStorage(LS_ORDER_PACK_ID_KEY, null);
+                        setToLocalStorage(LS_ORDER_ACCOUNT_KEY, null);
+                        setToLocalStorage(LS_ORDER_ACCOUNT_EMAIL_KEY, null);
+                        setToLocalStorage(LS_ORDER_ACCOUNT_PASSWORD_KEY, null);
+                        setToLocalStorage(LS_ORDER_ACCOUNT_PASSWORD_CONFIRM_KEY, null);
                         window.location = $profilePageURLObj.data("url");
                     } else {
                         if (response.hasOwnProperty('errors')) {
@@ -284,7 +291,6 @@ $(window).on('load', function () {
                         }
                         unblockPage()
                     }
-                    unblockPage();
                 },
                 error: function (response) {
                     console.log(JSON.stringify(response));

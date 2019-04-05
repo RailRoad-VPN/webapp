@@ -191,7 +191,6 @@ function blockPage(text, cb) {
     $.blockUI({
         message: message,
         fadeIn: 1000,
-        timeout: 2000,
         css: css,
         onBlock: function () {
             if (cb) cb();

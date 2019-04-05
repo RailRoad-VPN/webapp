@@ -178,7 +178,7 @@
                     <div class="pricing-footer">
                         {% if not order_page %}
                             <a href="{{ url_for('order.order_page', pack=vpn_sub_service['id']) }}" class="btn yellow-crusta btn-checkout">
-                                {{ _('Buy Now') }}
+                                {{ _('Checkout') }}
                             </a>
                         {% else %}
                             <a href="#" data-id="{{ vpn_sub_service['id'] }}" class="btn yellow-crusta btn-checkout">
