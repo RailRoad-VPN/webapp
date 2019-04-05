@@ -140,6 +140,7 @@ def confirm_email():
     logger.debug(f"email: {e}, token: {token}")
 
     if 'user' not in session or not e or not token:
+        logger.info('no user in session or no email or no token. redirect to index')
         return redirect(url_for('index.index_lang_page'))
 
     user_json = session.get('user')
@@ -147,8 +148,10 @@ def confirm_email():
     src_token = user_json['email_confirm_token']
 
     if src_token != token:
+        logger.error('tokens does not match')
         return redirect(url_for('index.index_lang_page'))
 
+    logger.info('update user')
     user_json['modify_reason'] = 'confirm email'
     user_json['is_email_confirmed'] = True
 
