@@ -60,7 +60,7 @@ def profile_page():
     vpn_config_rdy = None
     pincode_service_ready = False
     if services is not None and (len(user_device_list) > 0 or ('pin_code' in session['user']
-                                                               and session['user']['pin_code'] is not None and session.get('user').get('is_email_confirmed', False))):
+                                                               and session['user']['pin_code'] is not None and session.get('user').get('is_email_confirmed', False) is True)):
         generate_available = True
     else:
         generate_available = True
