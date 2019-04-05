@@ -71,10 +71,10 @@ class UserPolicy(object):
                                       error_code=DFNError.UNKNOWN_ERROR_CODE.code,
                                       developer_message=DFNError.UNKNOWN_ERROR_CODE.developer_message)
 
-    def get_user(self, suuid: str):
+    def get_user(self, suuid: str = None, email: str = None):
         try:
             self.logger.info("get user")
-            return self._rrn_users_api_service.get_user(uuid=suuid)
+            return self._rrn_users_api_service.get_user(uuid=suuid, email=email)
         except APIException as e:
             self.logger.error("get user exception")
             self.logger.debug(e.serialize())

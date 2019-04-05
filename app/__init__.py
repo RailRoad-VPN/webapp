@@ -143,7 +143,14 @@ def confirm_email():
         logger.info('no user in session or no email or no token. redirect to index')
         return redirect(url_for('index.index_lang_page'))
 
-    user_json = session.get('user')
+    if 'user' in session:
+        user_json = session.get('user')
+    else:
+        logger.info('get user by email')
+        user_json = user_policy.get_user(email=e)
+
+    email = user_json.get("email", None)
+    logger.info(f"got user with email: {email}")
 
     src_token = user_json['email_confirm_token']
 
