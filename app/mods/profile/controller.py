@@ -58,6 +58,7 @@ def profile_page():
         user_device_list = []
 
     vpn_config_rdy = None
+    pincode_service_ready = False
     if services is not None and (len(user_device_list) > 0 or ('pin_code' in session['user']
                                                                and session['user']['pin_code'] is not None)):
         generate_available = True
@@ -71,11 +72,13 @@ def profile_page():
                 if not val:
                     generate_available = False
                     break
+                else:
+                    pincode_service_ready = True
         except (APIException, APINotFoundException) as e:
             logger.error(e)
 
-    if "debug" in session:
-        generate_available = True
+    # if "debug" in session:
+    #     generate_available = True
 
     user_vpn_servers = []
     if generate_available:
@@ -85,6 +88,8 @@ def profile_page():
             pass
 
     return render_template('profile/profile.html', code=HTTPStatus.OK, user_services=user_services,
+                           pincode_service_ready=pincode_service_ready,
+                           email_confirmed=session.get('user').get('is_email_confirmed', False),
                            vpn_config_rdy=vpn_config_rdy, generate_available=generate_available,
                            user_devices=user_device_list, user_vpn_servers=user_vpn_servers)
 

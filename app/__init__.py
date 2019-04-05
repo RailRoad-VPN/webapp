@@ -2,7 +2,7 @@ import os
 from http import HTTPStatus
 from pprint import pprint
 
-from flask import Flask, url_for, redirect
+from flask import Flask, url_for, redirect, request
 from flask_babel import Babel
 from flask_disqus import Disqus
 from flask_moment import Moment
@@ -128,6 +128,33 @@ def index_page():
     logger.info('index page')
     redirect_url = url_for('index.index_lang_page', lang_code=session['lang_code'])
     return redirect(location=redirect_url, code=302)
+
+
+@app.route('/confirm-email', methods=['GET'])
+def confirm_email():
+    logger.info('confirm_email method')
+
+    e = request.args.get('e', None)
+    token = request.args.get('token', None)
+
+    logger.debug(f"email: {e}, token: {token}")
+
+    if 'user' not in session or not e or not token:
+        return redirect(url_for('index.index_lang_page'))
+
+    user_json = session.get('user')
+
+    src_token = user_json['email_confirm_token']
+
+    if src_token != token:
+        return redirect(url_for('index.index_lang_page'))
+
+    user_json['modify_reason'] = 'confirm email'
+    user_json['is_email_confirmed'] = True
+
+    rrn_usersapi_service.update_user(user_json=user_json)
+    session['user'] = user_json
+    return redirect(url_for('auth.signin'))
 
 
 @app.route('/profile/', methods=['GET'])

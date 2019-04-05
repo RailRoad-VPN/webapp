@@ -48,7 +48,7 @@ def order_page():
             order_json = order_policy.create_order()
             session['order'] = order_json
             logger.debug("order created: %s" % order_json)
-        except OrderPolicyException as e:
+        except APIException or OrderPolicyException as e:
             logger.error("OrderPolicyException: {}", e)
             abort(500)
 
@@ -143,7 +143,8 @@ def submit_order() -> bool:
         return resp
 
     logger.debug('send user email')
-    email_service.send_signup_email(to_name=user_email, to_email=user_email, sub_name=service.get('service_name'))
+    email_service.send_signup_email(to_name=user_email, to_email=user_email, sub_name=service.get('service_name'),
+                                    token=user_json.get("email_confirm_token"))
 
     r.set_success()
     resp = jsonify(r.serialize())

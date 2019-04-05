@@ -1,4 +1,4 @@
-import datetime
+import json
 import json
 import logging
 import sys
@@ -8,14 +8,13 @@ from flask import Blueprint, request, render_template, \
     g, session, redirect, url_for, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import rrn_usersapi_service, app_config, rrn_servicesapi_service, user_policy
+from app import rrn_usersapi_service, app_config, user_policy
 from app.flask_utils import login_required, authorize_user, _add_language_code, _pull_lang_code
 from app.models import AjaxResponse, AjaxError
 from app.models.exception import DFNError
 
 sys.path.insert(0, '../rest_api_library')
 from api import APIException, APINotFoundException
-from utils import check_uuid
 
 logger = logging.getLogger(__name__)
 

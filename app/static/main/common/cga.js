@@ -3,18 +3,21 @@
 const GA_ID = "UA-89956285-3";
 
 $(document).ready(function () {
-    gtag('config', GA_ID, {'groups': 'clicks'});
-    gtag('config', GA_ID, {'groups': 'actions'});
+    try {
+        gtag('config', GA_ID, {'groups': 'clicks'});
+        gtag('config', GA_ID, {'groups': 'actions'});
+    } catch (e) {}
 });
 
 function analytics_action(name, cb) {
     const data = {
         'send_to': 'actions'
     };
-    _analytics_event('actions', data, cb);
+   try {_analytics_event('actions', data, cb);} catch (e) {}
 }
 
 function analytics_begin_checkout(item_id, item_name, page_name, item_type, item_price, coupon_id) {
+    try {
     gtag('event', 'begin_checkout', {
         "items": [
             {
@@ -29,7 +32,8 @@ function analytics_begin_checkout(item_id, item_name, page_name, item_type, item
         ],
         "coupon": coupon_id
     });
-
+    } catch (e) {}
+    try {
     gtag('event', 'checkout_progress', {
         "items": [
             {
@@ -44,14 +48,17 @@ function analytics_begin_checkout(item_id, item_name, page_name, item_type, item
         ],
         "coupon": coupon_id
     });
+    } catch (e) {}
 }
 
 function analytics_checkout_step(order_step_id, order_step_name, order_step_value) {
+    try {
     gtag('event', 'set_checkout_option', {
         "checkout_step": order_step_id,
         "checkout_option": order_step_name,
         "value": order_step_value
     });
+    } catch (e) {}
 }
 
 // TODO purchase event
@@ -99,7 +106,7 @@ function analytics_exception(description, isFatal, cb) {
         'description': description,
         'fatal': isFatal   // set to true if the error is fatal
     };
-    _analytics_event('exception', data, cb);
+    try {_analytics_event('exception', data, cb);} catch (e) {}
 }
 
 function analytics_page_view(page_title, page_location, page_path) {

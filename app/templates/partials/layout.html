@@ -58,7 +58,8 @@
     <meta id="particlesJSConfigURL" data-method="GET"
           data-url="{{ url_for('static', filename='assets/particles/particles.json') }}">
 
-    <meta name="keywords" content="vpn for business,secure internet,secure vpn,strict log policy,no logs,secure business,secure personal space,protect yourself,protect your information,protect vpn,protect business,protect social,anonymous internet,protect actions,secure your child,children content filter,content filter,child vpn,children vpn,vpn for your future,your future,information future,netflix anywhere,anything anywhere,secure gate,gateway to internet,increase speed limit,no traffic limits" />
+    <meta name="keywords"
+          content="vpn for business,secure internet,secure vpn,strict log policy,no logs,secure business,secure personal space,protect yourself,protect your information,protect vpn,protect business,protect social,anonymous internet,protect actions,secure your child,children content filter,content filter,child vpn,children vpn,vpn for your future,your future,information future,netflix anywhere,anything anywhere,secure gate,gateway to internet,increase speed limit,no traffic limits"/>
     {% block meta %}{% endblock %}
 
     <link type="image/png" rel="icon" href="{{ url_for('static', filename='main/favicon/favicon.ico') }}">
@@ -79,7 +80,7 @@
         <meta id="user" data-username="{{ session['user']['email'] }}">
         {% if 'debug' not in session %}
             <script type="text/javascript">
-                gtag('set', {'user_id': "{{ session['user']['email'] }}" });
+                gtag('set', {'user_id': "{{ session['user']['email'] }}"});
             </script>
         {% endif %}
     {% endif %}
@@ -160,9 +161,9 @@
                 <li>{{ _('Your IP') }}: <span data-id="ip">{{ session['network-status']['ip'] }}</span></li>
             {% endif %}
 
-{#            {% if session['network-status']['city'] %}#}
-{#                <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>#}
-{#            {% endif %}#}
+            {#            {% if session['network-status']['city'] %}#}
+            {#                <li>{{ _('Your Location') }}: <span data-id="loc">{{ session['network-status']['city'] }}</span></li>#}
+            {#            {% endif %}#}
 
             {% if session['network-status']['isp'] %}
                 <li>{{ _('Your ISP') }}: <span data-id="loc">{{ session['network-status']['isp'] }}</span></li>
@@ -199,10 +200,10 @@
                     <a data-name="menu_blog" class="nav-link js-scroll-trigger"
                        href="{{ url_for('blog.blog_page') }}">{{ _('Blog') }}</a>
                 </li>
-{#                <li class="nav-item">#}
-{#                    <a data-name="menu_pricing" class="nav-link js-scroll-trigger"#}
-{#                       href="{{ url_for('pricing.pricing_page') }}">{{ _('Pricing') }}</a>#}
-{#                </li>#}
+                {#                <li class="nav-item">#}
+                {#                    <a data-name="menu_pricing" class="nav-link js-scroll-trigger"#}
+                {#                       href="{{ url_for('pricing.pricing_page') }}">{{ _('Pricing') }}</a>#}
+                {#                </li>#}
                 <li class="nav-item">
                     <a data-name="menu_download" class="nav-link js-scroll-trigger"
                        href="{{ url_for('download.download_page') }}">{{ _('Download') }}</a>
@@ -473,6 +474,8 @@
             charset="utf-8"></script>
     <script src="{{ url_for('static', filename='main/common/gdpr/gdpr.js') }}" type="text/javascript"
             charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='main/common/cga.js') }}" type="text/javascript"
+            charset="utf-8"></script>
 {% else %}
     <!-- JQuery Resources -->
     <script src="{{ url_for('static', filename='assets/jquery/jquery.form.min.js') }}" type="text/javascript"
@@ -519,9 +522,9 @@
 {% endif %}
 
 {% if 'debug' not in session %}
-<script type="text/javascript">
-    analytics_page_view($('title').text(), window.location.href, window.location.pathname);
-</script>
+    <script type="text/javascript">
+        analytics_page_view($('title').text(), window.location.href, window.location.pathname);
+    </script>
 {% endif %}
 
 {% block import_js %}{% endblock %}

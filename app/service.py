@@ -35,7 +35,7 @@ class EmailMessageType(Enum):
         self.subject = subject
         self.html_template = html_template_name
 
-    NEW_SUB = (1, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'trial.html')
+    NEW_SUB = (1, "%s %s" % (_('Welcome to'), _('Railroad Network Services')), 'signup.html')
 
 
 class EmailService(object):
@@ -75,11 +75,11 @@ class EmailService(object):
         s = quopri.encodestring(text.encode('UTF-8'), 1, 0)
         return "=?utf-8?Q?" + s.decode('UTF-8') + "?="
 
-    def send_signup_email(self, to_name: str, to_email: str, sub_name: str) -> bool:
+    def send_signup_email(self, to_name: str, to_email: str, sub_name: str, token: str) -> bool:
         self.logger.debug(
             f"{self.__class__}: send_new_sub_email method with parameters to_name: {to_name}, to_email: {to_email}, "
             f"sub_name: {sub_name}")
-        email_str = self.__signup_email(to_name=to_name, to_email=to_email, sub_name=sub_name)
+        email_str = self.__signup_email(to_name=to_name, to_email=to_email, sub_name=sub_name, token=token)
         return self.__send_message(to_email=to_email, email_str=email_str)
 
     def _test_method(self):
@@ -103,7 +103,7 @@ class EmailService(object):
             self.logger.error("unable to send email to %s" % to_email, e)
             return False
 
-    def __signup_email(self, to_name: str, to_email: str, sub_name: str) -> str:
+    def __signup_email(self, to_name: str, to_email: str, sub_name: str, token: str) -> str:
         self.logger.debug(
             f"{self.__class__}: __prepare_new_subscription_email method with parameters to_name: {to_name}, "
             f"to_email: {to_email}, sub_name: {sub_name}")
@@ -123,6 +123,9 @@ class EmailService(object):
         email_html_text = email_html_text.replace("@service_ready@", '')
         email_html_text = email_html_text.replace("@unsubscribe_user_url@", '')
         email_html_text = email_html_text.replace("@unsubscribe@", '')
+        email_html_text = email_html_text.replace("@token@", token)
+        email_html_text = email_html_text.replace("@email@", to_email)
+        email_html_text = email_html_text.replace("@confirm_email_label@", "Click to confirm your email")
 
         self.logger.info("preparing email object")
         email_str = self.__prepare_email(to_name=to_name, to_email=to_email, subject=EmailMessageType.NEW_SUB.subject,
