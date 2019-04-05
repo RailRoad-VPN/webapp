@@ -154,7 +154,7 @@ def confirm_email():
 
     rrn_usersapi_service.update_user(user_json=user_json)
     session['user'] = user_json
-    return redirect(url_for('auth.signin'))
+    return redirect(url_for('profile.profile_page'))
 
 
 @app.route('/profile/', methods=['GET'])
