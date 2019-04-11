@@ -63,10 +63,10 @@
                     <button class="btn btn-lg btn-block btn-signin" type="submit">{{ _('Log In') }}</button>
                 </form>
                 <a data-name="forget_password" href="#" class="forgot-password">
-                    {{ _('Forgot the password?') }}
+                    <strong>{{ _('Forgot the password?') }}</strong>
                 </a>
                 <div class="no-account">
-                    <span>{{ _('Don’t have an account yet?') }} <a href="{{ url_for('order.order_page') }}">{{ _('Sign up') }}</a></span>
+                    <span>{{ _('Don’t have an account yet?') }} <a href="{{ url_for('order.order_page') }}"><strong>{{ _('Sign up') }}</strong></a></span>
                 </div>
             </div>
         </div>
