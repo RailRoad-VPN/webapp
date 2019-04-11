@@ -38,6 +38,10 @@ function cleanLocationHref() {
     return window.location.href.split(/[?#]/)[0];
 }
 
+function getAfterHashHref() {
+    return window.location.href.split(/[?#]/)[1];
+}
+
 function setCookie(cname, cvalue, exyears) {
     var d = new Date();
     d.setTime(d.getTime() + (exyears * 365 * 24 * 60 * 60 * 1000));

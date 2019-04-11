@@ -220,13 +220,25 @@
                             {{ url_for('auth.signin') }}
                         {% endif %}
                        ">
-                        {{ _('Account') }}
+                        {% if session.logged_in and session['user'] is not none %}
+                            {{ _('PROFILE') }}
+                        {% else %}
+                            {{ _('LOGIN') }}
+                        {% endif %}
                     </a>
                 </li>
                 {% if session.logged_in and session['user'] is not none %}
                     <li class="nav-item">
-                        <a data-name="menu_logout" class="nav-link"
-                           href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a>
+                        <a data-name="menu_logout" class="nav-link" href="{{ url_for('auth.logout') }}">
+                            {{ _('Logout') }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a data-name="menu_account" class="nav-link" style="color: #f8cc46"
+                           href="{{ url_for("order.order_page") }}">
+                            {{ _('TRY FOR FREE') }}
+                        </a>
                     </li>
                 {% endif %}
             {% endblock %}
@@ -322,19 +334,23 @@
                     <ul class="footer-contacts list-unstyled">
                         <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.15s;">
-                            <a href="#">{{ _('How to use VPN?') }}</a>
+                            <a href="#">{{ _('How to use RailroadVPN for Windows?') }}</a>
+                        </li>
+                        <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
+                            style="animation-duration: 0.6s; animation-delay: 0.15s;">
+                            <a href="#">{{ _('How to use RailroadVPN for Android?') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.20s;">
                             <a href="#">{{ _('Why I need VPN?') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
-                            style="animation-duration: 0.6s; animation-delay: 0.25s;">
-                            <a href="#">{{ _('Which VPN to choose?') }}</a>
-                        </li>
-                        <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.30s;">
                             <a href="#">{{ _('VPN for business') }}</a>
+                        </li>
+                        <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
+                            style="animation-duration: 0.6s; animation-delay: 0.25s;">
+                            <a href="#">{{ _('Which VPN to choose?') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -346,17 +362,17 @@
                         {{ _('Products') }}
                     </h3>
                     <ul class="footer-contacts list-unstyled">
-                        <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
+                        <li data-animate="fadeInUp" data-delay=".15" class="animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.15s;">
-                            <a href="#">{{ _('VPN for Windows') }}</a>
+                            <a href="{{ url_for("download.download_page") }}#windows">{{ _('VPN for Windows') }}</a>
+                        </li>
+                        <li data-animate="fadeInUp" data-delay=".15" class="animated fadeInUp"
+                            style="animation-duration: 0.6s; animation-delay: 0.15s;">
+                            <a href="{{ url_for("download.download_page") }}#android">{{ _('VPN for Android') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.15s;">
                             <a href="#">{{ _('VPN for iOS') }}</a>
-                        </li>
-                        <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
-                            style="animation-duration: 0.6s; animation-delay: 0.15s;">
-                            <a href="#">{{ _('VPN for Android') }}</a>
                         </li>
                         <li data-animate="fadeInUp" data-delay=".15" class="menu-disabled animated fadeInUp"
                             style="animation-duration: 0.6s; animation-delay: 0.15s;">
@@ -372,7 +388,7 @@
                     <p class="copyright animated fadeInDown"
                        data-animate="fadeInDown" data-delay=".85"
                        style="animation-duration: 0.6s; animation-delay: 0.85s;">
-                        <a href="https://rroadvpn.net">© Railroad VPN, <span id="copy-year">2018</span></a>
+                        <a href="https://rroadvpn.net">© RailroadVPN, <span id="copy-year">2018</span></a>
                         -
                         <a href="mailto:support@rroadvpn.net">support@rroadvpn.net</a>
                     </p>
