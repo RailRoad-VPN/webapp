@@ -152,7 +152,7 @@ def confirm_email():
     email = user_json.get("email", None)
     logger.info(f"got user with email: {email}")
 
-    src_token = user_json['email_confirm_token']
+    src_token = user_json.get('email_confirm_token', None)
 
     if src_token != token:
         logger.error('tokens does not match')
