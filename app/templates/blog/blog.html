@@ -62,7 +62,8 @@
                 </div>
                 <div class="col-12">
                     <div class="card featured-article sha-1 sha-3-hover">
-                        <a data-name="article_page" href="{{ url_for('blog.article_page', article_name='resources-blocked-in-different-countries') }}">
+                        <a data-name="article_page"
+                           href="{{ url_for('blog.article_page', article_name='resources-blocked-in-different-countries') }}">
                             <div class="row no-gutters">
                                 <div class="col-sm-12 col-md-12 col-xl-6 col-xxl-6">
                                     <img src="{{ url_for('static', filename='main/images/articles/resources-blocked-in-different-countries/title.jpg') }}"
@@ -71,7 +72,8 @@
                                 <div class="col-sm-12 col-md-12 col-xl-6 col-xxl-6 p-5">
                                     <div class="card-block">
                                         <small class="text-muted">
-                                            <i class="fa fa-star" style="color: #f8cc46"></i> {{ _('Featured article') }}
+                                            <i class="fa fa-star"
+                                               style="color: #f8cc46"></i> {{ _('Featured article') }}
                                         </small>
                                         <h4 class="card-title pt-1">
                                             Resource blocked in different countries
@@ -85,6 +87,73 @@
                                 </small>
                             </div>
                         </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row mt-5 ml-0">
+                        <div class="col-xs-12">
+                            <h4 class="small mb-3 blog-header">
+                                {{ _('Articles') }}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4 mb-4">
+                            <div class="card sha-1 sha-3-hover">
+                                <a data-name="article_page"
+                                   href="{{ url_for('blog.article_page', article_name='how-to-use-railroad-vpn-for-windows') }}">
+                                    <img class="card-img-top"
+                                         src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-windows/title.png') }}"
+                                         alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">How to use RailroadVPN for Windows?</h5>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">
+                                            {{ _('Posted at ') }} 26 {{ _('May') }}
+                                        </small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4 mb-4">
+                            <div class="card sha-1 sha-3-hover">
+                                <a data-name="article_page"
+                                   href="{{ url_for('blog.article_page', article_name='how-to-use-railroad-vpn-for-android') }}">
+                                    <img class="card-img-top"
+                                         src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/title.png') }}"
+                                         alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">How to use RailroadVPN for Android?</h5>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">
+                                            {{ _('Posted at ') }} 26 {{ _('May') }}
+                                        </small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4 mb-4">
+                            <div class="card sha-1 sha-3-hover">
+                                <a data-name="article_page"
+                                   href="{{ url_for('blog.article_page', article_name='why-i-need-railroad-vpn') }}">
+                                    <img class="card-img-top"
+                                         src="{{ url_for('static', filename='main/images/articles/why-i-need-railroad-vpn/title.png') }}"
+                                         alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Why i need RailroadVPN?</h5>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">
+                                            {{ _('Posted at ') }} 26 {{ _('May') }}
+                                        </small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

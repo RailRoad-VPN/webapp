@@ -1,0 +1,181 @@
+{% extends "partials/layout.html" %}
+
+{% block title %}
+    {{ _('Railroad VPN - Blog | How to use Railroad VPN for Android?') }}
+{% endblock %}
+
+{% block import_css %}
+    {% if 'debug' in session %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/article.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='main/blog/article.min.css') }}">
+    {% endif %}
+{% endblock %}
+
+{% block import_js %}
+
+    {% if 'debug' in session %}
+        <script src="{{ url_for('static', filename='main/blog/article.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% else %}
+        <script src="{{ url_for('static', filename='main/blog/article.min.js') }}" type="text/javascript"
+                charset="utf-8"></script>
+    {% endif %}
+{% endblock %}
+
+{% block meta %}
+    {% set title = "RailroadVPN - Blog" %}
+    {% set description = "RailroadVPN Blog - How to use Railroad VPN for Android?" %}
+    <meta name="description" content="{{ description }}">
+
+    <!-- OpenGraph -->
+    <meta property="og:url" content="{{ request.url }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="{{ title }}"/>
+    <meta property="og:description" content="{{ description }}"/>
+    <meta property="og:image"
+          content="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/title.png') }}"/>
+    <meta property="og:image:width" content="360"/>
+    <meta property="og:image:height" content="240"/>
+    <meta property="og:locale" content="en_EN"/>
+    <meta property="og:site_name" content="RailroadVPN"/>
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content="{{ title }}"/>
+    <meta name="twitter:description" content="{{ description }}"/>
+    <meta name="twitter:image:src"
+          content="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/title.png') }}"/>
+    <meta name="twitter:image"
+          content="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/title.png') }}"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@rroadvpn"/>
+    <meta name="twitter:domain" content="rroadvpn.net">
+{% endblock %}
+
+{% block body %}
+<section class="container pt-7 pb-7 pt-sm-5 pb-sm-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('blog.blog_page') }}">
+                                {{ _('Blog') }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            How to use RailroadVPN for Android?
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div>
+            <h1 class="text-center">
+                How to use RailroadVPN for Android?
+            </h1>
+            <p class="article-paragraph">
+                Android is mobile and convenient platform for using VPN. You can use RailroadVPN program in any case and
+                place. Wherever you are – you have a fast and save access to free Internet.
+            </p>
+            <p class="article-paragraph">
+                Installing RailroadVPN is fast and don’t take up much space on your Android-device. The program is
+                suitable for all operating systems. It is safe and you can install it without fear of viruses.
+            </p>
+            <p class="article-paragraph">
+                Our goal is to write an accessible instruction that any user has no questions left. Follow the step by
+                step instructions to install the program and work in it without any problems.
+            </p>
+            <h3>Step 1: Press the button GET VPN FOR FREE</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/1.png') }}">
+            <h3>Step 2: Create your own account</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/2.png') }}">
+            <h3>Step 3: Wait until Railroad creates you profile. This process is safe and quick, be sure</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/3.png') }}">
+            <h3>Step 4: Check your mail</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/4.png') }}">
+            <h3>Step 5: Get your GENERATION CODE for enter in app</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/5.png') }}">
+            <h3>Step 6: Install RailroadVPN on your Android device</h3>
+            <h3>Step 7: Enter pin-code and enjoy free and safe Internet!</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/6.png') }}">
+            <h3>Step 8: Turn red semaphore into green and use your own railroad into world of safety!</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/7.png') }}">
+            <h3>If you need help: ask any question!</h3>
+            <img class="centered" src="{{ url_for('static', filename='main/images/articles/how-to-use-railroad-vpn-for-android/8.png') }}">
+        </div>
+        <div id="social-share_buttons-container" class="pt-3 pb-3">
+            <ul class="list-unstyled list-inline">
+                {% if session['user_locale'] == 'ru' %}
+                    <!-- VK -->
+                    <li>
+                        <a href="https://vk.com/share.php?url={{ request.url | urlencode }}">
+                            <div class="row text-muted">
+                                <div class="col-2">
+                                    <i class="fab fa-vk"></i>
+                                </div>
+                                <div class="pl-2">
+                                    <small class="text-muted">{{ _('Share on VK') }}</small>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                {% endif %}
+                <!-- FaceBook -->
+                <li>
+                    <a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank"
+                       href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}"
+                       onclick="window.open(this.href); return false;"
+                       onkeypress="window.open(this.href); return false;">
+                        <div class="row text-muted">
+                            <div class="col-2">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="pl-0">
+                                <small class="text-muted">{{ _('Share on Facebook') }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <!-- Twitter -->
+                <li>
+                    <a class="nc_tweet swp_share_link" rel="nofollow noreferrer noopener" target="_blank"
+                       onclick="window.open(this.href); return false;"
+                       onkeypress="window.open(this.href); return false;"
+                       href="https://twitter.com/intent/tweet?text={{ "RailroadVPN - create your own VPN railroad dream!" | urlencode }}&amp;url={{ request.url | urlencode }}&amp;hashtags=vpn,rroadvpn,business&amp;via=rroadvpn"
+                       data-link="https://twitter.com/intent/tweet?text={{ "RailroadVPN - create your own VPN railroad dream!" | urlencode }}&amp;url={{ request.url | urlencode }}&amp;hashtags=vpn,rroadvpn,business&amp;via=rroadvpn">
+                        <div class="row text-muted">
+                            <div class="col-2">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div class="pl-2">
+                                <small>{{ _('Tweet') }}</small>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="pt-3 pb-3 mb-4" style="background-color: #f8f8f8">
+            <div class="form-group pb-1 pl-5 pr-5 pt-2">
+                <div class="row">
+                    <h6>{{ _('Subscribe to Railroad Network blog') }}</h6>
+                    <div class="col-lg-10 mb-4">
+                        <label for="inputPassword2" class="sr-only">{{ _('Email') }}</label>
+                        <input type="email" class="form-control" required name="email"
+                               placeholder="example@mail.com">
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary col-12 mb-2">{{ _('Subscribe') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% autoescape false %}
+        {{ disqus_dev() }}
+        {{ disqus_show_comments('rroadvpn') }}
+        {% endautoescape %}
+    </div>
+</section>
+{% endblock %}
